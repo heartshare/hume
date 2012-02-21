@@ -4,3 +4,90 @@ grep -Ff file1 file2
 2）统计file2有，而file1没有的行
 
 grep -vFf file2 file1
+
+
+因邮件归档硬盘容量是3T,在linux 下大磁盘的分区不能再采用fdisk了，MBR分区表只支持2T磁盘，所以大于2T的磁盘必须使用GPT分区表。下面说明下具体的步骤:
+
+1.
+
+[root@localhost ~]# parted /dev/sdb # 使用parted来对GPT磁盘操作，进入交互式模式
+(parted) mklabel gpt           # 将MBR磁盘格式化为GPT
+(parted) print #打印当前分区
+(parted) mkpart primary 0 -1 #将整个磁盘空间全部分为一个区
+(parted) print #打印当前分区
+Model: VMware Virtual disk (scsi)
+Disk /dev/sdb: 10.7GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+ 
+Number  Start   End     Size    File system  Name     Flags
+ 1      17.4kB  10.7GB  10.7GB  ext3         primary
+(parted) quit 退出
+2.安装ext4支持并格式化
+
+ #yum install e4fsprogs
+#mkfs.ext4 /dev/sdb1
+3.把挂载信息写入/etc/rc.loal让开机自动挂载
+
+4.如果第2步中不采用ext4，采用ext3则需要修改block size大小，命令如下:
+
+#mkfs.ext3 -b 2048 -m 1 /dev/emcpowerb1
+默认block size 是1024，ext3最多支持2T ,m参数默认只保留1%的空间给文件系统
+
+
+
+需求:SVN 的post-commit如何写只更新变化的文件或文件夹呢？比如：我想更新http://IP/repos/abc/trunk目录里每次变化文件都到/data/abc目录里,现在脚本如下：
+
+
+REPOS="$1"
+REV="$2"
+FROM="http://ip/repo/svn/abc/"
+TO="/data/abc/"
+USER=abc
+PASS=123456
+export PATH="/usr/local/svn/bin:$PATH"
+#export LC_cTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
+LINE=$(svnlook changed -r "$REV" "$REPOS")
+echo $LINE >/tmp/test.log
+echo "$LINE" |while read STATUS NAME
+do
+FILENAME=${NAME#trunk/*}
+#R=$(echo "NAME" |grep "^trunk")
+if [ "$STATUS" = "D" ];then
+    #if [ -n "$R" ];then
+    #   /bin/rm -rf $TO/$FILENAME > /dev/null 2 >&1
+    #else
+        /bin/rm -rf $TO/$FILENAME > /dev/null 2 >&1
+    #fi
+    /bin/rm -rf $TO/$FILENAME
+#elif [ -n "$R" ];then
+    #svn export $FROM/${NAME} $TO/release/$FILENAME --username="$USER" --password="$PASS"--force
+else
+    svn export $FROM/${NAME} $TO/$FILENAME --username="$USER" --password="$PASS" --force
+fi
+ 
+done
+
+
+
+产品 Release 时, 真的很懒的话, 就是直接 svn checkout 后, 就让他上线, 但是 .svn 的目录怎么办~ 就用下面这一行来删除吧:
+find PATH -type d -name ‘.svn’ -exec rm -rf {} \;
+PATH 再自行换成那个路径即可。
+svn 也有 export 的参数可以用, 使用 export 就不会有 .svn 的目录：
+svn export http://HOSTNAME/SVN_PATH /DestPath/ –username=”aa” –password=”bb”
+(跟 checkout 参数类同)
+
+
+
+首先介绍一个DNS系统:传统的DNS解析都是一个域名对应一个IP地址,但是通过DNS轮循技术(负载平衡技术)可以做到一个域名对应到多个IP 上. 这样大家难免就会问,这个技术有什么用呢? 对于一些大访问量、多次数查询的网站，如果您明显的感觉您的单一主机已经不堪负载你日益增长的访问量，那么我们建议您采用我们的DNS轮循技术，智能的分布您的访问量到您相应的主机上，减轻网站服务器的压力，实现负载匀衡。
+
+DNS轮循是指通过配置DNS使相同的域名解释不同的IP，随机使用其中某台主机的技术。通过DNS轮循系统可以使用N台主机作为WEB服务器，完全看您的网站的需求。目前已有越来越多大型的WEB服务使用DNS轮循来实现负载均衡，使用多个同样角色的服务器做前台的WEB服务，这大大方便了服务的分布规划和扩展性，提高了网站的访问效率，为那些焦急等待大量数据文件请求响应的客户提供更快的响应时间。
+
+DNS轮循还将给您的网站提供这样的改进，诸如您的网站的数据使用量一直处于不断的增长当中，当达到服务器资源运行瓶颈的情况下，您只需要增加服务器数目就可以平滑升级，有相当的稳定扩容和升级潜力；由于采用了DNS轮循技术，偶然故障意外情况造成的损失得以避免，服务的时间可以延长，24×7可靠性和持续运行成为可能。 如果您希望自己的网站能够一直稳定的在线运行，尽力的减少宕机的比率，那么除了采用比较好的网站空间技术支持之外，还可以附加采用西部数码的DNS轮循解析域名的功能来实现网站的永久在线。 实现办法： 在管理中心》域名管理》dns解析管理， 添加二个相同的主机名（如www）指向二个不同的ip即可。
+
+如：www — 61.139.126.38
+
+www — 61.139.126.39
+
+这样，系统就会随机解析出这两个ip，让负荷被二台服务器来平均承担。
