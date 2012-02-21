@@ -1,0 +1,6 @@
+1）统计两个文本文件的相同行
+grep -Ff file1 file2
+
+2）统计file2有，而file1没有的行
+
+grep -vFf file2 file1
