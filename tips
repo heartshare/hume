@@ -91,3 +91,705 @@ DNS轮循还将给您的网站提供这样的改进，诸如您的网站的数�
 www — 61.139.126.39
 
 这样，系统就会随机解析出这两个ip，让负荷被二台服务器来平均承担。
+
+
+
+
+
+apache使用mod_limitipconn.c来限制apache的并发数
+
+
+1.今天和同事并发测试，apache的prefork设置最大连接是2000，一会就被耗尽了，页面打不开了。prefox配置如下:
+#cat /usr/local/httpd/conf/extra/httpd-mpm.conf
+
+<IfModule mpm_prefork_module>
+ServerLimit 2000
+StartServers 200
+MinSpareServers 35
+MaxSpareServers 40
+MaxClients 2000
+MaxRequestsPerChild 10000
+</IfModule>
+
+扫描不到1分钟服务器就挂了，后来又配置了mod_limitipconn.c模块来限制单个IP连接数，安装配置如下:
+#wget http://dominia.org/djao/limit/mod_limitipconn-0.23.tar.bz2
+#/usr/local/httpd/bin/apxs -c -i -a mod_limitipconn.c
+修改http.conf,添加模块和增加限制链接数
+#在模块处添加
+LoadModule limitipconn_module modules/mod_limitipconn.so
+#在结尾处添加，这里添加是全局限制 ，也可以发vhost里面添加哈。
+ExtendedStatus On
+<IfModule mod_limitipconn.c>
+    <Location />
+    MaxConnPerIP 30
+ 
+    </Location>
+</IfModule>
+安装完毕后，效果显著，服务器未出现挂死的问题。
+
+
+iptables -A INPUT -m conntrack -j DROP  --ctstate INVALID
+
+iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 50 -j DROP
+
+iptables -A INPUT -p tcp -m tcp -m connlimit --dport 80 --tcp-flags SYN,ACK,FIN,RST SYN -j DROP  --connlimit-above 32 --connlimit-mask 32
+
+
+
+
+logwatch
+
+sudo cp /usr/share/logwatch/default.conf/logwatch.conf /etc/logwatch/conf/
+
+sudo logwatch
+
+
+/usr/share/logwatch/default.conf/logfiles/
+
+
+
+
+
+
+
+cobbler作为取代kickstart一个利器还是不错的，今天突然想到加yum应该不错，一举两得。下面简单记录安装步骤，供日后参考:
+
+1.安装基础软件
+
+
+
+wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm
+rpm -ivh rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm
+yum -y install cobbler dhcp httpd xinetd tftp-server
+
+2.配置
+
+#vim /etc/dhcpd.conf
+# ******************************************************************
+# Cobbler managed dhcpd.conf file
+# generated from cobbler dhcp.conf template (Sat Oct  8 05:47:57 2011)
+# ******************************************************************
+ 
+ddns-update-style interim;
+ 
+allow booting;
+allow bootp;
+ 
+ignore client-updates;
+set vendorclass = option vendor-class-identifier;
+ 
+subnet 192.168.1.0 netmask 255.255.255.0 {
+     option routers          192.168.1.3;
+     option subnet-mask      255.255.255.0;
+     range dynamic-bootp     192.168.1.238 192.168.1.240;
+     filename                "pxelinux.0";
+     default-lease-time      21600;
+     max-lease-time          43200;
+     next-server             192.168.1.249;
+}
+# vim /etc/xinetd.d/tftp
+
+service tftp
+{
+        socket_type             = dgram
+        protocol                = udp
+        wait                    = yes
+        user                    = root
+        server                  = /usr/sbin/in.tftpd
+        server_args             = -s /tftpboot
+        disable                 = no
+        per_source              = 11
+        cps                     = 100 2
+        flags                   = IPv4
+}
+3.cobbler文件结构
+cobbler文件主要分布在三个目录/var/www/cobbler ,/var/lib/cobbler和/etc/cobbler，按相应功能配置即可。
+
+4.Yum服务器的配置
+
+4.1安装createrepo软件，安装光盘下面有，直接安装就可以。
+
+4.2生成包依赖文件
+#cd /var/www/cobbler/ks_mirror/CentOS-5.6-x86_64/CentOS
+#createrepo -g ../repodata/comps.xml .
+
+4.3在客户端建立一个server.repo测试，如下:
+
+[server]
+name=Server
+baseurl=http://192.168.16.222/cobbler/ks_mirror/CentOS-5.6-x86_64/CentOS/
+enabled=1
+gpgcheck=0
+
+
+
+
+
+
+
+
+
+现在大多数的Linux系统都使用bash作为默认的shell吧，下面就介绍一下bash的history命令管理功能吧，history命令可以回顾，修改和重用之前使用过的历史命令。
+
+1.一些变量说明：
+
+$HISTFILE bash启动的时候会读取~/.bash_history文件并载入到内存中，这个变量就用于设置.bash_history文件，bash退出时也会把内存中的历史回写到.bash_history文件
+
+$HISTSIZE 设置bash会员期间历史包含的命令数量
+
+$HISTFILESIZE 设置历史文件中实际存储的命令数量
+
+2.显示历史命令
+
+history 显示全部历史
+
+history 数字 显示之前执行过的若干命令，例：history 2 显示执行过的上两条命令
+
+使用上下箭头键也可以查看上一条根下一条命令，
+
+3.运行历史命令
+
+!! 运行上一条命令
+
+!88 运行第88条命令
+
+!88 /test 运行第88条命令并在命令后面加上/test
+
+!?CF? 运行上一个包含CF字符串的命令
+
+!ls 运行上一个ls命令
+
+!ls:s/CF/l 运行上一个ls命令，其中把CF替换成l
+
+fc 编辑并运行上一个历史命令
+
+fc 66 编辑并运行第66个历史命令
+
+fc -e /usr/bin/vim 66 使用vim编辑第66个命令并运行
+
+4.搜索历史命令
+
+使用ctrl+r搜索历史中的字符串，重复按ctrl+r可以在历史命令列表中不断的向前搜索包含字符串的命令，回车就会执行查找的命令
+
+5.清空历史命令
+
+history -c
+
+6.写history
+
+history -w 让bash将历史命令立即从内存写到.bash_history文件
+
+history -a 将目前新增的 history 历史命令写入.bash_history文件
+
+7.history历史命令记录删除
+
+修改/etc/profile将HISTSIZE=1000改成0或1
+
+清除用户home路径下.bash_history
+
+8.history配置
+
+运行 set | grep HISTFILE
+
+显示：HISTFILE=/root/.bash_history
+HISTFILESIZE=1000
+
+在.bash_profile文件中添加
+
+HISTFILE=/root/history
+
+export HISTFILE
+
+重新登录后历史命令都会写入到/root/history文件中
+
+其余的一些设置可以在.bashrc文件中设置
+
+export HISTCONTROL=ignoredups #忽略重复的命令
+
+export HISTIGNORE=”[ ]*:&:bg:fg:exit” #忽略由冒号分割的这些命令
+
+export HISTFILESIZE=1000 #设置保存的历史命令的文件大小
+
+export HISTSIZE=100 #设置保存的历史命令的条数
+
+技巧：
+
+shopt -s histappend 在shell中执行这个命令可以使shell保存历史命令的时候使用追加的方式，因为默认是覆盖，在多终端的清空下，最后退出的终端灰覆盖以前的历史记录
+
+在history历史记录中显示时间和执行命令的用户 echo 'export HISTTIMEFORMAT="%F %T `whoami`  "' >> /etc/profile
+
+
+
+
+
+
+方法#4：重新编译Linux内核
+
+最后一个方法需要2个字：谨慎，这个方法很高级，因此没有经验的linux用户最好不要尝试。此外，在永久使用前，务必在系统环境中全面测试。
+
+方法4只需要手动增加内核中分配给命令行参数的页数。打开include/linux/binfmts.h文件，在文件起始附近位置有以下几行：
+
+/*
+
+* MAX_ARG_PAGES defines the number of pages allocated for arguments
+
+* and envelope for the new program. 32 should suffice, this gives
+
+* a maximum env+arg of 128kB w/4KB pages!
+
+*/
+
+#define MAX_ARG_PAGES 32
+
+为了增加分配格命令行参数的内存，只需要赋给MAX_ARG_PAGES一个更大的值，保存，重新编译，安装，重启，搞定
+
+在我的系统中，我把MAX_ARG_PAGES的值增加到64,就解决了所有问题。在改变这个值后，我还没有遇到任何问题。这是可以理解的，当MAX_ARG_PAGES被改为64,最长的参数行仅占用256KB系统内存–对于现在的硬件标准不算什么。
+
+方法4的优点很明显，现在你只要像通常一样运行命令。缺点也很明显,如果分配给命令行的内存大于可用的系统内存，可能导致对系统自身的拒绝服务攻击(DoS attack)，引起系统崩溃。尤其是对于多用户系统，即使增加很小的内存分配都会有很大影响，因为每个用户都被分配到额外内存。因此一定要充分测试来决定是否你的系统可以使用方法4。
+
+
+
+
+
+
+
+
+1、NGINX
+Nginx的优点:
+性能好，可以负载超过1万的并发。
+功能多，除了负载均衡，还能作Web服务器，而且可以通过Geo模块来实现流量分配。
+社区活跃，第三方补丁和模块很多
+支持gzip proxy
+缺点:
+对后端realserver的健康检查功能效果不好。而且只支持通过端口来检测，不支持通过url来检测。
+nginx对big request header的支持不是很好，如果client_header_buffer_size设置
+的比较小，就会返回400bad request页面。
+
+2、HAPROXY
+Haproxy的优点:
+它的优点正好可以补充nginx的缺点。支持session保持，同时支持通过获取指定的url来检测后端服务器的状态。
+支持tcp模式的负载均衡。比如可以给mysql的从服务器集群和邮件服务器做负载均衡。
+缺点：
+不支持虚拟主机
+目前没有nagios和cacti的性能监控模板
+
+3、LVS
+LVS的优点:
+性能好，接近硬件设备的网络吞吐和连接负载能力。
+LVS的DR模式，支持通过广域网进行负载均衡。这个其他任何负载均衡软件目前都不具备。
+缺点：
+比较重型。另外社区不如nginx活跃。
+
+ 
+
+————————————————————————————–
+
+nginx 的session 保持 ：
+
+目前关于nginx做proxy的会话保持功能实现有2种方法：
+
+一、ip_hash
+可以实现回话保持，但是需要加max_fails=0;防止当机后服务不能跳转的问题。
+upstream cluster {
+ip_hash;
+server xxx.xxx.xxx.xxx:80 max_fails=0;
+}
+
+经过实地测试，发现max_fails=0，不用添加。这个设置的意思是关闭了nginx的健康检查。在不关闭的情况下，也就是默认取1时，某节点宕机，服务自动跳转到其他节点，完全没有影响。
+
+二、第三方模块 nginx_upstream_jvm_route
+1.For resin
+upstream backend {
+server 192.168.0.100 srun_id=a;
+server 192.168.0.101 srun_id=b;
+server 192.168.0.102 srun_id=c;
+server 192.168.0.103 srun_id=d;
+jvm_route $cookie_JSESSIONID|sessionid;
+}
+2.For tomcat
+upstream backend {
+server 192.168.0.100 srun_id=a;
+server 192.168.0.101 srun_id=b;
+server 192.168.0.102 srun_id=c;
+server 192.168.0.103 srun_id=d;
+jvm_route $cookie_JSESSIONID|sessionid reverse;
+}
+
+第二种方法从网上搜索文档很多。
+
+
+
+最近一直在看一些高可用性的负载均衡方案，当然那些f5之类的硬件设备是玩不起也接触不到了。只能看这些for free的开源方案。
+
+目前使用比较多的就是标题中提到的这两者，其实lvs和haproxy都是实现的负载均衡的作用，keepalived和heartbeat都是提高高可用性的，避免单点故障。那么他们为什么这么搭配，而又有什么区别呢？
+
+经过一番google，大体明白了两者的区别：
+
+lvs的是通过vrrp协议进行数据包转发的，提供的是4层的负载均衡。特点是效率高，只要你机器网卡抗的住就不是问题。
+haproxy可以提供4层或7层的数据转发服务，能做到7层的好处是可以根据服务所处的状态等进行负载。
+
+ 
+
+以上两者只是实现了负载均衡，但是他们本身是明显的单点故障，因此需要使用双机软件做热备，来保证高可用性。keepalived可以通过检测vrrp数据包来切换，因此更适合与lvs搭配。而heartbeat更适于和haproxy搭配。这样就出现了这两个应用比较多也比较经典的负载均衡的高可用性方案了。
+
+原来一直想学习下这两个方案，学会这4个软件的配置，可又觉得永远用不到吧？或者用到的时候说不定又出现了新的技术了。就是自己能用到了，反向代理一类的软件足够用了，squid偶是实在没有心情学习了。对nginx的感觉还不错，性能好是大家公认的，即可以做反向代理实现负载均衡，又通过geo模块实现流量分离做全局（不同地域）的负载均衡，加上配置简单，绝对是个人的首选，可以考虑搭配heartbeat实现高可用。
+
+接下来的学习目标就简化了，nginx的geo和heartbeat的配置。
+
+您可任意转载,请标明来源：lvs+keepalived和haproxy+heartbeat区别
+
+
+
+
+
+Keepalived使用的vrrp协议方式，虚拟路由冗余协议 (Virtual Router Redundancy Protocol，简称VRRP)；
+
+Heartbeat是基于主机或网络的服务的高可用方式；
+
+keepalived的目的是模拟路由器的双机
+
+heartbeat的目的是用户service的双机
+
+lvs的高可用建议用keepavlived 业务的高可用用heartbeat
+
+
+
+
+Nginx_concat_module是淘宝开发的基于Nginx减少HTTP请求数量的扩展模块,主要是用于合并减少前端用户Request的HTTP请求的数量。
+
+安装 nginx_concat_module 需要重新编译 nginx。可以从这里 checkout 最新的代码，
+svn co http://code.taobao.org/svn/nginx_concat_module/trunk nginx_concat_module
+然后下载适合你自己版本的 nginx 源码包，在 ./configure 中增加参数
+–add-module=nginx_concat_module
+      
+cd /us/local/src
+wget http://nginx.org/download/nginx-1.0.11.tar.gz
+tar xzvf nginx-1.0.11.tar.gz
+cd nginx-1.0.11/
+./configure –user=www –group=www  –prefix=/usr/local/nginx –with-http_stub_status_module  –with-http_sub_module    –with-http_flv_module   –with-http_gzip_static_module   –add-module=../nginx_concat_module/  && make && make install
+
+
+location /test/ {
+                 # 打开concat 功能
+                 # 默认关闭
+                 concat on;
+                 # 允许concat最大的文件数（http://m114.org/test/??1.css,2.css,3.css...10.css） 默认最大设置十个文件。
+                 # (默认: 10)
+                 # concat_max_files 10;
+                 # 只允许相同类型的文件（例：http://m114.org/test/??m114.css,m23.js 默认情况下是不允许的）
+                 # 默认是开启的
+                 # concat_unique on;
+                 # 允许内容的类型
+                 # (default: application/x-javascript, text/css)
+                 # concat_types text/html;
+        }
+
+
+
+
+
+有时候nginx，apache，mysql，php编译完了想看看编译参数可以用以下方法
+
+nginx编译参数：
+
+#/usr/local/nginx/sbin/nginx -V
+nginx version: nginx/0.6.32 built by gcc 4.1.2 20071124 (Red Hat 4.1.2-42)
+configure arguments: –user=www –group=www –prefix=/usr/local/nginx/ –with-http_stub_status_module –with-openssl=/usr/local/openssl
+apache编译参数：
+
+# cat /usr/local/apache2/build/config.nice
+#! /bin/sh
+#
+# Created by configure “./configure” \
+“–prefix=/usr/local/apache2″ \
+“–with-included-apr” \
+“–enable-so” \
+“–enable-deflate=shared” \
+“–enable-expires=shared” \
+“–enable-rewrite=shared” \
+“–enable-static-support” \
+“–disable-userdir” \
+“$@”
+php编译参数：
+
+# /usr/local/php/bin/php -i |grep configure
+Configure Command => ‘./configure’ ‘–prefix=/usr/local/php’ ‘–with-apxs2=/usr/local/apache2/bin/apxs’ ‘–with-config-file-path=/usr/local/php/etc’ ‘–with-mysql=/usr/local/mysql’ ‘–with-libxml-dir=/usr/local/libxml2/bin’ ‘–with-gd=/usr/local/gd2′ ‘–with-jpeg-dir’ ‘–with-png-dir’ ‘–with-bz2′ ‘–with-xmlrpc’ ‘–with-freetype-dir’ ‘–with-zlib-dir’
+
+mysql编译参数：
+
+# cat “/usr/local/mysql/bin/mysqlbug”|grep configure
+# This is set by configure
+CONFIGURE_LINE=”./configure ‘–prefix=/usr/local/mysql’ ‘–localstatedir=/var/lib/mysql’ ‘–with-comment=Source’ ‘–with-server-suffix=-H863′ ‘–with-mysqld-user=mysql’ ‘–without-debug’ ‘–with-big-tables’ ‘–with-charset=gbk’ ‘–with-collation=gbk_chinese_ci’ ‘–with-extra-charsets=all’ ‘–with-pthread’ ‘–enable-static’ ‘–enable-thread-safe-client’ ‘–with-client-ldflags=-all-static’ ‘–with-mysqld-ldflags=-all-static’ ‘–enable-assembler’ ‘–without-isam’ ‘–without-innodb’ ‘–without-ndb-debug’”
+
+
+
+
+前面说到我放弃IIS全面转向apache了，随后因为小丫头的出生，一直都比较忙，也没空仔细检查。这两天稍微闲了点，让我发现居然有两处乱码问题：一处是后台编辑文章处的“热门标签”，中文标签全部乱码；另一处则是安装的WP-RecentComments插件，在侧边栏首页显示正常，但一点下一页后就会变乱码了。
+经过查询得知都是因为apache编码设置的问题，因为原本我服务器上的apache上运行的一套系统文件编码是gb2312，httpd.conf中设置AddDefaultCharset gb2312，从而导致wp中某些模块无法正常以utf-8编码解析。折腾了一下午，总算是解决了让apache同时支持GBK和UTF-8编码。
+以下为具体解决方法：
+1、httpd.conf中设置AddDefaultCharset off，并在原gb2312编码系统所设置的虚拟主机字段中加入AddDefaultCharset gb2312。
+2、注释掉php.ini文件中的default_charset = “gb2312″
+3、重启apache服务，搞定！
+本文来自:http://looki.cn/348.html
+
+
+
+使用AddCharset变量将字符编码应用到指定后缀名的当前目录以及子目录的所有文件上。比如，为所有后缀名为.html的文件指定UTF-8字符编码，我们可以在.htaccess文件中加入一下代码：
+
+
+AddCharset UTF-8 .html
+后缀名可以是包括或者省略前面的”.”. 我们也可以在一行中同时指定多个后缀名。在一般情况下，最好将Apache的默认字符编码设置为UTF-8；
+
+
+AddDefaultCharset utf-8
+AddDefaultCharset可以为On/Off或者任何在IANA注册的，在MIME介质类型中使用的字符值。当且仅当响应的content-type是text/plain或text/html时，它会为介质类型字符参数指定默认的值。这个值会覆盖在响应中通过META指定的字符集，当然最后的行为还要取决于用户使用的客户端/游览器设置。当AddDefaultCharset为Off时，将关闭这个功能；设置为On时，将使用默认的字符集iso-8859-1；或为AddDefaultCharset指定可选的字符集比如UTF-8。
+通过使用AddType也可以实现字符编码设置，这个参数会同时指定字符编码和MIME类型。
+
+
+AddType 'text/html; charset=UTF-8' html
+在Apache中，我们也可以为某一个特定的文件设置字符编码。比如，我们希望在一个文件夹中，只对文件example.html使用UTF-8，而其他文件仍然是用默认编码。我们可以编辑这个文件夹下的.htaccess文件，并添加如下内容：
+
+
+<Files "example.html">
+     AddCharset UTF-8 .html
+</Files>
+通过以下配置，可以实现同样的效果：
+
+
+<Files "example.html">
+    ForceType 'text/html; charset=UTF-8'
+</Files>
+我们也可以使用正则表达式为多个文件指定编码。例如：
+
+
+<FilesMatch ".(htm|html|css|js)$">
+    AddCharset UTF-8 .html
+</FilesMatch>
+或
+<FilesMatch ".(htm|html|css|js)$">
+    ForceType 'text/html; charset=UTF-8'
+</FilesMatch>
+注：需要注意的是配置参数的顺序对于结果起到重要的作用。比如在配置文件中有如下设置：
+
+
+AddCharset UTF-8 .utf8
+AddCharset windows-1252 .html
+在这种配置下，文件example.utf8.html将使用windows-1252，而example.html.utf8将使用UTF-8字符编码；
+
+
+
+
+
+Linux服务器系统下的Aapche服务拥有强大的访问控制功能，用户可以选择采用配置命令或者.htaccess文件的方式对其进行设置，本文将为大家介绍这两种方法。
+
+一、使用访问控制常用配置指令进行访问控制
+
+1．配置指令
+
+Apache实现访问控制的配置指令包括如下三种：
+
+（1）order指令：用于指定执行允许访问控制规则或者拒绝访问控制规则的顺序。order只能设置为Order allow，deny或Order deny，allow，分别用来表明用户先设置允许的访问地址还是先设置禁止访问的地址。Order选项用于定义缺省的访问权限与Allow和Deny语句的处理顺序。Allow和Deny语句可以针对客户机的域名或IP地址进行设置，以决定哪些客户机能够访问服务器。Order语句设置的两种值的具体含义如下：
+
+◆allow, deny：缺省禁止所有客户机的访问，且Allow语句在Deny语句之前被匹配。如果某条件既匹配Deny语句又匹配Allow语句，则Deny语句会起作用（因为Deny语句覆盖了Allow语句）。
+
+◆deny, allow：缺省允许所有客户机的访问，且Deny语句在Allow语句之前被匹配。如果某条件既匹配Deny语句又匹配Allow语句，则Allow语句会起作用（因为Allow语句覆盖了Deny语句）。
+
+（2）allow指令：指明允许访问的地址或地址序列。如allow from all指令表明允许所有IP来的访问请求。
+
+（3）deny指令：指明禁止访问的地址或地址序列。如deny from all指令表明禁止所有IP来的访问请求。
+
+2．应用实例
+
+下面举几个简单的例子对上述order、allow和deny命令的使用进行示范。
+
+（1）在下面的例子中，admin.org域中所有主机都允许访问网站，而其他非该域中的任何主机访问都被拒绝，因为Deny在前，Allow在后，Allow语句覆盖了Deny语句：
+
+Order Deny,Allow
+Deny from all
+Allow from admin.org
+（2）下面例子中，admin.org域中所有主机，除了db.admin.org子域包含的主机被拒绝访问以外，都允许访问。而所有不在admin.org域中的主机都不允许访问，因为缺省状态是拒绝对服务器的访问（Allow在前，Deny在后，Deny语句覆盖了Allow语句）：
+
+Order Allow,Deny
+Allow from admin.org
+Deny from db.admin.org
+二、使用.htaccess文件进行访问控制
+
+任何出现在配置文件httpd.conf中的指令都可能出现在.htaccess文件中。该文件在httpd.conf文件的AccessFileName指令中指定，用于进行针对单一目录的配置（注意：该文件也只能设置对目录的访问控制）。
+作为系统管理员，可以指定该文件的名字和可以通过该文件内容覆盖的服务器配置。当站点有多组内容提供者并希望控制这些用户对他们的空间的操作时该指令非常有用。
+
+值得特别注意的是：除了可以使用.htaccess文件针对单一目录进行访问控制配置外，该文件还可以在不重新启动Apache服务器的前提下使配置生效，因而使用起来非常方便。
+
+使用该文件进行访问控制，需要经过如下两个必要的步骤：
+
+（1）在主配置文件httpd.conf中启用并控制对.htaccess文件的使用。
+
+（2）在需要覆盖主配置文件的目录下（也就是需要单独设定访问控制权限的目录）生成.htaccess文件，并对其进行编辑，设置访问控制权限。
+
+1． 启用并控制对.htaccess文件的使用启用并控制对.htaccess文件的使用，首先需要使用AccessFileName参数在主配置文件中配置如下配置语句方可：
+AccessFileName .htaccess
+<Files ~ “^\.htaccess”>
+    Order allow,deny
+    Deny from all
+</Files>
+2． 在.htaccess文件中使用指令进行控制
+
+要限制.htaccess文件能够覆盖的内容，须要使用AllowOverride指令。该指令可以进行全局设置或者单个目录设置。要配置默认可以使用的选项，须要使用Options指令。
+例如，在httpd.conf文件中，可以采用上述指令建立的对/var/www/icons目录的访问控制权限的清单，如下所示：
+
+<Directory ”/var/www/icons”>
+    Options Indexes MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+以下为各种指令的使用介绍：
+
+（1）AllowOverrides指令
+
+AllowOverrides指令指定.htaccess文件可以覆盖的选项。可以对每个目录进行设置。例如，可以对主要文档root和Us
+
+AllowOverrides可以设置为All、None或者Option、FileInfo、AuthConfig、Indexes以及Limit.选项的组合。这些选项含义如下：
+
+◆Options：文件可以为该目录添加没有在Options指令中列出的选项。
+
+◆FileInfo：.htaccess文件包含修改文档类型信息的指令。
+
+◆AuthConfig：.htaccess文件可能包含验证指令。
+
+◆Limit：.htaccess文件可能包含allow、deny、order指令。
+
+◆Indexes：控制目录列表方式。
+
+◆None：禁止处理.htaccess文件。
+
+◆All：表示读取以上所有指令内容。
+
+Options指令
+
+Options可以为None、All或者任何Indexes、Includes、FollowSymLinks、ExecCGI或者MultiViews的组合。MultiViews不包含在All中，必须显式指定。这些选项解释如下：
+
+◆ None：该目录没有启用任何可用的选项。
+
+◆All：该目录启用了所有选项，除了MultiViews。
+
+◆Indexes：当Index.html文件或者另一个DirectoryIndex文件不存在时，目录中的文件列表将作为HTML页产生，显示给用户。
+
+◆Includes：该目录允许服务器侧包含（SSI）。如果允许包含但是不允许在包含中有exec选项，则可以写为IncludesNoExec。基于安全的原因，对于没有完全控制权限的目录，如UserDir目录，该选项是一个很好的主意。
+
+◆FollowSymLinks：允许访问符号链接到文档目录的目录。这种方法不好，不要将整个服务器全部设置为该选项。对某个目录可以这样设置，但是在仅当有足够的理由时才这样设置。该选项是一个潜在的安全隐患，因为允许Web用户跳出文档目录以外，并且可能潜在地允许用户访问文件系统的分区，而这些地方是不希望其他人访问的。
+
+◆ExecCGI：即使该目录不是ScriptAlias化的目录，也在其中允许CGI程序。
+
+◆MultiViews：该选项是mod_negotiation模块的一部分。当客户请求的文档没有找到时，服务器试图计算最适合客户请求的文档。
+
+3． 使用.htaccess文件实例
+
+下面以一个简单的例子来示范如何使用.htaccess文件：
+
+（1）在Apache服务器的文档根目录下生成一个测试目录，并创建测试文件，使用如下命令即可：
+
+#cd /var/www/html
+#mkdir rhel5
+#cd rhel5
+#touch rhel5.a
+#touch rhel5.b
+（2）修改Apache服务器的主配置文件如下，添加如下语句：
+
+<Directory “/var/www/html/rhel5”>
+    AllowOverride Options
+</Directory>
+（3）在生成的测试目录/var/www/html/rhel5下生成.htaccess文件，并添加如下语句：
+
+Options –Indexes
+（4）重新启动Apache服务器即可，可以看到在未配置.htaccess文件前用户可以使用客户端浏览器浏览文件，
+
+
+
+
+Apache之sendfile
+
+关于Sendfile网上解释如下：
+
+This usually improves server performance, but must
+# be turned off when serving from networked-mounted
+# filesystems or if support for these functions is otherwise
+# broken on your system.
+
+
+
+
+
+2 .先安装Libmcrypt
+
+#tar -zxvf libmcrypt-2.5.8.tar.gz
+
+#cd libmcrypt-2.5.8
+
+#./configure
+
+#make
+
+#make install
+
+说明：libmcript默认安装在/usr/local
+
+3.安装mhash
+
+#tar -zxvf mhash-0.9.9.9.tar.gz
+
+#cd mhash-0.9.9.9
+
+#./configure
+
+#make
+
+#make install
+
+4.安装mcrypt
+
+#tar -zxvf mcrypt-2.6.8.tar.gz
+
+#cd mcrypt-2.6.8
+
+#LD_LIBRARY_PATH=/usr/local/lib ./configure
+
+#make
+
+#make install
+
+说明：由于在配置Mcrypt时，会找不到libmcrypt的链接库，导致无法编译，因为Libmcrypt的链接库在/usr/local/lib文件夹下。因些在配置mcrypt时要加入LD_LIBRARY_PATH=/usr/local/lib导入键接库
+
+II. 安装PHP扩展模块
+
+接着就要为PHP添加mcrypt模块了
+
+1. 静态编译
+
+在任意PHP文件中加入函数 phpinfo()，即可取得目前PHP的配置
+在这些配置后面新增需要加入的配置：’–with-mcrypt=/usr/local/include’
+然后进入php源代码目录，执行这条完整的configure命令
+
+配置完成，下面进行源码包的制作和安装
+make clean （一定需要）
+make
+make install
+
+2. 动态加载(推荐)
+
+使用php的常见问题是：编译php时忘记添加某扩展，后来想添加扩展，但是因为安装php后又装了一些东西如PEAR等，不想删除目录重装，于是可以采用phpize。方法是：
+
+要有与现有php完全相同的php压缩包 。我用的是php-5.2.6.tar.gz。 展开后进入里面的ext/mcrypt目录 (里面是mcrypt的php扩展)，然后执行/usr/local/php/bin/phpize。phpize是安装php时安装好的一个工具，如果你的机器没有安装phpize工具，那么可能还是要make,make install php，仅仅为了得到phpize.
+
+执行完后，会发现当前目录下多了一些configure文件， 如果没报错，则根据提示运行
+
+./configure –with-php-config=/usr/local/php/bin/php-config
+
+注意要先确保/usr/local/php/bin/php-config存在。
+
+make
+
+make install
+
+make install 之后系统会提示你mcrypt.so文件所在的目录。根据php.ini中指示的extension_dir指向的目录中， 将其复制过去。修改php.ini,在最后添加一句extension=bcmath.so
+
+最后重启APACHE服务，万事OK。
