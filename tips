@@ -1,3 +1,7 @@
+在控制台下这样写： mplayer xxxx.avi -vo caca
+
+
+
 1）统计两个文本文件的相同行
 grep -Ff file1 file2
 
@@ -1246,3 +1250,61 @@ Node 1, zone Normal 102 288 500 394 255 1877 5161 3788 2053 826 372
 PS. 以上我粗粗的列出几点，其他的同学们可以进一步补充，多谢！
 
 祝玩得开心！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Keepalived使用的vrrp协议方式，虚拟路由冗余协议 (Virtual Router Redundancy Protocol，简称VRRP)；
+Heartbeat是基于主机或网络的服务的高可用方式；
+
+keepalived的目的是模拟路由器的双机
+heartbeat的目的是用户service的双机
+
+lvs的高可用建议用keepavlived
+业务的高可用用heartbeat
+
+
+
+
+
+
+█ 1.通过echo实现（这个比较常见）
+echo "show databases;" | mysql -uroot -p'oldboy' -S /data/3308/mysql.sock
+提示：此法适合单行字符串比较少的情况。
+█ 2.通过cat实现（此法用的不多）
+cat |mysql -uroot -p'oldboy' -S /data/3308/mysql.sock << EOF
+show databases;
+EOF
+提示：此法适合多行字符串比较多的时候。
+█ 3.通过mysql -e参数实现
+mysql -u root -p'oldboy' -S /data1/3307/mysql.sock -e "show databases;"
+█ 特殊生产场景应用：
+例一：mysql自动批量制作主从同步需要的语句。
+cat |mysql -uroot -p'oldboy' -S /data/3308/mysql.sock<< EOF
+        CHANGE MASTER TO  
+ MASTER_HOST='10.0.0.16', 
+ MASTER_PORT=3306,
+ MASTER_USER='oldboyrep', 
+ MASTER_PASSWORD='oldboyrep', 
+ MASTER_LOG_FILE='mysql-bin.000025'
+ MASTER_LOG_POS=4269; 
+EOF
+提示：大家多注意整个语句的写法，而不是cat中的内容。
+例二：mysql线程中，“大海捞针”
+   平时登陆数据库show processlist;,发现结果经常超长，找自己要看的的比较困难，而且，
+SQL显示不全。如果直接执行show full processlist那更是瞬间滚了N屏。找到有问题的
+SQL语句非常困难。
+现在好了，老男给你们推荐如下语句。
+mysql -u root -p'oldboy' -S /data1/3307/mysql.sock -e "show full processlist;"|grep -v Sleep
+过滤当前执行的SQL语句完整内容，这条命令很有用。不知道你能否体会到。后面还可以加iconv等对中文转码，
+根据需求过滤想要的内容，此命令屡试不爽啊。
