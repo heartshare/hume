@@ -793,3 +793,456 @@ make install
 make install 之后系统会提示你mcrypt.so文件所在的目录。根据php.ini中指示的extension_dir指向的目录中， 将其复制过去。修改php.ini,在最后添加一句extension=bcmath.so
 
 最后重启APACHE服务，万事OK。
+
+
+
+
+默认的方式下linux会把文件访问的时间atime做记录，这在绝大部分的场合都是没有必要的，如果遇到机器IO负载高或是CPU WAIT高的情况，可以尝试使用noatime和nodiratime，疗效好，见效快。
+
+1、修改/etc/fstab，类似
+
+/dev/hda9 /data ext3 defaults 0 2
+
+改成
+
+/dev/hda9 /data ext3 defaults,noatime,nodiratime 0 2
+
+2、remount分区，执行
+
+mount -o remount /data
+
+remount这个动作大可放心执行，顶多冒点汗。
+
+如果不想改fstab，直接用mount命令：
+
+mount -o noatime -o nodiratime -o remount /data
+
+
+
+
+
+
+
+
+
+
+原创文章，转载请注明： 转载自Erlang非业余研究
+
+本文链接地址: Linux系统内存相关信息获取
+
+大型的服务器，特别是数据库服务器的主要瓶颈主要在内存，CPU，以及IO上。CPU是可再生资源，不够用等等就有了；内存和土地一样是不可再生资源，被占用了，后续的使用必须等到该资源释放.而IO也非常依赖于内存的使用情况,故内存的倒腾效率会大大影响服务器的效率,那么了解服务器内存的使用情况就非常重要。
+
+Linux内核的内存相关的信息主要有下面几个获取管道，这里我们主要讨论的是系统级别的，没具体到各个进程级别：
+
+1. 内核启动时候，VM内存相关模块初始化信息，透过dmesg查看。
+详细描述可参考这里
+比如：
+
+NUMA: Using 30 for the hash shift.
+Bootmem setup node 0 0000000000000000-0000000340000000
+Bootmem setup node 1 0000000340000000-0000000640000000
+On node 0 totalpages: 3095549
+DMA zone: 2613 pages, LIFO batch:0
+DMA32 zone: 765896 pages, LIFO batch:31
+Normal zone: 2327040 pages, LIFO batch:31
+On node 1 totalpages: 3102720
+Normal zone: 3102720 pages, LIFO batch:31
+…
+Memory: 24543920k/26214400k available (2547k kernel code, 612792k reserved, 1289k data, 208k init)
+…
+Total HugeTLB memory allocated, 0
+…
+
+2. /proc/meminfo。
+每个字段的意思，可参考这里
+比如：
+
+$cat /proc/meminfo
+MemTotal: 24545764 kB
+MemFree: 957064 kB
+Buffers: 1739164 kB
+Cached: 10699300 kB
+SwapCached: 3816 kB
+Active: 17884180 kB
+Inactive: 4479128 kB
+HighTotal: 0 kB
+HighFree: 0 kB
+LowTotal: 24545764 kB
+LowFree: 957064 kB
+SwapTotal: 6289320 kB
+SwapFree: 5005124 kB
+Dirty: 28 kB
+Writeback: 0 kB
+AnonPages: 9923908 kB
+Mapped: 27068 kB
+Slab: 1132452 kB
+PageTables: 41560 kB
+NFS_Unstable: 0 kB
+Bounce: 0 kB
+CommitLimit: 18562200 kB
+Committed_AS: 33474640 kB
+VmallocTotal: 34359738367 kB
+VmallocUsed: 268160 kB
+VmallocChunk: 34359470063 kB
+HugePages_Total: 0
+HugePages_Free: 0
+HugePages_Rsvd: 0
+Hugepagesize: 2048 kB
+
+3. sysrq-trigger的m键。
+首先启用这个特性：
+sudo sysctl kernel.sysrq=1
+获取帮助：
+echo h | sudo tee /proc/sysrq-trigger
+SysRq : HELP : loglevel0-8 reBoot Crashdump tErm Full kIll thaw-filesystems(J) saK showMem Nice powerOff showPc unRaw Sync showTasks Unmount shoWcpus
+获取内存信息：
+echo m | sudo tee /proc/sysrq-trigger
+
+SysRq : Show Memory
+Mem-info:
+Node 0 DMA per-cpu:
+cpu 0 hot: high 0, batch 1 used:0
+cpu 0 cold: high 0, batch 1 used:0
+cpu 1 hot: high 0, batch 1 used:0
+cpu 1 cold: high 0, batch 1 used:0
+cpu 2 hot: high 0, batch 1 used:0
+cpu 2 cold: high 0, batch 1 used:0
+cpu 3 hot: high 0, batch 1 used:0
+cpu 3 cold: high 0, batch 1 used:0
+cpu 4 hot: high 0, batch 1 used:0
+cpu 4 cold: high 0, batch 1 used:0
+cpu 5 hot: high 0, batch 1 used:0
+cpu 5 cold: high 0, batch 1 used:0
+cpu 6 hot: high 0, batch 1 used:0
+cpu 6 cold: high 0, batch 1 used:0
+cpu 7 hot: high 0, batch 1 used:0
+cpu 7 cold: high 0, batch 1 used:0
+cpu 8 hot: high 0, batch 1 used:0
+cpu 8 cold: high 0, batch 1 used:0
+cpu 9 hot: high 0, batch 1 used:0
+cpu 9 cold: high 0, batch 1 used:0
+cpu 10 hot: high 0, batch 1 used:0
+cpu 10 cold: high 0, batch 1 used:0
+cpu 11 hot: high 0, batch 1 used:0
+cpu 11 cold: high 0, batch 1 used:0
+cpu 12 hot: high 0, batch 1 used:0
+cpu 12 cold: high 0, batch 1 used:0
+cpu 13 hot: high 0, batch 1 used:0
+cpu 13 cold: high 0, batch 1 used:0
+cpu 14 hot: high 0, batch 1 used:0
+cpu 14 cold: high 0, batch 1 used:0
+cpu 15 hot: high 0, batch 1 used:0
+cpu 15 cold: high 0, batch 1 used:0
+Node 0 DMA32 per-cpu:
+cpu 0 hot: high 186, batch 31 used:70
+cpu 0 cold: high 62, batch 15 used:59
+cpu 1 hot: high 186, batch 31 used:24
+cpu 1 cold: high 62, batch 15 used:13
+cpu 2 hot: high 186, batch 31 used:7
+cpu 2 cold: high 62, batch 15 used:11
+cpu 3 hot: high 186, batch 31 used:19
+cpu 3 cold: high 62, batch 15 used:54
+cpu 4 hot: high 186, batch 31 used:0
+cpu 4 cold: high 62, batch 15 used:0
+cpu 5 hot: high 186, batch 31 used:0
+cpu 5 cold: high 62, batch 15 used:0
+cpu 6 hot: high 186, batch 31 used:0
+cpu 6 cold: high 62, batch 15 used:0
+cpu 7 hot: high 186, batch 31 used:0
+cpu 7 cold: high 62, batch 15 used:0
+cpu 8 hot: high 186, batch 31 used:16
+cpu 8 cold: high 62, batch 15 used:50
+cpu 9 hot: high 186, batch 31 used:23
+cpu 9 cold: high 62, batch 15 used:2
+cpu 10 hot: high 186, batch 31 used:40
+cpu 10 cold: high 62, batch 15 used:41
+cpu 11 hot: high 186, batch 31 used:157
+cpu 11 cold: high 62, batch 15 used:5
+cpu 12 hot: high 186, batch 31 used:0
+cpu 12 cold: high 62, batch 15 used:0
+cpu 13 hot: high 186, batch 31 used:0
+cpu 13 cold: high 62, batch 15 used:0
+cpu 14 hot: high 186, batch 31 used:0
+cpu 14 cold: high 62, batch 15 used:0
+cpu 15 hot: high 186, batch 31 used:0
+cpu 15 cold: high 62, batch 15 used:0
+Node 0 Normal per-cpu:
+cpu 0 hot: high 186, batch 31 used:50
+cpu 0 cold: high 62, batch 15 used:13
+cpu 1 hot: high 186, batch 31 used:159
+cpu 1 cold: high 62, batch 15 used:14
+cpu 2 hot: high 186, batch 31 used:155
+cpu 2 cold: high 62, batch 15 used:9
+cpu 3 hot: high 186, batch 31 used:13
+cpu 3 cold: high 62, batch 15 used:14
+cpu 4 hot: high 186, batch 31 used:0
+cpu 4 cold: high 62, batch 15 used:0
+cpu 5 hot: high 186, batch 31 used:0
+cpu 5 cold: high 62, batch 15 used:0
+cpu 6 hot: high 186, batch 31 used:0
+cpu 6 cold: high 62, batch 15 used:0
+cpu 7 hot: high 186, batch 31 used:0
+cpu 7 cold: high 62, batch 15 used:0
+cpu 8 hot: high 186, batch 31 used:81
+cpu 8 cold: high 62, batch 15 used:8
+cpu 9 hot: high 186, batch 31 used:1
+cpu 9 cold: high 62, batch 15 used:13
+cpu 10 hot: high 186, batch 31 used:69
+cpu 10 cold: high 62, batch 15 used:14
+cpu 11 hot: high 186, batch 31 used:77
+cpu 11 cold: high 62, batch 15 used:10
+cpu 12 hot: high 186, batch 31 used:0
+cpu 12 cold: high 62, batch 15 used:0
+cpu 13 hot: high 186, batch 31 used:135
+cpu 13 cold: high 62, batch 15 used:0
+cpu 14 hot: high 186, batch 31 used:0
+cpu 14 cold: high 62, batch 15 used:0
+cpu 15 hot: high 186, batch 31 used:0
+cpu 15 cold: high 62, batch 15 used:0
+Node 0 HighMem per-cpu: empty
+Node 1 DMA per-cpu: empty
+Node 1 DMA32 per-cpu: empty
+Node 1 Normal per-cpu:
+cpu 0 hot: high 186, batch 31 used:1
+cpu 0 cold: high 62, batch 15 used:0
+cpu 1 hot: high 186, batch 31 used:0
+cpu 1 cold: high 62, batch 15 used:0
+cpu 2 hot: high 186, batch 31 used:0
+cpu 2 cold: high 62, batch 15 used:0
+cpu 3 hot: high 186, batch 31 used:0
+cpu 3 cold: high 62, batch 15 used:0
+cpu 4 hot: high 186, batch 31 used:87
+cpu 4 cold: high 62, batch 15 used:10
+cpu 5 hot: high 186, batch 31 used:30
+cpu 5 cold: high 62, batch 15 used:12
+cpu 6 hot: high 186, batch 31 used:77
+cpu 6 cold: high 62, batch 15 used:13
+cpu 7 hot: high 186, batch 31 used:28
+cpu 7 cold: high 62, batch 15 used:2
+cpu 8 hot: high 186, batch 31 used:34
+cpu 8 cold: high 62, batch 15 used:0
+cpu 9 hot: high 186, batch 31 used:94
+cpu 9 cold: high 62, batch 15 used:0
+cpu 10 hot: high 186, batch 31 used:0
+cpu 10 cold: high 62, batch 15 used:0
+cpu 11 hot: high 186, batch 31 used:0
+cpu 11 cold: high 62, batch 15 used:0
+cpu 12 hot: high 186, batch 31 used:0
+cpu 12 cold: high 62, batch 15 used:8
+cpu 13 hot: high 186, batch 31 used:33
+cpu 13 cold: high 62, batch 15 used:8
+cpu 14 hot: high 186, batch 31 used:133
+cpu 14 cold: high 62, batch 15 used:2
+cpu 15 hot: high 186, batch 31 used:155
+cpu 15 cold: high 62, batch 15 used:5
+Node 1 HighMem per-cpu: empty
+Free pages: 962792kB (0kB HighMem)
+Active:4471040 inactive:1118163 dirty:52 writeback:0 unstable:0 free:240698 slab:283135 mapped-file:6766 mapped-anon:2481065 pagetables:10524
+Node 0 DMA free:10836kB min:8kB low:8kB high:12kB active:0kB inactive:0kB present:10452kB pages_scanned:0 all_unreclaimable? yes
+lowmem_reserve[]: 0 2991 12081 12081
+Node 0 DMA32 free:66704kB min:2460kB low:3072kB high:3688kB active:2650608kB inactive:122492kB present:3063584kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 9090 9090
+Node 0 Normal free:39604kB min:7476kB low:9344kB high:11212kB active:8293932kB inactive:618776kB present:9308160kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 0 0
+Node 0 HighMem free:0kB min:128kB low:128kB high:128kB active:0kB inactive:0kB present:0kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 0 0
+Node 1 DMA free:0kB min:0kB low:0kB high:0kB active:0kB inactive:0kB present:0kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 12120 12120
+Node 1 DMA32 free:0kB min:0kB low:0kB high:0kB active:0kB inactive:0kB present:0kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 12120 12120
+Node 1 Normal free:845648kB min:9968kB low:12460kB high:14952kB active:6939620kB inactive:3731384kB present:12410880kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 0 0
+Node 1 HighMem free:0kB min:128kB low:128kB high:128kB active:0kB inactive:0kB present:0kB pages_scanned:0 all_unreclaimable? no
+lowmem_reserve[]: 0 0 0 0
+Node 0 DMA: 3*4kB 3*8kB 3*16kB 2*32kB 3*64kB 2*128kB 2*256kB 1*512kB 1*1024kB 0*2048kB 2*4096kB = 10836kB
+Node 0 DMA32: 4260*4kB 1224*8kB 26*16kB 1*32kB 2*64kB 1*128kB 1*256kB 0*512kB 0*1024kB 1*2048kB 9*4096kB = 66704kB
+Node 0 Normal: 201*4kB 884*8kB 1117*16kB 141*32kB 2*64kB 2*128kB 1*256kB 1*512kB 0*1024kB 0*2048kB 2*4096kB = 39604kB
+Node 0 HighMem: empty
+Node 1 DMA: empty
+Node 1 DMA32: empty
+Node 1 Normal: 31200*4kB 39388*8kB 14353*16kB 3307*32kB 906*64kB 2*128kB 1*256kB 1*512kB 1*1024kB 1*2048kB 2*4096kB = 845648kB
+Node 1 HighMem: empty
+3108846 pagecache pages
+Swap cache: add 337062, delete 336108, find 261230/261555, race 0+0
+Free swap = 5005124kB
+Total swap = 6289320kB
+Free swap: 5005124kB
+6553600 pages of RAM
+417159 reserved pages
+2320912 pages shared
+954 pages swap cached
+
+4. 通过vm的活动情况， /proc/vmstat
+
+$cat /proc/vmstat
+nr_anon_pages 2480490
+nr_mapped 6548
+nr_file_pages 3110632
+nr_slab 283141
+nr_page_table_pages 10334
+nr_dirty 1
+nr_writeback 0
+nr_unstable 0
+nr_bounce 0
+numa_hit 59784369537
+numa_miss 44505232088
+numa_foreign 44505232088
+numa_interleave 288929
+numa_local 59783481501
+numa_other 44506120124
+pgpgin 6085462783
+pgpgout 16203578552
+pswpin 2556
+pswpout 334506
+pgalloc_dma 1
+pgalloc_dma32 12614733
+pgalloc_normal 104277734751
+pgalloc_high 0
+pgfree 104290591256
+pgactivate 50646465
+pgdeactivate 4822484
+pgfault 104165467862
+pgmajfault 16210
+pgrefill_dma 0
+pgrefill_dma32 7653915
+pgrefill_normal 26774426
+pgrefill_high 0
+pgsteal_dma 0
+pgsteal_dma32 256875
+pgsteal_normal 4129645
+pgsteal_high 0
+pgscan_kswapd_dma 0
+pgscan_kswapd_dma32 343521
+pgscan_kswapd_normal 4447936
+pgscan_kswapd_high 0
+pgscan_direct_dma 0
+pgscan_direct_dma32 0
+pgscan_direct_normal 0
+pgscan_direct_high 0
+pginodesteal 0
+slabs_scanned 4000512
+kswapd_steal 4386520
+kswapd_inodesteal 2810883
+pageoutrun 37456
+allocstall 0
+pgrotated 337233
+
+5. 每个区的内存使用情况：/proc/zoneinfo
+
+$ cat /proc/zoneinfo
+Node 0, zone DMA32
+pages free 668878
+min 615
+low 768
+high 922
+active 71404
+inactive 7034
+scanned 0 (a: 0 i: 0)
+spanned 1044480
+present 765896
+nr_anon_pages 75672
+nr_mapped 759
+nr_file_pages 2766
+nr_slab 551
+nr_page_table_pages 266
+nr_dirty 2
+nr_writeback 0
+nr_unstable 0
+nr_bounce 0
+numa_hit 444062598
+numa_miss 11649541
+numa_foreign 0
+numa_interleave 0
+numa_local 443992176
+numa_other 11719963
+protection: (0, 0, 9090, 9090)
+pagesets
+cpu: 0 pcp: 0
+count: 180
+high: 186
+batch: 31
+cpu: 0 pcp: 1
+count: 58
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 1 pcp: 0
+count: 178
+high: 186
+batch: 31
+cpu: 1 pcp: 1
+count: 12
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 2 pcp: 0
+count: 184
+high: 186
+batch: 31
+cpu: 2 pcp: 1
+count: 51
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 3 pcp: 0
+count: 155
+high: 186
+batch: 31
+cpu: 3 pcp: 1
+count: 9
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 8 pcp: 0
+count: 181
+high: 186
+batch: 31
+cpu: 8 pcp: 1
+count: 53
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 9 pcp: 0
+count: 157
+high: 186
+batch: 31
+cpu: 9 pcp: 1
+count: 14
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 10 pcp: 0
+count: 162
+high: 186
+batch: 31
+cpu: 10 pcp: 1
+count: 1
+high: 62
+batch: 15
+vm stats threshold: 60
+cpu: 11 pcp: 0
+count: 158
+high: 186
+batch: 31
+cpu: 11 pcp: 1
+count: 23
+high: 62
+batch: 15
+vm stats threshold: 60
+all_unreclaimable: 0
+prev_priority: 12
+start_pfn: 4096
+
+6. 每个区的伙伴页面信息：/proc/buddyinfo
+
+$ cat /proc/buddyinfo
+Node 0, zone DMA 3 3 3 2 3 2 2 1 1 0 2
+Node 0, zone DMA32 12238 4658 2889 2209 1697 1331 1008 750 467 238 143
+Node 0, zone Normal 266 201 169 354 64 51 172 118 87 47 306
+Node 1, zone Normal 102 288 500 394 255 1877 5161 3788 2053 826 372
+
+有了这些信息，我们可以详细知道内存资源是如何使用的以及目前剩余情况，为下一步的优化做些决策上的依据。信息的解读可以google相关的关键词，但是充分理解这些信息点，要对内核的VM相关部分很熟悉。
+
+PS. 以上我粗粗的列出几点，其他的同学们可以进一步补充，多谢！
+
+祝玩得开心！
