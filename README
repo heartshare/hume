@@ -108,3 +108,24 @@ To check the maximum conntrack entries available, look at the proc file system:
 8192
  
 If the message in the system's logs is ip_conntrack: table full, dropping packet. it means that the table is full, and packets that are traversing the system's firewall are being dropped.
+
+
+
+
+列举所有数据库的磁盘空间占用情况
+
+ 
+select TABLE_SCHEMA, concat(truncate(sum(data_length)/1024/1024,2),' MB') as data_size,
+concat(truncate(sum(index_length)/1024/1024,2),' MB') as index_size
+from information_schema.tables
+group by TABLE_SCHEMA
+order by data_length desc;
+
+列举某个数据库下面各个表的磁盘空间占用情况
+
+	
+select TABLE_NAME, concat(truncate(data_length/1024/1024,2),' MB') as data_size,
+concat(truncate(index_length/1024/1024,2),' MB') as index_size
+from information_schema.tables where TABLE_SCHEMA = 'database_name'
+group by TABLE_NAME
+order by data_length desc;
