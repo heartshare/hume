@@ -96,3 +96,15 @@ net.ipv4.netfilter.ip_conntrack_max=65535
 
 
 net.ipv4.netfilter.ip_conntrack_tcp_timeout_established = 1200
+
+
+The ip_conntrack module uses a portion of the system memory to track connections called a  connection tracking table. The size of this table is set when the ip_conntrack module is loaded, and is usually determined automatically by a hash of the installed system RAM. For example, a system with 256MB RAM will typically have a conntrack table of 8192 entries by default.
+ 
+The maximum number of connections that can maintained is  8*hashsize of the connection tracking module and each connection tracking requires approximately 300bytes
+ 
+To check the maximum conntrack entries available, look at the proc file system:
+ 
+[root@localhost ~]# cat /proc/sys/net/ipv4/ip_conntrack_max
+8192
+ 
+If the message in the system's logs is ip_conntrack: table full, dropping packet. it means that the table is full, and packets that are traversing the system's firewall are being dropped.
