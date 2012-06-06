@@ -1,0 +1,15 @@
+memstat
+lnstat
+nstat
+dstat
+iostat
+pidstat
+ifstat
+vmstat
+pidstat
+sockstat
+sar
+snmpnetstat
+mpstat
+
+
