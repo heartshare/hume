@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/etc/mysql/conf.d'
+let g:netrw_dirhist_2='/opt/mysql/data'
+let g:netrw_dirhist_3='/opt/mysql'
+let g:netrw_dirhist_4='/etc/selinux/ubuntu/modules/active'
+let g:netrw_dirhist_5='/etc/selinux/ubuntu/modules/active/modules'
+let g:netrw_dirhist_6='/etc/selinux/ubuntu/modules/active'
+let g:netrw_dirhist_7='/etc/selinux/ubuntu/modules'
+let g:netrw_dirhist_8='/etc/selinux/ubuntu'
+let g:netrw_dirhist_9='/etc/selinux/ubuntu/policy'
