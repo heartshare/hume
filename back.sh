@@ -16,7 +16,7 @@ MAILADDR=xiahoufeng@chinatsp.com
 # backup directory,please change it
 # - This is the path to the backup directory
 ###################################
-BACKUPCONFDIR=/home/svn/repo
+BACKUPCONFDIR=/svn/repo
 BACKUPDIR=/pool/repo
 
 ###################################
