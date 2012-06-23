@@ -1,0 +1,41 @@
+升级/回滚流程
+
+1. hadoop升级
+
+   停止hadoop服务。
+   备份原有系统的meta数据。参见hadoop安装目录下的conf/hdfs-core.xml，其中的dfs.name.dir一项的值。如果该项为用’,’分开的多个目录，仅需要备份其中一个即可。
+   # tar czf /back-dir/backup-nn.tar.gz /<dfs.name.dir>
+   安装公司内最新版的hadoop（op管理）
+   先用upgrade模式启动namenode:
+   # <HADOOP_HOME>/bin/hadoop-daemon.sh start namenode –upgrade
+   观察namenode的日志不抛Exception，而且有类似下边字样的日志：
+   # Upgrade of <dfs.name.dir> is complete.
+   用浏览器访问namenode的web服务，如: http://xx.xx.xx.xx:50070/在页面顶部应该有这样的文字：
+   # Upgrade for version -19 has been completed. Upgrade is not finalized
+   检查namnode是否工作正常：
+   # <HADOOP_HOME>/bin/hadoop fs –ls /
+   能列出目录，而且没有其他错误信息就ok
+   让namenode进入safemode:
+   # <HADOOP_HOME>/bin/hadoop dfsadmin -safemode enter
+   启动所有的datanode：
+   #<HADOOP_HOME/bin/start-dfs.sh
+   抽样检查各个datanode的日志，确认没有Exception。
+   Namenode退出safemode
+   # <HADOOP_HOME>/bin/hadoop dfsadmin -safemode leave
+   等待十秒钟左右，运行fsck
+   # <HADOOP_HOME>/bin/hadoop fsck /
+   如果没有问题，那么继续启动mapreduce:
+   #<HADOOP_HOME>/bin/start-mapred.sh
+   终结upgrade模式：
+   #<HADOOP_HOME/bin/hadoop dfsadmin -finalizeUpgrade
+
+
+2. Hadoop回滚
+
+ 如果在升级过程中发现有任何的问题，在做最后-finalizeUpgrade之前，都可以回滚。回滚方法：
+ 1. 停止hadoop。
+ 2. 回滚hadoop自身代码的版本。
+ 3. 用rollback模式回滚hadoop:
+     # <HADDOP_HOME>bin/start-dfs.sh -rollback
+  4. 检查有无异常，没有问题的情况下，继续启动mapreduce。
+
