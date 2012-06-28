@@ -1,3 +1,37 @@
+型号：Dell PowerEdge R710
+CPU：2x Intel Xeon CPU E5645 @2.40GHz
+硬盘：6x 1TB SAS (15K), Hardware RAID 10
+
+服务器托管在北京东直门数据中心和北京石景山七线数据中心。
+
+北京东直门数据中心是占地约7000平方米的电信级宽带数据中心机房，在北京地区处于专业 IDC 市场领先地位，也是当当网等知名网站托管的机房。
+
+北京石景山七线数据中心是北京少见的 BGP 七线机房 , 由北京数据家联合北京市政府和北京市发改委出资2个亿共同搭建联通、电信属于内网，在联通和电信线路上，与中国西单电报大楼机房50G内部直联，与中国电信和中国铁通分别是 42G 和 40G 直联核心交换层，骨干延迟小于10ms，8G直联清华大学教育网骨干核心节点，仅1跳路由，与赛尔网同级别，是各大运营商中与教育网的最大直联带宽。内部直联15G独立国际出口带宽直插国际局，良好的国外访问。机房经典客户：PPlive、新浪网、赛迪网、开心网、土豆网。
+
+
 http://www.vpsee.com/2012/06/install-mail-server-on-ubuntu-12-04/
 
 http://www.vpsee.com/2010/03/install-xen-on-debian/
+
+
+http://code.google.com/p/onestack/
+
+
+http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
+
+
+http://www.vpsee.com/2012/06/send-and-receive-email-using-mutt-fetchmail-maildrop-msmtp/
+
+
+我们只提供 Xen VPS. 我们相信 Xen 能提供性能更好、更稳定的虚拟技术，Xen 与其他几个主流虚拟技术的比较请看：Xen 的性能，几种不同虚拟技术的隔离性能和几种开源虚拟产品的性能比较。学术界和工业界都认为 Xen 是目前最可靠稳定的虚拟技术，业界有名的 Amazon EC2, Linode, SliceHost, Rackspace Cloud, VPS.net, Oracle VM 都是采用 Xen. 事实上 OpenVZ 根本不是虚拟技术，是类似于 FreeBSD Jail, Solaris Zone 之类的容器技术，只不过现在做 hosting 的商家经常拿 Xen 和 OpenVZ 做比较才使得大家相信这两个东西相似。每个 OpenVZ VPS 像是被隔离 chroot 过的虚拟主机，但又没有真正彻底隔离，所以很多人通过测试两个相同配置的 Xen VPS 和 OpenVZ VPS 容易得出 OpenVZ 性能好的错误结论。目前业界领先的虚拟技术和云计算基础平台是 VMware, Hyper-V, Xen/XenServer 和 KVM.
+
+http://www.vpsee.com/faq/
+http://www.vpsee.com/2009/07/linux-sendfile-improve-performance/
+http://www.vpsee.com/2009/06/64mb-vps-optimize-nginx/
+http://www.vpsee.com/2009/06/64mb-vps-optimize-debian5/
+http://www.vpsee.com/2009/06/64mb-vps-optimize-mysql/
+http://www.vpsee.com/2012/06/enable-linux-console-on-kvm/
+
+http://www.cnblogs.com/ychellboy/archive/2012/05/14/2499549.html
+
+
