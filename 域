@@ -1,0 +1,51 @@
+sudo apt-get install likewise-open
+sudo domainjoin-cli join lab.cn administrator
+
+sudo apt-get install likewise-open-gui
+
+
+工具名称：NTLM authorization Proxy Server v0.9.9
+下载地址：http://ntlmaps.sourceforge.net/
+
+
+tar -zxvf ntlmaps-0.9.9
+
+找到server.cfg，修改它
+[GENERAL]
+LISTEN_PORT:5865 # 本机监听端口
+PARENT_PROXY:192.168.0.2 # ISA服务器
+PARENT_PROXY_PORT:8080 # ISA服务器端口
+PARENT_PROXY_TIMEOUT:15
+ALLOW_EXTERNAL_CLIENTS:0
+FRIENDLY_IPS:
+URL_LOG:0
+MAX_CONNECTION_BACKLOG:5
+[CLIENT_HEADER]
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-excel, application/msword, application/vnd.ms-powerpoint, */*
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows 98)
+[NTLM_AUTH]
+NT_HOSTNAME:192.168.0.2 # 主机名
+NT_DOMAIN:demo-domain # 域
+USER:test# ISA代理的用户名
+PASSWORD:test# ISA代理的密码
+LM_PART:1
+NT_PART:0
+NTLM_FLAGS: 06820000
+NTLM_TO_BASIC:0
+[DEBUG]
+DEBUG:0
+BIN_DEBUG:0
+SCR_DEBUG:0
+AUTH_DEBUG:0
+
+配置完后保存，启动main.py：
+# python main.py &
+
+然后设置需要连接外网的工具的代理地址为127.0.0.1，端口为5865，即可连接外网。
+
+使用新立得包管理的同学，可以更改设置里面的代理服务器，按照上面的填写。
+
+如果使用apt-get update的话需要执行
+$ export http_proxy="http://127.0.0.1:5865"
+
+OK，完成。希望这些东西能被baidu或者google收藏，以便更多在公司ISA代理下不能更新Ubuntu的同学查阅到。

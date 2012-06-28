@@ -176,3 +176,5 @@ export PATH=/opt/texlive/bin/x86_64-linux:$PATH
 function j() {
         dig "$*.jianbing.org" +short txt | perl -pe 's/\\(\d{1,3})/chr $1/eg; s/(^"|"$)//g'
 }
+
+alias apt='aptitude -F "%c%a%M%T %40p %20V %v %R:%12s %r %D %I - %60d" -w `stty size | sed "s/.* //"`'

@@ -1,0 +1,1760 @@
+10.10.68.54
+
+28 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.10.68.55
+
+30 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#*/10 * * * * /etc/init.d/iptables stop
+10.10.68.56
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+35 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1
+*/5 * * * * /root/watch_nginx.sh
+0 2 * * * /root/bin/nginx.sh restart > /dev/null 2>&1  
+10.11.152.93
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+54 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+0 2 * * * /root/bin/nginx.sh restart > /dev/null 2>&1 
+*/5 * * * * /root/watch_nginx.sh
+*/5 * * * * /opt/work/nginx.sh >/dev/null 2>&1
+10.11.152.94
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+01 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1
+*/5 * * * * /root/watch_nginx.sh
+0 2 * * * /root/bin/nginx.sh restart > /dev/null 2>&1 
+*/5 * * * * /opt/work/nginx.sh >/dev/null 2>&1
+10.11.152.95
+
+09 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.43
+
+
+01 03 * * * /root/bin/logrotate.sh
+16 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+*/3 * * * * /opt/itc/csync/bin/csyncwatchdog.sh >/dev/null 2>/dev/null
+10.11.152.100
+
+45 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.101
+
+54 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.102
+
+04 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.103
+
+11 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.104
+
+19 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+3 3 * * * sh /opt/tools/clearlog.sh > /dev/null 2>&1
+00 0 * * * /root/bin/logrotate.sh
+10.11.152.106
+
+32 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* */6 * * * rm -rf /opt/twitter-bar/rmi/twitter-bar-service/logs/app-bar.log.*
+
+3 3 * * * /root/coopreater/muzy/all_back.sh > /root/coopreater/muzy/back.log  2>&1
+10.11.152.107
+
+40 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.108
+
+41 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+##backupcacti#######
+3 3 * * * sh /opt/work/backupcacti.sh > /dev/null 2>&1
+
+#*/1 * * * * ping -c 58 10.10.68.50 >> /root/10.10.68.50-10-21.txt  2>&1
+#*/1 * * * * ping -c 58 10.10.68.22 >> /root/10.10.68.22-10-21.txt  2>&1
+10.11.152.109
+
+29 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.11.152.110
+
+49 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.111
+
+51 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.112
+
+56 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+#* *  * * * /bin/sh /opt/sphinx0.9.9/search.sh >>/opt/sphinx0.9.9/search.log 2>>/opt/sphinx0.9.9/search.log
+#0 2  * * * /bin/sh /opt/sphinx0.9.9/rebuild_index.sh >>/opt/sphinx0.9.9/rebuild.log 2>>/opt/sphinx0.9.9/rebuild.log
+#0 3  * * * /bin/sh /opt/twittersearch/rebuild_index.sh 
+#*/3 *  * * * /bin/sh /opt/twittersearch/build_delta.sh
+
+#视频搜索
+#* *  * * * /bin/sh /opt/videosearch/search.sh rebuild_delta
+#0 3  * * * /bin/sh /opt/videosearch/search.sh rebuild_main2
+
+#cv pin 搜索每天的索引每分钟重建一次
+* * * * * sleep 30; /opt/cvsearch/sphinx-2.0.4-release/bin/indexer  -c /opt/cvsearch/searchconf/pin.conf  pin_day --rotate >>/opt/cvsearch/searchlog/pin_day.log
+#cv pin 搜索全部索引每天重建一次
+0 4 * * *  /opt/cvsearch/sphinx-2.0.4-release/bin/indexer  -c /opt/cvsearch/searchconf/pin.conf pin_all --rotate >>/opt/cvsearch/searchlog/pin_all.log
+
+
+#cv tag 搜索每天的索引每分钟重建一次
+* * * * * sleep 30; /opt/cvsearch/sphinx-2.0.4-release/bin/indexer  -c /opt/cvsearch/searchconf/tag.conf  tag_day --rotate >>/opt/cvsearch/searchlog/tag_day.log
+
+#cv tag 搜索全部索引每天重建一次
+0 4 * * *  /opt/cvsearch/sphinx-2.0.4-release/bin/indexer  -c /opt/cvsearch/searchconf/tag.conf tag_all --rotate >>/opt/cvsearch/searchlog/tag_all.log
+
+
+10.11.152.113
+59 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+30 04 * * * cd /opt/newtw/log/server;find . -ctime +0 -exec rm {} \;
+10.11.152.116
+
+11 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.117
+
+14 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.118
+
+29 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.11.152.155
+*/1 * * * * sh /opt/api/logs/totalPerformance/get.sh > /dev/null 2>&1
+49 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* 4 * * * find /opt/api/logs/*  -name "*.log.*" -ctime +5 -exec rm {} \; > /dev/null 2>&1 
+10.11.152.156
+
+17 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.157
+
+45 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.160
+00 0 * * * /root/bin/logrotate.sh
+56 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+192.168.12.201
+
+12 19 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+####for jackyliu 20110830####
+#0 */4 * * * /opt/work/cp.sh
+#*/2 * * * * /opt/work/ping.sh
+10.11.152.218
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+35 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.219
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+36 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.17
+
+02 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.220
+
+39 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.137
+
+05 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+#05 13 * * * /opt/work/rmifcfg-eth0.sh
+10.11.152.221
+
+39 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.222
+
+39 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.223
+
+39 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.216
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+05 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.224
+
+50 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.225
+
+39 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.226
+
+52 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.227
+
+58 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.228
+
+48 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.217
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+06 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.229
+
+56 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.20
+
+17 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.23
+
+19 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.24
+26 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.25
+26 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.26
+27 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.27
+33 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.28
+34 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.29
+38 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.30
+38 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+00 02 * * * /root/bin/logrotate.sh
+10.11.149.31
+
+40 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.32
+
+42 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.33
+
+46 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.34
+
+47 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.35
+
+49 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.36
+
+51 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.37
+
+53 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.45
+
+52 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.46
+
+05 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.47
+
+45 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.48
+#*/2 * * * * sh  /opt/sohu-cv/deploy/deploy_resources.sh >> /opt/sohu-cv/deploy/log 2>&1
+51 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.41
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+39 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.42
+
+40 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.43
+
+31 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.149.44
+
+47 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.79.175
+
+55 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.79.176
+
+03 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.79.177
+
+09 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.79.178
+
+20 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.79.179
+
+13 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.79.180
+
+19 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.5.110
+
+27 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.5.97
+
+#07 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+07 12 * * * /sbin/clock -w
+10.11.5.98
+
+#07 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+07 12 * * * /sbin/clock -w
+10.11.5.94
+
+52 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+52 14 * * * /sbin/clock -w
+10.11.149.39
+
+43 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+43 16 * * * /sbin/clock -w
+10.11.149.40
+
+43 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+43 16 * * * /sbin/clock -w
+10.11.12.78
+
+02 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+02 21 * * * /sbin/clock -w
+10.11.12.74
+
+53 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+53 18 * * * /sbin/clock -w
+10.11.12.79
+
+37 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+37 20 * * * /sbin/clock -w
+10.11.12.80
+
+35 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+35 20 * * * /sbin/clock -w
+10.11.12.77
+
+58 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+58 18 * * * /sbin/clock -w
+10.10.68.24
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+35 17 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+#*/1 * * * * /usr/local/bin/sync/syncdog.sh
+54 23 * * * /bin/sh /root/rotatelog.sh
+#29 4 * * * /usr/bin/find /usr/local/bin/sync/logs -mtime +20 -exec rm -f {} \;
+*/5 * * * * /bin/sh /root/chkSquid.sh
+#2 4 * * * /bin/cat /dev/null > /opt/itc/squid/logs/access_log 
+7 5 * * * /usr/bin/find /alumni/htdocs/top10 -mtime +7 -exec rm -f {} \;
+192.168.1.85
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s"server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+56 17 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+
+*/4 6-23 * * * /root/chkdbds.sh &
+*/5 * * * * /bin/sh /root/update_gg.sh
+
+11 4 */15 * * cat /dev/null > /backup1/code/CVSROOT/history
+
+192.168.12.60
+
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+48 18 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+#*/3 * * * * /usr/local/bin/xyl.sh &
+#*/10 * * * * /bin/sh /root/cvs_update
+#55 5 * * * /root/ga_logs_ftp.sh >> /root/ga.log 2>>/root/ga.log &
+5 1 * * * /bin/sh /root/analyseApacheLog.sh
+27 * * * * /bin/sh /root/go_stat.sh
+52 * * * * /bin/sh /root/go2_stat.sh
+27 4 * * * /bin/sh /root/me_stat.sh
+2 0 * * * cat /dev/null > /opt/apache2/logs/go_access_log
+2 0 * * * cat /dev/null > /opt/apache2/logs/go2_access_log
+30 * * * * /bin/sh /root/inMsgCron.sh
+*/5 * * * * /bin/sh /usr/local/bin/watchdog.sh 6803
+
+
+13 4 * * * /usr/local/bin/xylresin.sh restart 6802
+192.168.12.52
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+59 10 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+52 23 * * * /bin/sh /root/rotatelog.sh >>/dev/null 2>&1
+
+# passport
+*/6 7-23 * * * /bin/sh /root/alteon_inspect.sh >>/root/alteon_inspect.log 2>>/root/alteon_inspect.log
+
+15 */2 * * * /opt/spam/spamanalyze.sh >> /opt/spam/spamanalyze.log 2>&1
+
+1 4 * * * /usr/local/sbin/svc -d /var/svc/spamfilter && /usr/local/sbin/svc -u /var/svc/spamfilter
+#30 4 * * * /usr/local/sbin/svc -d /var/svc/spamfilter.test && /usr/local/sbin/svc -u /var/svc/spamfilter.test
+192.168.12.53
+
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+40 18 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+54 23 * * * /bin/sh /root/rotatelog.sh
+192.168.12.51
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+41 10 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+12 2 * * * sh /opt/logs/stat.sh/stat_daily.sh
+12 3 * * 1 sh /opt/logs/stat.sh/stat_weekly.sh
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 4 * * 6 sh /opt/bserv/remove_logs.sh 7
+45 5 * * * sh /opt/bserv/hotbackup_bdb.sh 192.168.12.113 192.168.12.51 bdb
+2 * * * * sh /opt/bserv/hotbackup_arc.sh 192.168.12.113 192.168.12.51 bdb
+
+192.168.12.45
+43 04 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+57 23 * * * /bin/sh /root/rotatelog.sh
+
+######## 监控 ########
+*/30 * * * * /opt/apache2/bin/apachectl start
+*/5 * * * * /bin/sh /root/chkSquid.sh
+* * * * * sh /opt/lserv/lservdog.sh >> /opt/lserv/lservdog.log
+1 2 * * 6 sh /opt/lserv/remove_logs.sh
+7 5 * * * /usr/bin/find /alumni/htdocs/top10 -mtime +7 -exec rm -f {} \;
+######## 统计 ########
+#39 0 * * * /bin/sh /root/stat_daily_mail.sh >>day_stat.log 2>>day_stat.err
+#11 1 * * * /bin/sh /root/club_day.sh >>day_stat.log 2>>day_stat.err
+#19 1 * * * /bin/sh /root/feed_day.sh >>day_stat.log 2>>day_stat.err
+#29 1 * * * /bin/sh /root/mail_day.sh >>day_stat.log 2>>day_stat.err
+#3 0 * * * /bin/sh /opt/logdata/ipwatch/watch_max.sh
+
+#57 * * * * /bin/sh /root/kpi_feed.sh >>hour_stat.log 2>>hour_stat.err
+#58 * * * * /bin/sh /root/kpi_kids.sh >>hour_stat.log 2>>hour_stat.err
+#56 * * * * /bin/sh /root/stat_alu4msg.sh >>hour_stat.log 2>>hour_stat.err
+#59 * * * * /bin/sh /root/stat_info.sh >>hour_stat.log 2>>hour_stat.err
+
+######## 日志 ########
+#15 3 * * 1 /bin/sh /root/ln/log_week_bk.sh >>log_week_bk.log 2>>log_week_bk.err
+192.168.12.64
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+
+04 16 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+192.168.12.67
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+13 11 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+
+3 1 * * * /bin/cat /dev/null > /opt/apache2/logs/access_log
+3 2 * * * /bin/cat /dev/null > /opt/apache2/logs/error_log
+192.168.12.65
+
+10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+37 16 * * * ntpdate -s itimer.chinaren.com;/sbin/clock -w
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 2 * * 6 sh /opt/bserv/remove_logs.sh 7
+45 2 * * * sh /opt/bserv/hotbackup_bdb.sh 192.168.12.113 192.168.12.65 bdb
+2 * * * * sh /opt/bserv/hotbackup_arc.sh 192.168.12.113 192.168.12.65 bdb
+192.168.12.70
+10.11.12.19
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+02 22 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#3 3 */4 * * cat /dev/null > /opt/apache2/logs/access_log
+54 23 * * * /bin/sh /root/rotatelog.sh
+*/5 * * * * /bin/sh /usr/local/resin/classes/com/chinaren/xiaonei/server/plugin/xnserverdog.sh
+#*/5 * * * * /bin/sh /usr/local/resin/classes/com/chinaren/xiaonei/server/bin/procLostPackets.sh
+#1,21,31 10,11 * * * /bin/sh /root/xnstars.sh >/tmp/xnstars.log 2>/tmp/xnstars.log
+#14,44 * * * * /bin/sh /root/xn_alumni_space.sh >>/tmp/xn_alumni_space.log 2>>/tmp/xn_alumni_space.log
+#*/10 * * * * /bin/sh /root/class_match.sh >/tmp/xnstars.log 2>/tmp/xnstars.log
+#*/6 * * * * /bin/sh /root/xn_sync_bbs.sh >>/tmp/xnstars.log 2>>/tmp/xnstars.log
+#19,49 * * * * /bin/sh /root/xn_xml.sh >>/tmp/xnstars.log 2>>/tmp/xnstars.log
+#29,59 * * * * /bin/sh /root/xn_gezi.sh >>/tmp/xnstars.log 2>>/tmp/xnstars.log
+*/5 * * * * /bin/sh /root/cvs_update >>/root/cvs.log 2>>/root/cvs.log
+10.11.12.24
+54 10 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#1 */5 * * * /usr/local/bin/xylresin.sh restart 6802 >/dev/null
+47 2 * * * cat /dev/null > /opt/apache2/logs/access_log
+40 08 * * * rdate -s itimer.chinaren.com;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/sserv/remove_logs.sh
+10.10.68.35
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+43 16 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+17 7,20 * * * cat /dev/null > /opt/apache2/logs/access_log
+17 5 * * * cat /dev/null > /opt/apache2/logs/error_log
+10.11.12.29
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/sserv/remove_logs.sh
+10 2 * * 6 sh /root/alumni_index2.sh
+10.11.12.30
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+10 10 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/sserv/remove_logs.sh
+10.11.12.31
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+28 09 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+#01 02 * * 6 sh /opt/bserv/remove_logs.sh 7
+03 03 * * * rm -rf /var/spool/clientmqueue
+59 23 * * * cd /opt/apache2/logs;mv access_log access_log.yesterday; mv error_log error_log.yesterday; /opt/apache2/bin/apachectl restart
+* * * * * /opt/apache2/bin/apachectl start >> /dev/null
+10.11.12.32
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+15 09 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#1 2 * * 6 sh /opt/bserv/remove_logs.sh 7
+#* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+03 03 * * * rm -rf /var/spool/clientmqueue
+59 23 * * * cd /opt/apache2/logs;mv access_log access_log.yesterday; mv error_log error_log.yesterday; /opt/apache2/bin/apachectl restart
+* * * * * /opt/apache2/bin/apachectl start >> /dev/null
+*/5 * * * * /bin/sh /root/cvs_update > /dev/null
+10.11.12.33
+13 09 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+03 03 * * * rm -rf /var/spool/clientmqueue
+59 23 * * * cd /opt/apache2/logs;mv access_log access_log.yesterday; mv error_log error_log.yesterday; /opt/apache2/bin/apachectl restart
+* * * * * /opt/apache2/bin/apachectl start >> /dev/null
+*/5 * * * * /bin/sh /root/cvs_update > /dev/null
+10.11.12.34
+03 10 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+03 03 * * * rm -rf /var/spool/clientmqueue
+59 23 * * * cd /opt/apache2/logs;mv access_log access_log.yesterday; mv error_log error_log.yesterday; /opt/apache2/bin/apachectl restart
+* * * * * /opt/apache2/bin/apachectl start >> /dev/null
+*/5 * * * * /bin/sh /root/cvs_update > /dev/null
+10.11.12.39
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+30 11 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#passportkey
+#5 2 * * * getpassportkey.sh >> /var/log/getpassportkey.log
+
+50 23 * * * cat /dev/null > /opt/apache2/logs/access_log; cat /dev/null > /opt/apache2/logs/error_log;
+
+# 5 * * * * /usr/bin/find /data/icon/emoticon/tmp -type f -mmin +120 -exec rm -f "{}" ";"
+
+# */10 * * * * /usr/bin/find /data/xn_icon/user/tmp -mmin +10 -type f -exec rm -f {} {} \; &
+10.11.12.40
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+37 11 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+
+3 4 * * * /usr/bin/find /data/uploadfile/200* -name "*.swf" -size 1k -type f -exec rm -f {} {} \; &
+
+#*/10 * * * * /usr/bin/find /data/uploadfile/user/tmp -mmin +5 -type f -exec rm -f {} {} \; &
+*/15 * * * * /usr/bin/find /data/uploadfile/photostory/tmp -mmin +120 -exec rm -rf {} {} \; &
+17 4 * * * cat /dev/null > /opt/apache2/logs/access_log
+27 4 * * * cat /dev/null > /opt/apache2/logs/error_log
+10.11.12.51
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+14 06 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#* * * * * sh /opt/tserv/servdog.sh tserv 10000 monitor >>/opt/tserv/tservdog.log
+#* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+10.11.12.56
+
+31 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#* * * * * sh /opt/online2/servdog.sh online2 13000 monitor >>/opt/online2/onlinedog.log
+1 4 * * * sh /opt/online2/remove_logs.sh
+#03 03 * * * rm -rf /var/spool/clientmqueue
+#50 03 * * * sh /opt/chat/log.sh
+#* * * * * sh /opt/dev/chat/trunk/build/spamwords.sh
+
+00 04 * * * find /opt/dev/core/ -name "*.log" -size +102400k | while read x; do cat /dev/null > $x; done; find /opt/dev/core/ -name "core.[0-9]*" -exec rm {} \;
+10.11.12.64
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+42 02 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+10.11.12.65
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+17 02 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+10.11.12.66
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+07 02 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+
+*/5 * * * * /bin/sh /root/cvs_update >/dev/null
+192.168.1.119
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+30 01 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/sserv/remove_logs.sh
+*/5 * * * * /bin/sh /root/cvs_update > /root/cvs.log 2>>/root/cvs.log
+10 * * * * /bin/sh /root/rank_archive.sh >>/opt/rank_arc/arc.log 2>>/opt/rank_arc/arc.log
+192.168.12.100
+192.168.12.101
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+28 13 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+10 3 * * * /bin/sh /root/xiaonei_nfs.sh
+*/10 * * * * /bin/sh /root/delUploadTmpFile.sh &
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+#*/5 * * * * /bin/sh /root/club_connection.sh >> /dev/null 2>>/dev/null
+192.168.12.102
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+29 13 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+15 3 * * * /bin/sh /root/xiaonei_nfs.sh
+*/10 * * * * /bin/sh /root/delUploadTmpFile.sh &
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+*/5 * * * * /bin/sh /root/club_connection.sh >> /tmp/club_connection.log 2>>/tmp/club_connection.log
+192.168.12.103
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+02 06 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+
+35 3 * * * /bin/sh /root/xiaonei_nfs.sh
+#*/10 * * * * /bin/sh /root/delUploadTmpFile.sh &
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+*/5 * * * * /bin/sh /root/sns_connection.sh 
+192.168.12.107
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+25 09 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+15 4 * * * /bin/sh /root/xiaonei_nfs.sh
+#*/10 * * * * /bin/sh /root/delUploadTmpFile.sh &
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+*/4 * * * * /bin/sh /root/sns_connection.sh 
+
+48 23 * * * /bin/sh /root/rotatelog.sh
+192.168.12.109
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+16 10 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+03 03 * * * rm -rf /var/spool/clientmqueue
+
+54 23 * * * cat /dev/null > /opt/apache2/logs/access_log; cat /dev/null > /opt/apache2/logs/error_log
+* * * * * /opt/apache2/bin/apachectl start
+192.168.12.108
+13 01 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+*/3 * * * * /bin/sh /root/sns_connection.sh
+#*/12 * * * * /bin/sh /root/sxh_index.sh
+*/15 * * * * /bin/sh /root/kidsCMS_sync.sh
+#40 7 * * * /bin/sh /opt/chinaren/sns/alumni/school/getProvSchJson.sh -a >> /var/log/getSchList.log
+25 3 * * * /bin/sh /root/scp_weather_kids.sh
+
+## Twitter Section
+*/4 * * * * /bin/sh /root/tw_apache.sh >>/opt/log/tw_apache.log 2>>/opt/log/tw_apache.log
+*/4 * * * * /bin/sh /root/tw_nginx.sh >>/opt/log/tw_nginx.log 2>>/opt/log/tw_nginx.log
+14,44 9-21 * * * /bin/sh /root/tw_hotWeiguan.sh >>/opt/log/hotWeiguan.log 2>>/opt/log/hotWeiguan.log
+*/4 * * * * /bin/sh /root/tw_zhibostatic.sh >> /opt/log/zhibostatic.log
+29 12,14,16,18,20 * * * /bin/sh /root/tw_hotWeiping.sh >>/opt/log/hotWeiping.log 2>>/opt/log/hotWeiping.log
+*/6 * * * * /bin/sh /root/tw_recent.sh >>/opt/log/recent.log 2>>/opt/log/recent.log
+* * * * * /bin/sh /root/tw_syncIndex.sh >>/opt/log/tw_syncIdx.log 2>>/opt/log/tw_syncIdx.log
+#* * * * * /bin/sh /root/tw_syncZT.sh >>/opt/log/tw_syncIdx.log 2>>/opt/log/tw_syncIdx.log
+*/2 * * * * /bin/sh /root/tw_syncChannel.sh >>/opt/log/tw_syncIdx.log 2>>/opt/log/tw_syncIdx.log
+#*/5 * * * * /bin/sh /root/worldcup.sh >>/opt/log/tw_syncIdx.log 2>>/opt/log/tw_syncIdx.log
+
+192.168.12.96
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+30 08 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 2 * * 6 sh /opt/bserv/remove_logs.sh 7
+30 3 * * * sh /opt/bserv/hotbackup_bdb.sh 192.168.12.113 192.168.12.96 bdb
+2 * * * * sh /opt/bserv/hotbackup_arc.sh 192.168.12.113 192.168.12.96 bdb
+192.168.12.97
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+52 07 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 2 * * 6 sh /opt/bserv/remove_logs.sh 7
+45 3 * * * sh /opt/bserv/hotbackup_bdb.sh 192.168.12.113 192.168.12.97 bdb
+2 * * * * sh /opt/bserv/hotbackup_arc.sh 192.168.12.113 192.168.12.97 bdb
+192.168.12.98
+
+53 17 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/bserv/remove_logs.sh 7
+#* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+
+10 4 * * * sh /root/backupmysql.sh
+192.168.12.99
+
+55 17 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/bserv/remove_logs.sh 7
+#* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+
+10 4 * * * sh /root/backupmysql.sh
+10.10.68.38
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+58 02 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+03 03 * * * rm -rf /var/spool/clientmqueue
+
+54 23 * * * cat /dev/null > /opt/apache2/logs/access_log; cat /dev/null > /opt/apache2/logs/error_log
+* * * * * /opt/apache2/bin/apachectl start
+192.168.12.110
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+28 06 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/5 * * * * /bin/sh /root/cvs_update >/dev/null
+#23 3,21 * * * /usr/local/bin/alu4.sh restart 6802
+11 4 * * * /bin/sh /usr/local/bin/album_nfs.sh  >> /home/album/album_nfs.log
+*/5 * * * * /usr/local/bin/newChkMnt.sh &
+*/3 * * * * rm -f /tmp/magic*
+192.168.12.113
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+35 11 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+0 8 * * *  /usr/bin/find /data2/bdb -mtime +7  -exec rm -rf {} \;
+2 2 * * * /usr/bin/find /data1/mysql/ -mtime +6 -exec rm -f {} \; 
+55 8 * * * /bin/sh /root/arch_impbak.sh >>/data1/impbak/arch.log 2>>/data1/impbak/arch.log
+
+0 0 * * 6 sh /data1/bin/bak.sh >>/dev/null 2>>/dev/null
+1 0 * * * sh /data2/webim/bin/melog.sh >> /dev/null 2>>/dev/null
+192.168.12.114
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+14 21 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+*/6 * * * * /bin/sh /root/sns_connection.sh 
+192.168.12.119
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+57 16 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+
+1 * * * * (date && df /dev/sdc1) >> /data/df.log
+
+1 4 * * * /opt/clearlog.sh
+192.168.12.123
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+25 16 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/5 * * * * /bin/sh /root/chkSquid.sh
+17 1 */3 * * cat /dev/null > /opt/apache2/logs/access_log 
+27 1 */5 * * cat /dev/null > /opt/apache2/logs/error_log 
+*/5 * * * * sh /root/rebuildfromlog.sh >> /var/log/rebuildfromlog.log
+
+1 1,13 * * * sh /root/introhotgroup.sh >> /var/log/introhotgroup.log
+#5 1,13 * * * sh /root/introhotmsg.sh >> /var/log/introhotmsg.log
+2 1 * * * sh /root/recommongroups.sh >> /var/log/recommongroup.log
+192.168.12.133
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+33 12 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/5 * * * * /bin/sh /root/cvs_update >>/dev/null 2>>/dev/null
+*/4 * * * * /bin/sh /root/club_connection.sh >> club_connection.log
+*/5 * * * * /bin/sh /root/club_mid.sh >> /root/club_mid.log 2>> /root/club_mid.log &
+192.168.12.137
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+50 17 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/30 * * * * /root/clubsearchd.sh 2>>/tmp/a
+*/9 * * * * /root/sphinx.sh index user >> /tmp/sphinx.log 2>>/tmp/a
+#*/3 * * * * /root/sphinx.sh index alumni_time >> /tmp/sphinx.log 2>>/tmp/a
+*/8 * * * * /root/sphinx.sh index group_msg    >> /tmp/sphinx.log  2>>/tmp/a
+*/30 * * * * /root/sphinx.sh group    >> /tmp/sphinx.log  2>>/tmp/a
+*/11 * * * * /root/sphinx.sh img_story    >> /tmp/sphinx.log  2>>/tmp/a
+*/11 * * * * /root/sphinx.sh index recommend    >> /tmp/sphinx.log  2>>/tmp/a
+*/7 * * * * /root/watchdog.sh 2>>/tmp/a
+192.168.12.139
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+59 17 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+* * * * * sh /opt/svn/sync/bin/sync.sh >> /opt/svn/sync/sync.log 2>>/opt/svn/sync/sync.err
+1 3 * * * sh /opt/svn/sync/bin/sync_svn.sh >> /opt/svn/sync/sync_svn.log 2>>/opt/svn/sync/sync_svn.err
+192.168.12.31
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+21 20 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+50 3 * * * /bin/sh /root/genWeatherPic.sh
+#50 23 * * * cat /dev/null > /opt/apache2/logs/access_log
+#*/1 * * * * /opt/work/watch_convert.sh > /dev/null 2>&1
+192.168.12.74
+0 */4 * * * /root/cp.sh
+40 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+40 03 * * * /opt/work/mail.sh >/tmp/mail.log &
+
+192.168.12.116
+192.168.12.43
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+50 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+
+3 3 * * * cat /dev/null > /opt/squid3/var/logs/access.log
+5 3 * * * cat /dev/null > /opt/squid3/var/logs/cache.log
+
+4 1 * * * cat /dev/null > /opt/nginx8/logs/host.access.log
+192.168.12.44
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+50 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+3 3 * * * cat /dev/null > /opt/squid3/var/logs/access.log
+5 3 * * * cat /dev/null > /opt/squid3/var/logs/cache.log
+
+4 1 * * * cat /dev/null > /opt/nginx8/logs/host.access.log
+#10 2 * * * /opt/sh/rsync.sh >/dev/null
+#10 2 * * * /opt/sh/GNU-Linux-x86/sersync2 -r && /opt/sh/GNU-Linux-x86/sersync2 -o /opt/sh/GNU-Linux-x86/confxml1.xml -r
+10 2 * * * /opt/sh/GNU-Linux-x86/rsync.sh >/opt/sh/sersync/rsync.log
+192.168.12.155
+10.31.10.61
+
+15 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.10.68.21
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+40 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+57 23 * * * /bin/sh /root/rotatelog.sh
+*/5 * * * * /bin/sh /root/chkSquid.sh
+7 5 * * * /usr/bin/find /alumni/htdocs/top10 -mtime +7 -exec rm -f {} \;
+192.168.12.158
+# 10 7 * * * mv -f /sysinfo /sysinfo.old; /usr/local/bin/cfgrpt.pl > /sysinfo; diff /sysinfo /sysinfo.old; [ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+11 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#backup message storage
+30 4 * * 1 sh /opt/ms-backup.sh
+
+*/5 * * * * /root/nfs_server_check.sh >/dev/null 2>&1 &
+10.11.152.138
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+02 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+#由于apache有out of memory问题，需要定期重启
+33 * * * * /opt/apache_kids/bin/apachectl restart
+
+55 23 * * * /bin/sh /root/rotatelog.sh
+
+*/1 * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+192.168.12.163
+19 19 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* * * * * sh /opt/lserv/servdog.sh lserv 10001 monitor >>/opt/lserv/lservdog.log
+1 2 * * 6 sh /opt/lserv/remove_logs.sh
+#### static file server dog
+*/5 * * * * sh /usr/local/resin/classes/com/chinaren/club/server/clubserverdog.sh
+*/5 * * * * sh /data/logdata/twitter/synchLog.sh 1>>/data/logdata/twitter/synchLog.log 2>>/data/logdata/twitter/synchLog.log 
+15 4 * * * /usr/local/bin/sync/list_del.sh
+3 3 * * * cat /dev/null > /opt/apache2/logs/access_log
+13 3 */7 * * cat /dev/null > /opt/apache2/logs/error_log
+*/2 * * * * sh /usr/local/resin/classes/com/chinaren/club/server/procLostPackets.sh >> /var/log/procLostPackets.err
+
+######## 统计:每天 ########
+39 0 * * * /bin/sh /root/stat_daily_mail.sh >>day_stat.log 2>>day_stat.err
+11 1 * * * /bin/sh /root/club_day.sh >>day_stat.log 2>>day_stat.err
+#19 1 * * * /bin/sh /root/feed_day.sh >>day_stat.log 2>>day_stat.err
+29 1 * * * /bin/sh /root/mail_day.sh >>day_stat.log 2>>day_stat.err
+13 0 * * * /bin/sh /opt/logdata/ipwatch/watch_max.sh
+19 0 * * * /bin/sh /root/tw/tw_topRated.sh >>/opt/log/tw.log 2>>/opt/log/tw.log
+#2 4 * * 6 /bin/sh /root/tw/mv_online_log.sh >>/opt/log/tw.log 2>>/opt/log/tw.log
+
+######## 统计:每小时 ########
+#57 * * * * /bin/sh /root/kpi_feed.sh >>hour_stat.log 2>>hour_stat.err
+#58 * * * * /bin/sh /root/kpi_kids.sh >>hour_stat.log 2>>hour_stat.err
+#56 * * * * /bin/sh /root/stat_alu4msg.sh >>hour_stat.log 2>>hour_stat.err
+55 * * * * /bin/sh /root/kpi_tw.sh >>hour_stat.log 2>>hour_stat.err
+59 * * * * /bin/sh /root/kpi_tw_reg.sh >>hour_stat.log 2>>hour_stat.err
+3 * * * * /bin/sh /root/kpi_cms.sh >>hour_stat.log 2>>hour_stat.err
+5 * * * * /bin/sh /root/kpi_tw_pre.sh >>hour_stat.log 2>>hour_stat.err
+7 * * * * /bin/sh /root/kpi_tw_sohumail.sh >>hour_stat.log 2>>hour_stat.err
+10 * * * * /bin/sh /root/kpi_tw_pre_hour.sh >>hour_stat.log 2>>hour_stat.err
+
+#59 * * * * /bin/sh /root/stat_info.sh >>hour_stat.log 2>>hour_stat.err
+#58 * * * * /bin/sh /root/kpi_msn.sh >>hour_stat.log 2>>hour_stat.err
+
+
+
+3 9 * * * /bin/sh /root/tw/tw_hotWeiguan.sh yesterday >>/opt/log/tw_hotwg.log 2>>/opt/log/tw_hotwg.log
+3 12,15,18,21 * * * /bin/sh /root/tw/tw_hotWeiguan.sh today >>/opt/log/tw_hotwg.log 2>>/opt/log/tw_hotwg.log
+9 8,10,12,14,16,18,20 * * * /bin/sh /root/tw/tw_hotWeiPing.sh today >>/opt/log/tw_hotwp.log 2>>/opt/log/tw_hotwp.log
+
+######## 统计:每分钟 ########
+*/10 * * * * /bin/sh /root/tw/tw_freq_watchdog.sh >>/opt/log/tw.log 2>>/opt/log/tw.log
+
+######## 统计:大嘴巴推荐库####
+1 0 * * 1 /bin/sh /root/tzh/daZuiBa.sh >>/root/tzh/log/daZuiBa.log 2>>/root/tzh/log/daZuiBa.log
+######## 统计:活跃草根#####
+1 0 */2 * * /bin/sh /root/tzh/caoGen.sh >>/root/tzh/log/caoGen.log 2>>/root/tzh/log/caoGen.log
+######## 统计:俊男美女库###
+0 23 * * 0 /bin/sh /root/tzh/manWoman.sh >>/root/tzh/log/manWoman.log 2>>/root/tzh/log/manWoman.log
+
+# statistics of new registered user survival
+47 1 * * * /bin/sh /opt/stat_work/bin/survival_job.sh
+
+# 网安数据，每5分钟执行一次
+*/5 * * * * /bin/sh /opt/stat_work/bin/Police/police.sh >> /opt/stat_work/dat/PC.log 2>&1
+# 同步手机客户端日志 disable by wangdongyong
+#*/1 * * * * /bin/sh /root/sync_mobileclient/sync_client_log.sh >> /root/sync_mobileclient/access.log 2>&1
+#异动发帖系统统计
+#0 * * * * /bin/sh /opt/logdata/twitter/spam/crontab_ugc.sh >> /tmp/crontab_ugc.log 2>&1
+#*/30 * * * * /bin/sh /opt/logdata/twitter/spam/action_stats.sh tw >> /tmp/action_stats.log 2>&1
+#*/30 * * * * /bin/sh /opt/logdata/twitter/spam/action_stats.sh reply >> /tmp/action_stats.log 2>&1
+#*/30 * * * * /bin/sh /opt/logdata/twitter/spam/action_stats.sh follow >> /tmp/action_stats.log 2>&1
+#*/30 * * * * /bin/sh /opt/logdata/twitter/spam/wap_stats.sh >> /tmp/wap_stats.log 2>&1
+#*/30 * * * * /bin/sh /opt/logdata/twitter/spam/web_stats.sh >> /tmp/web_stats.log 2>&1
+
+#0 4 */1 * * /bin/sh /root/tw_online_bak.sh >> /tmp/tw_online_bak.log 2>&1
+0 0 * * * /bin/sh /root/split_online_log.sh >> /tmp/split_online_log.log
+
+#统计前一天系统删除的微博，主要提供给搜狗使用更新索引
+5 0 * * * /bin/sh /data/logdata/twitter/dumpDelTwId.sh >> /data/logdata/twitter/dumpDelTwId.log 2>&1 &
+#统计一天的spam数据
+50 3 * * * /bin/sh /data/logdata/spam/countSpam.sh >>/data/logdata/spam/countSpam.log 2>>/data/logdata/spam/countSpam.log &
+55 23 * * * /bin/sh /root/search.sh >/dev/null 
+00 00 * * * /bin/sh /root/log.sh >/dev/null 
+00 01 * * * /bin/sh /root/searchtime.sh >/dev/null 
+
+
+#twsearch stats by tangyi
+0 2 * * * /bin/sh /opt/logdata/search/splitfile.sh > /tmp/log 2>&1 &
+192.168.12.166
+
+25 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+0 * * * * sh /root/monitor.sh
+
+10.21.80.82
+
+51 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+
+*/10 * * * * /opt/itc/scripts/clean_proxy_file.sh
+
+5 */4 * * * /usr/bin/perl /root/hpdisk.pl
+10.31.10.99
+192.168.12.49
+192.168.12.160
+192.168.12.176
+22 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+0 3 * * * /etc/init.d/cimserverd restart && date >> /var/log/cimrestart.log
+
+*/5 * * * * /bin/sh /root/cvs_update >/dev/null
+33 */2 * * * /usr/local/bin/alu4.sh restart 6802
+58 23 * * * cat /dev/null  > /usr/local/resin/log/6802.stderr.log
+59 23 * * * cat /dev/null  > /usr/local/resin/log/6802.stdout.log
+53 23 * * * /bin/sh /root/rotatelog.sh
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.10.68.51
+35 20 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+7,22,37,52 * * * * /opt/apache2/bin/apachectl start
+17 2 * * * cat /dev/null > /opt/apache2/logs/access_log
+17 5 * * * cat /dev/null > /opt/apache2/logs/error_log
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.10.68.53
+
+58 22 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+57 23 * * * /bin/sh /root/rotatelog.sh
+7 5 * * * /usr/bin/find /alumni/htdocs/top10 -mtime +7 -exec rm -f {} \;
+
+*/5 * * * * /opt/apache2/bin/apachectl start  
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.11.152.65
+33 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* 0 * * * /usr/sbin/tmpwatch -afv 24 -x hsperfdata_* -x Jetty_* hadoop /tmp 
+10.11.152.66
+
+42 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.67
+
+52 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.68
+
+01 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.69
+
+11 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.70
+
+31 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.97
+
+22 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.98
+
+29 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.99
+
+37 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.144
+
+07 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.145
+
+58 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.146
+
+02 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.147
+
+05 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.148
+
+06 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.149
+
+06 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.150
+
+39 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.151
+
+45 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.152
+
+53 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.153
+
+51 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+10.11.152.154
+
+53 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.158
+
+03 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.161
+07 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+10.11.152.162
+
+42 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+42 14 * * * /sbin/clock -w
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.11.152.6
+
+55 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+55 15 * * * /sbin/clock -w
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+10.10.68.37
+
+18 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+192.168.12.157
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+46 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+#*/30 * * * * /usr/bin/python /opt/work/rsync.py >>/opt/work/rsync.log
+
+#10 * * * *  sh /opt/work/nagios_rsync.sh > /dev/null 2>&1
+192.168.12.159
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+16 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+#*/10 * * * * /root/alumni_server.sh > /dev/null 
+
+11 4 * * * cat /dev/null > /opt/apache2/logs/access_log
+11 3 */3 * * cat /dev/null > /opt/apache2/logs/s6.log
+
+3 3 * * * sh /opt/tools/clearlog.sh & > /dev/null 2>&1
+192.168.12.162
+
+26 19 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#20 19 * * * /bin/sh /root/msn_bakup.sh >> /opt/msnbak/bak.log
+59 * * * * /bin/sh /root/count_msnpv.sh >> /opt/msnbak/bak.log
+10.10.82.66
+
+57 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+####jackyliu###
+00 00 * * * /bin/sh /root/bin/cut_log.sh > /dev/null 2>&1
+00 00 * * * /bin/sh /root/bin/cut_clientlog.sh > /dev/null 2>&1
+10.10.82.67
+
+05 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+####jackyliu####
+00 00 * * * /bin/sh /root/bin/cut_log.sh > /dev/null 2>&1
+00 00 * * * /bin/sh /root/bin/cut_clientlog.sh > /dev/null 2>&1
+10.10.68.44
+57 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#50 23 * * 0 cat /dev/null > /opt/apache2/logs/access_log
+55 23 * * 0 cat /dev/null > /opt/apache2/logs/tiny_log
+#*/10 * * * * /etc/init.d/iptables stop
+10.10.68.52
+
+55 20 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#55 23 * * * /bin/sh /root/rotatelog.sh
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+#59 23 * * * cd /opt/server/nginx/sbin;sh nginxcutlog.sh
+10.10.82.136
+
+14 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+0 2 * * * /root/bin/nginx.sh restart > /dev/null 2>&1 
+
+3 3 * * * echo > /opt/nginx/logs/access.log  > /dev/null 2>&1
+30 3 * * * echo > /opt/nginx/logs/error.log  > /dev/null 2>&1
+10.10.82.137
+*/1 * * * * /opt/work/nginx.sh  > /dev/null 2>&1
+14 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#0 2 * * * /root/bin/nginx.sh restart > /dev/null 2>&1 
+
+3 3 * * * echo > /opt/nginx/logs/access.log  > /dev/null 2>&1
+30 3 * * * echo > /opt/nginx/logs/error.log  > /dev/null 2>&1
+10.10.68.46
+09 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+0 * * * * sh /root/monitor.sh
+
+*/3 * * * * /bin/sh /root/watchNginx.sh >> /tmp/watchNginx.log
+
+56 23 * * * /bin/sh /root/rotatelog.sh
+
+0 4 * * * sh /opt/tools/clearlog.sh > /dev/null 2>&1
+10.10.68.47
+
+14 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+*/3 * * * * /bin/sh /root/watchNginx.sh >> /tmp/watchNginx.log
+
+56 23 * * * /bin/sh /root/rotatelog.sh
+0 4 * * * sh /opt/tools/clearlog.sh > /dev/null 2>&1
+#*/2 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+192.168.12.38
+0 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1; /sbin/clock -w
+#2 0 * * * /usr/local/sbin/svc -d /var/svc/logsender && /usr/local/sbin/svc -u /var/svc/logsender
+#2 0 * * * /usr/local/sbin/svc -d /opt/octopus/svc/logprocessor && /usr/local/sbin/svc -u /opt/octopus/svc/logprocessor
+0 0 * * * rm -f /opt/webim-ds/core.*; cat /dev/null > /opt/webim-ds/std.log
+0 4 * * * sh /opt/tools/clearlog.sh > /dev/null 2>&1
+192.168.106.195
+
+14 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+192.168.12.168
+
+31 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+192.168.12.169
+
+52 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+55 23 * * * /bin/sh /root/rotatelog.sh
+58 23 * * * /bin/cat /dev/null > /opt/apache2/logs/speed_log
+#20 3  * * * /home/mysql/dbadmin/scripts/mysqlbak.sh
+192.168.106.199
+#30 04 * * * /home/mysql/dbadmin/scripts/mysqlbak.sh
+52 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+192.168.106.200
+
+46 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+2 2 * * * /etc/init.d/network restart
+192.168.12.56
+01 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+*/15 * * * * /etc/init.d/iptables stop
+192.168.12.57
+
+04 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+2 2 * * * /bin/cat /dev/null  > /usr/local/nginx/logs/access.log 
+0 2 * * * (/usr/bin/killall nginx ;/opt/nginx/sbin/nginx -c /opt/nginx/conf/nginx.conf)
+10.10.68.30
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+24 06 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+*/10 * * * * /bin/cat /dev/null  > /usr/local/nginx/logs/access.log 
+
+#0 2 * * * (/usr/bin/killall nginx ;/opt/nginx/sbin/nginx -c /opt/nginx/conf/nginx.conf)
+10.11.12.67
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+24 12 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+#*/5 * * * * /bin/sh /root/cvs_update >/dev/null
+
+12 1 * * * /bin/cat /dev/null  > /usr/local/nginx/logs/access.log 
+0 2 * * * (/usr/bin/killall nginx ;/opt/nginx/sbin/nginx -c /opt/nginx/conf/nginx.conf)
+*/5 * * * * /root/watch_nginx.sh
+10.10.68.40
+
+51 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+12 2 * * * /bin/cat /dev/null  > /usr/local/nginx/logs/access.log 
+0 2 * * * (/usr/bin/killall nginx ;/opt/nginx/sbin/nginx -c /opt/nginx/conf/nginx.conf)
+*/5 * * * * /root/watch_nginx.sh
+192.168.12.147
+192.168.12.180
+
+11 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+192.168.12.179
+
+53 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+1 1 * * * python /root/lightcloud/manager.py -c /root/lightcloud/config.py hot_copy     > /dev/null 2>/root/hot_copy.err;
+192.168.12.185
+
+10 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+*/60 * * * * /bin/sh /data1/mongodb_test/mongodb-linux-x86_64-1.4.0/bin/tgroup.sh update
+#*/1 * * * * /bin/sh /root/search.sh > /dev/null 2>&1 
+0 0 * * * /data1/mongodb_test/mongodb-linux-x86_64-1.4.0/bin/mongodump -h 192.168.12.185 -d mydb -c tgroup_info -o /data1/mongodb_test/back/
+# Lan Fufeng  标签增量索引生成脚本
+#*/1 * * * * /bin/sh /root/shell/sphinx/tag/searchTagDelta.sh  &
+#*/1 * * * * /bin/sh /root/shell/sphinx/searchExperienceDelta.sh  &
+#*/5 * * * * /bin/sh /root/shell/sphinx/hotword/searchHotwordDelta.sh  &
+14 3 * * * /bin/cat /dev/null > /opt/apache2/logs/access_log 
+3 3 * * * sh /opt/tools/clearlog.sh >/dev/null 2>&1
+192.168.12.186
+192.168.12.191
+
+19 20 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+0 3  * * *  /opt/apache2/bin/apachectl  -k graceful
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+#*/1 * * * * /root/watch_convert.sh > /dev/null 2>&1 
+192.168.12.196
+
+20 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+0 4 * * * sh /opt/tools/clearlog.sh > /dev/null 2>&1 
+30 03 * * * /opt/sohutw/apps/server/logrotate.sh
+10.11.152.89
+192.168.12.73
+55 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+23 23 * * 3 /usr/bin/find /opt -type d -name "data20*" -mtime +15 -exec rm -Rf {} \;
+
+
+#55 23 * * * /bin/sh /root/rotatelog.sh
+
+#*/2 * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+00 00 * * * /bin/sh /root/bin/cut_log.sh > /dev/null 2>&1
+#03 15 10 * * /bin/sh /opt/work/weibolog.sh
+* * * 1 * /bin/sh /root/bin/getlive404.sh
+10.10.72.181
+
+27 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#57 23 * * * /bin/sh /root/rotatelog.sh
+
+#*/1 * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+00 00 * * * /bin/sh /root/bin/cut_log.sh > /dev/null 2>&1 
+* * * 1 * /bin/sh /root/bin/getlive404.sh
+*/1 * * * * /opt/nginx/logs/testlog.sh 
+10.10.68.22
+#10 7 * * * mv -f /sysinfo /sysinfo.old;/usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+47 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+#55 23 * * * /bin/sh /root/rotatelog.sh
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+00 1 * * * /bin/sh /root/bin/rsync2no.sh >/dev/null 2>&1
+#*/1 * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+* * * 1 * /bin/sh /root/bin/getlive404.sh
+#*/10 * * * * /etc/init.d/iptables stop
+10.10.68.50
+
+#12 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#56 23 * * * /bin/sh /root/rotatelog.sh
+#58 23 * * * /bin/cat /dev/null > /opt/apache2/logs/speed_log
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+
+#* * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+
+3 3 * * * sh /opt/tools/rmlog.sh > /dev/null 2>&1
+* * * 1 * /bin/sh /root/bin/getlive404.sh
+192.168.12.174
+
+37 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* * * * * sh /opt/sserv/servdog.sh sserv 15000 monitor >>/opt/sserv/sservdog.log
+1 2 * * 6 sh /opt/sserv/remove_logs.sh
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 4 * * 6 sh /opt/bserv/remove_logs.sh
+
+#57 23 * * * /bin/sh /root/rotatelog.sh
+#* * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+* */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+00 00 * * * /bin/sh /root/bin/cut_log.sh > /dev/null 2>&1
+* * * 1 * /bin/sh /root/bin/getlive404.sh
+*/1 * * * * /opt/nginx/logs/testlog.sh 
+192.168.12.177
+
+0 3 * * * /etc/init.d/cimserverd restart && date >> /var/log/cimrestart.log
+48 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 4 * * 6 sh /opt/bserv/remove_logs.sh
+#45 2 * * 7 sh /opt/bserv/hotbackup_dbds.sh
+
+12 2 * * * sh /opt/logs/stat.sh/stat_daily.sh
+12 3 * * 1 sh /opt/logs/stat.sh/stat_weekly.sh
+12 4 1,2,3,4,5,6,7 * 1 sh /opt/logs/stat.sh/stat_monthly.sh
+5 2 * * * sh /opt/bserv/hotbackup_bdb.sh 192.168.12.113 192.168.12.177 bdb
+2 * * * * sh /opt/bserv/hotbackup_arc.sh 192.168.12.113 192.168.12.177 bdb
+#57 23 * * * /bin/sh /root/rotatelog.sh
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+#* * * * * /bin/sh /root/watchApache.sh >> /tmp/watchApache.log
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+* * * 1 * /bin/sh /root/bin/getlive404.sh
+192.168.105.52
+
+#10 7 * * * mv -f /sysinfo /sysinfo.old; /usr/local/bin/cfgrpt.pl > /sysinfo;diff /sysinfo /sysinfo.old;[ $? -ne 0 ] && mail -s "server `/sbin/ip addr show | grep inet | grep -v 127.0.0.1 | awk -F/ '{print $1}' | awk '{print $2}' | tr '\n' '/' | sed -e 's/.$//'` is online or config changed" sys@sohu-inc.com < /sysinfo
+#10 17 * * * /usr/sbin/ntpdate ntp.sohu.com;/sbin/clock -w
+59 23 * * * /opt/sunwenfeng/ngnixcutlog.sh
+#0 * * * * /opt/sunwenfeng/NginxAccessLog/lookup.sh
+#15 * * * * /opt/sunwenfeng/NginxAccessLog/lookup.sh
+#45 * * * * /opt/sunwenfeng/NginxAccessLog/lookup.sh
+#30 * * * * /opt/sunwenfeng/NginxAccessLog/lookup.sh
+0 * * * * /opt/sh/bms_media_homepage.sh
+30 * * * * /opt/sh/bms_media_homepage.sh
+0 * * * * /opt/sh/wget.sh
+15 * * * * /opt/sh/wget.sh
+30 * * * * /opt/sh/wget.sh
+45 * * * * /opt/sh/wget.sh
+10 * * * * /bin/sh /opt/sh/ffk.sh
+55 * * * * /bin/sh /opt/sh/top_frag.sh
+#*/15 * * * * /opt/sh/check_sys.sh
+## following added by Dragon@2011-01-01  mobile:13701390306
+## for
+*/10 * * * * /bin/sh /opt/log/saveUGC2DB.sh > /opt/log/ugcjob.log 2>&1
+
+## end by Dragon
+10.11.157.25
+
+56 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.157.26
+
+56 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.157.27
+
+10 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+*/1 * * * * /usr/local/webserver/script/tongbu.sh
+2 2 * * * echo > /home/wwwlogs/chr_access.log > /dev/null 2>&1
+10.11.157.28
+
+12 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.38
+
+
+01 03 * * * /root/bin/logrotate.sh
+16 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.39
+
+
+01 03 * * * /root/bin/logrotate.sh
+24 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+2 */1 * * * rsync -az -e "ssh -i /opt/.ssh/id_rsa" /opt/VIPUserInfoForSOSO.xml 10.11.157.27:/opt/xml/
+10.11.152.40
+
+
+01 03 * * * /root/bin/logrotate.sh
+22 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.41
+
+
+01 03 * * * /root/bin/logrotate.sh
+34 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.42
+
+
+01 03 * * * /root/bin/logrotate.sh
+38 03 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.96
+
+24 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.44
+
+13 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.46
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+24 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* * * * *  /usr/local/nagios/bin/tongji_th.sh
+*/30 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+05 21 * * * cd /opt/sohutw/log/resin;find . -ctime +2 -exec rm {} \;
+10.11.152.47
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+26 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+
+*/30 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+* * * * *  /usr/local/nagios/bin/tongji_th.sh
+10.11.152.48
+
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+
+27 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* * * * *  /usr/local/nagios/bin/tongji_th.sh
+*/30 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+20 02 * * * find /opt/sohutw/log/resin -ctime +3 -exec rm {} \;
+10.11.152.49
+
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+51 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* * * * *  /usr/local/nagios/bin/tongji_th.sh
+00 03 * * * sh /root/bin/log_del.sh
+*/30 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10.11.152.50
+
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+
+52 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+*/30 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10.11.152.51
+
+52 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.52
+
+52 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+30 2 * * *  find /opt/sohutw/log/resin/ -ctime  +5 -exec rm {} \; 
+10.11.152.53
+
+53 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* 3 * * * find /opt/newtw/log/server/* -ctime +5 -exec rm {} \;
+10.11.152.54
+
+16 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+* 6  * * * find  /opt/newtw/log/server -ctime +5 -exec rm {} \;
+10.11.152.55
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+17 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+#*/2 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.56
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+18 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+#*/2 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.57
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+19 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+#*/30 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.58
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+20 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+#*/2 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.59
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+13 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+#*/2 * * * *  /usr/local/nagios/libexec/jstat.sh 9000 >/usr/local/nagios/libexec/jstat9000
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10.11.152.60
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh
+52 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#* * * * *  /usr/local/nagios/bin/tongji_th.sh
+10 2 * * * sh /opt/work/rmlog.sh > /dev/null 2>&1
+10 3 * * * find /opt/twitter-bar -name "app-bar.log*" -mtime +5 -exec rm {} \;
+10.11.152.61
+00 00 * * * echo `` > /usr/local/nginx/logs/access.log 
+40 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+#*/1 * * * * /usr/bin/wget -O /dev/null http://10.11.152.61:1234/deploy-app/newtwitter/index?type=js > /dev/null 2>&1
+*/1 * * * * /usr/local/webserver/script/tongbu.sh > /dev/null 2>&1
+*/5 * * * * /bin/sh /opt/data/deploy/deploy_css.sh > /dev/null 2>&1
+*/5 * * * * /bin/sh /opt/data/deploy/deploy_js.sh > /dev/null 2>&1
+10.11.152.62
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+11 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+11 11 * * * /sbin/clock -w
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+##get resin pid####
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh> /dev/null 2>&1
+#*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh> /tmp/get_resin_pid.log 2>&1
+00 02 * * * /root/bin/logrotate.sh
+31 21 * * * cd /opt/twitter-cooperate/resin/logs;./rm.sh
+5 3 * * * find /opt/newtw/log/ -ctime +4 -exec rm {} \;
+10.11.152.76
+00 0 * * * /bin/sh /root/bin/cut_log.sh >/dev/null 2>&1
+41 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+*/5 * * * * sh /usr/local/nagios/etc/get_resin_pid.sh> /dev/null 2>&1
+00 02 * * * /root/bin/logrotate.sh
+10.11.152.77
+
+46 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.78
+
+11 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+
+#0 3  * * *  /opt/sphinx2.0.1_64/bin/indexer -c /opt/sphinxconf/index_12.conf index_12 --rotate >> /tmp/delta.log
+10.11.152.79
+
+50 20 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+
+#视频搜索
+#* *  * * * /bin/sh /opt/sphinx0.9.9/search.sh rebuild_delta
+#0 3  * * * /bin/sh /opt/sphinx0.9.9/search.sh rebuild_main2
+
+#* * * * * /opt/sphinx2.0.1_64/bin/indexer -c /opt/sphinxconf/delta_min.conf delta_min --rotate >> /opt/sphinxconf/delta.log
+* * * * * /opt/sphinx-test/bin/indexer -c /opt/sphinxconf_test/delta_min.conf delta_min --rotate >> /opt/sphinxconf_test/delta.log
+
+0 2  * * * /bin/python -u /opt/shell_tool/check_index.py delta_day > /tmp/delta_day.log 2>&1 
+0 */1  * * * /bin/python -u /opt/shell_tool/check_index.py is_extend >> /tmp/is_extend.log 2>&1 
+10.11.152.80
+
+07 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+10.11.152.29
+
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+11 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+11 11 * * * /sbin/clock -w
+31 4 * * *  sh /opt/usersearch/day.sh 
+*/1 * * * *  sh /opt/usersearch/min.sh
+10.11.152.30
+
+47 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+*/5 * * * * scp /opt/mfs/state/mfs/metadata.mfs.back 10.11.152.31:/opt/mfs/state/mfs/
+
+
+
+#0 3  * * *  /opt/sphinx2.0.1_64/bin/indexer -c /opt/sphinxconf/delta_day.conf index_14 --rotate >> /tmp/delta.log
+#0 3  * * *  /opt/sphinx-test/bin/indexer -c /opt/sphinxconf_test/delta_day.conf index_15 --rotate >> /tmp/delta_test.log
+10.11.152.31
+
+48 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.32
+
+12 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+#0 3  * * *  /opt/sphinx_zoo/bin/indexer -c /opt/sphinxconf_test/delta_day.conf index_18 --rotate >> /tmp/delta_test.log
+10.10.82.80
+
+11 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.10.81.19
+
+16 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1
+59 23 * * * cd /opt/nginx/sbin;sh nginxcutlog.sh >> /tmp/nginxcutlog.log
+10.10.81.18
+
+31 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.33
+
+46 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+#* *  * * * /bin/sh /opt/sphinx/server.sh >>/opt/sphinx/server.log 2>>/opt/sphinx/server.log
+59 23 * * * /opt/nginx/sbin/nginxcutlog.sh
+
+####3g.t.sohu.com  top_frag######
+55 * * * * /bin/sh /opt/sh/top_frag.sh
+22 11 * * * sh /opt/logs/copy2remote.sh >> /opt/logs/allcopylog.log
+0 4 * * * cd /opt/resin/resin-twap-t2-jsp/log;sh rmlog.sh;
+
+10.11.152.34
+
+53 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+59 23 * * * /opt/nginx/sbin/nginxcutlog.sh
+30 1 * * * sh /opt/logs/copy2remote.sh >> /opt/logs/allcopylog.log
+0 4 * * * cd /opt/resin/resin-twap-t2-jsp/log;sh rmlog.sh;
+10.11.152.35
+
+48 10 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+0 4 * * * cd /opt/resin/resin-twap-t2-jsp/log;sh rmlog.sh;
+10.11.152.36
+
+25 12 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+##########m.t.sohu.com ffk###
+10 * * * * /bin/sh /opt/sh/ffk.sh
+
+10.11.152.87
+
+38 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+
+##########m.t.sohu.com ffk###
+10 * * * * /bin/sh /opt/sh/ffk.sh
+10.11.161.18
+
+41 11 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+## following added by Dragon@2011-01-01  mobile:13701390306
+## for
+*/10 * * * * /bin/sh /opt/log/saveUGC2DB.sh > /opt/log/ugcjob.log 2>&1
+
+0 3 * * * cd /opt/backup/nginx_logs;sh syncWapLog.sh > cront.log 2>&1
+0 4 * * * cd /opt/dm;sh job1_syncTClientDownloadData.sh > cront_job1.log 2>&1
+*/1 * * * * cd /opt/shell; sh monitor.sh
+1 * * * * cd /opt/90sambabackup/plan; sh backup.sh
+10.11.152.71
+31 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+00 02 * * * /root/bin/logrotate.sh
+00 04 * * * find /opt/sohutw/log/resin -ctime +3 -exec rm {} \;
+10.11.152.72
+44 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1
+00 02 * * * /root/bin/logrotate.sh
+30 03 * * * /opt/sohutw/apps/server/logrotate.sh
+5 3 * * * find /opt/newtw/log/server/* -ctime +5 -exec rm {} \;
+10.11.152.73
+
+59 16 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+2 3 * * * sh /opt/tools/clearlog.sh > /dev/null 2>1&
+00 00 * * * /bin/sh /root/bin/cut_log.sh > /dev/null 2>&1 
+00 02 * * * /bin/sh /root/bin/new_cut_log.sh > /dev/null 2>&1
+10.11.152.74
+
+12 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+
+2 3 * * * sh /opt/tools/clearlog.sh > /dev/null 2>1&
+10.11.152.75
+35 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+00 02 * * * /root/bin/logrotate.sh
+30 03 * * * /opt/sohutw/apps/server/logrotate.sh
+10.11.152.81
+
+15 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+55 * * * * /bin/sh /opt/sh/top_frag.sh
+30 04 * * * cd  /opt/resin/resin-twap-t2-jsp/log;find . -ctime +3 -exec rm {} \;
+10.11.152.82
+
+23 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.83
+
+29 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.84
+
+33 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.85
+
+45 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1
+0 1 * * * sh /opt/twitterlog/rmlog.sh > /dev/null 2>&1
+10.11.152.86
+
+49 21 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+0 1 * * * sh /opt/twitterlog/rmlog.sh > /dev/null 2>&1
+10.11.152.37
+
+07 22 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+*/3 * * * * /opt/itc/csync/bin/csyncwatchdog.sh >/dev/null 2>/dev/null
+10.11.152.88
+
+22 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+10.11.152.90
+
+25 22 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1
+0 4 * * * cd /opt/nginxlog_backup;sh getURL.sh > /dev/null 2>&1
+0 4 7 * * cd /opt/nginxlog_backup;sh rsync2no.sh > /dev/null 2>&1 
+
+##########bakcup nagios cacti#########
+0 1 * * * /opt/work/backupnagios_cacti.sh > /dev/null 2>&1
+192.168.12.143
+
+11 * * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1
+11 20 * * * /sbin/clock -w
+192.168.12.148
+
+21 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+6 5 * * * sh /opt/tools/clearlog.sh > /dev/null 2>&1
+192.168.12.151
+
+59 18 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+192.168.12.164
+
+17 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+#* *  * * * /bin/sh /opt/sphinx0.9.9/search.sh >>/tmp/server.log 2>>/tmp/server.log    
+
+#0 */2 * * * /bin/sh /home/twitter/delpolicefile.sh >> /opt/police_rank/del.log
+
+* * * * * /opt/web_test/sphinx-2.0.1-beta-new/bin/indexer  -c /opt/web_test/sphinxconf/sphinx_web_test.conf web_test_delta --rotate >> /opt/web_test/searchlog/delta.log
+
+192.168.12.165
+
+23 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+192.168.12.171
+
+24 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+
+54 23 * * * /bin/sh /root/rotatelog.sh
+58 23 * * * /bin/cat /dev/null > /opt/apache2/logs/speed_log
+#*/5 * * * * sh /opt/snsinc/inc_rsync.sh
+192.168.12.172
+56 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+0 0 * * * /bin/sh /opt/scribeClient/reloadpv.sh >>/opt/scribeClient/log 2>&1
+5 * * * * /bin/sh /root/tw_stat_click.sh >> tw_stat.log 2>>tw_stat.log
+59 * * * * /bin/sh /root/tw_cms_click.sh >> tw_stat.log 2>>tw_stat.log
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+30 0 * * * /usr/bin/find /opt/apache2/logs -name "access_*_log_*" -mtime +5 -exec rm -f {} \; 
+30 1 * * *  rsync --progress 10.10.98.206::search/ip2locationV2/location.dat /opt/apache2/ip2location/ >/opt/apache2/ip2location/log 2>&1
+192.168.12.173
+
+49 13 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+192.168.12.175
+#21 14 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 4 * * 6 sh /opt/bserv/remove_logs.sh
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+192.168.12.178
+
+58 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* * * * * sh /opt/bserv/servdog.sh bserv /opt/bserv/bserv.conf monitor >>/opt/bserv/bservdog.log
+1 4 * * 6 sh /opt/bserv/remove_logs.sh
+15 2 * * * sh /opt/bserv/hotbackup_bdb.sh 192.168.12.113 192.168.12.178 bdb
+2 * * * * sh /opt/bserv/hotbackup_arc.sh 192.168.12.113 192.168.12.178 bdb
+ * */6 * * * /usr/local/bin/IBM_monitor.sh> /dev/null 2>&1
+192.168.106.194
+
+13 17 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
+192.168.12.197
+
+20 15 * * * /usr/sbin/ntpdate ntp.sohu.com > /dev/null 2>&1;/sbin/clock -w
+* */6 * * * /usr/local/bin/IBM_monitor.sh > /dev/null 2>&1 
