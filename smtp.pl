@@ -25,17 +25,17 @@ use diagnostics;
 use Modern::Perl;
 
 
-use utf8;
-binmode(STDOUT, ':encoding(utf8)');
-binmode(STDIN, ':encoding(utf8)');
-binmode(STDERR, ':encoding(utf8)');
+#use utf8;
+#binmode(STDOUT, ':encoding(utf8)');
+#binmode(STDIN, ':encoding(utf8)');
+#binmode(STDERR, ':encoding(utf8)');
 
 
 use IO::Socket;
 use Net::SMTP;
 use Net::SMTP::SSL;
 use Fcntl qw(:DEFAULT :flock);
-use Posix qw(setsid);
+use POSIX qw(setsid);
 
 my $log_file = shift @ARGV;
 
