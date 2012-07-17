@@ -1,0 +1,13 @@
+LINUX、inotify-tools、xdotool、双显示器
+
+作用：保存代码时，自动刷新浏览器，再不用按F5了！
+
+inotifywait -mrq  –exclude “.svn”  -e close_write /data/www/source | while read line; do
+    id=`xdotool getactivewindow | head -1`
+    xdotool search –onlyvisible –class ‘chrome’ windowfocus key –clearmodifiers ctrl+r
+    #xdotool search –onlyvisible –class ‘firefox’ windowfocus key –clearmodifiers ctrl+r
+    #xdotool search –onlyvisible –class ‘opera’ windowfocus key –clearmodifiers ctrl+r
+    
+    xdotool windowactivate $id
+
+done
