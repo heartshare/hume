@@ -1,0 +1,58 @@
+global
+    log 127.0.0.1 local3 notice
+    ulimit-n 409600
+    maxconn 102400
+    chroot /home/haproxy
+    pidfile /home/haproxy/var/haproxy.pid
+    user haproxy
+    group haproxy
+    nbproc 4
+    daemon
+    quiet
+    
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    option redispatch
+    option forwardfor
+    option httpclose
+    option log-separate-errors
+    monitor-uri /do_not_delete/monitor.txt
+    retries 3
+    stats uri /haproxy-status
+    maxconn 102400
+    contimeout 5000
+    clitimeout 50000
+    srvtimeout 50000
+    stats auth admin:123456
+    
+frontend http_server
+    bind :80
+    default_backend info_cache
+    acl url_static path_end BKM400101.json
+    use_backend info_cache_temp if url_static
+    
+backend info_cache
+    option httpchk HEAD /live.js HTTP/1.1\r\nHost:\ info.2010.163.com
+    balance uri len 15 # url hash
+    server inst1 192.168.51.1:3128 check inter 5000 fall 3
+    server inst2 192.168.51.1:3129 check inter 5000 fall 3
+    server inst3 192.168.51.2:3128 check inter 5000 fall 3
+    server inst4 192.168.51.2:3129 check inter 5000 fall 3
+    server inst5 192.168.51.3:3128 check inter 5000 fall 3
+    server inst6 192.168.51.3:3129 check inter 5000 fall 3
+    
+backend info_cache_temp
+    option httpchk HEAD /live.js HTTP/1.1\r\nHost:\ info.2010.163.com
+    balance roundrobin # rr
+    server inst1 192.168.51.1:3128 check inter 5000 fall 3
+    server inst2 192.168.51.1:3129 check inter 5000 fall 3
+    server inst3 192.168.51.2:3128 check inter 5000 fall 3
+    server inst4 192.168.51.2:3129 check inter 5000 fall 3
+    server inst5 192.168.51.3:3128 check inter 5000 fall 3
+    server inst6 192.168.51.3:3129 check inter 5000 fall 3
+
+
+#squid-3128 squid只能使用单核，所以需要开多个squid，再绑定到不同的cpu
