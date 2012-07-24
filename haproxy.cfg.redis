@@ -1,0 +1,33 @@
+global
+    log 127.0.0.1   local4  notice
+    ulimit-n 40960
+    maxconn 10240
+    user haproxy
+    group haproxy
+    nbproc 4
+    daemon
+    quiet
+defaults
+    log global
+    mode http
+    option httplog
+    stats uri /haproxy
+    stats auth admin:admin
+    contimeout  5000
+    clitimeout  5000
+    srvtimeout  5000
+
+listen monitor
+    mode http
+    
+    bind 0.0.0.0:8080
+
+listen redis
+    bind    0.0.0.0:6379
+    mode tcp
+    log global
+    option tcplog
+    option tcpka
+    balance roundrobin
+    server redis1   127.0.0.1:6399 check inter 5000 fall 3
+    server redis2   127.0.0.1:6389 check inter 5000 fall 3
