@@ -1,0 +1,18 @@
+global
+    log 127.0.0.1  local3 notice
+    ulimit-n 40960
+    maxconn 10240
+    user haproxy
+    group haproxy
+    nbproc  4
+    daemon
+    quiet
+defaults
+    log     global
+    mode    tcp
+    option tcplog
+listen mm
+    bind 0.0.0.0:5222
+    balance roundrobin
+    mode   tcp
+    server test 192.168.50.148:5222

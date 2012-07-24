@@ -15,3 +15,67 @@
     逗号后须空一格，如foo(a, b, c);
 
 
+
+
+
+
+最近首页要改版，瞎折腾，还要新首页和旧首页并行服务，只有网友点击了“新版首页”的按钮后，才会显示新版首页，否则，显示旧版首页。
+灵感来自 ayou 的一段配置，我的实现原理如下：
+
+网友点击了切换按钮以后，利用 javascript set 一个 cookie ，如 newindex=y ，首页的 / 会作判断cookie ，然后 rewrite 到相应的页面。
+
+具体实现：
+1, 网友点击 set cookie，我抄了一段最简单的东西：
+<html>
+<head>
+<title>Welcome </title>
+<script type=”text/javascript”>
+function Set_Cookie( name, value, expires, path, domain, secure )
+{
+// set time, it’s in milliseconds
+var today = new Date();
+today.setTime( today.getTime() );
+/*
+if the expires variable is set, make the correct
+expires time, the current script below will set
+it for x number of days, to make it for hours,
+delete * 24, for minutes, delete * 60 * 24
+*/
+if ( expires )
+{
+expires = expires * 1000 * 60 * 60 * 24;
+}
+var expires_date = new Date( today.getTime() + (expires) );
+document.cookie = name + “=” +escape( value ) +
+( ( expires ) ? “;expires=” + expires_date.toGMTString() : “” ) +
+( ( path ) ? “;path=” + path : “” ) +
+( ( domain ) ? “;domain=” + domain : “” ) +
+( ( secure ) ? “;secure” : “” );
+}
+</script>
+</head>
+<body bgcolor=”white” text=”black”>
+<center><h1>it is a test</h1></center>
+<a href=”#” target=”_blank” onclick=”Set_Cookie( ‘newindex’, ‘y’, 30, ‘/’, ”, ” );window.location.href=’http://www.helosa.org/’;”>我要访问新首页</a>
+</body>
+</html>
+
+2，nginx 配置：
+
+location =/ {
+
+root html ;
+index index.html ;
+if ( $cookie_newindex = “y” )
+{
+rewrite ^/*$ /index_new.html break;
+}
+
+}
+
+其中 /index.html 是旧首页，/index_new.html 是新首页。
+如此一来，网友访问 http://www.helosa.org/ 时， location / 就会根据cookie rewrite 到相应的首页。但是要注意的是，
+http://www.helosa.org/index.html
+http://www.helosa.org/index_new.html
+访问的是正确的页面，因为判断 cookie 只在 / 做。
+

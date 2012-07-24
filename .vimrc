@@ -126,7 +126,7 @@ map <F4> i<CR>use strict;<CR>use warnings;<CR>use diagnostics;<CR>use Modern::Pe
 map <F5> i<CR>use utf8;<CR>binmode(STDIN, ':encoding(utf8)');<CR><CR><ESC>
 
 
-map <F6> i<CR>#use constant DEBUG=>0;<CR><CR>#use lib '/home/manbu/perl5/lib';<CR><CR>#use vars qw//;<CR><CR><ESC>
+map <F6> i<CR>#use constant DEBUG=>0;<CR><CR>#use lib '/home/hume/perl5/lib';<CR><CR>#use vars qw//;<CR><CR><ESC>
 
 
 " always show status line
