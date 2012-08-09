@@ -1,0 +1,7 @@
+spawn lftp 10.10.72.66 -u administrator,m6i1m2a3
+expect "lftp administrator@10.10.72.66:~>"
+send "cd 10iiplist\r"
+expect "lftp administrator@10.10.72.66:/10iiplist>"
+send "mput /tmp/10i/*\r"
+expect "bytes transferred"
+send "bye"
