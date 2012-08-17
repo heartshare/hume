@@ -1,0 +1,30 @@
+被动模式
+
+
+
+vi proftpd.conf
+
+#PassivePorts min-pasv-port max-pasv-port
+PassivePorts 60000 65000
+
+Min-pasv-port must be port >= 1024.
+
+
+
+vi /etc/vsftpd.conf
+在配置文件的最下面 加入
+
+pasv_min_port=60000
+pasv_max_port=65000
+
+
+
+iptables -F
+iptables -P INPUT DROP
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -p tcp -m multiport --dports 21,22 -j ACCEPT
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 60000:65000 --syn -j ACCEPT
+
+
+
