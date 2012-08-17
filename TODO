@@ -35,3 +35,8 @@ http://www.vpsee.com/2012/06/enable-linux-console-on-kvm/
 http://www.cnblogs.com/ychellboy/archive/2012/05/14/2499549.html
 
 
+
+
+cron邮件，如果真的不需要通知，在crontab里命令行后面弄一句「> /dev/null 2>&1」也行。
+
+
