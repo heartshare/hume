@@ -1,0 +1,83 @@
+如果，我是A，他是B，我们都拥有自己的ssh key。但现在我们想以同一个用户C的身份登录，是否可以实现呢？？
+
+只要把我们的public key append 到C用户的pubilc key 就行了，服务器寻找用户的public key，在/etc/ssh/sshd_config 里配置，默认是/home/C/.ssh/authorized_keys .
+
+cat /home/A/.ssh/authorized_keys >> /home/C/.ssh/authorized_keys
+
+cat /home/B/.ssh/authorized_keys >> /home/C/.ssh/authorized_keys
+
+然后A 就 ssh C@ip 就可以用C用户来登录了，B也同样可以。
+
+
+
+
+
+1.利用多线程，同时发出登录请求，同时去连接电脑，这样速度快很多，我试了一下，如果不用多线程，直接一个一个挨着执行的话，大约5～10秒钟才 能对一台电脑操作完，具体时间要根据命令的来决定，如果是软件安装或者卸载时间要更长一些。这样下来怎么也要一二十分钟，用多线程后就快多了，所有的命令 执行完用了不到2分钟！
+
+2.最好用root用户登录，因为安装或者卸载软件的时候如果用普通用户又会提示输入密码，这样又多了一次交互，处理起来就比较麻烦！安装软件时 apt-get install xxx 最好加上“-y”参数，因为有时安装或删除软件时提示是否继续安装或卸载，这又是一次自动交互！加上那个参数后就没有人机交互了。
+
+3. 循环时循环所有ip，因为计算机的ip是路由器自动分配的，保险起见，最好全部都执行，保证没有遗漏的主机
+
+4.远端执行命令时如果有交互，可以这样用 stdin.write("Y")来完成交互，“Y”就是输入“Y”。
+
+5.把所有的命令放到一个列表里面，遍历列表可以依次执行列表里面的命令
+
+6.为了更好的进行控制，最好在电脑上提前把root用户打开，装好ssh服务器并让其开机自动执行。
+
+
+cat <<EOF >auto_ssh.py
+
+
+#coding:utf-8
+import paramiko
+import os
+import sys
+import traceback
+
+
+def ping_good(ip):
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        ssh.connect(ip,username='root',key_filename='/root/.ssh/id_rsa')
+        a,b,c = ssh.exec_command('uptime')
+        print b.read()
+        ssh.close()
+        return True
+    except:
+        return False
+
+def fix_host(ip,pub):
+    if ping_good(ip):
+        print 'already!'
+        return
+
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    pwd = raw_input('%s @password: ' % ip)
+    try:
+        ssh.connect(ip, username='root', password=pwd)
+        stdin, stdout, stderr = ssh.exec_command('mkdir ~/.ssh/;echo %s >> ~/.ssh/authorized_keys'% (pub) )
+        print stdout.readlines()
+    except:
+        ssh.close()
+        return
+    try:
+        print os.system("ssh root@%s uptime" % ip)
+    except:
+        return
+
+ip_list="""
+10.11.152.206
+"""
+
+pub_str = file('/root/.ssh/id_rsa.pub','rt').read()
+pub_str = pub_str.strip()
+print pub_str,"\n"
+for l in ip_list.split("\n"):
+    ip = l.strip()
+    if not ip:continue
+    fix_host(ip,pub_str)
+
+
+EOF
