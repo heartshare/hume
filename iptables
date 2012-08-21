@@ -1,0 +1,14 @@
+*filter
+:INPUT ACCEPT [10276:1578052]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [13784:16761487]
+-A INPUT -s 10.0.0.0/255.0.0.0 -i eth1 -j DROP
+-A INPUT -s 172.16.0.0/255.240.0.0 -i eth1 -j DROP
+-A INPUT -s 192.168.0.0/255.255.0.0 -i eth1 -j DROP
+# anti Sync Flood
+-A FORWARD -p tcp -m tcp --tcp-flags SYN,RST,ACK SYN -m limit --limit 1/sec -j ACCEPT
+# anti some port scan
+-A FORWARD -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK RST -m limit --limit 1/sec -j ACCEPT
+# anti ping of death
+-A FORWARD -p icmp -m icmp --icmp-type 8 -m limit --limit 1/sec -j ACCEPT
+COMMIT
