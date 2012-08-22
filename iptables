@@ -1,0 +1,66 @@
+*filter
+:INPUT ACCEPT [10276:1578052]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [13784:16761487]
+-A INPUT -s 10.0.0.0/255.0.0.0 -i eth1 -j DROP
+-A INPUT -s 172.16.0.0/255.240.0.0 -i eth1 -j DROP
+-A INPUT -s 192.168.0.0/255.255.0.0 -i eth1 -j DROP
+# anti Sync Flood
+-A FORWARD -p tcp -m tcp --tcp-flags SYN,RST,ACK SYN -m limit --limit 1/sec -j ACCEPT
+# anti some port scan
+-A FORWARD -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK RST -m limit --limit 1/sec -j ACCEPT
+# anti ping of death
+-A FORWARD -p icmp -m icmp --icmp-type 8 -m limit --limit 1/sec -j ACCEPT
+COMMIT
+
+
+
+
+#头两行是注释说明
+# Firewall configuration written by system-config-securitylevel
+# Manual customization of this file is not recommended.
+#使用filter表
+*filter
+#下面四条内容定义了内建的INPUT、FORWAARD、ACCEPT链，还创建了一个被称为RH-Firewall-1-INPUT 的新链
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:RH-Firewall-1-INPUT - [0:0]
+#将所有流入的数据写入到日志文件中
+-A INPUT -j LOG --log-level crit
+#下面这条规则将添加到INPUT链上，所有发往INPUT链上的数据包将跳转到RH-Firewall-1链上。
+-A INPUT -j RH-Firewall-1-INPUT
+#下面这条规则将添加到FORWARD链上，所有发往INPUT链上的数据包将跳转到RH-Firewall-1链上。
+-A FORWARD -j RH-Firewall-1-INPUT
+#下面这条规则将被添加到RH-Firewall-1-input链。它可以匹配所有的数据包，其中流入接口（-i）是一个环路接口(lo)。
+#匹配这条规则的数据包将全部通过（ACCEPT），不会再使用别的规则来和它们进行比较
+-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+#下面这条规则是拒绝所以的icmp包-p 后是协议如：icmp、tcp、udp。端口是在-p后面--sport源端口，--dport目的端口。-j 指定数据包发送的
+#目的地址如：ACCEPT、DROP、QUEUE等等
+-A RH-Firewall-1-INPUT -p icmp --icmp-type any -j DROP
+-A RH-Firewall-1-INPUT -p 50 -j ACCEPT
+-A RH-Firewall-1-INPUT -p 51 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+#-m state --state ESTABLISHED,RELATED 这个条件表示所有处于ESTABLISHED或者RELATED状态的包，策略都是接受的。
+#-m state --state NEW 这个条件是当connection的状态为初始连接(NEW)时候的策略。
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 2049 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m udp -p udp --dport 137 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m udp -p udp --dport 138 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 139 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 445 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 23 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j DROP -s 222.221.7.84
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 25 -j ACCEPT
+-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+
+
+
+iptables -I INPUT 1 -p tcp --dport 2000 -j ACCEPT：上面的数字1表示将这条规则插入到INPUT链中的第一条规则之上

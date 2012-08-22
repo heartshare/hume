@@ -1,0 +1,37 @@
+cobbler repo add --name=epel6-x86_64 --breed=yum --mirror=http://mirrors.ustc.edu.cn/epel/6/x86_64/
+
+cobbler system  add --name=node12 \
+--hostname=master.test.com  \
+--dns-name=master.test.com \
+--profile=CentOS-6.2-x86_64 \
+--mac=00:25:90:67:99:66 \
+--interface=eth0 \
+--ip-address=10.1.199.12 \
+--subnet=255.255.255.0 \
+--gateway=10.1.199.1 \
+--static=1 \
+--power-type=ipmitool \
+--power-user=ADMIN \
+--power-pass=ADMIN \
+--power-address=10.1.199.212
+
+
+
+cobbler 安装centos设置固定IP
+
+cobbler system edit --name=node58 --profile=CentOS6.2-x86_64 --mac=00:25:90:2D:7A:42 --interface=eth0 --ip-address=172.16.10.58 --hostname=node58.test.com --gateway=172.16.10.1 --dns-name=114.114.114.114 --static=1
+设置完，可以用
+
+# cobbler system report --name=node58
+查看一下设置。这个时候，开机装完系统就可以。
+
+
+
+创建本地源，应该很多办法，我的需求就是需要下载ubuntu 12.04，update，security，backports的源到本地，给cobbler使用。
+cobbler提供工具专门干这个事情，就不需要你那么麻烦。
+我的cobbler，不知道什么原因，cobbler repo add这个命令失效。
+ 
+cobbler repo  edit --name=precise-x86_64-backports --mirror=http://cn.archive.ubuntu.com/ubuntu//dists/precise-backports
+cobbler reposync precise-backports
+就可以了。
+cobbler system add --name=node62 --profile=precise-x86_64-auto --mac=00:e0:81:d7:f0:86 --interface=eth0 --ip-address=10.1.247.62 --hostname=node62.test.com --gateway=10.1.247.1  --static=1 --power-type=ipmitool --power-user=albert --power-pass=admin --power-address=10.1.247.212
