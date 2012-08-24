@@ -37,3 +37,32 @@ pt-
 
 
 qprof
+
+
+
+iodump
+
+iodump 是一个统计每一个进程(线程)所消耗的磁盘I/O工具。这个一个perl脚本，其原理时打开有关I/O的内核记录消息开关，而后读取消息然后分析输出。简单使用步骤如下：
+
+首先下载这个工具
+
+wget http://aspersa.googlecode.com/svn/trunk/iodump
+
+然后打开有关I/O内核消息的开关
+
+echo 1 >/proc/sys/vm/block_dump
+
+上述开关打开后，内核会记录下每一个I/O操作的消息。我们只需要定时获取并分析就好了，比如下面这样
+
+while true; do sleep 1; dmesg -c ; done |perl iodump
+
+等待一段时间，然后通过ctrl+c来结束上述脚本，你将获得下面类似的信息:
+
+TASK                   PID      TOTAL       READ      WRITE      DIRTY DEVICES
+postgres              5799       1919       1919          0          0 sda7
+jbd2/sda7-8           1572         35          0         35          0 sda7
+jbd2/sda2-8            250         32          0         32          0 sda2
+flush-8:0             2229         31          0         31          0 sda2, sda7
+postgres              4308          2          0          2          0 sda7
+bash                  5804          1          0          1          0 sda2
+上述输出的单位为块(block)，每块的大小取决于创建文件系统时指定的块大小。比如我这个里的sda7的block大小是1KB。
