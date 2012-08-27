@@ -67,6 +67,7 @@ iptables -I INPUT 1 -p tcp --dport 2000 -j ACCEPT：上面的数字1表示将这
 
 
 
+<<<<<<< HEAD
 对应关系
 INPUT –dport -s
 OUTPUT –sport -d
@@ -141,5 +142,13 @@ iptables -t nat -A PREROUTING -d 192.168.0.8|192.168.0.0/24 -j DROP
 3、禁止连接某IP或IP段的FTP的21端口
 iptables -t nat -A PREROUTING -p tcp –dport 21 -d 192.168.0.8|192.168.0.0/24 -j DROP
 
+=======
+
+
+
+iptables -t nat -A PREROUTING -s 192.168.18.0/24 -i eth0 -p tcp -m tcp –dport 80 -j DNAT –to-destination 192.168.18.1:3128
+
+iptables -t nat -A POSTROUTING -j MASQUERADE
+>>>>>>> 11d7be701806050929c2f125fa568c1e6574e292
 
 
