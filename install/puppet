@@ -1,0 +1,64 @@
+基本照做，有些小变化。
+
+两台机器
+
+master.test.com
+client.test.com
+
+开始前，确保两台机器，域名可以互相ping通
+
+在master机器上，把iptables服务停止，避免没有必要的端口麻烦。
+
+1：安装epel源
+
+rpm -ivh http://mirrors.ustc.edu.cn/fedora/epel/6/x86_64/epel-release-6-7.noarch.rpm
+
+需要在两台机器上都安装。
+
+2：安装puppet服务器端
+
+yum install puppet-server 
+chkconfig puppet on 
+service puppetmaster start 
+
+3：client机器安装puppet客户端
+
+yum install puppet
+
+Puppet 客户端使用 HTTPS 和服务端（master）通信，为了和服务器端通信必须有合法的 SSL 认证，第一次运行 puppet 客户端的时候会生成一个 SSL 证书并指定发给 Puppet 服务端。
+
+puppet agent --no-daemonize --onetime --verbose --debug --server=master.test.com
+
+
+大概会输出下面的内容
+debug: Finishing transaction 70048697338620
+info: Creating a new SSL key for client.test.com
+warning: peer certificate won't be verified in this SSL session
+info: Caching certificate for ca
+warning: peer certificate won't be verified in this SSL session
+warning: peer certificate won't be verified in this SSL session
+info: Creating a new SSL certificate request for client.test.com
+info: Certificate Request fingerprint (md5): 81:25:7F:35:34:65:8F:D5:44:43:66:78:B5:D3:14:10
+warning: peer certificate won't be verified in this SSL session
+debug: Using cached certificate for ca
+warning: peer certificate won't be verified in this SSL session
+debug: Using cached certificate for ca
+warning: peer certificate won't be verified in this SSL session
+Exiting; no certificate found and waitforcert is disabled
+
+
+4: master签发证书
+
+[root@master ~]# puppet cert list --all
+  client.test.com (81:25:7F:35:34:65:8F:D5:44:43:66:78:B5:D3:14:10)
++ master.test.com (C1:81:32:E2:1B:28:FE:61:02:65:B8:F4:AA:BD:1A:BA) (alt names: DNS:master.test.com, DNS:puppet, DNS:puppet.test.com)
+
+
+[root@master ~]# puppet cert --sign client.test.com
+notice: Signed certificate request for client.test.com
+notice: Removing file Puppet::SSL::CertificateRequest client.test.com at '/var/lib/puppet/ssl/ca/requests/client.test.com.pem'
+
+[root@master ~]# puppet cert list --all            
++ client.test.com (1C:C4:82:DD:96:3D:02:BA:D4:E0:E7:CD:F0:E5:4F:95)
++ master.test.com (C1:81:32:E2:1B:28:FE:61:02:65:B8:F4:AA:BD:1A:BA) (alt names: DNS:master.test.com, DNS:puppet, DNS:puppet.test.com)
+
