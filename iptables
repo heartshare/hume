@@ -64,3 +64,82 @@ COMMIT
 
 
 iptables -I INPUT 1 -p tcp --dport 2000 -j ACCEPT：上面的数字1表示将这条规则插入到INPUT链中的第一条规则之上
+
+
+
+对应关系
+INPUT –dport -s
+OUTPUT –sport -d
+添加规则
+iptables -A INPUT|OUTPUT -s 源IP -d 目的IP -p all|tcp|udp|icmp –sport 源端口 –dport 目的端口 -j ACCEPT|DROP
+iptables -A FORWARD -i 输入网卡 -o 输出网卡 -m state –state RELATED,ESTABLISHED -j ACCEPT|DROP
+iptables -t nat -A PREROUTING -i 输入网卡 -s 源IP -d 目的IP –sport 源端口 –dport 目的端口 -j ACCEPT|DROP
+删除规则
+iptables -D INPUT|OUTPUT -s 源IP -d 目的IP -p all|tcp|udp|icmp –dport 端口 -j ACCEPT|DROP
+iptables -D FORWARD -i 输入网卡 -o 输出网卡 -m state –state RELATED,ESTABLISHED -j ACCEPT|DROP
+
+一、INPUT|OUTPUT链
+1、允许rsync到远程服务器
+iptables -A OUTPUT -p tcp –sport 873 -d 目的IP -j ACCEPT
+2、允许WWW服务的80端口
+iptables -A INPUT -p tcp –dport 80 -j ACCEPT
+iptables -A OUTPUT -p tcp –dport 80 -j ACCEPT
+3、允许邮件服务的25和110端口
+iptables -A INPUT -p tcp –dport 25 -j ACCEPT
+iptables -A OUTPUT -p tcp –dport 25 -j ACCEPT
+iptables -A INPUT -p tcp –dport 110 -j ACCEPT
+iptables -A OUTPUT -p tcp –dport 110 -j ACCEPT
+4、允许FTP服务的21和20端口
+iptables -A INPUT -p tcp –dport 21 -j ACCEPT
+iptables -A OUTPUT -p tcp –dport 21 -j ACCEPT
+iptables -A INPUT -p tcp –dport 20 -j ACCEPT
+iptables -A OUTPUT -p tcp –dport 20 -j ACCEPT
+5、允许DNS服务的53端口
+iptables -A INPUT -p tcp –dport 53 -j ACCEPT
+iptables -A OUTPUT -p tcp –dport 53 -j ACCEPT
+6、允许rsync的873端口
+iptables -A INPUT -p all –dport 873 -j ACCEPT
+iptables -A OUTPUT -p all –sport 873 -j ACCEPT
+7、允许NRPE的5666端口
+iptables -A INPUT -s 源IP -p all –dport 5666 -j ACCEPT
+iptables -A OUTPUT -d 目的IP -p all –sport 5666 -j ACCEPT
+8、允许Ping
+iptables -A INPUT -p icmp -j ACCEPT
+iptables -A OUTPUT -p icmp -j ACCEPT
+9、允许loopback!(不然会导致DNS无法正常关闭等问题)
+iptables -A INPUT -i lo -p all -j ACCEPT
+iptables -A OUTPUT -o lo -p all -j ACCEPT
+10、只允许某IP或某网段的机器进行SSH连接
+iptables -A INPUT -s 192.168.0.8|192.168.0.0/24 -p tcp –dport 22 -j ACCEPT
+11、允许所有已经建立的和相关的连接
+iptables -A INPUT -m state –state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state –state ESTABLISHED,RELATED -j ACCEPT
+12、拒绝非法连接
+iptables -A INPUT -m state –state INVALID -j DROP
+iptables -A OUTPUT -m state –state INVALID -j DROP
+
+二、FORWARD链
+1、开启转发功能(在做NAT时,FORWARD默认规则是DROP时,必须做)
+iptables -A FORWARD -i eth0 -o eth1 -m state –state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i eth1 -o eh0 -j ACCEPT
+2、丢弃坏的TCP包
+iptables -A FORWARD -p TCP ! –syn -m state –state NEW -j DROP
+3、处理IP碎片数量,防止攻击,允许每秒100个
+iptables -A FORWARD -f -m limit –limit 100/s –limit-burst 100 -j ACCEPT
+4、设置ICMP包过滤,允许每秒1个包,限制触发条件是10个包.
+iptables -A FORWARD -p icmp -m limit –limit 1/s –limit-burst 10 -j ACCEPT
+5、禁止非法连接
+iptables -A FORWARD -m state –state INVALID -j DROP
+
+三、NAT表
+1、防止外网用内网IP欺骗
+iptables -t nat -A PREROUTING -i eth0 -s 10.0.0.0/8 -j DROP
+iptables -t nat -A PREROUTING -i eth0 -s 172.16.0.0/12 -j DROP
+iptables -t nat -A PREROUTING -i eth0 -s 192.168.0.0/16 -j DROP
+2、禁止与某IP或IP段的所有连接
+iptables -t nat -A PREROUTING -d 192.168.0.8|192.168.0.0/24 -j DROP
+3、禁止连接某IP或IP段的FTP的21端口
+iptables -t nat -A PREROUTING -p tcp –dport 21 -d 192.168.0.8|192.168.0.0/24 -j DROP
+
+
+
