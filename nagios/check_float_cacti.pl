@@ -20,9 +20,6 @@
 
 use strict;
 use warnings;
-use Modern::Perl;
-
-use Smart::Comments;
 
 
 my $net_in;
@@ -39,32 +36,31 @@ open $net_dev, "< /proc/net/dev" or die "cannot open /pro/net/dev: $!";
 
 while (<$net_dev>) {
     chomp;
-    next unless /eth2/;
+    next unless /eth0/;
     my $line = $_;
     $net_in_old =( split /\s+/, (split /:/, $line)[1])[0];
     $net_out_old =( split /\s+/, (split /:/, $line)[1])[8];
-    #print "$net_in_old \n";
-    #print "$net_out_old \n";
 }
 
 close $net_dev;
 
 sleep 1;
 
-
-
 open $net_dev, "< /proc/net/dev" or die "cannot open /pro/net/dev: $!";
 
 while (<$net_dev>) {
     chomp;
-    next unless /eth2/;
+    next unless /eth0/;
     my $line = $_;
     $net_in =( split /\s+/, (split /:/, $line)[1])[0];
     $net_out =( split /\s+/, (split /:/, $line)[1])[8];
-    #print "$net_in\n";
-    #print "$net_out\n";
 }
 
+my $in_rate_1 = (($net_in - $net_in_old) * 100)/(1024*1024*1024);
+my $out_rate_1 = (($net_out - $net_out_old) * 100)/(1024*1024*1024);
 
-print $net_in - $net_in_old, "\n";
-print $net_out - $net_out_old, "\n";
+my $in_rate = sprintf("%.2f", $in_rate_1);
+my $out_rate = sprintf("%.2f", $out_rate_1);
+
+print "in: $in_rate%\n";
+print "out: $out_rate%\n";
