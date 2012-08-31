@@ -3,20 +3,15 @@
 # test network width
 
 function usage
-
 {
-
 	echo "Usage: $0  "
-
 	echo "    e.g. $0 eth0 2"
-
 	exit 65
-
 }
 
 
 if [ $# -lt 2 ];then
-usage
+    usage
 fi
 typeset in in_old dif_in
 typeset out out_old dif_out
