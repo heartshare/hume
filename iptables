@@ -152,3 +152,12 @@ iptables -t nat -A POSTROUTING -j MASQUERADE
 >>>>>>> 11d7be701806050929c2f125fa568c1e6574e292
 
 
+
+
+
+
+# Prevent SSH Attack
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 3 --name SSH -j DROP
+# Enable Normal SSH Connection
+iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
