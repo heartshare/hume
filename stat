@@ -66,3 +66,8 @@ flush-8:0             2229         31          0         31          0 sda2, sda
 postgres              4308          2          0          2          0 sda7
 bash                  5804          1          0          1          0 sda2
 上述输出的单位为块(block)，每块的大小取决于创建文件系统时指定的块大小。比如我这个里的sda7的block大小是1KB。
+
+
+
+
+httping
