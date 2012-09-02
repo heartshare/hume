@@ -184,3 +184,21 @@ iptables -t mangle -A LMT2 -j DROP
 当然，这只是一个示范性的例子了，其中limit模块也可以改用更为强大的hashlimit，hashsped等模块。
 还可以用connlimit使用连接数作为限制条件。。。。。。。。。。
 如果再把这些模块结合MARK和TC流量控制，就实现了某些路由器的所谓“条件限速”“P2P惩罚”等功能。
+
+
+
+
+
+
+
+
+echo "starting ip forward"
+echo 1 >/proc/sys/net/ipv4/ip_forward
+echo "starting iptables rules"
+modprobe ip_tables
+modprobe ip_nat_ftp
+/sbin/iptables -F -t nat
+iptables -t nat -A PREROUTING -i eth0 -p tcp -m tcp --dport 80 -jREDIRECT --to-ports3128
+#将所有80#端口的包转发到3128端口
+iptables -t nat -A POSTROUTING -o eth0 -jMASQUERADE
+#对eth0端口进行欺骗,单网卡用不到
