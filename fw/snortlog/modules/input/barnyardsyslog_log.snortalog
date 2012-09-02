@@ -1,0 +1,76 @@
+#
+# Rev   : 1.00
+# Date  : 06/16/2005
+# By    : Jeremy Chartier
+#
+
+sub barnyardsyslog_log {
+	#
+	# TEST IF THE LOG CORRESPOND TO A SYSLOG BARNYARD ALERT
+	#
+
+
+
+        #
+        # Erase this string :
+        # 1- BARNYARD 
+        #
+        s/\[barnyard]\s//ox;
+        s/barnyard:\s//ox;
+
+
+#	if ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+?)\s+\[[0-9:]+\]\s+//ox ) {
+	if ( ($_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+\[[0-9:]+\]\s+//ox) || ($_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+?)\s+\[[0-9:]+\]\s+//ox) ) {
+		$barnyardsyslog = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5;    $alert->{HOST} = $6;
+		#
+		# GET INTERFACE
+		#
+		if ( $_ =~ s/\<(\S+)\>//ox ) {
+			$alert->{ETHER} = $1;
+		} else {
+			$alert->{ETHER} = "";
+		}
+		if ( $_ =~ m/^Portscan\sdetected\sfrom\s([\d\.]+)/ox) { # portscan
+			$alert->{SADDR} = $1; $alert->{TYPE} = "snort_portscan"; $alert->{PLUGIN} = "alert";
+			$alert->{CLASS} = "flow-portscan"; $alert->{SEVERITY} = "unknown"; $alert->{HOST} = "localhost";
+			record_data($alert);
+		} elsif ( $_ =~ s/(portscan|http\_inspect|snort\_decoder|spp\_stream4|spp\_frag2):\s+//ox ) {
+			$CLASS = $1; $alert->{CLASS} = $CLASS; $alert->{PLUGIN} = "alert"; 
+			s/\[Classification:[^\:|^\]]*?\]\s+\[Priority:\s+\d\]\s+{(\w+|\d+)\}\s+([\d\.]+)[\:]?([\d]+)\s[\-\>]+\s([\d\.]+)[\:]?(\d+)//ox;
+			$PROTO = $1; $PROTO =~ tr/A-Z/a-z/; $alert->{PROTO} = $PROTO;
+			$alert->{SADDR} = $2; $alert->{SPORT} = $3;
+			$alert->{DADDR} = $4; $alert->{DPORT} = $5;
+			$alert->{SIG} = "($CLASS) $_"; $alert->{TYPE} = "snort_processor";
+			$alert->{PLUGIN} = "alert"; $alert->{SEVERITY} = "unknown";
+			record_data($alert);
+		} else {
+			if ( $_ =~ s/\{(\w+|\d+)\}\s+([\d\.]+)\:(\d+)\s[\-\>]+\s([\d\.]+)\:(\d+)//ox) {
+				$PROTO = $1; $PROTO =~ tr/A-Z/a-z/; $alert->{PROTO} = $PROTO;
+				$alert->{SADDR} = $2; $alert->{SPORT} = $3; 
+				$alert->{DADDR} = $4; $alert->{DPORT} = $5; 
+			} elsif ( $_ =~ s/\{(\w+|\d+)\}\s+([\d\.]+)\s[\-\>]+\s([\d\.]+)//ox ) {
+				$PROTO = $1; $PROTO =~ tr/A-Z/a-z/; $alert->{PROTO} = $PROTO;
+				$alert->{SADDR} = $2; $alert->{SPORT} = 0; 
+				$alert->{DADDR} = $3; $alert->{DPORT} = 0; 
+			}
+			s/\s+\[Classification\:\s+([^\[|^\]]*?)\]\s+\[Priority\:\s+(\d)\]\s+//ox;
+				if ($2 == 1) {
+					$severity = "high";
+				} elsif ($2 == 2) {
+					$severity = "medium";
+				} elsif ($2 == 3) {
+					$severity = "low";
+				} else {
+					$severity = "unknown"
+				}
+			$alert->{CLASS} = $1; $alert->{PRIORITY} = $2;
+			$alert->{SEVERITY} = $severity;
+			$alert->{SIG} = "$_ {$PROTO}"; $alert->{PLUGIN} = "alert"; $alert->{TYPE} = "snort_signature";
+			record_data($alert); $lastwassnort = 1;
+		}
+	}
+}
+
+1;

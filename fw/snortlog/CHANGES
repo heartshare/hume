@@ -1,0 +1,187 @@
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::
+SnortAlog V2.4.3 by jeremy.chartier@free.fr 
+-------------------------------------------
+:::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::
+
+
+V2.4.3 02/02/2011
+--------------------
+* Add JUNIPER NetScreen log detection
+* Add TIPPINGPOINT log detection
+* Correct some typos or minor errors in messages or comments
+* Verify CHECK POINT Fw-1 R65 log detection direct from "fw log -n" command
+* Verify CHECK POINT Fw-1 R65 statistics directly from stateful connection table with a "fw tab -t connections -f -m 25000" command
+* Verify CHECK POINT Fw-1 R71 statistics directly from stateful connection table with a "fw tab -t connections -f -m 0" command
+* Works with the lastest GD libraries (PPM or not)
+* Improvement of the Windows compatibilities
+
+
+V2.4.2 04/02/2007
+--------------------
+* Add CHECK POINT Fw-1 log detection direct from "fw log -n" command
+* Add CHECK POINT Fw-1 statistics directly from stateful connection table with a "fw tab -t connections -f -m 25000" command
+* Pix log detection enhancement (syslog datagram)
+* Add Russian language
+
+V2.4.1 01/25/2007
+--------------------
+* Correct the graph color for high, medium and low alert
+* Pix log detection enhancement (Spoofing)
+* Add CISCO Pix message codes
+* Add JUNIPER NetScreen log detection (testing period)
+* Add Japanese language
+* Add new reports for Firewall logs
+* GUI improvements
+
+V2.4.0 11/31/2005
+--------------------
+* Snort 2.4 log detection compatibility
+* Correct bug in "Daily Events" to sort the output
+* Big GUI improvements
+* "-h" and "-p" options arent replaced by "-o"
+* New engine with which the memory process and performance arent amazing
+* New HTML output (hope you will like it)
+* New GUI (in work)
+* Pix log detection enhancement (Hardware related message and IDS)
+* Lucent Brick log detection
+
+V2.3.0 12/02/2004
+-----------------
+* New modular architecture
+* Work now with PF (Packet Filter) logs
+* Upgrade snort syslog alert detection
+* New feature : Whois Database information available with "-w" option
+* Add option to specify alert type detection
+* The code has been cleaned
+* GUI update
+* Pix ICMP log detection enhancement
+* Smartdefense ICMP log detection enhancement
+* HTML output improvement
+* PDF output improvement
+* Add "-a" option for ASCII output (thanks Jean Jacques)
+* Add "-langfile" and "-l" option for multilanguage output
+* Improve the perl librairie dependencie usage (thanks Jean Jacques)
+* Correct some small bugs (PDF generation)
+
+V2.2.1 05/04/2004
+-----------------
+* New HTML output
+* TEXT output improvement
+* GUI improvement
+* Correct some small bugs (thanks Randy)
+
+V2.2 03/29/2004
+---------------
+* Work with flow and flow-portscan snort's 2.1 preprocessor
+* Work now with "-e" Snort option (Display the second layer header info)
+* All Snort regular expression have been rewritten
+* Possibilitiy to use DBM
+* Code optimization (more faster)
+* Improve text anglicised (too hard :) )
+* Work on Windows box (basic option: no graph)
+* Improve Netfilter log detection
+* Add the possibility to work directly from Fw-1 log export command (4.1 and NG)
+* Work now with Fw-1 SmartDefense logs
+* Work now with syslog PIX logs
+* Correct bug (SnortALog crash when it generate graph with a lot of data)
+* Modify PDF Documentation
+
+V2.1 12/16/2003
+---------------
+* Add the possibilitie to make filter (specificly high attack or src, etc ...)
+* Improve the GUI
+* Add the possibilitie to generate PDF file on the fly
+* Correct some small bugs
+
+V2.0 09/25/2003
+---------------
+* Improve the possibility to link the signature to the reference attack description
+  with all snort's logs format.
+* Graphic user interface.
+* Correct some small bugs.
+* Works with Fw-1 and Ipfilter logs (syslog exclusively)
+* Add news reports.
+* Improve HTML output.
+* Add functionnality like the possibility to disable TK or GD librairies.
+
+V1.9.0 04/15/2003
+---------------
+* Three alert's type full working.
+* Add a subroutine for generate a signature's file.
+* Recognize if several instances of snort arent launched on the same host.
+* Now create graphs in Gif, Png or Jpg format for HTML output.
+
+
+V1.8 03/03/2003
+---------------
+
+* Correct somes small bugs and warnings perl.
+* Fast alerts full working (Syslog and Fast Alert reports identical).
+* Full alerts working (experimental).
+* Check and match the Portscan alerts and add a report.
+
+
+V1.7 02/19/2003
+---------------
+
+* Correct somes small bugs in HTML output.
+* Correct the bug when the script doesn't find any logs.
+* Add -c option to activate or not the domain resolver (because long time).
+
+
+V1.6 01/29/2003
+---------------
+
+* Add the possibility to link the signature to the reference attack description.
+* Add arachnids signatures.
+* Add bugtraq signatures.
+* Add cve signatures.
+* Add nessus signatures.
+* Add mcafee signatures.
+* Add specific url signatures.
+* Add specific color in HTML output format for a best visibility.
+
+
+V1.5 01/23/2003
+---------------
+
+* Generate an HTML output.
+
+
+V1.4 01/20/2003
+---------------
+
+* Add a subroutine to resolve IP addresses.
+* Add a function to resolve the domain.
+
+
+V1.3
+----
+
+* Add a report supporting many sondes.
+* Add a report to work with a lot of days.
+* Generate, in specific report, ASCII graph.
+
+
+V1.2
+-----
+
+* Add somes of stats.
+* Add the severity notion.
+* Can specify a number of occurence to view.
+
+
+V1.1
+----
+
+* Add somes of stats.
+* Can specify the reverse order.
+
+
+V1.0 
+----
+
+* First program who store the SNORT logs in a simple table.
+

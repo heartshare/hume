@@ -1,0 +1,356 @@
+#
+# Rev   : 1.01
+# Date  : 02/07/2007
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/07/2006 : Add all PIX syslog messages available on cisco.com
+#
+#-----------------------------------------------------------------------------
+#
+# severity 1, alerts
+# severity 2, critical
+# severity 3, errors
+# severity 4, warning
+# severity 5, notifications
+# severity 6, informational
+# severity 7, debugging
+#
+#-----------------------------------------------------------------------------
+%PIX-1-101001	(Primary) Failover cable OK.
+%PIX-1-101002	(Primary) Bad failover cable.
+%PIX-1-101003	(Primary) Failover cable not connected (this unit).
+%PIX-1-101004	(Primary) Failover cable not connected (other unit).
+%PIX-1-101005	(Primary) Error reading failover cable status.
+%PIX-1-102001	(Primary) Power failure/System reload other side.
+%PIX-1-103001	(Primary) No response from other firewall (reason code = code).
+%PIX-1-103002	(Primary) Other firewall network interface interface_number OK.
+%PIX-1-103003	(Primary) Other firewall network interface interface_number failed.
+%PIX-1-103004	(Primary) Other firewall reports this firewall failed.
+%PIX-1-103005	(Primary) Other firewall reporting failure.
+%PIX-1-104001	(Primary) Switching to ACTIVE (cause: string).
+%PIX-1-104002	(Primary) Switching to STNDBY (cause: string).
+%PIX-1-104003	(Primary) Switching to FAILED.
+%PIX-1-104004	(Primary) Switching to OK.
+%PIX-1-105001	(Primary) Disabling failover.
+%PIX-1-105002	(Primary) Enabling failover.
+%PIX-1-105003	(Primary) Monitoring on interface interface_name waiting
+%PIX-1-105004	(Primary) Monitoring on interface interface_name normal
+%PIX-1-105005	(Primary) Lost Failover communications with mate on interface interface_name.
+%PIX-1-105006	(Primary) Link status `Up' on interface interface_name.
+%PIX-1-105007	(Primary) Link status `Down' on interface interface_name.
+%PIX-1-105008	(Primary) Testing interface interface_name.
+%PIX-1-105009	(Primary) Testing on interface interface_name {Passed|Failed}.
+%PIX-1-105011	(Primary) Failover cable communication failure
+%PIX-1-105020	(Primary) Incomplete/slow config replication
+%PIX-1-105031	Failover LAN interface is up
+%PIX-1-105032	LAN Failover interface is down
+%PIX-1-105034	Receive a LAN_FAILOVER_UP message from peer.
+%PIX-1-105035	Receive a LAN failover interface down msg from peer.
+%PIX-1-105036	PIX dropped a LAN Failover command message.
+%PIX-1-105037	The primary and standby units are switching back and forth as the active unit.
+%PIX-1-106021	Deny protocol reverse path check from source_address to dest_address on interface interface_name
+%PIX-1-106022	Deny protocol connection spoof from source_address to dest_address on interface interface_name
+%PIX-1-107001	RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name
+%PIX-6-109024	Authorization denied from source_IP_Address/src_port to dest_IP_Address/dest_port (not authenticated) on interface interface_name using protocol
+%PIX-6-109025	Authorization denied (acl=acl_ID) for user 'user' from source_address/source_port to dest_address/dest_port on interface interface_name using protocol
+%PIX-1-107002	RIP pkt failed from IP_address: version=number on interface interface_name
+%PIX-1-709003	(Primary) Beginning configuration replication: Receiving from mate.
+%PIX-1-709004	(Primary) End Configuration Replication (ACT)
+%PIX-1-709005	(Primary) Beginning configuration replication: Receiving from mate.
+%PIX-1-709006	(Primary) End Configuration Replication (STB)
+%PIX-2-106001	Inbound TCP connection denied from IP_address/port to IP_address/port flags tcp_flags on interface interface_name
+%PIX-2-106002	protocol Connection denied by outbound list acl_ID src inside_address dest outside_address
+%PIX-2-106006	Deny inbound UDP from outside_address/outside_port to inside_address/inside_port on interface interface_name.
+%PIX-2-106007	Deny inbound UDP from outside_address/outside_port to inside_address/inside_port due to DNS {Response|Query}.
+%PIX-2-106012	Deny IP from IP_address to IP_address, IP options hex.
+%PIX-2-106013	Dropping echo request from IP_address to PAT address IP_address
+%PIX-2-106016	Deny IP spoof from (IP_address) to IP_address on interface interface_name.
+%PIX-2-106017	Deny IP due to Land Attack from IP_address to IP_address
+%PIX-2-106018	ICMP packet type ICMP_type denied by outbound list acl_ID src inside_address dest outside_address
+%PIX-2-106020	Deny IP teardrop fragment (size = number, offset = number) from IP_address to IP_address
+%PIX-2-108002	SMTP replaced string: out source_address in inside_address data: string
+%PIX-2-109011	Authen Session Start: user 'user', sid number
+%PIX-2-112001	(string:dec) PIX Clear complete.
+%PIX-2-201003	Embryonic limit exceeded nconns/elimit for outside_address/outside_port (global_address) inside_address/inside_port on interface interface_name
+%PIX-2-214001	Terminating manager session from IP_address on interface interface_name. Reason: incoming encrypted data (number bytes) longer than number bytes
+%PIX-2-304007	URL Server IP_address not responding, ENTERING ALLOW mode.
+%PIX-2-304008	LEAVING ALLOW mode, URL Server is up.
+%PIX-2-304009	Ran out of buffer blocks specified by url-block command
+%PIX-2-316001	Denied new tunnel to IP_address. VPN peer limit (platform_vpn_peer_limit) exceeded
+%PIX-2-709007	Configuration replication failed for command command
+%PIX-3-105010	(Primary) Failover message block alloc failed
+%PIX-3-106010	Deny inbound protocol src interface_name:dest_address/dest_port dst interface_name:source_address/source_port
+%PIX-3-106011	Deny inbound (No xlate) string
+%PIX-3-106014	Deny inbound icmp src interface_name: IP_address dst interface_name: IP_address (type dec, code dec)
+%PIX-3-109010	Auth from inside_address/inside_port to outside_address/outside_port failed (too many pending auths) on interface interface_name.
+%PIX-3-109013	User must authenticate before using this service
+%PIX-3-109016	Can't find authorization ACL acl_ID on 'PIX' for user 'user'
+%PIX-3-109018	Downloaded ACL acl_ID is empty
+%PIX-3-109019	Downloaded ACL acl_ID has parsing error; ACE string
+%PIX-3-109020	Downloaded ACL has config error; ACE
+%PIX-3-109023	User from src_IP_Adress/src_port to dest_IP_Address/dest_port on interface outside must authenticate before using this service.
+%PIX-3-201002	Too many connections on {static|xlate} global_address! econns nconns
+%PIX-3-201005	FTP data connection failed for IP_address
+%PIX-3-201006	RCMD backconnection failed for IP_address/port
+%PIX-3-201008	The PIX is disallowing new connections.
+%PIX-3-201009	TCP connection limit of number for host IP_address on interface_name exceeded
+%PIX-3-202001	Out of address translation slots!
+%PIX-3-202005	Non-embryonic in embryonic list outside_address/outside_port inside_address/inside_port
+%PIX-3-208005	(function:line_num) pix clear command return code
+%PIX-3-210001	LU SW_Module_Name error = number
+%PIX-3-210002	LU allocate block (bytes) failed.
+%PIX-3-210003	Unknown LU Object number
+%PIX-3-210005	LU allocate connection failed
+%PIX-3-210006	LU look NAT for IP_address failed
+%PIX-3-210007	LU allocate xlate failed
+%PIX-3-210008	LU no xlate for inside_address/inside_port outside_address/outside_port
+%PIX-3-210010	LU make UDP connection for outside_address:outside_port inside_address:inside_port failed
+%PIX-3-210020	LU PAT port port reserve failed
+%PIX-3-210021	LU create static xlate global_address ifc interface_name failed
+%PIX-3-211001	Memory allocation Error
+%PIX-3-211003	CPU utilization for number seconds = percent
+%PIX-3-212001	Unable to open SNMP channel (UDP port port) on interface interface_number, error code = code
+%PIX-3-212002	Unable to open SNMP trap channel (UDP port port) on interface interface_number, error code = code
+%PIX-3-212003	Unable to receive an SNMP request on interface interface_number, error code = code, will try again.
+%PIX-3-212004	Unable to send an SNMP response to IP Address IP_address Port port interface interface_number, error code = code
+%PIX-3-212005	incoming SNMP request (number bytes) on interface interface_name exceeds data buffer size, discarding this SNMP request.
+%PIX-3-213001	PPTP control daemon socket io string, errno = number.
+%PIX-3-213002	PPTP tunnel hashtable insert failed, peer = IP_address.
+%PIX-3-213003	PPP virtual interface interface_number isn't opened.
+%PIX-3-213004	PPP virtual interface interface_number client ip allocation failed.
+%PIX-3-302019	H.323 library_name ASN Library failed to initialize, error code number
+%PIX-3-302302	ACL = deny; no sa created
+%PIX-3-304003	URL Server IP_address timed out URL url
+%PIX-3-304006	URL Server IP_address not responding
+%PIX-3-305005	No translation group found for protocol src interface_name:dest_address/dest_port dst interface_name:source_address/source_port
+%PIX-3-305006	{outbound static|identity|portmap|regular) translation creation failed for protocol src interface_name:source_address/source_port dst interface_name:dest_address/dest_port
+%PIX-3-305008	Free unallocated global IP address.
+%PIX-3-313001	Denied ICMP type=number, code=code from IP_address on interface interface_name
+%PIX-3-315004	Fail to establish SSH session because PIX RSA host key retrieval failed.
+%PIX-3-317001	No memory available for limit_slow
+%PIX-3-317002	Bad path index of number for IP_address, number max
+%PIX-3-317003	IP routing table creation failure - reason
+%PIX-3-317004	IP routing table limit warning
+%PIX-3-317005	IP routing table limit exceeded - reason, IP_address netmask
+%PIX-3-318001	Internal error: reason
+%PIX-3-318002	Flagged as being an ABR without a backbone area
+%PIX-3-318003	Reached unknown state in neighbor state machine
+%PIX-3-318004	area string lsid IP_address mask netmask adv IP_address type number
+%PIX-3-318005	lsid IP_address adv IP_address type number gateway gateway_address metric number network IP_address mask netmask protocol hex attr hex net-metric number
+%PIX-3-318006	if interface_name if_state number
+%PIX-3-318007	OSPF is enabled on interface_name during idb initialization
+%PIX-3-318008	OSPF process number is changing router-id. Reconfigure virtual link neighbors with our new router-id
+%PIX-3-320001	The subject name of the peer cert is not allowed for connection
+%PIX-3-403501	PPPoE - Bad host-unique in PADO - packet dropped. Intf:interface_name AC:ac_name
+%PIX-3-403502	PPPoE - Bad host-unique in PADS - dropping packet. Intf:interface_name AC:ac_name
+%PIX-3-403503	PPPoE:PPP link down:reason
+%PIX-3-403504	PPPoE:No 'vpdn group' for PPPoE is created
+%PIX-3-403506	PPPoE:failed to assign PPP IP_address netmask netmask at interface_name
+%PIX-3-407002	Embryonic limit neconns/elimit for through connections exceeded.outside_address/outside_port to global_address (inside_address)/inside_port on interface interface_name
+%PIX-3-610001	NTP daemon interface interface_name: Packet denied from IP_address
+%PIX-3-610002	NTP daemon interface interface_name: Authentication failed for packet from IP_address
+%PIX-3-611313	VPNClient: Backup Server List Error: reason
+%PIX-3-702302	replay rollover detected...
+%PIX-3-710003	{TCP|UDP} access denied by ACL from source_address/source_port to interface_name:dest_address/service
+%PIX-4-106023	Deny protocol src [interface_name:source_address/source_port] dst interface_name:dest_address/dest_port [type {string}, code {code}] by access_group acl_ID
+%PIX-4-109017	User at IP_address exceeded auth proxy connection limit (max)
+%PIX-4-109022	exceeded HTTPS proxy process limit
+%PIX-4-209003	Fragment database limit of number exceeded: src = IP_address,dest = IP_address, proto = protocol, id = number
+%PIX-4-209004	Invalid IP fragment, size = bytes exceeds maximum size = bytes: src = IP_address, dest = IP_address, proto = protocol, id = number
+%PIX-4-209005	Discard IP fragment set with more than number elements: src = IP_address, dest = IP_address, proto = protocol, id = number
+%PIX-4-308002	static global_address inside_address netmask netmask overlapped with global_address inside_address
+%PIX-4-313003	Invalid destination for ICMP error
+%PIX-4-409023	Attempting AAA Fallback method <method_name> for <request_type> request for user <username> :Auth-server group <server_tag> unreachable
+%PIX-4-401001	Shuns cleared
+%PIX-4-401002	Shun added: IP_address IP_address port port
+%PIX-4-401003	Shun deleted: IP_address
+%PIX-4-401004	Shunned packet: IP_address ==> IP_address on interface interface_name
+%PIX-4-401005	Shun add failed: unable to allocate resources for IP_address IP_address port port
+%PIX-4-402101	decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number
+%PIX-4-402102	decapsulate: packet missing {AH|ESP}, destadr=dest_address, actual prot=protocol
+%PIX-4-402103	identity doesn't match negotiated identity (ip) dest_address= dest_address, src_addr= source_address, prot= protocol, (ident) local=inside_address, remote=remote_address, local_proxy=IP_address/IP_address/port/port, remote_proxy=IP_address/IP_address/port/port
+%PIX-4-402106	Rec'd packet not an IPSEC packet (ip) dest_address= dest_address, src_addr= source_address, prot= protocol
+%PIX-4-403101	PPTP session state not established, but received an XGRE packet, tunnel_id=number, session_id=number
+%PIX-4-403102	PPP virtual interface interface_name rcvd pkt with invalid protocol: protocol, reason: reason.
+%PIX-4-403103	PPP virtual interface max connections reached.
+%PIX-4-403104	PPP virtual interface interface_name requires mschap for MPPE.
+%PIX-4-403106	PPP virtual interface interface_name requires RADIUS for MPPE.
+%PIX-4-403107	PPP virtual interface interface_name missing aaa server group info
+%PIX-4-403108	PPP virtual interface interface_name missing client ip address option
+%PIX-4-403109	Rec'd packet not an PPTP packet. (ip) dest_address= dest_address, src_addr= source_address, data: string.
+%PIX-4-403110	PPP virtual interface interface_name, user: user missing MPPE key from aaa server.
+%PIX-4-404101	ISAKMP: Failed to allocate address for client from pool string
+%PIX-4-405001	Received ARP {request | response} collision from IP_address/mac_address on interface interface_name, page 2-63
+%PIX-4-405002	Received mac mismatch collision from IP_address/mac_address for authenticated host, page 2-64
+%PIX-4-405101	Unable to Pre-allocate H225 Call Signalling Connection for foreign_address outside_address[/outside_port] to local_address inside_address[/inside_port]
+%PIX-4-405102	Unable to Pre-allocate H245 Connection for foreign_address outside_address[/outside_port] to local_address inside_address[/inside_port]
+%PIX-4-405104	H225 message received from outside_address/outside_port to inside_address/inside_port before SETUP
+%PIX-4-406001	FTP port command low port: IP_address/port to IP_address on interface interface_name
+%PIX-4-406002	FTP port command different address: IP_address(IP_address) to IP_address on interface interface_name
+%PIX-4-407001	Deny traffic for local-host interface_name:inside_address, license limit of number exceeded
+%PIX-4-408001	IP route counter negative - reason, IP_address Attempt: number
+%PIX-4-409001	Database scanner: external LSA IP_address netmask is lost, reinstalls
+%PIX-4-409002	db_free: external LSA IP_address netmask
+%PIX-4-409003	Received invalid packet: reason from IP_address, interface_name
+%PIX-4-409004	Received reason from unknown neighbor IP_address
+%PIX-4-409005	Invalid length number in OSPF packet from IP_address (ID IP_address), interface_name
+%PIX-4-409006	Invalid lsa: reason Type number, LSID IP_address from IP_address, IP_address, interface_name
+%PIX-4-409007	Found LSA with the same host bit set but using different mask LSA ID IP_address netmask New: Destination IP_address netmask
+%PIX-4-409008	Found generating default LSA with non-zero mask LSA type : number Mask: IP_address metric : number area : string
+%PIX-4-409009	OSPF process number cannot start. There must be at least one up IP interface, for OSPF to use as router ID
+%PIX-4-409010	Virtual link information found in non-backbone area: string
+%PIX-4-409011	OSPF detected duplicate router-id IP_address from IP_address on interface interface_name
+%PIX-4-409012	Detected router with duplicate router ID IP_address in area string
+%PIX-4-409013	Detected router with duplicate router ID IP_address in Type-4 LSA advertised by IP_address
+%PIX-4-409023	Attempting AAA Fallback method <method_name> for <request_type> request for user <username> :Auth-server group <server_tag> unreachable
+%PIX-4-410001	UDP DNS packet dropped due to domainname length check of 255 bytes: actual length:<n> bytes, page 2-71
+%PIX-4-416001	Dropped UDP SNMP packet from <source interface> :<source> IP>/<source port> to <dest interface>:<dest IP>/<dest port>; version> (<version>) is not allowed through the firewall
+%PIX-4-500004	Invalid transport field for protocol=protocol, from source_address/source_port to dest_address/dest_port
+%PIX-4-612002	Auto Update failed:filename, version:number, reason:reason
+%PIX-4-620002	Unsupported CTIQBE version: hex: from interface_name:IP_address/port to interface_name:IP_address/port
+%PIX-4-710004	TCP connection limit exceeded from source_address/source_port to interface_name:dest_address/service
+%PIX-5-109012	Authen Session End: user 'user', sid number, elapsed number seconds
+%PIX-5-111002	Begin configuration: IP_address writing to device
+%PIX-5-111003	IP_address Erase configuration
+%PIX-5-111004	IP_address end configuration: {FAILED|OK}
+%PIX-5-111005	IP_address end configuration: OK
+%PIX-5-111007	Begin configuration: IP_address reading from device.
+%PIX-5-111008	User user executed the command string
+%PIX-5-199001	PIX reload command executed from telnet (remote IP_address).
+%PIX-5-304001	user source_address Accessed {JAVA URL|URL} dest_address: url.
+%PIX-5-304002	Access denied URL url SRC IP_address DEST IP_address: url
+%PIX-5-500001	ActiveX content modified src IP_address dest IP_address on interface interface_name.
+%PIX-5-500002	Java content modified src IP_address dest IP_address on interface interface_name.
+%PIX-5-500003	Bad TCP hdr length (hdrlen=bytes, pktlen=bytes) from source_address/source_port to dest_address/dest_port, flags: tcp_flags, on interface interface_name
+%PIX-5-501101	User transitioning priv level
+%PIX-5-502101	New user added to local dbase: Uname: user Priv: privilege_level Encpass: string
+%PIX-5-502102	User deleted from local dbase: Uname: user Priv: privilege_level Encpass: string
+%PIX-5-502103	User priv level changed: Uname: user From: privilege_level To: privilege_level
+%PIX-5-503001	Process number, Nbr IP_address on interface_name from string to string, reason
+%PIX-5-611103	User logged out: Uname: user
+%PIX-5-611104	Serial console idle timeout exceeded
+%PIX-5-612001	Auto Update succeeded:filename, version:number
+%PIX-6-106015	Deny TCP (no connection) from IP_address/port to IP_address/port flags tcp_flags on interface interface_name.
+%PIX-6-109001	Auth start for user user from inside_address/inside_port to outside_address/outside_port
+%PIX-6-109002	Auth from inside_address/inside_port to outside_address/outside_port failed (server IP_address failed) on interface interface_name.
+%PIX-6-109003	Auth from inside_address to outside_address/outside_port failed (all servers failed) on interface interface_name.
+%PIX-6-109005	Authentication succeeded for user `user' from inside_address/inside_port to outside_address/outside_port on interface interface_name.
+%PIX-6-109006	Authentication failed for user `user' from inside_address/inside_port to outside_address/outside_port on interface interface_name.
+%PIX-6-109007	Authorization permitted for user `user' from inside_address/inside_port to outside_address/outside_port on interface interface_name.
+%PIX-6-109008	Authorization denied for user `user' from source_address/source_port to destination_address/destination_port on interface interface_name.
+%PIX-6-109024	Authorization denied from source_IP_Address/src_port to dest_IP_Address/dest_port (not authenticated) on interface interface_name using protocol
+%PIX-6-109025	Authorization denied (acl=acl_ID) for user 'user' from source_address/source_port to dest_address/dest_port on interface interface_name using protocol
+%PIX-6-110001	No route to dest_address from source_address
+%PIX-6-199002	PIX startup completed. Beginning operation.
+%PIX-6-199005	PIX Startup begin
+%PIX-6-199005	PIX Startup begin
+%PIX-6-210022	LU missed number updates
+%PIX-6-302003	Built H245 connection for foreign_address outside_address/outside_port local_address inside_address/inside_port
+%PIX-6-302004	Pre-allocate H323 UDP backconnection for foreign_address outside_address/outside_port to local_address inside_address/inside_port
+%PIX-6-302009	Rebuilt TCP connection number for foreign_address outside_address/outside_port global_address global_address/global_port local_address inside_address/inside_port
+%PIX-6-302010	connections in use, connections most used
+%PIX-6-302013	Built {inbound|outbound} TCP connection number for interface_name:real_address/real_port (mapped_address/mapped_port) to interface_name:real_address/real_port (mapped_address/mapped_port) [(user)]
+%PIX-6-302014	Teardown TCP connection number for interface_name:real_address/real_port to interface_name:real_address/real_port duration time bytes number [reason] [(user)]
+%PIX-6-302015	Built {inbound|outbound} UDP connection number for interface_name:real_address/real_port (mapped_address/mapped_port) to interface_name:real_address/real_port (mapped_address/mapped_port) [(user)]
+%PIX-6-302016	Teardown UDP connection number for interface_name:real_address/real_port to interface_name:real_address/real_port duration time bytes number [(user)]
+%PIX-6-302017	Built {inbound|outbound} GRE connection id from interface:real_address (translated_address) to interface:real_address/real_cid (translated_address/translated_cid)[(user)
+%PIX-6-302018	Teardown GRE connection id from interface:real_address (translated_address) to interface:real_address/real_cid (translated_address/translated_cid) duration hh:mm:ss bytes bytes [(user)] %PIX-6-303002: source_address {Stored|Retrieved} dest_address: mapped_address
+%PIX-6-304004	URL Server IP_address request failed URL url
+%PIX-6-305007	addrpool_free(): Orphan IP IP_address on interface interface_number
+%PIX-3-305009	Teardown <type> translation from <interface>:<address> to <interface>[<acl>]:<address> duration <HH:MM:SS>
+%PIX-6-305010	Teardown {dynamic|static} translation from interface_name [(<acl-name>)]:real_address to interface_name:mapped_address duration time
+%PIX-6-305011	Built {dynamic|static} {TCP|UDP|ICMP} translation from interface_name [(<acl-name>)]:real_address/real_port to interface_name:mapped_address/mapped_port
+%PIX-6-308001	PIX console enable password incorrect for number tries (from IP_address)
+%PIX-6-309002	Permitted manager connection from IP_address.
+%PIX-6-311001	LU loading standby start
+%PIX-6-311002	LU loading standby end
+%PIX-6-311003	LU recv thread up
+%PIX-6-311004	LU xmit thread up
+%PIX-6-312001	RIP hdr failed from IP_address: cmd=string, version=number domain=string on interface interface_name
+%PIX-6-314001	Pre-allocate RTSP UDP backconnection for foreign_address outside_address/outside_port to local_address inside_address/inside_port
+%PIX-6-315011	SSH session from IP_address on interface interface_name for user user disconnected by SSH server, reason: reason
+%PIX-6-403500	PPPoE - Service name 'any' not received in PADO. Intf:interface_name AC:ac_name.
+%PIX-6-602101	PMTU-D packet number bytes greater than effective mtu number dest_addr=dest_address, src_addr=source_address, prot=protocol
+%PIX-6-602102	Adjusting IPSec tunnel mtu...
+%PIX-6-602201	ISAKMP Phase 1 SA created (local <ip>/<port> (initiator|responder), remote <ip>/<port>, authentication=<auth_type>, encryption=<encr_alg>, hash=<hash_alg>, group=<DH_grp>, lifetime=<seconds>)
+%PIX-6-602301	sa created...
+%PIX-6-602302	deleting sa
+%PIX-6-603101	PPTP received out of seq or duplicate pkt, tnl_id=number, sess_id=number, seq=number.
+%PIX-6-603102	PPP virtual interface interface_name - user: user aaa authentication started.
+%PIX-6-603103	PPP virtual interface interface_name - user: user aaa authentication status
+%PIX-6-603104	PPTP Tunnel created, tunnel_id is number, remote_peer_ip is remote_address, ppp_virtual_interface_id is number, client_dynamic_ip is IP_address, username is user, MPPE_key_strength is string
+%PIX-6-603105	PPTP Tunnel deleted, tunnel_id = number, remote_peer_ip= remote_address
+%PIX-6-603106	L2TP Tunnel created, tunnel_id is number, remote_peer_ip is remote_address, ppp_virtual_interface_id is number, client_dynamic_ip is IP_address, username is user
+%PIX-6-603107	L2TP Tunnel deleted, tunnel_id = number, remote_peer_ip = remote_address
+%PIX-6-603108	Built PPTP Tunnel at interface_name, tunnel-id = number, remote-peer = IP_address, virtual-interface = number, client-dynamic-ip = IP_address, username = user, MPPE-key-strength = number
+%PIX-6-603109	Teardown PPPOE Tunnel at interface_name, tunnel-id = number, remote-peer = IP_address
+%PIX-6-604101	DHCP client interface interface_name: Allocated ip = IP_address, mask = netmask, gw = gateway_address
+%PIX-6-604102	DHCP client interface interface_name: address released
+%PIX-6-604103	DHCP daemon interface interface_name: address granted MAC_address (IP_address)
+%PIX-6-604104	DHCP daemon interface interface_name: address released
+%PIX-6-605004	Login denied from {source_address/source_port | serial} to {interface_name:dest_address/service | console} for user "user"
+%PIX-6-605005	Login permitted from {source_address/source_port | serial} to {interface_name:dest_address/service | console} for user "user"
+%PIX-6-606001	PDM session number number from IP_address started
+%PIX-6-606002	PDM session number number from IP_address ended
+%PIX-6-607001	Pre-allocate SIP connection_type secondary channel for interface_name:IP_address/port to interface_name:IP_address from string message
+%PIX-6-608001	Pre-allocate Skinny connection_type secondary channel for interface_name:IP_address to interface_name:IP_address/port from string message
+%PIX-6-609001	Built local-host interface_name:IP_address
+%PIX-6-609002	Teardown local-host interface_name:IP_address duration time
+%PIX-6-610101	Authorization failed: Cmd: command Cmdtype: command_modifier
+%PIX-6-611101	User authentication succeeded: Uname: user
+%PIX-6-611102	User authentication failed: Uname: user
+%PIX-6-611301	VPNClient: NAT configured for Client Mode with no split tunneling: NAT addr: mapped_address
+%PIX-6-611302	VPNClient: NAT exemption configured for Network Extension Mode with no split tunneling
+%PIX-6-611303	VPNClient: NAT configured for Client Mode with split tunneling: NAT addr: mapped_address Split Tunnel Networks: IP_address/netmask IP_address/netmask ...
+%PIX-6-611304	VPNClient: NAT exemption configured for Network Extension Mode with split tunneling: Split Tunnel Networks: IP_address/netmask IP_address/netmask ...
+%PIX-6-611305	VPNClient: DHCP Policy installed: Primary DNS: IP_address Secondary DNS: IP_address Primary WINS: IP_address Secondary WINS: IP_address
+%PIX-6-611306	VPNClient: Perfect Forward Secrecy Policy installed
+%PIX-6-611307	VPNClient: Head end : IP_address
+%PIX-6-611308	VPNClient: Split DNS Policy installed: List of domains: string string ...
+%PIX-6-611309	VPNClient: Disconnecting from head end and uninstalling previously downloaded policy: Head End : IP_address
+%PIX-6-611310	VNPClient: XAUTH Succeeded: Peer: IP_address
+%PIX-6-611311	VNPClient: XAUTH Failed: Peer: IP_address
+%PIX-6-611312	VPNClient: Backup Server List: reason
+%PIX-6-611314	VPNClient: Load Balancing Cluster with Virtual IP: IP_address has redirected the PIX to server IP_address
+%PIX-6-611315	VPNClient: Disconnecting from Load Balancing Cluster member IP_address
+%PIX-6-611316	VPNClient: Secure Unit Authentication Enabled
+%PIX-6-611317	VPNClient: Secure Unit Authentication Disabled
+%PIX-6-611318	VPNClient: User Authentication Enabled: Auth Server IP: IP_address Auth Server Port: port Idle Timeout: time
+%PIX-6-611319	VPNClient: User Authentication Disabled
+%PIX-6-611320	VPNClient: Device Pass Thru Enabled
+%PIX-6-611321	VPNClient: Device Pass Thru Disabled
+%PIX-6-611322	VPNClient: Extended XAUTH conversation initiated when SUA disabled
+%PIX-6-611323	VPNClient: Duplicate split nw entry
+%PIX-6-613001	Checksum Failure in database in area string Link State Id IP_address Old Checksum number New Checksum number
+%PIX-6-613002	interface interface_name has zero bandwidth
+%PIX-6-613003	IP_address netmask changed from area string to area string
+%PIX-6-614001	Split DNS: request patched from server: IP_address to server: IP_address
+%PIX-6-614002	Split DNS: reply from server:IP_address reverse patched back to original server:IP_address
+%PIX-6-620001	Pre-allocate CTIQBE {RTP | RTCP} secondary channel for interface_name:outside_address[/outside_port] to interface_name:inside_address[/inside_port] from CTIQBE_message_name message
+%PIX-7-109014	uauth_lookup_net fail for uauth_in()
+%PIX-7-109021	Uauth null proxy error
+%PIX-7-304005	URL Server IP_address request pending URL url
+%PIX-7-701001	alloc_user() out of Tcp_user objects
+%PIX-7-702201	ISAKMP Phase 1 delete received (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702202	ISAKMP Phase 1 delete sent (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702203	ISAKMP DPD timed out (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702204	ISAKMP Phase 1 retransmission (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702205	ISAKMP Phase 2 retransmission (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702206	ISAKMP malformed payload received (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702207	ISAKMP duplicate packet detected (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702208	ISAKMP Phase 1 exchange started (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702209	ISAKMP Phase 2 exchange started (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702210	ISAKMP Phase 1 exchange completed(local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702211	ISAKMP Phase 2 exchange completed(local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702212	ISAKMP Phase 1 initiating rekey (local <ip> (initiator|responder), remote <ip>)
+%PIX-7-702301	lifetime expiring...
+%PIX-7-702303	sa_request...
+%PIX-7-702303	sa_request...
+%PIX-7-703002	Received H.225 Release Complete with newConnectionNeeded for interface_name:ip_address to interface_name:ip_address/port
+%PIX-7-709001	FO replication failed: cmd=command returned=code
+%PIX-7-709002	FO unreplicable: cmd=command
+%PIX-7-710001	TCP access requested from source_address/source_port to interface_name:dest_address/service
+%PIX-7-710002	{TCP|UDP} access permitted from source_address/source_port to interface_name:dest_address/service
+%PIX-7-710005	{TCP|UDP} request discarded from source_address/source_port to interface_name:dest_address/service
+%PIX-7-710006	protocol request discarded from source_address to interface_name:dest_address

@@ -1,0 +1,53 @@
+#
+# Jeremy Chartier, <jeremy.chartier@free.fr>
+# Date: 2004/11/09
+#
+
+sub whois {
+	#
+	# RELEASE VARIABLES
+	#
+	undef $inetnum;
+	undef $netname;
+	undef $descr;
+	undef $country;
+	undef $mail;
+	undef $whoisserver;
+	undef $requestwhois;
+	#
+	# WHOIS REQUEST
+	#
+	( $response ) = whoisip_query( $k );
+	#
+	# SEARCH SPECIFIC VARIABLES
+	#
+	$email = "e-mail";
+	$inetnum = $response->{inetnum} if exists $response->{inetnum};
+	$inetnum = $response->{NetRange} if exists $response->{NetRange};
+	$netname = $response->{netname} if exists $response->{netname};
+	$netname = $response->{NetName} if exists $response->{NetName};
+	$netname = $response->{OrgName} if exists $response->{OrgName};
+	$descr = $response->{descr} if exists $response->{descr};
+	$country = $response->{country} if exists $response->{country};
+	$mail = $response->{$email} if exists $response->{$email};
+	$whoisserver = $response->{WHOISSERVER} if exists $response->{WHOISSERVER};
+	chomp ($inetnum);
+	chomp ($netname);
+	chomp ($descr);
+	chomp ($country);
+	chomp ($mail);
+	chomp ($whoisserver);
+	#
+	# SEARCH WHOIS SERVER WHO RESPONDED
+	#
+	if ( $whoisserver eq "whois.arin.net" ) {
+		$requestwhois="http://ws.arin.net/cgi-bin/whois.pl?queryinput=".$k
+	} elsif ( $whoisserver eq "whois.ripe.net" ) {
+		$requestwhois = "http://www.ripe.net/perl/whois?form_type=simple&full_query_string=&searchtext=".$k."&do_search=Search"
+	} elsif ( $whoisserver eq "whois.apnic.net" ) {
+		$requestwhois= "http://www.apnic.net/apnic-bin/whois.pl?searchtext=".$k
+	}
+	chomp ($requestwhois);
+}
+
+1;

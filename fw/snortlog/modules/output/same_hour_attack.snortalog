@@ -1,0 +1,88 @@
+#
+# Rev   : 1.02
+# Date  : 02/02/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/02/2011 : Output improvments
+#
+
+
+
+sub same_hour_attack {
+$i=0;
+my $description = $lang{"s9_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s9)  )) {
+	$n = keys %s9;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"same_hour_attack\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Hour</td><td>Attack</td></tr>\n");
+	if ($opt_i == 1) {
+		foreach $k (sort { $s9{$a} <=> $s9{$b} } keys %s9) {
+			@_ = split ",",$k;
+			printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%${hour_len}dh</td><td>%-${attack_len}s</td></tr>\n",
+			$s9{$k}/$total*100, $s9{$k},$_[0],$_[1]) if $i < $n;
+			++$i
+		}
+	} else {
+		foreach $k (sort { $s9{$b} <=> $s9{$a} } keys %s9) {
+			@_ = split ",",$k;
+			printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%${hour_len}dh</td><td>%-${attack_len}s</td></tr>\n",
+			$s9{$k}/$total*100, $s9{$k},$_[0],$_[1]) if $i < $n;
+			++$i;
+		}
+	}
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		section_header("$description\n", "xsame_hour_attack");  
+		if ($opt_i == 1) {
+			foreach $k (sort { $s9{$a} <=> $s9{$b} } keys %s9) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %${hour_len}dh    %-${attack_len}s\n",
+				$s9{$k}/$total*100, $s9{$k},$_[0],$_[1]) if $i < $n;
+				++$i
+			}
+		} else {
+			foreach $k (sort { $s9{$b} <=> $s9{$a} } keys %s9) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %${hour_len}dh    %-${attack_len}s\n",
+				$s9{$k}/$total*100, $s9{$k},$_[0],$_[1]) if $i < $n;
+				++$i;
+			}
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "same_hour_attack");  
+		if ($opt_i == 1) {
+			foreach $k (sort { $s9{$a} <=> $s9{$b} } keys %s9) {
+				@_ = split ",",$k;
+				printf("  %5.2f  %-${nb_len}d  %${hour_len}dh    %-${attack_len}s\n",
+				$s9{$k}/$total*100, $s9{$k},$_[0],$_[1]) if $i < $n;
+				++$i
+			}
+		} else {
+			foreach $k (sort { $s9{$b} <=> $s9{$a} } keys %s9) {
+				@_ = split ",",$k;
+				printf("  %5.2f  %-${nb_len}d  %${hour_len}dh    %-${attack_len}s\n",
+				$s9{$k}/$total*100, $s9{$k},$_[0],$_[1]) if $i < $n;
+				++$i;
+			}
+		}
+	}
+}
+}
+
+1;

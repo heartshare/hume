@@ -1,0 +1,41 @@
+#
+# Rev   : 1.01
+# Date  : 06/16/2005
+# By    : Jeremy Chartier
+#
+
+sub pf_log {
+	#
+	# TCP AND UDP CONNECTIONS 
+	#
+	if ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\.\d+\s+rule\s+(\d+)\/\S+\s+(\w+)\s+\w+\s+on\s+(\S+):\s+(\d+\.\d+\.\d+\.\d+)\.(\d+)\s+>\s+(\d+\.\d+\.\d+\.\d+)\.(\d+):\s+//) {
+		$pfilter = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{RULE} = $6;
+		$alert->{ACTION} = $7; $alert->{ETHER} = $8; $alert->{SADDR} = $9;
+		$alert->{SPORT} = $10; $alert->{DADDR} = $11; $alert->{DPORT} = $12;
+		$alert->{TYPE} = "pfilter"; $alert->{PLUGIN} = "alert";
+		$PROTO = "udp" if ( $_ =~ m/udp/ );
+		$PROTO = "tcp" if ( $_ =~ m/tcp/ );
+		$alert->{PROTO} = $PROTO; 
+		record_data($alert);
+	#
+	# ONLY ICMP CONNECTIONS 
+	#
+	} elsif ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\.\d+\s+rule\s+(\d+)\/\S+\s+(\w+)\s+\w+\s+on\s+(\S+):\s+(\d+\.\d+\.\d+\.\d+)\s+>\s+(\d+\.\d+\.\d+\.\d+):\s+(\w+):\s+(\w+\s\w+)?.*//) {
+		$pfilter = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{RULE} = $6;
+		$alert->{ACTION} = $7; $alert->{ETHER} = $8; $alert->{SADDR} = $9;
+		$alert->{PROTO} = $11; $alert->{TYPE} = "pfilter"; $alert->{PLUGIN} = "alert";
+		$alert->{DADDR} = $10; 
+		if ( $12 ne "" ) {
+			$alert->{SPORT} = $12; $alert->{DPORT} = $12;
+		} else {
+			$alert->{SPORT} = "0/0"; $alert->{DPORT} = "0/0";
+		}	
+		record_data($alert);
+	}
+}
+
+1;

@@ -1,0 +1,68 @@
+#
+# Rev   : 1.05
+# Date  : 02/28/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/28/2011 : Add host to indentify an interface
+# 09/29/2005 : Correct bug for graph fether
+# 10/05/2005 : Modify abslute path for graph file
+#
+
+
+
+sub interfaces {
+$i = 0;
+$max = 8;
+my $description = $lang{"s1_". $val_opt_l};
+if ( $opt_o == 1 ) {
+	@list1 = ();
+	@list2 = ();
+	print FILEOUT ("<H3><CENTER><A NAME=\"interfaces\" HREF=\"#top\">$description</A></CENTER></H3>\n");
+	print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<TR CLASS=TH ALIGN=center><TD>%</TD><TD>No</TD><TD>Interface</TD><TD>Host</TD></TR>\n");
+	foreach $k (sort { $s1{$b} <=> $s1{$a} } keys %s1) {
+		@_ = split ",",$k;
+		printf FILEOUT (("<TR CLASS=TB><TD>%2.2f</TD><TD>%-${nb_len}d</TD><TD>%-32s</TD><TD>%-32s</TD></TR>\n", $s1{$k}/$total_log*100,$s1{$k},$_[0],$_[1]));
+		push @list1 ,($s1{$k}/$total_log*100) if ( $i < $max );
+		push @list2 ,("$k") if ( $i < $max );
+		++$i;
+	}
+	if ( $val_opt_g ne "" ) {
+		init_graph("ether","pie");
+		print FILEOUT ("</TABLE></TD><TD WIDTH=300 ALIGN=right><IMG SRC=".$filename._ether.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} else {
+		print FILEOUT ("</TABLE></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 50;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". keys(%s1) ." of ". keys(%s1) ." ###\n");
+		print FILEOUT ("    %    No      Interfaces       Host\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s1{$b} <=> $s1{$a} } keys %s1) {
+			@_ = split ",",$k;
+			printf FILEOUT ("  %5.2f  %-${nb_len}d  %-15s  %-15s\n", $s1{$k}/$total_log*100,$s1{$k},$_[0],$_[1]); 
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "interfaces");
+		foreach $k (sort { $s1{$b} <=> $s1{$a} } keys %s1) {
+			@_ = split ",",$k;
+			printf("  %5.2f  %-${nb_len}d  %-15s  %-15s\n", $s1{$k}/$total_log*100,$s1{$k},$_[0],$_[1]); 
+		}
+	}
+}
+}
+
+1;

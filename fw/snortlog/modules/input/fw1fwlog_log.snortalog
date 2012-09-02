@@ -1,0 +1,109 @@
+#
+# Rev   : 1.00
+# Date  : 02/05/2007
+# By    : Jeremy Chartier
+#
+
+sub fw1fwlog_log {
+
+
+	#
+	# THIS IS HEADER FW1 NG LOG ( DATE LOG - FW LOG )
+	#
+	#if ( $_ =~ s/^Date\:\s+(\w{3})\s(\d+),\s\d{4}//ox ) {
+	if ( $_ =~ s/^Date\:\s+(\w{3})\s(\d+),\s\d{4}//ox ) {
+		$MyMON = $monthday{$1}; $MyDAY = $2;
+		$fw1fwlog = 1; next;
+
+	#
+	# THIS IS FW-1 NG LOG ( DAEMON MESSAGE ONLY - FW LOG )
+	#
+	} elsif ( $_ =~ s/(\d)\:(\d+)\:(\d+)\s+(\S+)\s+([\d\.]+)\s+[\>|\<](\S+)\s+log_sys_message\:[^\:|^\;]*?\;//ox ) {
+		$fw1fwlog = 1;
+		$alert->{MON} = $MyMON; $alert->{DAY} = $MyDAY;
+		$alert->{HOUR} = $1; $alert->{MIN} = $2; $alert->{SEC} = $3;
+		$alert->{ACTION} = $4; $alert->{HOST} = $5;
+		$alert->{ETHER} = $6; $alert->{REASON} = $7; $alert->{RULE} = 0;
+		$alert->{TYPE} = "VPN-1 & FireWall-1"; $alert->{PLUGIN} = "alert";
+		print "2: $1\t$2\t$3\t$4\t$5\n";
+		record_data($alert); next;
+
+	#
+	# THIS IS FW-1 NG LOG ( ICMP ONLY STATE AND NORMAL - FW LOG )
+	#
+	} elsif ( $_ =~ s/(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+([\d\.]+)\s+[\>|\<](\S+)\s+\w+\:\s+VPN-1\s\&\sFireWall-1;\s+ICMP\:\s+([^\:|^\;]*?);\s+src\:\s+([\d\.]+);\s+dst\:\s+([\d\.]+);\s+proto\:\s+(\w+|\d+);\s+ICMP\sType\:\s+(\d+);\s+ICMP\sCode\:\s+(\d+);//ox ) {
+		$fw1fwlog = 1;
+		$alert->{MON} = $MyMON; $alert->{DAY} = $MyDAY;
+		$alert->{HOUR} = $1; $alert->{MIN} = $2; $alert->{SEC} = $3;
+		$alert->{ACTION} = $4; $alert->{HOST} = $5;
+		$alert->{ETHER} = $6; $alert->{SADDR} = $8; $alert->{DADDR} = $9;
+		$alert->{PROTO} = $10; $alert->{DPORT} = "$11/$12"; $alert->{SPORT} = "$11/$12";
+		$alert->{TYPE} = "VPN-1 & FireWall-1";
+		$alert->{PLUGIN} = "alert"; $alert->{RULE} = 0; $alert->{REASON} = $7;
+		if ( $_ =~ s/rule\:\s+(\d+);//ox) {
+     	   		$alert->{RULE} = $1;
+		}
+#		if ( $_ =~ s/message_info\:\s+([^\:|^\;]*?);//ox) {
+#      	   		$alert->{REASON} = $1;
+#		}
+		record_data($alert); next;
+
+	#
+	# THIS IS FW-1 NG LOG ( TCP/UDP DROP - FW LOG )
+	#
+	} elsif ( $_ =~ s/(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+([\d\.]+)\s+[\>|\<](\S+)\s+\w+\:\s+VPN-1\s\&\sFireWall-1;\s+src\:\s+([\d\.]+);\s+s_port\:\s+(\S+);\s+dst\:\s+([\d\.]+);\s+service\:\s+(\S+);\s+proto\:\s+(\w+|\d+);\s+//ox ) {
+		$fw1fwlog = 1;
+		$alert->{MON} = $MyMON; $alert->{DAY} = $MyDAY;
+		$alert->{HOUR} = $1; $alert->{MIN} = $2; $alert->{SEC} = $3;
+		$alert->{ACTION} = $4; $alert->{HOST} = $5; $alert->{ETHER} = $6;
+		$alert->{SADDR} = $7; $alert->{SPORT} = $8; $alert->{DADDR} = $9;
+		$alert->{DPORT} = $10; $alert->{PROTO} = $11; $alert->{TYPE} = "VPN-1 & FireWall-1";
+		$alert->{PLUGIN} = "alert";
+		$alert->{RULE} = 0; $alert->{REASON} = "Normal Connection";
+		if ( $_ =~ s/message_info\:\s+([^\:|^\;]*?);//ox) {
+      	   		$alert->{REASON} = $1;
+     		}
+		if ( $_ =~ s/rule\:\s+(\d+);//ox) {
+			$alert->{RULE} = $1;
+		}
+		record_data($alert); next;
+
+	#
+	# THIS IS FW-1 NG LOG ( NOT TCP/UDP DROP - FW LOG )
+	#
+	} elsif ( $_ =~ s/(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+([\d\.]+)\s+[\>|\<](\S+)\s+\w+\:\s+VPN-1\s\&\sFireWall-1;\s+src\:\s+([\d\.]+);\s+dst\:\s+([\d\.]+);\s+proto\:\s+(\w+|\d+);//ox ) {
+		$fw1fwlog = 1;
+		$alert->{MON} = $MyMON; $alert->{DAY} = $MyDAY;
+		$alert->{HOUR} = $1; $alert->{MIN} = $2; $alert->{SEC} = $3;
+		$alert->{ACTION} = $4; $alert->{HOST} = $5;
+		$alert->{ETHER} = $6; $alert->{SADDR} = $7; $alert->{SPORT} = 0;
+		$alert->{DPORT} = 0; $alert->{DADDR} = $8; $alert->{REASON} = "Normal Connection";
+		$alert->{RULE} = 0; $alert->{PROTO} = $9;
+		$alert->{TYPE} = "VPN-1 & FireWall-1"; $alert->{PLUGIN} = "alert";
+		record_data($alert); next;
+
+	#
+	# THIS IS FW-1 NG LOG ( SMARTFDEFENSE - FW LOG )
+	#
+	} elsif ( $_ =~ s/(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+([\d\.]+)\s+[\>|\<](\S+)\s+\w+\:\sSmartDefense;\s+//ox ) {
+		$fw1fwlog = 1;
+		$alert->{MON} = $MyMON; $alert->{DAY} = $MyDAY;
+		$alert->{HOUR} = $1; $alert->{MIN} = $2; $alert->{SEC} = $3;
+		$alert->{ACTION} = $4; $alert->{HOST} = $5;
+		$alert->{ETHER} = $6; $alert->{TYPE} = "SmartDefense";
+		print "6: $1\t$2\t$3\t$4\t$5\n";
+		if ( $_ =~ m/src\:\s+([\d\.]+);/) { $alert->{SADDR} = $1};
+		if ( $_ =~ m/dst\:\s+([\d\.]+);/) { $alert->{DADDR} = $1};
+		if ( $_ =~ m/proto\:\s+(\S+);/) { $alert->{PROTO} = $1};
+		if ( $_ =~ m/s_port\:\s+(\S+);/) { $alert->{SPORT} = $1};
+		if ( $_ =~ m/service\:\s+(\S+);/) { $alert->{DPORT} = $1};
+		if ( $_ =~ m/attack\:\s+([^\:|^;]*?);/) { $alert->{ATTACK} = $1};
+		if ( $_ =~ m/reason\:\s+([^\:|^;]*?);/) { $alert->{ATTACK_INFO} = $1};
+		if ( $_ =~ m/Attack\sInfo\:\s+([^\:|^;]*?);/) { $alert->{ATTACK_INFO} = $1};
+		if ( $_ =~ m/icmp-type\:\s+(\d+);\s+icmp-code\:\s+(\d+);/) { $alert->{DPORT} = "$1/$2"; $alert->{SPORT} = "$1/$2"; } 
+		$alert->{RULE} = 0; $alert->{REASON} = "SmartDefense"; $alert->{PLUGIN} = "alert";
+		record_data($alert); next;
+	}
+}
+
+1;

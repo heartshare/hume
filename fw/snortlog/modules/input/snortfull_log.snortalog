@@ -1,0 +1,169 @@
+#
+# Rev   : 1.00
+# Date  : 01/17/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 01/17/2006 : Correct incorrect comment
+#
+
+
+
+sub snortfull_log {
+	#
+	# TEST IF THE LOG CORRESOND TO THE FIRST LINE OF SNORT'S FULL ALERT
+	#
+	if ( $_ =~ /^\[\*\*\]/ ) {
+		$snortfull = 1;
+		s/\<(\S+)\>\s//ox;  # Get interface
+		$ETHER = $1;
+		if ( $_ =~ m/^\[\*\*\]\s+\[[0-9:]+\].+Portscan\sdetected\sfrom\s([\d\.]+)/ox) { # portscan
+			$SADDR = $1; $TYPE = "snort_portscan"; $PLUGIN = "alert";
+			$CLASS = "flow-portscan"; $SEVERITY = "unknown"; $HOST = "localhost";
+			$logportscan = 1;
+			#process_data($SADDR,$TYPE,$PLUGIN,$CLASS,$SEVERITY,$HOST); next;
+			next;
+		} else {
+			s/\s*\[\*\*\]\s*//og;
+			s/\s*\[[0-9:]+\]\s*//og;
+			if ( $_ =~ m/(http_inspect|snort_decoder|spp_stream4|spp_frag2)/ox ) {
+				$TYPE = "snort_processor"; $PLUGIN = "alert";
+				$SEVERITY = "unknown"; $CLASS = $1; $SIG = $_;
+				next;
+			} else {
+				$TYPE = "snort_signature"; $PLUGIN = "alert"; $SIG = $_;
+				next;
+			}
+		}
+
+
+	#
+	# TEST IF THE LOG CORRESOND TO THE SECOND LINE OF SNORT'S FULL ALERT
+	#
+	} elsif ( $_ =~ m/^\[Classification\:\s+([^\[|^\]]*?)\]\s+\[Priority:\s+(\d{1})\]/ox ) {
+		$snortfull = 1;
+		if ($2 == 1) {
+			$severity = "high";
+		} elsif ($2 == 2) {
+			$severity = "medium";
+		} elsif ($2 == 3) {
+			$severity = "low";
+		} else {
+			$severity = "unknown"
+		}
+		$CLASS = $1;
+		$PRIORITY = $2;
+		$SEVERITY = $severity;
+		next;
+
+	#
+	# DON'T MOVE THIS PART. IMPORTANT FOR PORTSCAN FULL ALERT
+	#
+	} elsif ( (($_ =~ s/^(\d{2})\/(\d{2})-(\d{2}):(\d{2}):(\d{2})\.\d+$//o) || ($_ =~ s/^(\d{2})\/(\d{2})\/\d{2}-(\d{2}):(\d{2}):(\d{2})\.\d+$//o) && $logportscan == 1) ) {
+		$snortfull = 1;
+		$alert->{MON} = $MON; $alert->{DAY} = $DAY; $alert->{HOUR} = $HOUR;
+		$alert->{MIN} = $MIN; $alert->{SEC} = $SEC;
+		$alert->{SADDR} = $SADDR; $alert->{TYPE} = $TYPE; $alert->{PLUGIN} = $PLUGIN; 
+		$alert->{CLASS} = $CLASS; $alert->{SEVERITY} = $SEVERITY; $alert->{HOST} = $HOST;
+		$logportscan = 0;
+		record_data($alert); next;
+
+
+
+
+	#
+	# TEST IF THE LOG CORRESOND TO THE THIRD LINE OF SNORT'S FULL ALERT
+	#
+	} elsif ( ($_ =~ s/^(\d{2})\/(\d{2})-(\d{2}):(\d{2}):(\d{2})\.\d+\s+//o) || ($_ =~ s/^(\d{2})\/(\d{2})\/\d{2}-(\d{2}):(\d{2}):(\d{2})\.\d+\s+//o) ) {
+		$snortfull = 1;
+		$MON = $1; $DAY = $2; $HOUR = $3; $MIN = $4; $SEC = $5;
+		if ( $_ =~ /^([\d\.]+):(\d+)\s+\-\>\s+([\d\.]+):(\d+)/ ) {
+			$SADDR = $1; $SPORT = $2; $DADDR = $3; $DPORT = $4;
+			next;
+		} elsif ( $_ =~ /^([\d\.]+)\s+\-\>\s+([\d\.]+)/ ) {
+			$SADDR = $1; $DADDR = $2;
+			next;
+		}
+
+	#
+	# TEST IF THE LOG CORRESOND TO THE FOURTH LINE OF SNORT'S FULL ALERT
+	#
+	# IF CORRESPOND TO TCP AND UDP WITHOUT MAC
+	#
+	} elsif ( $_ =~ m/^(\w+)\s+TTL:\d+\s+TOS:\S+\s+ID:\d+\sIpLen:\d+\sDgmLen:\d+/ox ) {
+		$snortfull = 1;
+		$PROTO = $1; $PROTO =~ tr/A-Z/a-z/;
+		$alert->{MON} = $MON; $alert->{DAY} = $DAY; $alert->{HOUR} = $HOUR;
+		$alert->{MIN} = $MIN; $alert->{SEC} = $SEC; $alert->{SADDR} = $SADDR;
+		$alert->{SPORT} = $SPORT; $alert->{DADDR} = $DADDR; $alert->{DPORT} = $DPORT;
+		$alert->{HOST} = "localhost";
+		$alert->{SIG} = "$SIG {$PROTO}";
+		$alert->{TYPE} = $TYPE;
+		$alert->{PLUGIN} = $PLUGIN;
+		$alert->{CLASS} = $CLASS;
+		$alert->{PRIORITY} = $PRIORITY;
+		$alert->{SEVERITY} = $SEVERITY;
+		$alert->{ETHER} = $ETHER;
+		$alert->{PROTO} = $PROTO;
+		record_data($alert); next;
+	#
+	# IF CORRESPOND TO TCP AND UDP WITH MAC
+	#
+	} elsif ( $_ =~ /^([\d\.]+):(\d+)\s+\-\>\s+([\d\.]+):(\d+)\s+([\w|\d]+)/) {
+		$snortfull = 1;
+		$PROTO = $5; $PROTO =~ tr/A-Z/a-z/;
+		$alert->{MON} = $MON; $alert->{DAY} = $DAY; $alert->{HOUR} = $HOUR;
+		$alert->{MIN} = $MIN; $alert->{SEC} = $SEC; $alert->{SADDR} = $1;
+		$alert->{SPORT} = $2; $alert->{DADDR} = $3; $alert->{DPORT} = $4;
+		$alert->{HOST} = "localhost";
+		$alert->{SIG} = "$SIG {$PROTO}";
+		$alert->{TYPE} = $TYPE;
+		$alert->{PLUGIN} = $PLUGIN;
+		$alert->{CLASS} = $CLASS;
+		$alert->{PRIORITY} = $PRIORITY;
+		$alert->{SEVERITY} = $SEVERITY;
+		$alert->{ETHER} = $ETHER;
+		$alert->{PROTO} = $PROTO;
+		record_data($alert); next;
+			print "$1";
+			print "$_";
+	#
+	# IF CORRESPOND TO ICMP WITH MAC
+	#
+	} elsif ( $_ =~ /^([\d\.]+)\s+\-\>\s+([\d\.]+)\s+([\w|\d]+)/) {
+		$snortfull = 1;
+		$PROTO = $3; $PROTO =~ tr/A-Z/a-z/;
+		$SADDR = $1; $DADDR = $2;
+		next;
+	#
+	# IF CORRESPOND TO ICMP WITHOUT MAC
+	#
+	} elsif ( $_ =~ /^Type:(\d+)\s+Code:(\d+)/ ) {
+		$snortfull = 1;
+		$alert->{SPORT} = "$1/$2"; $alert->{DPORT} = "$1/$2";
+		$alert->{MON} = $MON; $alert->{DAY} = $DAY; $alert->{HOUR} = $HOUR;
+		$alert->{MIN} = $MIN; $alert->{SEC} = $SEC;
+		$alert->{SADDR} = $SADDR; $alert->{DADDR} = $DADDR;
+		$alert->{HOST} = "localhost";
+		$alert->{SIG} = "$SIG {$PROTO}";
+		$alert->{TYPE} = $TYPE;
+		$alert->{PLUGIN} = $PLUGIN;
+		$alert->{CLASS} = $CLASS;
+		$alert->{PRIORITY} = $PRIORITY;
+		$alert->{SEVERITY} = $SEVERITY;
+		$alert->{ETHER} = $ETHER;
+		$alert->{PROTO} = $PROTO;  
+		record_data($alert); next;
+
+	} elsif ( $_ =~ m/TCP\ Options/o ) {
+		next;
+	} elsif ( $_ =~ m/Len/o ) {
+		next;
+	} elsif ( $_ =~ m/Xref/o ) {
+		next;
+	} elsif ( $_ =~ m/MSS:/o ) {
+		next;
+	}
+}
+
+1;

@@ -1,0 +1,58 @@
+#
+# Rev   : 1.01
+# Date  : 08/02/2005
+# By    : Jeremy Chartier
+#
+
+
+
+sub portscan {
+$i = 0;
+my $description = $lang{"s25_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s25) ) ) {
+	$n = keys %s25;
+} else {
+	$n = $val_opt_n;
+}
+
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"portscan\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>IP Source</td></tr>\n");
+	foreach $k (sort { $s25{$b} <=> $s25{$a} } keys %s25) {
+		printf FILEOUT ("<tr class=TB><TD>%-2.2f</TD><TD>%-${nb_len}d</TD><TD>%-${addr_len}s\n", $s25{$k}/$total*100,$s25{$k},$k) if ( $i < $n );
+		++$i;
+	}
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 40;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### Portscan List ###\n");
+		print FILEOUT ("    %    No     IP source\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s25{$b} <=> $s25{$a} } keys %s25) {
+			printf FILEOUT ("  %5.2f  %-4d   %-${addr_len}s\n", $s25{$k}/$total*100,$s25{$k},$k) if ( $i < $n );
+			++$i;
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "portscan");
+		foreach $k (sort { $s25{$b} <=> $s25{$a} } keys %s25) {
+			printf("  %5.2f  %-6d  %-${addr_len}s\n", $s25{$k}/$total*100,$s25{$k},$k) if ( $i < $n );
+			++$i;
+		}
+	}
+}
+}
+
+1;

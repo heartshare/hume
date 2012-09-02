@@ -1,0 +1,59 @@
+#
+# Rev   : 1.00
+# Date  : 01/07/2011
+# By    : Jeremy Chartier
+#
+
+sub tippingpoint_log {
+	#
+	# THIS IS  TIPPINGPOINT SYSLG LOG
+	#
+	if ( $_ =~ /\d{8}\-\d{4}\-\d{4}\-\d{4}\-\d{12}/ ) {
+		$tippingpoint = 1;
+		@head = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18);
+
+		@hash{@head}= split (/,/, $_);
+		if($hash{1} =~ /(\d{4})\-(\d{2})\-(\d{2})\s+(\d{2})\:(\d{2})\:(\d{2}).+(\d{1})$/) {
+			($hour,$min,$sec,$action) = ($4,$5,$6,$7);
+		}
+		
+		$alert->{HOUR} = $hour;
+		$alert->{MIN} = $min;
+		$alert->{SEC} = $sec;
+		$alert->{HOST} = $hash{15};
+		$alert->{PROTO} = $hash{7};
+		$alert->{SADDR} = $hash{8};
+		$alert->{DADDR} = $hash{10};
+		$alert->{TYPE} = 'TippingPoint';
+		$alert->{SPORT} = $hash{9};
+		$alert->{DPORT} = $hash{11};
+		$alert->{PRIORITY} = $hash{2};
+		$alert->{SIG} = $hash{5};
+		$alert->{ETHER} = "$hash{13}". "/" ."$hash{14}";
+		#
+		# Test SEVERITY code
+		#
+		if ( $hash{2} == 0 ) {
+			$alert->{SEVERITY} = "Normal";
+		} elsif ( $hash{2} == 1 ) {
+			$alert->{SEVERITY} = "Low";
+		} elsif ( $hash{2} == 2 ) {
+			$alert->{SEVERITY} = "Minor";
+		} elsif ( $hash{2} == 3 ) {
+			$alert->{SEVERITY} = "Critical";
+		}
+		#
+		# Test ACTION code
+		#
+		if ( $action == 7 ) {
+			$alert->{ACTION} = "Permit";
+		} elsif ( $action == 8 ) {
+			$alert->{ACTION} = "Block";
+		} elsif ( $action == 9 ) {
+			$alert->{ACTION} = "P2P";
+		}
+		record_data($alert); next;
+	}
+}
+
+1;

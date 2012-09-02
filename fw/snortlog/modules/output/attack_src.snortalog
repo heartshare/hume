@@ -1,0 +1,239 @@
+#
+# Rev   : 1.02
+# Date  : 04/05/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/05/2006 : Correct % bug
+#
+
+
+
+
+# to see the popularity of one source host 
+sub attack_src {
+$i=0;
+my $description = $lang{"s5_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s5) ) ) {
+	$n = keys %s5;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"attack_src\" href=\"#top\">$description</A></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	if ( ($opt_r == 1 ) && ($opt_w == 1) ) {
+		print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>IP Source</td><td>Resolve</td><td>Domain</td></tr>\n");
+	} elsif ( $opt_r == 1 ) {
+		print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>IP Source</td><td>Resolve</td><td>Domain</td></tr>\n");
+	} else {
+		print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>IP Source</td></tr>\n");
+	}
+	
+	if ($opt_i == 1) {
+		foreach $k (sort { $s5{$a} <=> $s5{$b} } keys %s5) {
+			if ($i < $n) {
+				if ( ($opt_r == 1) && ($opt_w == 1) ) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					$STYLE = init_color($src_host);
+					$src_host =~ /(\w+$)/;
+					whois();
+					printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td><a href=$requestwhois target=_blank class=$STYLE>%-${addr_len}s</a></td><td>%-${resolve_len}s</td><td>%-${domain_len}s</td></tr>\n",$s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+				} elsif ($opt_r) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					$STYLE = init_color($src_host);
+					$src_host =~ /(\w+$)/;
+					printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td><td>%-${addr_len}s</td><td>%-${domain_len}s</td></tr>\n",$s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+				} elsif ( $opt_w == 1 ) {
+					whois();
+					$STYLE = "TB";
+					printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td><a href=$requestwhois target=_blank>%-${addr_len}s</a></td></tr>\n",$s5{$k}/$total_log*100,$s5{$k},$k);
+
+				} else {
+					printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td></tr>\n", $s5{$k}/$total_log*100,$s5{$k},$k);
+				}
+			}
+		++$i;
+		}
+	} else {
+		foreach $k (sort { $s5{$b} <=> $s5{$a} } keys %s5) {
+			if ($i < $n) {
+				if ( ($opt_r == 1) && ($opt_w == 1) ) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					$STYLE = init_color($src_host);
+					$src_host =~ /(\w+$)/;
+					whois();
+					printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td><a href=$requestwhois target=_blank class=$STYLE>%-${addr_len}s</a></td><td>%-${resolve_len}s</td><td>%-${domain_len}s</td></tr>\n",$s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+				} elsif ( $opt_r == 1 ) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					$STYLE = init_color($src_host);
+					$src_host =~ /(\w+$)/;
+					printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td><td>%-${resolve_len}s</td><td>%-${domain_len}s</td></tr>\n",$s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+				} elsif ( $opt_w == 1 ) {
+					whois();
+					$STYLE = "TB";
+					printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td><a href=$requestwhois target=_blank>%-${addr_len}s</a></td></tr>\n",$s5{$k}/$total_log*100,$s5{$k},$k);
+				} else {
+					 printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td></tr>\n", $s5{$k}/$total_log*100,$s5{$k},$k);
+				}
+			}
+		++$i;
+		}
+	}
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		if ( ($opt_r == 1) && ($opt_w == 1) ) {
+			$linelength = 11 + $nb_len + 2 + $addr_len + 2 + $resolve_len + 2 + $domain_len + 2 + $whois_len;
+			print FILEOUT ( '=' x $linelength, "\n");
+			print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s5) ." ###\n");
+			print FILEOUT ("    %    No      IP source        Resolve                                             Domain      Inetnum                            Netname                         Descr                 Email\n");
+		} elsif ( $opt_r == 1 ) {
+			$linelength = 11 + $nb_len + 2 + $addr_len + 2 + $resolve_len + 2 + $domain_len;
+			print FILEOUT ( '=' x $linelength, "\n");
+			print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s5) ." ###\n");
+			print FILEOUT ("    %    No      IP source        Resolve                                             Domain\n");
+		} elsif ( $opt_w == 1 ) {
+			$linelength = 11 + $nb_len + 2 + $addr_len + 2 + $whois_len;
+			print FILEOUT ( '=' x $linelength, "\n");
+			print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s5) ." ###\n");
+			print FILEOUT ("    %    No      IP source        Inetnum                            Netname                         Descr                 Email\n");
+		} else {
+			$linelength = 13 + $nb_len + 4 + $addr_len;
+			print FILEOUT ( '=' x $linelength, "\n");
+			print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s5) ." ###\n");
+			print FILEOUT ("    %    No      IP source\n");
+		}
+		print FILEOUT ( '=' x $linelength, "\n");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s5{$a} <=> $s5{$b} } keys %s5) {
+				if ($i < $n) {
+					if ( ($opt_r == 1) && ($opt_w == 1) ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						$s40{"$1"}++;
+						whois();
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1},$inetnum,$netname,$descr,$mail);
+					} elsif ( $opt_r == 1 ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+					} elsif ( $opt_w == 1 ) {
+						whois();
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$inetnum,$netname,$descr,$mail);
+					} else {
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k);
+					}
+				}
+			++$i;
+			}
+		} else {
+			foreach $k (sort { $s5{$b} <=> $s5{$a} } keys %s5) {
+				if ($i < $n) {
+					if ( ($opt_r == 1) && ($opt_w == 1) ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						$s40{"$1"}++;
+						whois();
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1},$inetnum,$netname,$descr,$mail);
+					} elsif ( $opt_r == 1 ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+					} elsif ( $opt_w == 1 ) {
+						whois();
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$inetnum,$netname,$descr,$mail);
+					} else {
+						printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k);
+					}
+				}
+			++$i;
+			}
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {		
+		if ( ($opt_r == 1 ) && ($opt_w == 1) ) {
+			section_header("$description\n", "attack_src_resolve_whois");
+		} elsif ($opt_w == 1) {
+			section_header("$description\n", "attack_src_whois");
+		} elsif  ($opt_r == 1) {
+			section_header("$description\n", "attack_src_resolve");
+		} else {
+			section_header("$description\n", "attack_src");
+		}
+		if ($opt_i == 1) {
+			foreach $k (sort { $s5{$a} <=> $s5{$b} } keys %s5) {
+				if ($i < $n) {
+					if ( ($opt_r == 1) && ($opt_w == 1) ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						$s40{"$1"}++;
+						whois();
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1},$inetnum,$netname,$descr,$mail);
+					} elsif ( $opt_r == 1 ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						$s40{"$1"}++;
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+					} elsif ( $opt_w == 1 ) {
+						whois();
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$inetnum,$netname,$descr,$mail);
+
+					} else {
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k);
+					}
+				}
+			++$i;
+			}
+		} else {
+			foreach $k (sort { $s5{$b} <=> $s5{$a} } keys %s5) {
+				if ($i < $n) {
+					if ( ($opt_r == 1) && ($opt_w == 1) ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						$s40{"$1"}++;
+						whois();
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1},$inetnum,$netname,$descr,$mail);
+					} elsif ( $opt_r == 1 ) {
+						$host = resolve ($k);
+						$src_host = $host if ($host ne $k);
+						$src_host =~ /(\w+$)/;
+						$s40{"$1"}++;
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s  %-${domain_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$src_host,$DomainName{$1});
+					} elsif ( $opt_w == 1 ) {
+						whois();
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${inetnum_len}s  %-${netname_len}s  %-${descr_len}s  %-${email_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k,$inetnum,$netname,$descr,$mail);
+
+					} else {
+						printf("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s5{$k}/$total_log*100,$s5{$k},$k);
+					}
+				}
+			++$i;
+			}
+		}
+	}
+}
+}
+
+
+1;

@@ -1,0 +1,73 @@
+#
+# Rev   : 1.03
+# Date  : 02/07/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/07/2006 : Add mechanism to provide a list of severity and set color
+# 12/20/2005 : Correct bug for severity graph
+#
+
+
+
+
+sub severity {
+$max = 0;
+my $description = $lang{"s20_". $val_opt_l};
+if ( $opt_o == 1 ) {
+	@list1 = ();
+	@list2 = ();
+	$listseverity = "";
+	print FILEOUT ("<H3><CENTER><A NAME=\"severity\" HREF=\"#top\">$description</A></CENTER></H3>\n");
+	print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<TR CLASS=TH ALIGN=center><TD>%</TD><TD>No</TD><TD>Severity</TD></TR>\n");
+	foreach $k (sort { $s20{$b} <=> $s20{$a} } keys %s20) {
+		$STYLE = init_color($k);
+		printf FILEOUT (("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${sever_len}s</td></tr>\n", $s20{$k}/$total*100,$s20{$k},$k));
+		push @list1 ,($s20{$k}/$total*100);
+		push @list2 ,("$k");
+		$listseverity = $listseverity . "$k";
+	}
+	if ( $val_opt_g ne "" ) {
+		init_graph("severity","pie");
+		print FILEOUT ("</TABLE></TD><TD WIDTH=300 ALIGN=right><IMG SRC=".$filename._severity.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} else {
+		print FILEOUT ("</TABLE></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	foreach $k (%s20) {
+		$max = $s20{$k} if ($s20{$k} > $max);
+	}
+	$ratio = $max/$total*100;
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 13 + $nb_len + 2 + $sever_len + 2 + $graph_len;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". keys(%s20) ." of ". keys(%s20) ." ###\n");
+		print FILEOUT ("    %    No      Severity Graph\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s20{$b} <=> $s20{$a} } keys %s20) {
+			$num = $s20{$k}/$total*50*(100 / $ratio);
+			printf FILEOUT ("  %-5.2f  %-${nb_len}d  %-${sever_len}s  %-${graph_len}s\n", $s20{$k}/$total*100,$s20{$k},$k, '#' x $num);
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {
+		section_header("$description\n", "severity");
+		foreach $k (sort { $s20{$b} <=> $s20{$a} } keys %s20) {
+			$num = $s20{$k}/$total*50*(100 / $ratio);
+			printf("  %-5.2f  %-${nb_len}d  %-${sever_len}s  %-${graph_len}s\n", $s20{$k}/$total*100,$s20{$k},$k, '#' x $num);
+		}
+
+	}
+}
+}
+
+1;

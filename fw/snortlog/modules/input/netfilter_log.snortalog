@@ -1,0 +1,86 @@
+#
+# Rev	: 1.01
+# Date	: 06/16/2005
+# By	: Jeremy Chartier
+#
+
+sub netfilter_log {
+	#
+	# TCP AND UDP CONNECTIONS WITHOUT MAC ADDRESS
+	#
+	if ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+kernel\:\s+IN=(\S+)?\sOUT=(\S+)?\s+SRC=(\S+)\sDST=(\S+)\sLEN=\S+\sTOS=\S+\sPREC=\S+\sTTL=\S+\sID=\S+\sD?F?\s?PROTO=(\S+)\sSPT=(\S+)\sDPT=(\S+)// ) {
+		$netfilter = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{HOST} = $6;  
+		$alert->{SADDR} = $9; $alert->{SPORT} = $12; $alert->{DADDR} = $10; $alert->{DPORT} = $13;
+		$alert->{PROTO} = $11; $alert->{TYPE} = "netfilter"; $alert->{PLUGIN} = "alert";
+		if ( ($7 ne "") && ($8 ne "") ) {
+			$alert->{ETHER} = $7;
+			$alert->{SZONE} = $7; $alert->{DZONE} = $8;
+		} elsif ( $7 ne "" ) {
+			$alert->{ETHER} = $7;
+		} elsif ( $8 ne "" ) {
+			$alert->{ETHER} = $8;
+		}
+		record_data($alert); next;
+	#
+	# TCP AND UDP CONNECTIONS WITH MAC ADDRESS
+	#
+	} elsif ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+kernel\:\s+IN=(\S+)?\sOUT=(\S+)?\s+MAC=[\d|\w\:]+\s+SRC=(\S+)\sDST=(\S+)\sLEN=\S+\sTOS=\S+\sPREC=\S+\sTTL=\S+\sID=\S+\sD?F?\s?PROTO=(\S+)\sSPT=(\S+)\sDPT=(\S+)// ) {
+		$netfilter = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{HOST} = $6;  
+		$alert->{SADDR} = $9; $alert->{SPORT} = $12; $alert->{DADDR} = $10; $alert->{DPORT} = $13;
+		$alert->{PROTO} = $11; $alert->{TYPE} = "netfilter"; $alert->{PLUGIN} = "alert";
+		if ( ($7 ne "") && ($8 ne "") ) {
+			$alert->{ETHER} = $7;
+			$alert->{SZONE} = $7; $alert->{DZONE} = $8;
+		} elsif ( $7 ne "" ) {
+			$alert->{ETHER} = $7;
+		} elsif ( $8 ne "" ) {
+			$alert->{ETHER} = $8;
+		}
+		record_data($alert); next;
+	#
+	# ONLY ICMP CONNECTIONS WITHOUT MAC ADDRESS
+	#
+	} elsif ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+kernel\:\s+IN=(\S+)?\sOUT=(\S+)?\s+SRC=(\S+)\sDST=(\S+)\sLEN=\S+\sTOS=\S+\sPREC=\S+\sTTL=\S+\sID=\S+\sD?F?\s?PROTO=(\S+)\sTYPE=(\S+)\s+CODE=(\S+)// ) {
+		$netfilter = 1;
+		$alert->{MON} = $monthday{$1};    $alert->{DAY} = $2;    $alert->{HOUR} = $3; 
+	 	$alert->{MIN} = $4;    $alert->{SEC} = $5;    $alert->{HOST} = $6;  
+	 	$alert->{SADDR} = $9; $alert->{DADDR} = $10; $alert->{PROTO} = $11;
+		$alert->{TYPE} = "netfilter"; $alert->{DPORT} = "$12/$13";
+		$alert->{PLUGIN} = "alert"; $alert->{PLUGIN} = "alert";
+		if ( ($7 ne "") && ($8 ne "") ) {
+			$alert->{ETHER} = $7;
+			$alert->{SZONE} = $7; $alert->{DZONE} = $8;
+		} elsif ( $7 ne "" ) {
+			$alert->{ETHER} = $7;
+		} elsif ( $8 ne "" ) {
+			$alert->{ETHER} = $8;
+		}
+	 	record_data($alert); next;
+	#
+	# ONLY ICMP CONNECTIONS WITH MAC ADDRESS
+	#
+	} elsif ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+kernel\:\s+IN=(\S+)?\sOUT=(\S+)?\s+MAC=[\d|\w\:]+\s+SRC=(\S+)\sDST=(\S+)\sLEN=\S+\sTOS=\S+\sPREC=\S+\sTTL=\S+\sID=\S+\sD?F?\s?PROTO=(\S+)\sTYPE=(\S+)\s+CODE=(\S+)// ) {
+		$netfilter = 1;
+		$alert->{MON} = $monthday{$1};    $alert->{DAY} = $2;    $alert->{HOUR} = $3; 
+	 	$alert->{MIN} = $4;    $alert->{SEC} = $5;    $alert->{HOST} = $6;  
+	 	$alert->{SADDR} = $9; $alert->{DADDR} = $10; $alert->{PROTO} = $11;
+		$alert->{TYPE} = "netfilter"; $alert->{DPORT} = "$12/$13";
+		$alert->{PLUGIN} = "alert"; $alert->{PLUGIN} = "alert";
+		if ( ($7 ne "") && ($8 ne "") ) {
+			$alert->{ETHER} = $7;
+			$alert->{SZONE} = $7; $alert->{DZONE} = $8;
+		} elsif ( $7 ne "" ) {
+			$alert->{ETHER} = $7;
+		} elsif ( $8 ne "" ) {
+			$alert->{ETHER} = $8;
+		}
+	 	record_data($alert); next;
+	}
+}
+
+1;
+

@@ -1,0 +1,2139 @@
+ATTACK-RESPONSES command completed {tcp}		bugtraq,1806
+ATTACK-RESPONSES file copied ok {tcp}		cve,2000-0884
+ATTACK-RESPONSES Invalid URL {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-063.mspx
+ATTACK-RESPONSES index of /cgi-bin/ response {tcp}		nessus,10039
+ATTACK-RESPONSES oracle one hour install {tcp}		nessus,10737
+ATTACK-RESPONSES successful kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+ATTACK-RESPONSES successful kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+ATTACK-RESPONSES successful gobbles ssh exploit GOBBLE {tcp}		cve,2002-0639
+ATTACK-RESPONSES successful gobbles ssh exploit uname {tcp}		cve,2002-0639
+ATTACK-RESPONSES rexec username too long response {tcp}		bugtraq,7459
+ATTACK-RESPONSES Microsoft cmd.exe banner {tcp}		nessus,11633
+BACKDOOR subseven 22 {tcp}		url,www.hackfix.org/subseven/
+BACKDOOR netbus active {tcp}		arachnids,401
+BACKDOOR netbus getinfo {tcp}		arachnids,403
+BACKDOOR DeepThroat 3.1 Connection attempt {udp}		nessus,10053
+BACKDOOR DeepThroat 3.1 Server Response {udp}		nessus,10053
+BACKDOOR DeepThroat 3.1 Connection attempt [3150] {udp}		nessus,10053
+BACKDOOR DeepThroat 3.1 Server Response [3150] {udp}		nessus,10053
+BACKDOOR DeepThroat 3.1 Connection attempt [4120] {udp}		nessus,10053
+BACKDOOR DeepThroat 3.1 Server Response [4120] {udp}		nessus,10053
+BACKDOOR Doly 2.0 access {tcp}		arachnids,312
+BACKDOOR - Dagger_1.4.0_client_connect {tcp}		url,www.tlsecurity.net/backdoor/Dagger.1.4.html
+BACKDOOR - Dagger_1.4.0 {tcp}		url,www.tlsecurity.net/backdoor/Dagger.1.4.html
+BACKDOOR ACKcmdC trojan scan {tcp}		arachnids,445
+BACKDOOR QAZ Worm Client Login access {tcp}		MCAFEE,98775
+BACKDOOR Infector.1.x {tcp}		arachnids,315
+BACKDOOR SatansBackdoor.2.0.Beta {tcp}		arachnids,316
+BACKDOOR Infector 1.6 Server to Client {tcp}		nessus,11157
+BACKDOOR Infector 1.6 Client to Server Connection Request {tcp}		nessus,11157
+BACKDOOR GirlFriendaccess {tcp}		arachnids,98
+BACKDOOR NetSphere access {tcp}		arachnids,76
+BACKDOOR GateCrasher {tcp}		arachnids,99
+BACKDOOR DonaldDick 1.53 Traffic {tcp}		mcafee,98575
+BACKDOOR NetSphere 1.31.337 access {tcp}		arachnids,76
+BACKDOOR NetMetro File List {tcp}		arachnids,79
+BACKDOOR Matrix 2.0 Client connect {udp}		arachnids,83
+BACKDOOR Matrix 2.0 Server access {udp}		arachnids,83
+BACKDOOR WinCrash 1.0 Server Active {tcp}		arachnids,36
+BACKDOOR SIGNATURE - Q ICMP {icmp}		arachnids,202
+BACKDOOR Q access {tcp}		arachnids,203
+BACKDOOR CDK {tcp}		arachnids,263
+BACKDOOR w00w00 attempt {tcp}		arachnids,510
+BACKDOOR MISC Linux rootkit satori attempt {tcp}		arachnids,516
+BACKDOOR hack-a-tack attempt {tcp}		arachnids,314
+BACKDOOR fragroute trojan connection attempt {ip}		bugtraq,4898
+BACKDOOR win-trin00 connection attempt {udp}		nessus,10307
+BACKDOOR trinity connection attempt {tcp}		nessus,10501
+BACKDOOR TCPDUMP/PCAP trojan traffic {tcp}		url,hlug.fscker.com
+BACKDOOR SubSeven 2.1 Gold server connection response {tcp}		nessus,10409
+BACKDOOR Remote PC Access connection attempt {tcp}		nessus,11673
+BACKDOOR typot trojan traffic {tcp}		mcafee,100406
+BACKDOOR FsSniffer connection attempt {tcp}		nessus,11854
+BACKDOOR DoomJuice file upload attempt {tcp}		url,securityresponse.symantec.com/avcenter/venc/data/w32.hllw.doomjuice.html
+BACKDOOR sensepost.exe command shell attempt {tcp}		nessus,11003
+BAD-TRAFFIC udp port 0 traffic {udp}		nessus,10074
+BAD-TRAFFIC data in TCP SYN packet {tcp}		url,www.cert.org/incident_notes/IN-99-07.html
+BAD-TRAFFIC loopback traffic {ip}		url,rr.sans.org/firewall/egress.php
+BAD-TRAFFIC same SRC/DST {ip}		url,www.cert.org/advisories/CA-1997-28.html
+BAD-TRAFFIC 0 ttl {ip}		url,www.isi.edu/in-notes/rfc1122.txt
+BAD-TRAFFIC Unassigned/Reserved IP protocol {ip}		url,www.iana.org/assignments/protocol-numbers
+BAD-TRAFFIC IP Proto 53 SWIPE {ip}		cve,2003-0567
+BAD-TRAFFIC IP Proto 55 IP Mobility {ip}		cve,2003-0567
+BAD-TRAFFIC IP Proto 77 Sun ND {ip}		cve,2003-0567
+BAD-TRAFFIC IP Proto 103 PIM {ip}		cve,2003-0567
+CHAT ICQ forced user addition {tcp}		cve,2001-1305
+DDOS TFN Probe {icmp}		arachnids,443
+DDOS tfn2k icmp possible communication {icmp}		arachnids,425
+DDOS Trin00 Daemon to Master PONG message detected {udp}		arachnids,187
+DDOS TFN client command BE {icmp}		arachnids,184
+DDOS shaft client login to handler {tcp}		url,security.royans.net/info/posts/bugtraq_ddos3.shtml
+DDOS shaft handler to agent {udp}		arachnids,255
+DDOS shaft agent to handler {udp}		arachnids,256
+DDOS shaft synflood {tcp}		cve,2000-0138
+DDOS Trin00 Daemon to Master message detected {udp}		arachnids,186
+DDOS Trin00 Daemon to Master *HELLO* message detected {udp}		url,www.sans.org/newlook/resources/IDFAQ/trinoo.htm
+DDOS Trin00 Attacker to Master default startup password {tcp}		arachnids,197
+DDOS Trin00 Master to Daemon default password attempt {udp}		arachnids,197
+DDOS TFN server response {icmp}		arachnids,182
+DDOS mstream handler to agent {udp}		cve,2000-0138
+DDOS mstream handler ping to agent {udp}		cve,2000-0138
+DDOS mstream client to handler {tcp}		cve,2000-0138
+DDOS mstream handler to client {tcp}		cve,2000-0138
+DDOS mstream client to handler {tcp}		cve,2000-0138
+DDOS mstream handler to client {tcp}		cve,2000-0138
+DDOS - TFN client command LE {icmp}		arachnids,183
+DDOS Stacheldraht server spoof {icmp}		arachnids,193
+DDOS Stacheldraht gag server response {icmp}		arachnids,195
+DDOS Stacheldraht server response {icmp}		arachnids,191
+DDOS Stacheldraht client spoofworks {icmp}		arachnids,192
+DDOS Stacheldraht client check gag {icmp}		arachnids,194
+DDOS Stacheldraht client check skillz {icmp}		arachnids,190
+DDOS Stacheldraht handler->agent niggahbitch {icmp}		url,staff.washington.edu/dittrich/misc/stacheldraht.analysis
+DDOS Stacheldraht agent->handler skillz {icmp}		url,staff.washington.edu/dittrich/misc/stacheldraht.analysis
+DDOS Stacheldraht handler->agent ficken {icmp}		url,staff.washington.edu/dittrich/misc/stacheldraht.analysis
+FINGER probe 0 attempt {tcp}		arachnids,378
+MISC ramen worm incoming {tcp}		arachnids,460
+WEB-CGI edit.pl access {tcp}		bugtraq,2713
+EXPERIMENTAL WEB-IIS .htr request {tcp}		nessus,10932
+WEB-MISC iPlanet ../../ DOS attempt {tcp}		cve,2001-0252
+WEB-IIS header field buffer overflow attempt {tcp}		cve,2002-0150
+X11 outbound client connection detected {tcp}		arachnids,126
+FINGER cybercop redirection {tcp}		arachnids,11
+WEB-FRONTPAGE rad overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-035.mspx
+WEB-FRONTPAGE rad overflow attempt {tcp}		cve,2001-0341
+IMAP EXPLOIT partial body overflow attempt {tcp}		cve,2002-0379
+NNTP Cassandra Overflow {tcp}		cve,2000-0341
+WEB-CGI w3-msql solaris x86  access {tcp}		cve,1999-0276
+EXPLOIT bootp x86 bsd overfow {udp}		cve,1999-0914
+EXPLOIT bootp x86 linux overflow {udp}		cve,1999-0799
+BACKDOOR netbus active {tcp}		arachnids,401
+BACKDOOR netbus getinfo {tcp}		arachnids,403
+BACKDOOR BackOrifice access {tcp}		arachnids,400
+BACKDOOR BackOrifice access {udp}		arachnids,399
+BACKDOOR DeepThroat 3.1 Server Active on Network {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Keylogger on Server ON {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Show Picture Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Hide/Show Clock Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Hide/Show Desktop Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Swap Mouse Buttons Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Enable/Disable CTRL-ALT-DEL Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Freeze Mouse Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Show Dialog Box Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Show Replyable Dialog Box Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Hide/Show Start Button Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Resolution Change Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Hide/Show Start Button Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Keylogger on Server OFF {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 FTP Server Port Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Process List Client request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Close Port Scan Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Registry Add Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 System Info Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 FTP Status Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 E-Mail Info From Server {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 E-Mail Info Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server Status From Server {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server Status Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Drive Info From Server {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 System Info From Server {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Drive Info Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server FTP Port Change From Server {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Cached Passwords Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 RAS Passwords Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server Password Change Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server Password Remove Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Rehash Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server Rehash Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 ICQ Alert OFF Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 ICQ Alert ON Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Change Wallpaper Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Client Sending Data to Server on Network {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Server Active on Network {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Client Sending Data to Server on Network {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Wrong Password {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Visible Window List Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat access {udp}		arachnids,405
+BACKDOOR DeepThroat 3.1 Monitor on/off Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Delete File Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Kill Window Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Disable Window Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Enable Window Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Change Window Title Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Hide Window Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Show Window Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Send Text to Window Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Hide/Show Systray Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Create Directory Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 All Window List Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Play Sound Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Run Program Normal Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Run Program Hidden Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Get NET File Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Find File Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 Find File Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 HUP Modem Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 CD ROM Open Client Request {udp}		arachnids,106
+BACKDOOR DeepThroat 3.1 CD ROM Close Client Request {udp}		arachnids,106
+DNS named iquery attempt {udp}		url,www.rfc-editor.org/rfc/rfc1035.txt
+BACKDOOR DeepThroat 3.1 Keylogger Active on Network {udp}		arachnids,106
+FTP EXPLOIT format string {tcp}		cve,2000-0573
+FTP EXPLOIT OpenBSD x86 ftpd {tcp}		cve,2001-0053
+FTP EXPLOIT wu-ftpd 2.6.0 site exec format string overflow Solaris 2.8 {tcp}		cve,2000-0573
+FTP EXPLOIT wu-ftpd 2.6.0 site exec format string overflow FreeBSD {tcp}		cve,2000-0573
+FTP EXPLOIT wu-ftpd 2.6.0 site exec format string overflow Linux {tcp}		cve,2000-0573
+FTP EXPLOIT wu-ftpd 2.6.0 site exec format string overflow generic {tcp}		nessus,10452
+FTP EXPLOIT wu-ftpd 2.6.0 site exec format string check {tcp}		cve,2000-0573
+FTP EXPLOIT wu-ftpd 2.6.0 {tcp}		bugtraq,1387
+FTP EXPLOIT MKD overflow {tcp}		cve,1999-0368
+FTP EXPLOIT x86 linux overflow {tcp}		cve,1999-0368
+FTP EXPLOIT x86 linux overflow {tcp}		cve,1999-0368
+FTP EXPLOIT x86 linux overflow {tcp}		cve, CVE-1999-0368
+ICMP Traceroute ipopts {icmp}		arachnids,238
+RPC EXPLOIT ttdbserv solaris overflow {tcp}		url,www.cert.org/advisories/CA-2001-27.html
+RPC EXPLOIT ttdbserv Solaris overflow {tcp}		url,www.cert.org/advisories/CA-2001-27.html
+RPC portmap request yppasswdd {udp}		bugtraq,2763
+RPC portmap request yppasswdd {tcp}		bugtraq,2763
+RPC portmap listing {tcp}		arachnids,429
+RPC portmap listing {tcp}		arachnids,429
+RPC AMD Overflow {tcp}		cve,1999-0704
+RPC EXPLOIT statdx {tcp}		arachnids,442
+RPC EXPLOIT statdx {udp}		arachnids,442
+WEB-CGI webstore directory traversal {tcp}		cve,2000-1005
+IMAP EXPLOIT x86 linux overflow {tcp}		cve,1999-0005
+IMAP EXPLOIT x86 linux overflow {tcp}		cve,1999-0005
+IMAP EXPLOIT x86 linux overflow {tcp}		cve,1999-0005
+IMAP EXPLOIT x86 linux overflow {tcp}		cve,1999-0005
+IMAP EXPLOIT x86 linux overflow {tcp}		cve, CVE-1999-0005
+RPC rstatd query {udp}		arachnids,9
+RPC rstatd query {tcp}		arachnids,9
+NETBIOS SMB SMB_COM_TRANSACTION Max Data Count of 0 DOS Attempt {tcp}		nessus,11110
+SMTP EXPLOIT x86 windows CSMMail overflow {tcp}		cve,2000-0042
+DOS Land attack {tcp}		cve,1999-0016
+WEB-MISC Cisco Web DOS attempt {tcp}		arachnids,275
+SMTP sendmail 8.4.1 exploit {tcp}		arachnids,120
+RPC portmap tooltalk request TCP {tcp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC portmap tooltalk request UDP {udp}		url,www.cert.org/advisories/CA-2001-05.html
+Virus - Possible QAZ Worm {tcp}		MCAFEE,98775
+Virus - Possible QAZ Worm Calling Home {tcp}		MCAFEE,98775
+Virus - Possible Pikachu Pokemon Virus {tcp}		MCAFEE,98696
+Virus - Possible Triplesix Worm {tcp}		MCAFEE,10389
+Virus - Possible Tune.vbs {tcp}		MCAFEE,10497
+Virus - Possible NAIL Worm {tcp}		MCAFEE,10109
+Virus - Possible NAIL Worm {tcp}		MCAFEE,10109
+Virus - Possible NAIL Worm {tcp}		MCAFEE,10109
+Virus - Possible NAIL Worm {tcp}		MCAFEE,10109
+Virus - Possible Papa Worm {tcp}		MCAFEE,10145
+Virus - Possible Freelink Worm {tcp}		MCAFEE,10225
+Virus - Possible BADASS Worm {tcp}		MCAFEE,10388
+Virus - Possible ExploreZip.B Worm {tcp}		MCAFEE,10471
+Virus - Possible wscript.KakWorm {tcp}		MCAFEE,10509
+Virus Possible Suppl Worm {tcp}		MCAFEE,10361
+Virus - Possible NewApt.Worm - theobbq.exe {tcp}		MCAFEE,10540
+Virus - Possible Word Macro - VALE {tcp}		MCAFEE,10502
+Virus - Possible IROK Worm {tcp}		MCAFEE,98552
+Virus - Possible Fix2001 Worm {tcp}		MCAFEE,10355
+Virus - Possible Y2K Zelu Trojan {tcp}		MCAFEE,10505
+Virus - Possible The_Fly Trojan {tcp}		MCAFEE,10478
+Virus - Possible Word Macro - VALE {tcp}		MCAFEE,10502
+Virus - Possible Passion Worm {tcp}		MCAFEE,10467
+Virus - Possible NewApt.Worm - cooler3.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - party.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - hog.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - goal1.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - pirate.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - video.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - baby.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - cooler1.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - boss.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - g-zilla.exe {tcp}		MCAFEE,10540
+Virus - Possible ToadieE-mail Trojan {tcp}		MCAFEE,10540
+Virus - Possible PrettyPark Trojan {tcp}		MCAFEE,10175
+Virus - Possible Happy99 Virus {tcp}		MCAFEE,10144
+Virus - Possible Bubbleboy Worm {tcp}		MCAFEE,10418
+Virus - Possible NewApt.Worm - copier.exe {tcp}		MCAFEE,10540
+Virus - Possible MyPics Worm {tcp}		MCAFEE,10467
+Virus - Possible Babylonia - X-MAS.exe {tcp}		MCAFEE,10461
+Virus - Possible NewApt.Worm - gadget.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - irnglant.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - casper.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - fborfw.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - saddam.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - bboy.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - monica.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - goal.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - panther.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - chestburst.exe {tcp}		MCAFEE,10540
+Virus - Possible NewApt.Worm - cupid2.exe {tcp}		MCAFEE,10540
+Virus - Possible Resume Worm {tcp}		MCAFEE,98661
+Virus - Possible Resume Worm {tcp}		MCAFEE,98661
+Virus - Possible Timofonica Worm {tcp}		MCAFEE,98674
+Virus - Possible Resume Worm {tcp}		MCAFEE,98661
+Virus - Possible NewApt.Worm - farter.exe {tcp}		MCAFEE,1054
+SMTP XEXCH50 overflow with evasion attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-046.mspx
+Virus - Possbile Zipped Files Trojan {tcp}		MCAFEE,10450
+WEB-IIS multiple decode attempt {tcp}		nessus,10671
+WEB-CGI faxsurvey attempt full path {tcp}		nessus,10067
+WEB-CGI faxsurvey arbitrary file read attempt {tcp}		nessus,10067
+WEB-MISC Tomcat directory traversal attempt {tcp}		bugtraq,2518
+Virus - Possible QAZ Worm Infection {tcp}		MCAFEE,98775
+TFTP NULL command attempt {udp}		bugtraq,7575
+SMTP SSLv3 invalid timestamp attempt {tcp}		nessus,12204
+WEB-MISC SSLv3 invalid timestamp attempt {tcp}		nessus,12204
+MISC LDAP SSLv3 invalid timestamp attempt {tcp}		nessus,12204
+IMAP SSLv3 invalid timestamp attempt {tcp}		nessus,12204
+SCAN nmap TCP {tcp}		arachnids,28
+SCAN nmap fingerprint attempt {tcp}		arachnids,05
+FTP format string attempt {tcp}		cve,1999-0997
+NETBIOS SMB-DS DCERPC NTLMSSP invalid mechlistMIC attempt {tcp}		nessus,12065
+NETBIOS SMB NTLMSSP invalid mechlistMIC attempt {tcp}		nessus,12065
+MISC Cisco Catalyst Remote Access {tcp}		cve,1999-0430
+SCAN SOCKS Proxy attempt {tcp}		url,help.undernet.org/proxyscan/
+WEB-IIS unicode directory traversal attempt {tcp}		nessus,10537
+WEB-IIS unicode directory traversal attempt {tcp}		nessus,10537
+WEB-IIS unicode directory traversal attempt {tcp}		nessus,10537
+WEB-IIS unicode directory traversal attempt {tcp}		nessus,10537
+FTP CWD ~<CR><NEWLINE> attempt {tcp}		cve,2001-0421
+FTP CWD .... attempt {tcp}		bugtraq,4884
+WEB-MISC b2 access {tcp}		cve,2002-0734
+DNS zone transfer TCP {tcp}		nessus,10595
+DNS zone transfer UDP {udp}		nessus,10595
+DNS named authors attempt {tcp}		nessus,10728
+DNS named authors attempt {udp}		nessus,10728
+DNS named version attempt {tcp}		nessus,10028
+DNS named version attempt {udp}		nessus,10028
+DNS EXPLOIT named 8.2->8.2.1 {tcp}		cve,1999-0833
+DNS EXPLOIT named tsig overflow attempt {tcp}		cve,2001-0010
+DNS EXPLOIT named tsig overflow attempt {udp}		cve,2001-0010
+DNS EXPLOIT named overflow ADM {tcp}		cve,1999-0833
+DNS EXPLOIT named overflow ADMROCKS {tcp}		url,www.cert.org/advisories/CA-1999-14.html
+DNS EXPLOIT named overflow attempt {tcp}		url,www.cert.org/advisories/CA-1998-05.html
+DOS Jolt attack {ip}		cve,1999-0345
+DOS Teardrop attack {udp}		url,www.cert.org/advisories/CA-1997-28.html
+DOS UDP echo+chargen bomb {udp}		cve,1999-0635
+DOS IGMP dos attack {ip}		cve,1999-0918
+DOS IGMP dos attack {ip}		cve,1999-0918
+DOS ath {icmp}		cve,1999-1228
+DOS NAPTHA {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-091.mspx
+DOS Real Audio Server {tcp}		cve,2000-0474
+DOS Real Server template.html {tcp}		cve,2000-0474
+DOS Real Server template.html {tcp}		cve,2000-0474
+DOS Bay/Nortel Nautica Marlin {udp}		cve,2000-0221
+DOS Ascend Route {udp}		cve,1999-0060
+DOS arkiea backup {tcp}		cve,1999-0788
+DOS Winnuke attack {tcp}		cve,1999-0153
+DOS MSDTC attempt {tcp}		nessus,10939
+DOS iParty DOS attempt {tcp}		cve,1999-1566
+DOS DB2 dos attempt {tcp}		nessus,10871
+DOS ISAKMP invalid identification payload attempt {udp}		cve,2004-0184
+DOS BGP spoofed connection reset attempt {tcp}		url,www.uniras.gov.uk/vuls/2004/236929/index.htm
+EXPLOIT ssh CRC32 overflow /bin/sh {tcp}		cve,2001-0572
+EXPLOIT ssh CRC32 overflow NOOP {tcp}		cve,2001-0572
+EXPLOIT ssh CRC32 overflow {tcp}		cve,2001-0572
+EXPLOIT Netscape 4.7 client overflow {tcp}		cve,2000-1187
+EXPLOIT nlps x86 Solaris overflow {tcp}		bugtraq,2319
+EXPLOIT LPRng overflow {tcp}		cve,2000-0917
+EXPLOIT Redhat 7.0 lprd overflow {tcp}		cve,2000-0917
+EXPLOIT SCO calserver overflow {tcp}		cve,2000-0306
+EXPLOIT delegate proxy overflow {tcp}		cve,2000-0165
+EXPLOIT VQServer admin {tcp}		url,www.vqsoft.com/vq/server/docs/other/control.html
+EXPLOIT NextFTP client overflow {tcp}		cve,1999-0671
+EXPLOIT sniffit overflow {tcp}		cve,2000-0343
+EXPLOIT x86 windows MailMax overflow {tcp}		cve,1999-0404
+EXPLOIT Netscape 4.7 unsucessful overflow {tcp}		cve,2000-1187
+EXPLOIT ntpdx overflow attempt {udp}		cve,2001-0414
+EXPLOIT ntalkd x86 Linux overflow {udp}		bugtraq,210
+EXPLOIT x86 Linux mountd overflow {udp}		cve,1999-0002
+EXPLOIT x86 Linux mountd overflow {udp}		cve,1999-0002
+EXPLOIT x86 Linux mountd overflow {udp}		cve,1999-0002
+EXPLOIT MDBMS overflow {tcp}		cve,2000-0446
+EXPLOIT AIX pdnsd overflow {tcp}		cve,1999-0745
+EXPLOIT rwhoisd format string attempt {tcp}		cve,2001-0838
+EXPLOIT CDE dtspcd exploit attempt {tcp}		url,www.cert.org/advisories/CA-2002-01.html
+EXPLOIT cachefsd buffer overflow attempt {tcp}		nessus,10951
+EXPLOIT kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+EXPLOIT kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+EXPLOIT kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+EXPLOIT kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+EXPLOIT kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+EXPLOIT kadmind buffer overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/875073
+EXPLOIT gobbles SSH exploit attempt {tcp}		cve,2002-0639
+EXPLOIT LPD dvips remote command execution attempt {tcp}		nessus,11023
+EXPLOIT SSH server banner overflow {tcp}		cve,2002-1059
+EXPLOIT CHAT IRC topic overflow {tcp}		cve,1999-0672
+EXPLOIT CHAT IRC Ettercap parse overflow attempt {tcp}		url,www.bugtraq.org/dev/GOBBLES-12.txt
+EXPLOIT x86 Linux samba overflow {tcp}		cve,1999-0811
+EXPLOIT ebola PASS overflow attempt {tcp}		bugtraq,9156
+EXPLOIT ebola USER overflow attempt {tcp}		bugtraq,9156
+EXPLOIT ISAKMP first payload certificate request length overflow attempt {udp}		cve,2004-0040
+EXPLOIT ISAKMP second payload certificate request length overflow attempt {udp}		cve,2004-0040
+EXPLOIT ISAKMP third payload certificate request length overflow attempt {udp}		cve,2004-0040
+EXPLOIT ISAKMP forth payload certificate request length overflow attempt {udp}		cve,2004-0040
+EXPLOIT ISAKMP fifth payload certificate request length overflow attempt {udp}		cve,2004-0040
+EXPLOIT ISAKMP delete hash with empty hash attempt {udp}		cve,2004-0164
+EXPLOIT ISAKMP initial contact notification without SPI attempt {udp}		cve,2004-0164
+EXPLOIT ISAKMP second payload initial contact notification without SPI attempt {udp}		cve,2004-0164
+EXPLOIT ICQ SRV_MULTI/SRV_META_USER first name overflow attempt {udp}		url,www.eeye.com/html/Research/Advisories/AD20040318.html
+EXPLOIT ICQ SRV_MULTI/SRV_META_USER first name overflow attempt {udp}		url,www.eeye.com/html/Research/Advisories/AD20040318.html
+EXPLOIT ICQ SRV_MULTI/SRV_META_USER last name overflow attempt {udp}		url,www.eeye.com/html/Research/Advisories/AD20040318.html
+EXPLOIT ICQ SRV_MULTI/SRV_META_USER email overflow attempt {udp}		url,www.eeye.com/html/Research/Advisories/AD20040318.html
+EXPLOIT IGMP IGAP account overflow attempt {ip}		cve,2004-0367
+EXPLOIT IGMP IGAP message overflow attempt {ip}		cve,2004-0367
+EXPLOIT EIGRP prefix length overflow attempt {ip}		cve,2004-0367
+EXPLOIT esignal STREAMQUOTE buffer overflow attempt {tcp}		bugtraq,9978
+EXPLOIT esignal SNAPQUOTE buffer overflow attempt {tcp}		bugtraq,9978
+EXPLOIT AFP FPLoginExt username buffer overflow attempt {tcp}		url,www.atstake.com/research/advisories/2004/a050304-1.txt
+EXPLOIT winamp XM module name overflow {tcp}		url,www.nextgenss.com/advisories/winampheap.txt
+EXPLOIT Oracle Web Cache GET overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache HEAD overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache PUT overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache POST overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache TRACE overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache DELETE overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache LOCK overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache MKCOL overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache COPY overflow attempt {tcp}		nessus,12126
+EXPLOIT Oracle Web Cache MOVE overflow attempt {tcp}		nessus,12126
+EXPLOIT kerberos principal name overflow UDP {udp}		url,web.mit.edu/kerberos/www/advisories/MITKRB5-SA-2003-005-buf.txt
+EXPLOIT kerberos principal name overflow TCP {tcp}		url,web.mit.edu/kerberos/www/advisories/MITKRB5-SA-2003-005-buf.txt
+EXPLOIT eMule buffer overflow attempt {tcp}		nessus,12233
+EXPLOIT WINS overflow attempt {tcp}		url,www.immunitysec.com/downloads/instantanea.pdf
+EXPLOIT Volition Freespace 2 buffer overflow attempt {udp}		bugtraq,9785
+FINGER cmd_rootsh backdoor attempt {tcp}		url,www.sans.org/y2k/fingerd.htm
+FINGER account enumeration attempt {tcp}		nessus,10788
+FINGER search query {tcp}		cve,1999-0259
+FINGER root query {tcp}		arachnids,376
+FINGER null request {tcp}		arachnids,377
+FINGER remote command execution attempt {tcp}		cve,1999-0150
+FINGER remote command pipe execution attempt {tcp}		cve,1999-0152
+FINGER bomb attempt {tcp}		cve,1999-0106
+FINGER redirection attempt {tcp}		nessus,10073
+FINGER cybercop query {tcp}		cve,1999-0612
+FINGER 0 query {tcp}		nessus,10069
+FINGER . query {tcp}		nessus,10072
+FTP MDTM overflow attempt {tcp}		nessus,12080
+FTP XMKD overflow attempt {tcp}		cve,2001-1021
+FTP NLST overflow attempt {tcp}		cve,1999-1544
+FTP ALLO overflow attempt {tcp}		bugtraq,9953
+FTP RNTO overflow attempt {tcp}		cve,2003-0466
+FTP STOU overflow attempt {tcp}		cve,2003-0466
+FTP APPE overflow attempt {tcp}		cve,2003-0466
+FTP RETR overflow attempt {tcp}		cve,2004-0298
+FTP STOR overflow attempt {tcp}		cve,2000-0133
+FTP CEL overflow attempt {tcp}		nessus,10009
+FTP XCWD overflow attempt {tcp}		bugtraq,11542
+FTP CWD overflow attempt {tcp}		cve,2002-0405
+FTP STAT overflow attempt {tcp}		url,labs.defcom.com/adv/2001/def-2001-31.txt
+FTP SITE CHMOD overflow attempt {tcp}		nessus,12037
+FTP SITE CHOWN overflow attempt {tcp}		cve,2001-0065
+FTP SITE NEWER overflow attempt {tcp}		cve,1999-0800
+FTP SITE CPWD overflow attempt {tcp}		cve,2002-0826
+FTP SITE overflow attempt {tcp}		cve,2001-0770
+FTP USER overflow attempt {tcp}		cve,2004-0286
+FTP PASS overflow attempt {tcp}		cve,2002-0895
+FTP RMDIR overflow attempt {tcp}		bugtraq,819
+FTP MKD overflow attempt {tcp}		nessus,12108
+FTP REST overflow attempt {tcp}		cve,2001-0826
+FTP DELE overflow attempt {tcp}		cve,2001-1021
+FTP RMD overflow attempt {tcp}		cve,2001-1021
+FTP CWD Root directory transversal attempt {tcp}		nessus,11677
+FTP SITE ZIPCHK overflow attempt {tcp}		cve,2000-0040
+FTP SITE NEWER attempt {tcp}		nessus,10319
+FTP SITE EXEC attempt {tcp}		cve,1999-0955
+FTP EXPLOIT STAT * dos attempt {tcp}		nessus,10934
+FTP EXPLOIT STAT ? dos attempt {tcp}		nessus,10934
+FTP tar parameters {tcp}		cve,1999-0997
+FTP CWD ~root attempt {tcp}		cve,1999-0082
+FTP CWD ... {tcp}		bugtraq,9237
+FTP CWD ~ attempt {tcp}		cve,2001-0421
+FTP serv-u directory transversal {tcp}		cve,2001-0054
+FTP wu-ftp bad file completion attempt [ {tcp}		cve,2001-0886
+FTP wu-ftp bad file completion attempt { {tcp}		cve,2001-0886
+FTP command overflow attempt {tcp}		cve,2002-0606
+FTP LIST directory traversal attempt {tcp}		nessus,11112
+FTP .forward {tcp}		arachnids,319
+FTP .rhosts {tcp}		arachnids,328
+FTP passwd retrieval attempt {tcp}		arachnids,213
+FTP ADMw0rm ftp login attempt {tcp}		arachnids,01
+FTP adm scan {tcp}		arachnids,332
+FTP iss scan {tcp}		arachnids,331
+FTP pass wh00t {tcp}		arachnids,324
+FTP saint scan {tcp}		arachnids,330
+FTP satan scan {tcp}		arachnids,329
+FTP USER format string attempt {tcp}		nessus,11687
+FTP PASS format string attempt {tcp}		cve,2000-0699
+FTP MKDIR format string attempt {tcp}		bugtraq,9262
+FTP RENAME format string attempt {tcp}		bugtraq,9262
+FTP LIST buffer overflow attempt {tcp}		cve,2000-0129
+FTP LIST integer overflow attempt {tcp}		cve,2003-0854
+FTP Yak! FTP server default account login attempt {tcp}		bugtraq,9072
+FTP RMD / attempt {tcp}		bugtraq,9159
+FTP invalid MDTM command attempt {tcp}		cve,2004-0330
+FTP RETR format string attempt {tcp}		bugtraq,9800
+ICMP IRDP router advertisement {icmp}		cve,1999-0875
+ICMP IRDP router selection {icmp}		cve,1999-0875
+ICMP PING BSDtype {icmp}		arachnids,152
+ICMP PING BayRS Router {icmp}		arachnids,444
+ICMP PING BeOS4.x {icmp}		arachnids,151
+ICMP PING Cisco Type.x {icmp}		arachnids,153
+ICMP PING Delphi-Piette Windows {icmp}		arachnids,155
+ICMP PING Flowpoint2200 or Network Management Software {icmp}		arachnids,156
+ICMP PING IP NetMonitor Macintosh {icmp}		arachnids,157
+ICMP PING LINUX/*BSD {icmp}		arachnids,447
+ICMP PING Microsoft Windows {icmp}		arachnids,159
+ICMP PING Network Toolbox 3 Windows {icmp}		arachnids,161
+ICMP PING Ping-O-MeterWindows {icmp}		arachnids,164
+ICMP PING Pinger Windows {icmp}		arachnids,163
+ICMP PING Seer Windows {icmp}		arachnids,166
+ICMP PING Sun Solaris {icmp}		arachnids,448
+ICMP PING Windows {icmp}		arachnids,169
+ICMP traceroute {icmp}		arachnids,118
+ICMP Router Advertisement {icmp}		arachnids,173
+ICMP Router Selection {icmp}		arachnids,174
+ICMP ISS Pinger {icmp}		arachnids,158
+ICMP L3retriever Ping {icmp}		arachnids,311
+ICMP Nemesis v1.1 Echo {icmp}		arachnids,449
+ICMP PING NMAP {icmp}		arachnids,162
+ICMP icmpenum v1.1.1 {icmp}		arachnids,450
+ICMP redirect host {icmp}		cve,1999-0265
+ICMP redirect net {icmp}		cve,1999-0265
+ICMP traceroute ipopts {icmp}		arachnids,238
+ICMP webtrends scanner {icmp}		arachnids,307
+ICMP TJPingPro1.1Build 2 Windows {icmp}		arachnids,167
+ICMP PING WhatsupGold Windows {icmp}		arachnids,168
+ICMP PING CyberKit 2.2 Windows {icmp}		arachnids,154
+ICMP Large ICMP Packet {icmp}		arachnids,246
+IMAP login literal buffer overflow attempt {tcp}		bugtraq,6298
+IMAP login buffer overflow attempt {tcp}		nessus,10125
+IMAP authenticate literal overflow attempt {tcp}		nessus,10292
+IMAP authenticate overflow attempt {tcp}		nessus,10292
+IMAP auth literal overflow attempt {tcp}		cve,1999-0005
+IMAP auth overflow attempt {tcp}		bugtraq,8861
+IMAP lsub literal overflow attempt {tcp}		nessus,10374
+IMAP lsub overflow attempt {tcp}		nessus,10374
+IMAP list literal overflow attempt {tcp}		nessus,10374
+IMAP list overflow attempt {tcp}		nessus,10374
+IMAP rename literal overflow attempt {tcp}		nessus,10374
+IMAP rename overflow attempt {tcp}		nessus,10374
+IMAP find overflow attempt {tcp}		nessus,10374
+IMAP partial body buffer overflow attempt {tcp}		cve,2002-0379
+IMAP partial body.peek buffer overflow attempt {tcp}		cve,2002-0379
+IMAP create buffer overflow attempt {tcp}		bugtraq,7446
+IMAP create literal buffer overflow attempt {tcp}		bugtraq,7446
+IMAP SSLv3 invalid data version attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+IMAP PCT Client_Hello overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+IMAP SSLv3 Client_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+IMAP SSLv3 Server_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+IMAP SSLv3 invalid Client_Hello attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+IMAP login literal format string attempt {tcp}		bugtraq,10976
+IMAP login format string attempt {tcp}		bugtraq,10976
+IMAP delete overflow attempt {tcp}		bugtraq,11675
+IMAP delete literal overflow attempt {tcp}		bugtraq,11675
+INFO TELNET login incorrect {tcp}		arachnids,127
+INFO TELNET access {tcp}		nessus,10280
+INFO FTP no password {tcp}		arachnids,322
+MISC source route lssr {ip}		cve,1999-0909
+MISC source route lssre {ip}		cve,1999-0909
+MISC source route ssrr {ip}		arachnids,422
+MISC Source Port 20 to <1024 {tcp}		arachnids,06
+MISC source port 53 to <1024 {tcp}		arachnids,07
+MISC Insecure TIMBUKTU Password {tcp}		arachnids,229
+MISC gopher proxy {tcp}		arachnids,409
+MISC PCAnywhere Failed Login {tcp}		arachnids,240
+MISC ramen worm {tcp}		arachnids,461
+MISC SNMP NT UserList {udp}		nessus,10546
+MISC xdmcp query {udp}		arachnids,476
+MISC xdmcp info query {udp}		nessus,10891
+MISC UPnP malformed advertisement {udp}		url,www.microsoft.com/technet/security/bulletin/MS01-059.mspx
+MISC UPnP Location overflow {udp}		cve,2001-0876
+MISC AIM AddGame attempt {tcp}		url,www.w00w00.org/files/w00aimexp/
+MISC AIM AddExternalApp attempt {tcp}		url,www.w00w00.org/files/w00aimexp/
+MISC AFS access {udp}		nessus,10441
+MISC Xtramail Username overflow attempt {tcp}		nessus,10323
+MISC OpenSSL Worm traffic {tcp}		url,www.cert.org/advisories/CA-2002-27.html
+MISC slapper worm admin traffic {udp}		url,www.cert.org/advisories/CA-2002-27.html
+MISC MS Terminal server request RDP {tcp}		cve,2001-0540
+MISC MS Terminal server request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-040.mspx
+MISC MS Terminal Server no encryption session initiation attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-052.mspx
+MISC Alcatel PABX 4400 connection attempt {tcp}		nessus,11019
+MISC bootp hardware address length overflow {udp}		cve,1999-0798
+MISC bootp invalid hardware type {udp}		cve,1999-0798
+MISC bootp hostname format string attempt {udp}		nessus,11312
+MISC GlobalSunTech Access Point Information Disclosure attempt {udp}		bugtraq,6100
+MISC xfs overflow attempt {tcp}		nessus,11188
+MISC rsyncd overflow attempt {tcp}		nessus,11943
+MISC CVS double free exploit attempt response {tcp}		cve,2003-0015
+MISC CVS invalid directory response {tcp}		cve,2003-0015
+MISC CVS non-relative path error response {tcp}		cve,2003-0977
+MISC CVS non-relative path access attempt {tcp}		cve,2003-0977
+MISC CVS Max-dotdot integer overflow attempt {tcp}		cve,2004-0417
+MISC Microsoft PPTP Start Control Request buffer overflow attempt {tcp}		cve,2002-1214
+MISC BGP invalid length {tcp}		url,sf.net/tracker/index.php?func=detail&aid=744523&group_id=53066&atid=469575
+MISC BGP invalid type 0 {tcp}		cve,2002-1350
+MISC LDAP SSLv3 invalid data version attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+MISC LDAP PCT Client_Hello overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+MISC LDAP SSLv3 Client_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+MISC LDAP SSLv3 Server_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+MISC LDAP SSLv3 invalid Client_Hello attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+MISC HP Web JetAdmin remote file upload attempt {tcp}		bugtraq,9978
+MISC HP Web JetAdmin setinfo access {tcp}		bugtraq,9972
+MISC HP Web JetAdmin file write attempt {tcp}		bugtraq,9973
+MISC HP Web JetAdmin ExecuteFile admin access {tcp}		bugtraq,10224
+MISC rsync backup-dir directory traversal attempt {tcp}		nessus,12230
+NETBIOS nimda .eml {tcp}		url,www.f-secure.com/v-descs/nimda.shtml
+NETBIOS nimda .nws {tcp}		url,www.f-secure.com/v-descs/nimda.shtml
+NETBIOS nimda RICHED20.DLL {tcp}		url,www.f-secure.com/v-descs/nimda.shtml
+NETBIOS DOS RFPoison {tcp}		arachnids,454
+NETBIOS NT NULL session {tcp}		cve,2000-0347
+NETBIOS RFParalyze Attempt {tcp}		nessus,10392
+NETBIOS SMB CD.. {tcp}		arachnids,338
+NETBIOS SMB CD... {tcp}		arachnids,337
+NETBIOS SMB SMB_COM_TRANSACTION Max Parameter and Max Count of 0 DOS Attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS02-045.mspx
+NETBIOS SMB trans2open buffer overflow attempt {tcp}		url,www.digitaldefense.net/labs/advisories/DDI-1013.txt
+NETBIOS DCERPC ISystemActivator bind accept {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-026.mspx
+NETBIOS DCERPC ISystemActivator path overflow attempt little endian {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-026.mspx
+NETBIOS DCERPC ISystemActivator path overflow attempt big endian {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-026.mspx
+NETBIOS DCERPC ISystemActivator bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-026.mspx
+NETBIOS SMB-DS DCERPC ISystemActivator bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-026.mspx
+NETBIOS SMB-DS DCERPC ISystemActivator unicode bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCERPC ISystemActivator bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCERPC ISystemActivator unicode bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS DCERPC Remote Activation bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-039.mspx
+NETBIOS SMB-DS DCERPC Remote Activation bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-039.mspx
+NETBIOS DCERPC Messenger Service buffer overflow attempt {udp}		url,www.microsoft.com/technet/security/bulletin/MS03-043.mspx
+NETBIOS SMB-DS DCERPC Messenger Service buffer overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-043.mspx
+NETBIOS SMB DCERPC Workstation Service unicode bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-049.mspx
+NETBIOS SMB DCERPC Workstation Service bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-049.mspx
+NETBIOS SMB-DS DCERPC Workstation Service unicode bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-049.mspx
+NETBIOS SMB-DS DCERPC Workstation Service bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-049.mspx
+NETBIOS DCERPC Workstation Service direct service bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-049.mspx
+NETBIOS DCERPC Workstation Service direct service access attempt {udp}		url,www.microsoft.com/technet/security/bulletin/MS03-049.mspx
+NETBIOS SMB Session Setup NTMLSSP asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB-DS Session Setup NTMLSSP asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB Session Setup AndX request username overflow attempt {tcp}		url,www.eeye.com/html/Research/Advisories/AD20040226.html
+NETBIOS SMB-DS Session Setup AndX request username overflow attempt {tcp}		url,www.eeye.com/html/Research/Advisories/AD20040226.html
+NETBIOS SMB Session Setup AndX request unicode username overflow attempt {tcp}		url,www.eeye.com/html/Research/Advisories/AD20040226.html
+NETBIOS SMB-DS Session Setup AndX request unicode username overflow attempt {tcp}		url,www.eeye.com/html/Research/Advisories/AD20040226.html
+NETBIOS DCEPRC ORPCThis request flood attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCEPRC ORPCThis request flood attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB-DS DCEPRC ORPCThis request flood attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS DCERPC LSASS bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS DCERPC LSASS direct bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS DCERPC LSASS DsRolerUpgradeDownlevelServer Exploit attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCERPC LSASS unicode bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCERPC LSASS bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCERPC LSASS direct bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB DCERPC LSASS DsRolerUpgradeDownlevelServer exploit attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB-DS DCERPC LSASS bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB-DS DCERPC LSASS direct bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB-DS DCERPC LSASS unicode bind attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS SMB-DS DCERPC LSASS DsRolerUpgradeDownlevelServer exploit attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+NETBIOS NS lookup response name overflow attempt {udp}		url,www.eeye.com/html/Research/Advisories/AD20040512A.html
+NETBIOS NS lookup short response attempt {udp}		url,www.eeye.com/html/Research/Advisories/AD20040512C.html
+NETBIOS SMB nddeapi bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW unicode overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi andx create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW unicode overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW unicode little endian andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi unicode andx bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi andx bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW little endian overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW unicode little endian overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi unicode create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW unicode andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW little endian andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW unicode little endian overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi unicode bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi andx bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW little endian andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW unicode andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi unicode andx bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi unicode andx create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi unicode create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi andx create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW little endian overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS nddeapi bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW unicode little endian andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi unicode andx create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB NDdeSetTrustedShareW andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi unicode bind attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB nddeapi create tree attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS NDdeSetTrustedShareW andx overflow attempt {tcp}		cve,CAN-2004-0206
+NETBIOS SMB-DS Session Setup NTMLSSP andx asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB-DS Session Setup NTMLSSP unicode asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB-DS Session Setup NTMLSSP unicode andx asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB Session Setup NTMLSSP unicode andx asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB Session Setup NTMLSSP unicode asn1 overflow attempt {tcp}		nessus,12065
+NETBIOS SMB Session Setup NTMLSSP andx asn1 overflow attempt {tcp}		nessus,12065
+NNTP return code buffer overflow attempt {tcp}		cve,2002-0909
+NNTP AUTHINFO USER overflow attempt {tcp}		cve,2000-0341
+NNTP sendsys overflow attempt {tcp}		cve,2004-00045
+NNTP senduuname overflow attempt {tcp}		cve,2004-00045
+NNTP version overflow attempt {tcp}		cve,2004-00045
+NNTP checkgroups overflow attempt {tcp}		cve,2004-00045
+NNTP ihave overflow attempt {tcp}		cve,2004-00045
+NNTP sendme overflow attempt {tcp}		cve,2004-00045
+NNTP newgroup overflow attempt {tcp}		cve,2004-00045
+NNTP rmgroup overflow attempt {tcp}		cve,2004-00045
+NNTP XPAT pattern overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-036.mspx
+ORACLE dbms_repcat.generate_replication_support buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck93.html
+ORACLE add_grouped_column ordered sname/oname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck633.html
+ORACLE drop_master_repgroup ordered gname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck87.html
+ORACLE dbms_repcat.create_mview_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck633.html
+ORACLE create_mview_repgroup ordered fname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck633.html
+ORACLE dbms_repcat.compare_old_values buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck91.html
+ORACLE dbms_repcat.comment_on_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck634.html
+ORACLE comment_on_repobject ordered type buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck634.html
+ORACLE sysdbms_repcat_rgt.check_ddl_text buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE cancel_statistics ordered sname/oname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck633.html
+ORACLE LINK metadata buffer overflow attempt {tcp}		url,archives.neohapsis.com/archives/bugtraq/2003-04/0360.html
+ORACLE sys.dbms_repcat_auth.revoke_surrogate_repcat buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE revoke_surrogate_repcat ordered userid buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE time_zone buffer overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora_time_zone.txt
+ORACLE sys.dbms_repcat_auth.grant_surrogate_repcat buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE grant_surrogate_repcat ordered userid buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE sys.dbms_repcat.alter_mview_propagation buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck632.html
+ORACLE alter_mview_propagation ordered gname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck632.html
+ORACLE dbms_repcat.alter_master_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck634.html
+ORACLE alter_master_repobject ordered type buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck634.html
+ORACLE dbms_repcat_sna_utl.register_flavor_change buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE dbms_repcat_utl.drop_an_object buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE dbms_repcat_sna_utl.create_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE dbms_repcat_admin.unregister_user_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck94.html
+ORACLE unregister_user_repgroup ordered privilege_type buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck94.html
+ORACLE dbms_repcat.send_old_values buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck91.html
+ORACLE dbms_repcat.repcat_import_check buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck90.html
+ORACLE repcat_import_check ordered gowner/gname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck90.html
+ORACLE dbms_repcat_admin.register_user_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck94.html
+ORACLE register_user_repgroup ordered privilege_type buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck94.html
+ORACLE dbms_repcat.refresh_mview_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck90.html
+ORACLE refresh_mview_repgroup ordered gowner buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck90.html
+ORACLE sys.dbms_rectifier_diff.rectify buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE rectifier_diff ordered sname1 buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE dbms_offline_snapshot.end_load buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck632.html
+ORACLE snapshot.end_load ordered gname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck632.html
+ORACLE dbms_repcat.drop_master_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck634.html
+ORACLE drop_master_repobject ordered type buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck634.html
+ORACLE dbms_repcat.drop_mview_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck90.html
+ORACLE drop_mview_repgroup ordered gowner/gname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck90.html
+ORACLE drop_site_instantiate ordered refresh_template_name buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck629.html
+ORACLE sys.dbms_repcat_fla.ensure_not_published buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck96.html
+ORACLE from_tz buffer overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora_from_tz.txt
+ORACLE instantiate_offline ordered refresh_template_name buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck630.html
+ORACLE instantiate_online ordered refresh_template_name buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck631.html
+ORACLE service_name buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck52.html
+ORACLE user name buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck62.html
+ORACLE NUMTODSINTERVAL/NUMTOYMINTERVAL buffer overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora_numtoyminterval.txt
+ORACLE dbms_offline_og.begin_load buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck632.html
+ORACLE og.begin_load ordered gname buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck632.html
+ORACLE sys.dbms_rectifier_diff.differences buffer overflow attempt {tcp}		url,www.appsecinc.com/Policy/PolicyCheck97.html
+ORACLE sys.dbms_repcat_sna.switch_snapshot_master buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_raw buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.drop_snapshot_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.begin_load buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.register_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.abort_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_nvarchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.suspend_master_activity buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.refresh_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_snapshot_propagation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_date buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_char buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.generate_replication_trigger buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.register_mview_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.add_object_to_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_master_propagation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.comment_on_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_column_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.drop_columns_from_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_number buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.do_deferred_repcat_admin buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.drop_master_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.end_instantiation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_varchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.unregister_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_varchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_snapshot_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.alter_master_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.create_master_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.purge_master_log buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_raw buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.resume_master_activity buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.define_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_snapshot.begin_load buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.purge_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.begin_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_priority_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_untrusted.register_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.refresh_snapshot_repschema buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_mview_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.set_local_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_date buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.switch_snapshot_master buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.rename_shadow_column_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat_instantiate.instantiate_online buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.set_local_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_nvarchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.generate_snapshot_support buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_site_priority_site buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_unique_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_nchar buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.rename_shadow_column_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.validate_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.repcat_import_check buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.remove_master_databases buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_nchar buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_raw buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.specify_new_masters buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.resume_master_activity buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.comment_on_unique_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_repsites buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.create_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_nvarchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_nvarchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_utl4.drop_master_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_column_group_from_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.register_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.define_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.end_flavor_change buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_char buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.generate_snapshot_support buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_char buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.drop_snapshot_repschema buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.abort_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_date buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_mview_propagation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_mview_repsites buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.add_columns_to_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.register_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_site_priority_site buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.comment_on_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_unique_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.cancel_statistics buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.create_master_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_delete_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.create_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.generate_replication_package buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_grouped_column buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_varchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_number buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_varchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.set_columns buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.suspend_master_activity buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.unregister_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.purge_statistics buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_delete_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_column_group_to_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_unique_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.validate_for_local_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.create_master_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_nchar buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_columns_to_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.create_master_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_rectifier_diff.rectify buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.drop_snapshot_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_date buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_delete_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_raw buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.register_statistics buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.execute_ddl buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_date buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_char buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_utl.drop_an_object buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.refresh_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.register_statistics buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_raw buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.switch_mview_master buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.define_priority_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.drop_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.purge_statistics buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_site_priority_site buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.create_snapshot_repschema buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.add_column_group_to_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_number buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.switch_snapshot_master buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.send_and_compare_old_values buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_unique_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_number buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_object_from_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.create_snapshot_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.purge_master_log buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_char buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.generate_replication_package buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.obsolete_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.resume_subset_of_masters buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_date buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.refresh_mview_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.begin_flavor_change buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.obsolete_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.create_mview_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_site_priority_site buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority_nvarchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_site_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_column_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_number buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.comment_on_update_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_rectifier_diff.differences buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_update_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.create_snapshot_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.validate_for_local_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.begin_instantiation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.repcat_import_check buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_varchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_update_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat_auth.revoke_surrogate_repcat buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_delete_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_site_priority_site buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.relocate_masterdef buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_update_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.validate_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_update_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_object_to_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.comment_on_repobject buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.alter_snapshot_propagation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.refresh_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_number buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.do_deferred_repcat_admin buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.validate_for_local_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat_rgt.drop_site_instantiation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.alter_priority buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.unregister_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.define_column_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.comment_on_priority_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_og.end_load buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.comment_on_delete_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_raw buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.make_column_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_nchar buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.publish_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.drop_column_group_from_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_priority_char buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.create_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna_utl.alter_snapshot_propagation buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_priority_nvarchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.alter_priority_nchar buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.publish_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.set_local_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_sna.drop_snapshot_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_update_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.generate_mview_support buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_mas.relocate_masterdef buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla.drop_object_from_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat_rgt.check_ddl_text buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_fla_mas.purge_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.drop_site_priority_site buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.unregister_mview_repgroup buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.drop_columns_from_flavor buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.begin_flavor_definition buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.comment_on_unique_resolution buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_repcat.add_priority_varchar2 buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.add_priority_nchar buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE sys.dbms_repcat_conf.define_priority_group buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+ORACLE dbms_offline_snapshot.end_load buffer overflow attempt {tcp}		url,www.appsecinc.com/resources/alerts/oracle/2004-0001/25.html
+P2P Fastrack kazaa/morpheus GET request {tcp}		url,www.musiccity.com/technology.htm
+P2P Fastrack kazaa/morpheus traffic {tcp}		url,www.kazaa.com
+P2P eDonkey transfer {tcp}		url,www.kom.e-technik.tu-darmstadt.de/publications/abstracts/HB02-1.html
+P2P eDonkey server response {tcp}		url,www.emule-project.net
+POLICY WinGate telnet server response {tcp}		cve,1999-0657
+POLICY PCAnywhere server response {udp}		arachnids,239
+POLICY SMTP relaying denied {tcp}		url,mail-abuse.org/tsi/ar-fix.html
+POLICY HP JetDirect LCD modification attempt {tcp}		bugtraq,2245
+POLICY HP JetDirect LCD modification attempt {tcp}		bugtraq,2245
+POLICY poll.gotomypc.com access {ip}		url,www.gotomypc.com/help2.tmpl
+POLICY vncviewer Java applet download attempt {tcp}		nessus,10758
+POP2 FOLD overflow attempt {tcp}		nessus,10130
+POP2 x86 Linux overflow {tcp}		nessus,10130
+POP2 x86 Linux overflow {tcp}		nessus,10130
+POP3 DELE negative argument attempt {tcp}		cve,2002-1539
+POP3 UIDL negative argument attempt {tcp}		nessus,11570
+POP3 USER overflow attempt {tcp}		nessus,10311
+POP3 AUTH overflow attempt {tcp}		nessus,10184
+POP3 LIST overflow attempt {tcp}		nessus,10197
+POP3 PASS overflow attempt {tcp}		nessus,10325
+POP3 APOP overflow attempt {tcp}		nessus,10559
+POP3 EXPLOIT x86 BSD overflow {tcp}		nessus,10196
+POP3 EXPLOIT x86 SCO overflow {tcp}		cve,1999-0006
+POP3 EXPLOIT qpopper overflow {tcp}		nessus,10184
+POP3 USER format string attempt {tcp}		nessus,11742
+POP3 APOP USER overflow attempt {tcp}		bugtraq,9794
+POP3 SSLv3 invalid timestamp attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+POP3 SSLv3 invalid data version attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+POP3 PCT Client_Hello overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+POP3 SSLv3 Client_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+POP3 SSLv3 Server_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+POP3 SSLv3 invalid Client_Hello attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+POP3 PASS format string attempt {tcp}		bugtraq,10976
+RPC portmap proxy integer overflow attempt TCP {tcp}		cve,2003-0028
+RPC portmap proxy integer overflow attempt UDP {udp}		cve,2003-0028
+RPC portmap listing UDP 111 {udp}		arachnids,428
+RPC portmap listing TCP 111 {tcp}		arachnids,428
+RPC portmap UNSET attempt TCP 111 {tcp}		bugtraq,1892
+RPC portmap UNSET attempt UDP 111 {udp}		bugtraq,1892
+RPC portmap listing TCP 32771 {tcp}		arachnids,429
+RPC portmap listing UDP 32771 {udp}		arachnids,429
+RPC portmap cachefsd request UDP {udp}		cve,2002-0084
+RPC portmap cachefsd request TCP {tcp}		cve,2002-0084
+RPC portmap admind request UDP {udp}		arachnids,18
+RPC portmap admind request TCP {tcp}		arachnids,18
+RPC portmap amountd request UDP {udp}		arachnids,19
+RPC portmap amountd request TCP {tcp}		arachnids,19
+RPC portmap bootparam request UDP {udp}		cve,1999-0647
+RPC portmap bootparam request TCP {tcp}		cve,1999-0647
+RPC portmap nisd request UDP {udp}		arachnids,21
+RPC portmap nisd request TCP {tcp}		arachnids,21
+RPC portmap pcnfsd request UDP {udp}		arachnids,22
+RPC portmap pcnfsd request TCP {tcp}		arachnids,22
+RPC portmap rexd request UDP {udp}		arachnids,23
+RPC portmap rexd request TCP {tcp}		arachnids,23
+RPC portmap rusers request UDP {udp}		cve,1999-0626
+RPC portmap rusers request TCP {tcp}		cve,1999-0626
+RPC rusers query UDP {udp}		cve,1999-0626
+RPC portmap selection_svc request UDP {udp}		arachnids,25
+RPC portmap selection_svc request TCP {tcp}		arachnids,25
+RPC portmap status request UDP {udp}		arachnids,15
+RPC portmap status request TCP {tcp}		arachnids,15
+RPC portmap snmpXdmi request TCP {tcp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC portmap snmpXdmi request UDP {udp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC snmpXdmi overflow attempt TCP {tcp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC snmpXdmi overflow attempt UDP {udp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC portmap espd request UDP {udp}		cve,2001-0331
+RPC portmap espd request TCP {tcp}		cve,2001-0331
+RPC status GHBN format string attack {udp}		cve,2000-0666
+RPC status GHBN format string attack {tcp}		cve,2000-0666
+RPC portmap mountd request UDP {udp}		arachnids,13
+RPC portmap mountd request TCP {tcp}		arachnids,13
+RPC mountd TCP export request {tcp}		arachnids,26
+RPC mountd UDP export request {udp}		arachnids,26
+RPC mountd TCP exportall request {tcp}		arachnids,26
+RPC mountd UDP exportall request {udp}		arachnids,26
+RPC mountd TCP mount path overflow attempt {tcp}		nessus,11800
+RPC mountd UDP mount path overflow attempt {udp}		nessus,11800
+RPC AMD UDP amqproc_mount plog overflow attempt {udp}		cve,1999-0704
+RPC AMD TCP amqproc_mount plog overflow attempt {tcp}		cve,1999-0704
+RPC AMD UDP version request {udp}		cve,2000-0696
+RPC portmap cmsd request UDP {udp}		arachnids,17
+RPC portmap cmsd request TCP {tcp}		arachnids,17
+RPC CMSD UDP CMSD_CREATE buffer overflow attempt {udp}		cve,1999-0696
+RPC CMSD TCP CMSD_CREATE buffer overflow attempt {tcp}		cve,1999-0696
+RPC CMSD UDP CMSD_CREATE array buffer overflow attempt {udp}		cve,2002-0391
+RPC CMSD TCP CMSD_CREATE array buffer overflow attempt {tcp}		cve,2002-0391
+RPC CMSD TCP CMSD_INSERT buffer overflow attempt {tcp}		url,www.cert.org/advisories/CA-99-08-cmsd.html
+RPC CMSD udp CMSD_INSERT buffer overflow attempt {udp}		url,www.cert.org/advisories/CA-99-08-cmsd.html
+RPC portmap sadmind request TCP {tcp}		arachnids,20
+RPC portmap sadmind request UDP {udp}		arachnids,20
+RPC sadmind UDP NETMGT_PROC_SERVICE CLIENT_DOMAIN overflow attempt {udp}		cve,1999-0977
+RPC sadmind TCP NETMGT_PROC_SERVICE CLIENT_DOMAIN overflow attempt {tcp}		cve,1999-0977
+RPC sadmind UDP PING {udp}		bugtraq,866
+RPC sadmind TCP PING {tcp}		bugtraq,866
+RPC portmap rstatd request UDP {udp}		arachnids,10
+RPC portmap rstatd request TCP {tcp}		arachnids,10
+RPC STATD UDP stat mon_name format string exploit attempt {udp}		cve,2000-0666
+RPC STATD TCP stat mon_name format string exploit attempt {tcp}		cve,2000-0666
+RPC STATD UDP monitor mon_name format string exploit attempt {udp}		cve,2000-0666
+RPC STATD TCP monitor mon_name format string exploit attempt {tcp}		cve,2000-0666
+RPC portmap ypupdated request UDP {udp}		arachnids,125
+RPC portmap ypupdated request TCP {tcp}		arachnids,125
+RPC RQUOTA getquota overflow attempt UDP {udp}		cve,1999-0974
+RPC RQUOTA getquota overflow attempt TCP {tcp}		cve,1999-0974
+RPC portmap ttdbserv request UDP {udp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC portmap ttdbserv request TCP {tcp}		url,www.cert.org/advisories/CA-2001-05.html
+RPC tooltalk UDP overflow attempt {udp}		cve,1999-0003
+RPC tooltalk TCP overflow attempt {tcp}		cve,1999-0003
+RPC portmap yppasswd request UDP {udp}		arachnids,14
+RPC portmap yppasswd request TCP {tcp}		arachnids,14
+RPC yppasswd username overflow attempt UDP {udp}		cve,2001-0779
+RPC yppasswd username overflow attempt TCP {tcp}		cve,2001-0779
+RPC portmap ypserv request UDP {udp}		cve,2002-1232
+RPC portmap ypserv request TCP {tcp}		cve,2002-1232
+RPC ypserv maplist request UDP {udp}		cve,2002-1232
+RPC ypserv maplist request TCP {tcp}		bugtraq,6016
+RPC portmap nlockmgr request UDP {udp}		cve,2000-0508
+RPC portmap nlockmgr request TCP {tcp}		cve,2000-0508
+RPC portmap rpc.xfsmd request UDP {udp}		cve,2002-0359
+RPC portmap rpc.xfsmd request TCP {tcp}		cve,2002-0359
+RPC rpc.xfsmd xfs_export attempt UDP {udp}		cve,2002-0359
+RPC rpc.xfsmd xfs_export attempt TCP {tcp}		cve,2002-0359
+RPC portmap kcms_server request UDP {udp}		url,www.kb.cert.org/vuls/id/850785
+RPC portmap kcms_server request TCP {tcp}		url,www.kb.cert.org/vuls/id/850785
+RPC kcms_server directory traversal attempt {tcp}		url,www.kb.cert.org/vuls/id/850785
+RSERVICES rlogin bin {tcp}		arachnids,384
+RSERVICES rlogin echo++ {tcp}		arachnids,385
+RSERVICES rsh froot {tcp}		arachnids,387
+RSERVICES rlogin login failure {tcp}		arachnids,392
+RSERVICES rlogin login failure {tcp}		arachnids,393
+RSERVICES rlogin root {tcp}		arachnids,389
+RSERVICES rsh bin {tcp}		arachnids,390
+RSERVICES rsh echo + + {tcp}		arachnids,388
+RSERVICES rsh froot {tcp}		arachnids,387
+RSERVICES rsh root {tcp}		arachnids,391
+SCAN myscan {tcp}		arachnids,439
+SCAN ident version request {tcp}		arachnids,303
+SCAN cybercop os probe {tcp}		arachnids,146
+SCAN FIN {tcp}		arachnids,27
+SCAN ipEye SYN scan {tcp}		arachnids,236
+SCAN NULL {tcp}		arachnids,4
+SCAN SYN FIN {tcp}		arachnids,198
+SCAN XMAS {tcp}		arachnids,144
+SCAN nmap XMAS {tcp}		arachnids,30
+SCAN synscan portscan {tcp}		arachnids,441
+SCAN cybercop os PA12 attempt {tcp}		arachnids,149
+SCAN cybercop os SFU12 probe {tcp}		arachnids,150
+SCAN XTACACS logout {udp}		arachnids,408
+SCAN cybercop udp bomb {udp}		arachnids,363
+SCAN Webtrends Scanner UDP Probe {udp}		arachnids,308
+SCAN cybercop os probe {tcp}		arachnids,145
+SHELLCODE sparc setuid 0 {ip}		arachnids,282
+SHELLCODE x86 setgid 0 {ip}		arachnids,284
+SHELLCODE x86 setuid 0 {ip}		arachnids,436
+SHELLCODE SGI NOOP {ip}		arachnids,356
+SHELLCODE SGI NOOP {ip}		arachnids,357
+SHELLCODE Digital UNIX NOOP {ip}		arachnids,352
+SHELLCODE HP-UX NOOP {ip}		arachnids,358
+SHELLCODE HP-UX NOOP {ip}		arachnids,359
+SHELLCODE sparc NOOP {ip}		arachnids,345
+SHELLCODE sparc NOOP {ip}		arachnids,353
+SHELLCODE sparc NOOP {ip}		arachnids,355
+SHELLCODE x86 NOOP {ip}		arachnids,181
+SHELLCODE x86 stealth NOOP {ip}		arachnids,291
+SHELLCODE Linux shellcode {ip}		arachnids,343
+SMTP RCPT TO overflow {tcp}		cve,2001-0260
+SMTP chameleon overflow {tcp}		cve,1999-0261
+SMTP sendmail 8.6.9 exploit {tcp}		cve,1999-0204
+SMTP exchange mime DOS {tcp}		nessus,10558
+SMTP expn decode {tcp}		nessus,10248
+SMTP expn root {tcp}		nessus,10249
+SMTP expn *@ {tcp}		cve,1999-1200
+SMTP majordomo ifs {tcp}		cve,1999-0208
+SMTP sendmail 5.5.5 exploit {tcp}		nessus,10258
+SMTP rcpt to command attempt {tcp}		cve,1999-0095
+SMTP RCPT TO decode attempt {tcp}		cve,1999-0203
+SMTP sendmail 5.6.5 exploit {tcp}		cve,1999-0203
+SMTP sendmail 8.6.10 exploit {tcp}		cve,1999-0204
+SMTP sendmail 8.6.10 exploit {tcp}		cve,1999-0204
+SMTP sendmail 8.6.9 exploit {tcp}		cve,1999-0204
+SMTP sendmail 8.6.9 exploit {tcp}		cve,1999-0204
+SMTP sendmail 8.6.9c exploit {tcp}		cve,1999-0204
+SMTP vrfy decode {tcp}		cve,1999-0096
+SMTP ehlo cybercop attempt {tcp}		arachnids,372
+SMTP expn cybercop attempt {tcp}		arachnids,371
+SMTP HELO overflow attempt {tcp}		nessus,11674
+SMTP ETRN overflow attempt {tcp}		nessus,10438
+SMTP From comment overflow attempt {tcp}		url,www.kb.cert.org/vuls/id/398025
+SMTP Content-Transfer-Encoding overflow attempt {tcp}		url,www.cert.org/advisories/CA-2003-12.html
+SMTP XEXCH50 overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS03-046.mspx
+SMTP EXPN overflow attempt {tcp}		cve,2003-0161
+SMTP VRFY overflow attempt {tcp}		cve,2003-0161
+SMTP SEND FROM sendmail prescan too many addresses overflow {tcp}		nessus,11316
+SMTP SEND FROM sendmail prescan too long addresses overflow {tcp}		cve,2003-0161
+SMTP SAML FROM sendmail prescan too many addresses overflow {tcp}		cve,2002-1337
+SMTP SAML FROM sendmail prescan too long addresses overflow {tcp}		cve,2003-0161
+SMTP SOML FROM sendmail prescan too many addresses overflow {tcp}		cve,2002-1337
+SMTP SOML FROM sendmail prescan too long addresses overflow {tcp}		cve,2003-0161
+SMTP MAIL FROM sendmail prescan too many addresses overflow {tcp}		cve,2002-1337
+SMTP MAIL FROM sendmail prescan too long addresses overflow {tcp}		cve,2003-0161
+SMTP RCPT TO sendmail prescan too many addresses overflow {tcp}		cve,2002-1337
+SMTP RCPT TO sendmail prescan too long addresses overflow {tcp}		cve,2003-0161
+SMTP WinZip MIME content-type buffer overflow {tcp}		nessus,12621
+SMTP WinZip MIME content-disposition buffer overflow {tcp}		nessus,12621
+SMTP SSLv3 invalid data version attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP Client_Hello overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP SSLv3 Client_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP SSLv3 Server_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP SSLv3 invalid Client_Hello attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP TLS SSLv3 invalid data version attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP TLS PCT Client_Hello overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP TLS SSLv3 Client_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP TLS SSLv3 Server_Hello request {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP TLS SSLv3 invalid Client_Hello attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+SMTP MAIL FROM overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SMTP From command overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SMTP ReplyTo command overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SMTP Sender command overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SMTP To command overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SMTP CC command overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SMTP BCC command overflow attempt {tcp}		url,www.guninski.com/exim1.html
+SNMP missing community string attempt {udp}		cve,1999-0517
+SNMP null community string attempt {udp}		cve,1999-0517
+SNMP community string buffer overflow attempt {udp}		url,www.cert.org/advisories/CA-2002-03.html
+SNMP community string buffer overflow attempt with evasion {udp}		url,www.cert.org/advisories/CA-2002-03.html
+SNMP public access udp {udp}		cve,2002-0013
+SNMP public access tcp {tcp}		cve,2002-0013
+SNMP private access udp {udp}		cve,2002-0013
+SNMP private access tcp {tcp}		cve,2002-0013
+SNMP Broadcast request {udp}		cve,2002-0013
+SNMP broadcast trap {udp}		cve,2002-0013
+SNMP request udp {udp}		cve,2002-0013
+SNMP request tcp {tcp}		cve,2002-0013
+SNMP trap udp {udp}		cve,2002-0013
+SNMP trap tcp {tcp}		cve,2002-0013
+SNMP AgentX/tcp request {tcp}		cve,2002-0013
+SNMP PROTOS test-suite-req-app attempt {udp}		url,www.ee.oulu.fi/research/ouspg/protos/testing/c06/snmpv1/index.html
+SNMP PROTOS test-suite-trap-app attempt {udp}		url,www.ee.oulu.fi/research/ouspg/protos/testing/c06/snmpv1/index.html
+MS-SQL/SMB xp_enumresultset possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB raiserror possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-060.mspx
+MS-SQL/SMB xp_displayparamstmt possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB xp_setsqlsecurity possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB xp_reg* registry access {tcp}		nessus,10642
+MS-SQL/SMB xp_printstatements possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB xp_sprintf possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-060.mspx
+MS-SQL/SMB xp_showcolv possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB xp_peekqueue possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB xp_proxiedmetadata possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL/SMB xp_updatecolvbm possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_displayparamstmt possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_setsqlsecurity possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_enumresultset possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_reg* - registry access {tcp}		nessus,10642
+MS-SQL xp_printstatements possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_updatecolvbm possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_sprintf possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-060.mspx
+MS-SQL xp_showcolv possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_peekqueue possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL xp_proxiedmetadata possible buffer overflow {tcp}		url,www.microsoft.com/technet/security/bulletin/MS00-092.mspx
+MS-SQL raiserror possible buffer overflow {tcp}		nessus,11217
+MS-SQL sa login failed {tcp}		nessus,10673
+MS-SQL/SMB sa login failed {tcp}		cve,2000-1209
+MS-SQL Worm propagation attempt {udp}		url,vil.nai.com/vil/content/v_99992.htm
+MS-SQL Worm propagation attempt OUTBOUND {udp}		url,vil.nai.com/vil/content/v_99992.htm
+MS-SQL ping attempt {udp}		nessus,10674
+MS-SQL version overflow attempt {udp}		nessus,10674
+MS-SQL probe response overflow attempt {udp}		url,www.microsoft.com/technet/security/bulletin/MS04-003.mspx
+TELNET SGI telnetd format bug {tcp}		cve,2000-0733
+TELNET ld_library_path {tcp}		cve,1999-0073
+TELNET livingston DOS {tcp}		cve,1999-0218
+TELNET resolv_host_conf {tcp}		cve,2001-0170
+TELNET not on console {tcp}		arachnids,365
+TELNET bsd telnet exploit response {tcp}		nessus,10709
+TELNET bsd exploit client finishing {tcp}		nessus,10709
+TELNET 4Dgifts SGI account attempt {tcp}		nessus,11243
+TELNET EZsetup account attempt {tcp}		nessus,11244
+TELNET APC SmartSlot default admin account attempt {tcp}		nessus,12066
+TFTP GET filename overflow attempt {udp}		cve,2002-0813
+TFTP PUT filename overflow attempt {udp}		cve,2003-0380
+TFTP GET Admin.dll {udp}		url,www.cert.org/advisories/CA-2001-26.html
+TFTP parent directory {udp}		cve,2002-1209
+TFTP root directory {udp}		cve,1999-0183
+TFTP Put {udp}		cve,1999-0183
+TFTP NULL command attempt {udp}		bugtraq,7575
+WEB-ATTACKS wget command attempt {tcp}		bugtraq,10361
+WEB-CGI HyperSeek hsx.cgi directory traversal attempt {tcp}		nessus,10602
+WEB-CGI HyperSeek hsx.cgi access {tcp}		nessus,10602
+WEB-CGI SWSoft ASPSeek Overflow attempt {tcp}		cve,2001-0476
+WEB-CGI webspeed access {tcp}		nessus,10304
+WEB-CGI yabb directory traversal attempt {tcp}		cve,2000-0853
+WEB-CGI yabb access {tcp}		cve,2000-0853
+WEB-CGI /wwwboard/passwd.txt access {tcp}		nessus,10321
+WEB-CGI webdriver access {tcp}		nessus,10592
+WEB-CGI whois_raw.cgi arbitrary command execution attempt {tcp}		nessus,10306
+WEB-CGI whois_raw.cgi access {tcp}		nessus,10306
+WEB-CGI websitepro path access {tcp}		cve,2000-0066
+WEB-CGI webplus version access {tcp}		cve,2000-0282
+WEB-CGI webplus directory traversal {tcp}		cve,2000-0282
+WEB-CGI websendmail access {tcp}		nessus,10301
+WEB-CGI dcforum.cgi directory traversal attempt {tcp}		cve,2001-0437
+WEB-CGI dcforum.cgi access {tcp}		nessus,10583
+WEB-CGI dcboard.cgi invalid user addition attempt {tcp}		nessus,10583
+WEB-CGI dcboard.cgi access {tcp}		nessus,10583
+WEB-CGI mmstdod.cgi access {tcp}		nessus,10566
+WEB-CGI anaconda directory transversal attempt {tcp}		cve,2001-0308
+WEB-CGI imagemap.exe overflow attempt {tcp}		nessus,10122
+WEB-CGI imagemap.exe access {tcp}		nessus,10122
+WEB-CGI cvsweb.cgi access {tcp}		nessus,10465
+WEB-CGI php.cgi access {tcp}		nessus,10178
+WEB-CGI glimpse access {tcp}		nessus,10095
+WEB-CGI htmlscript attempt {tcp}		nessus,10106
+WEB-CGI htmlscript access {tcp}		nessus,10106
+WEB-CGI info2www access {tcp}		nessus,10127
+WEB-CGI nph-test-cgi access {tcp}		nessus,10165
+WEB-CGI NPH-publish access {tcp}		cve,2001-0400
+WEB-CGI NPH-publish access {tcp}		nessus,10164
+WEB-CGI rguest.exe access {tcp}		cve,1999-0467
+WEB-CGI rwwwshell.pl access {tcp}		url,www.itsecurity.com/papers/p37.htm
+WEB-CGI test-cgi attempt {tcp}		nessus,10282
+WEB-CGI test-cgi access {tcp}		nessus,10282
+WEB-CGI testcgi access {tcp}		nessus,11610
+WEB-CGI textcounter.pl access {tcp}		nessus,11451
+WEB-CGI uploader.exe access {tcp}		nessus,10291
+WEB-CGI webgais access {tcp}		nessus,10300
+WEB-CGI finger access {tcp}		nessus,10071
+WEB-CGI perlshop.cgi access {tcp}		cve,1999-1374
+WEB-CGI pfdisplay.cgi access {tcp}		nessus,10174
+WEB-CGI aglimpse access {tcp}		nessus,10095
+WEB-CGI anform2 access {tcp}		cve,1999-0066
+WEB-CGI args.bat access {tcp}		nessus,11465
+WEB-CGI args.cmd access {tcp}		nessus,11465
+WEB-CGI AT-admin.cgi access {tcp}		cve,1999-1072
+WEB-CGI AT-generated.cgi access {tcp}		cve,1999-1072
+WEB-CGI bnbform.cgi access {tcp}		cve,1999-0937
+WEB-CGI campas access {tcp}		nessus,10035
+WEB-CGI view-source directory traversal {tcp}		cve,1999-0174
+WEB-CGI view-source access {tcp}		cve,1999-0174
+WEB-CGI wwwwais access {tcp}		nessus,10597
+WEB-CGI files.pl access {tcp}		cve,1999-1081
+WEB-CGI wguest.exe access {tcp}		cve,1999-0467
+WEB-CGI wrap access {tcp}		nessus,10317
+WEB-CGI classifieds.cgi access {tcp}		cve,1999-0934
+WEB-CGI faxsurvey access {tcp}		nessus,10067
+WEB-CGI filemail access {tcp}		cve,1999-1154
+WEB-CGI man.sh access {tcp}		cve,1999-1179
+WEB-CGI snork.bat access {tcp}		cve,2000-0169
+WEB-CGI w3-msql access {tcp}		nessus,10296
+WEB-CGI day5datacopier.cgi access {tcp}		cve,1999-1232
+WEB-CGI day5datanotifier.cgi access {tcp}		cve,1999-1232
+WEB-CGI post-query access {tcp}		cve,2001-0291
+WEB-CGI visadmin.exe access {tcp}		nessus,10295
+WEB-CGI dumpenv.pl access {tcp}		nessus,10060
+WEB-CGI calendar_admin.pl arbitrary command execution attempt {tcp}		cve,2000-0432
+WEB-CGI calendar_admin.pl access {tcp}		cve,2000-0432
+WEB-CGI calendar-admin.pl access {tcp}		bugtraq,1215
+WEB-CGI calender.pl access {tcp}		cve,2000-0432
+WEB-CGI user_update_admin.pl access {tcp}		cve,2000-0627
+WEB-CGI user_update_passwd.pl access {tcp}		cve,2000-0627
+WEB-CGI survey.cgi access {tcp}		cve,1999-0936
+WEB-CGI scriptalias access {tcp}		cve,1999-0236
+WEB-CGI win-c-sample.exe access {tcp}		nessus,10008
+WEB-CGI admin.pl access {tcp}		url,online.securityfocus.com/archive/1/249355
+WEB-CGI LWGate access {tcp}		url,www.wiretrip.net/rfp/p/doc.asp/i2/d6.htm
+WEB-CGI flexform access {tcp}		url,www.wiretrip.net/rfp/p/doc.asp/i2/d6.htm
+WEB-CGI formmail arbitrary command execution attempt {tcp}		nessus,10782
+WEB-CGI formmail access {tcp}		nessus,10782
+WEB-CGI phf arbitrary command execution attempt {tcp}		cve,1999-0067
+WEB-CGI phf access {tcp}		cve,1999-0067
+WEB-CGI www-sql access {tcp}		url,marc.theaimsgroup.com/?l=bugtraq&m=88704258804054&w=2
+WEB-CGI ppdscgi.exe access {tcp}		url,online.securityfocus.com/archive/1/16878
+WEB-CGI sendform.cgi access {tcp}		url,www.scn.org/help/sendform.txt
+WEB-CGI AnyForm2 access {tcp}		nessus,10277
+WEB-CGI MachineInfo access {tcp}		cve,1999-1067
+WEB-CGI bb-hist.sh attempt {tcp}		nessus,10025
+WEB-CGI bb-hist.sh access {tcp}		nessus,10025
+WEB-CGI bb-histlog.sh access {tcp}		nessus,10025
+WEB-CGI bb-histsvc.sh access {tcp}		cve,1999-1462
+WEB-CGI bb-hostscv.sh attempt {tcp}		nessus,10460
+WEB-CGI bb-hostscv.sh access {tcp}		nessus,10460
+WEB-CGI bb-rep.sh access {tcp}		cve,1999-1462
+WEB-CGI bb-replog.sh access {tcp}		cve,1999-1462
+WEB-CGI redirect access {tcp}		cve,2000-0382
+WEB-CGI wayboard attempt {tcp}		cve,2001-0214
+WEB-CGI way-board access {tcp}		nessus,10610
+WEB-CGI pals-cgi arbitrary file access attempt {tcp}		nessus,10611
+WEB-CGI pals-cgi access {tcp}		nessus,10611
+WEB-CGI commerce.cgi arbitrary file access attempt {tcp}		nessus,10612
+WEB-CGI commerce.cgi access {tcp}		nessus,10612
+WEB-CGI Amaya templates sendtemp.pl directory traversal attempt {tcp}		cve,2001-0272
+WEB-CGI Amaya templates sendtemp.pl access {tcp}		cve,2001-0272
+WEB-CGI webspirs.cgi directory traversal attempt {tcp}		nessus,10616
+WEB-CGI webspirs.cgi access {tcp}		nessus,10616
+WEB-CGI tstisapi.dll access {tcp}		cve,2001-0302
+WEB-CGI sendmessage.cgi access {tcp}		cve,2001-1100
+WEB-CGI lastlines.cgi access {tcp}		cve,2001-1206
+WEB-CGI zml.cgi attempt {tcp}		cve,2001-1209
+WEB-CGI zml.cgi access {tcp}		cve,2001-1209
+WEB-CGI AHG search.cgi access {tcp}		bugtraq,3985
+WEB-CGI agora.cgi attempt {tcp}		nessus,10836
+WEB-CGI agora.cgi access {tcp}		nessus,10836
+WEB-CGI perl.exe command attempt {tcp}		url,www.cert.org/advisories/CA-1996-11.html
+WEB-CGI perl.exe access {tcp}		url,www.cert.org/advisories/CA-1996-11.html
+WEB-CGI perl command attempt {tcp}		url,www.cert.org/advisories/CA-1996-11.html
+WEB-CGI auktion.cgi directory traversal attempt {tcp}		nessus,10638
+WEB-CGI auktion.cgi access {tcp}		nessus,10638
+WEB-CGI cgiforum.pl attempt {tcp}		nessus,10552
+WEB-CGI cgiforum.pl access {tcp}		nessus,10552
+WEB-CGI directorypro.cgi attempt {tcp}		cve,2001-0780
+WEB-CGI directorypro.cgi access {tcp}		cve,2001-0780
+WEB-CGI Web Shopper shopper.cgi attempt {tcp}		cve,2000-0922
+WEB-CGI Web Shopper shopper.cgi access {tcp}		cve,2000-0922
+WEB-CGI listrec.pl access {tcp}		cve,2001-0997
+WEB-CGI mailnews.cgi access {tcp}		nessus,10641
+WEB-CGI book.cgi arbitrary command execution attempt {tcp}		nessus,10721
+WEB-CGI book.cgi access {tcp}		nessus,10721
+WEB-CGI newsdesk.cgi access {tcp}		cve,2001-0232
+WEB-CGI cal_make.pl directory traversal attempt {tcp}		nessus,10664
+WEB-CGI cal_make.pl access {tcp}		nessus,10664
+WEB-CGI mailit.pl access {tcp}		nessus,10417
+WEB-CGI sdbsearch.cgi access {tcp}		nessus,10720
+WEB-CGI swc access {tcp}		nessus,10493
+WEB-CGI ttawebtop.cgi arbitrary file attempt {tcp}		nessus,10696
+WEB-CGI ttawebtop.cgi access {tcp}		nessus,10696
+WEB-CGI upload.cgi access {tcp}		nessus,10290
+WEB-CGI view_source access {tcp}		nessus,10294
+WEB-CGI ustorekeeper.pl directory traversal attempt {tcp}		nessus,10645
+WEB-CGI ustorekeeper.pl access {tcp}		nessus,10646
+WEB-CGI icat access {tcp}		cve,1999-1069
+WEB-CGI Bugzilla doeditvotes.cgi access {tcp}		cve,2002-0011
+WEB-CGI htsearch arbitrary configuration file attempt {tcp}		cve,2000-0208
+WEB-CGI htsearch arbitrary file read attempt {tcp}		nessus,10105
+WEB-CGI htsearch access {tcp}		nessus,10105
+WEB-CGI a1stats a1disp3.cgi directory traversal attempt {tcp}		nessus,10669
+WEB-CGI a1stats a1disp3.cgi access {tcp}		nessus,10669
+WEB-CGI a1stats access {tcp}		nessus,10669
+WEB-CGI admentor admin.asp access {tcp}		url,www.securiteam.com/windowsntfocus/5DP0N1F6AW.html
+WEB-CGI alchemy http server PRN arbitrary command execution attempt {tcp}		cve,2001-0871
+WEB-CGI alchemy http server NUL arbitrary command execution attempt {tcp}		cve,2001-0871
+WEB-CGI alibaba.pl arbitrary command execution attempt {tcp}		nessus,10013
+WEB-CGI alibaba.pl access {tcp}		nessus,10013
+WEB-CGI AltaVista Intranet Search directory traversal attempt {tcp}		nessus,10015
+WEB-CGI test.bat arbitrary command execution attempt {tcp}		nessus,10016
+WEB-CGI test.bat access {tcp}		nessus,10016
+WEB-CGI input.bat arbitrary command execution attempt {tcp}		nessus,10016
+WEB-CGI input.bat access {tcp}		nessus,10016
+WEB-CGI input2.bat arbitrary command execution attempt {tcp}		nessus,10016
+WEB-CGI input2.bat access {tcp}		nessus,10016
+WEB-CGI envout.bat arbitrary command execution attempt {tcp}		nessus,10016
+WEB-CGI envout.bat access {tcp}		nessus,10016
+WEB-CGI echo.bat arbitrary command execution attempt {tcp}		nessus,10246
+WEB-CGI echo.bat access {tcp}		nessus,10246
+WEB-CGI hello.bat arbitrary command execution attempt {tcp}		nessus,10246
+WEB-CGI hello.bat access {tcp}		nessus,10246
+WEB-CGI tst.bat access {tcp}		nessus,10014
+WEB-CGI /cgi-bin/ls access {tcp}		cve,2000-0079
+WEB-CGI cgimail access {tcp}		nessus,11721
+WEB-CGI cgiwrap access {tcp}		nessus,10041
+WEB-CGI csSearch.cgi arbitrary command execution attempt {tcp}		nessus,10924
+WEB-CGI csSearch.cgi access {tcp}		nessus,10924
+WEB-CGI /cart/cart.cgi access {tcp}		cve,2000-0252
+WEB-CGI dbman db.cgi access {tcp}		nessus,10403
+WEB-CGI DCShop access {tcp}		cve,2001-0821
+WEB-CGI DCShop orders.txt access {tcp}		cve,2001-0821
+WEB-CGI DCShop auth_user_file.txt access {tcp}		cve,2001-0821
+WEB-CGI eshop.pl arbitrary commane execution attempt {tcp}		cve,2001-1014
+WEB-CGI eshop.pl access {tcp}		cve,2001-1014
+WEB-CGI loadpage.cgi directory traversal attempt {tcp}		cve,2000-1092
+WEB-CGI loadpage.cgi access {tcp}		cve,2000-1092
+WEB-CGI faqmanager.cgi arbitrary file access attempt {tcp}		nessus,10837
+WEB-CGI faqmanager.cgi access {tcp}		nessus,10837
+WEB-CGI /fcgi-bin/echo.exe access {tcp}		nessus,10838
+WEB-CGI FormHandler.cgi directory traversal attempt attempt {tcp}		nessus,10075
+WEB-CGI FormHandler.cgi external site redirection attempt {tcp}		nessus,10075
+WEB-CGI FormHandler.cgi access {tcp}		nessus,10075
+WEB-CGI guestbook.cgi access {tcp}		nessus,10098
+WEB-CGI Home Free search.cgi directory traversal attempt {tcp}		cve,2000-0054
+WEB-CGI search.cgi access {tcp}		cve,2000-0054
+WEB-CGI campus attempt {tcp}		nessus,10035
+WEB-CGI campus access {tcp}		nessus,10035
+WEB-CGI cart32.exe access {tcp}		bugtraq,1153
+WEB-CGI pfdispaly.cgi arbitrary command execution attempt {tcp}		nessus,10174
+WEB-CGI pfdispaly.cgi access {tcp}		nessus,10174
+WEB-CGI pagelog.cgi directory traversal attempt {tcp}		nessus,10591
+WEB-CGI pagelog.cgi access {tcp}		nessus,10591
+WEB-CGI ad.cgi access {tcp}		nessus,11464
+WEB-CGI bbs_forum.cgi access {tcp}		url,www.cgisecurity.com/advisory/3.1.txt
+WEB-CGI bsguest.cgi access {tcp}		cve,2001-0099
+WEB-CGI bslist.cgi access {tcp}		cve,2001-0100
+WEB-CGI cgforum.cgi access {tcp}		cve,2000-1132
+WEB-CGI register.cgi access {tcp}		cve,2001-0076
+WEB-CGI gbook.cgi access {tcp}		cve,2000-1131
+WEB-CGI simplestguest.cgi access {tcp}		cve,2001-0022
+WEB-CGI statsconfig.pl access {tcp}		cve,2001-0113
+WEB-CGI talkback.cgi directory traversal attempt {tcp}		cve,2001-0420
+WEB-CGI talkback.cgi access {tcp}		cve,2001-0420
+WEB-CGI adcycle access {tcp}		cve,2001-1226
+WEB-CGI MachineInfo access {tcp}		cve,1999-1067
+WEB-CGI emumail.cgi NULL attempt {tcp}		cve,2002-1526
+WEB-CGI emumail.cgi access {tcp}		cve,2002-1526
+WEB-CGI document.d2w access {tcp}		cve,2000-1110
+WEB-CGI db2www access {tcp}		cve,2000-0677
+WEB-CGI technote main.cgi file directory traversal attempt {tcp}		nessus,10584
+WEB-CGI technote print.cgi directory traversal attempt {tcp}		nessus,10584
+WEB-CGI ads.cgi command execution attempt {tcp}		nessus,11464
+WEB-CGI eXtropia webstore directory traversal {tcp}		nessus,10532
+WEB-CGI eXtropia webstore access {tcp}		nessus,10532
+WEB-CGI shopping cart directory traversal {tcp}		cve,2000-0921
+WEB-CGI Armada Style Master Index directory traversal {tcp}		url,www.synnergy.net/downloads/advisories/SLA-2000-16.masterindex.txt
+WEB-CGI cached_feed.cgi moreover shopping cart directory traversal {tcp}		cve,2000-0906
+WEB-CGI cached_feed.cgi moreover shopping cart access {tcp}		cve,2000-0906
+WEB-CGI Talentsoft Web+ exploit attempt {tcp}		bugtraq,1725
+WEB-CGI Poll-it access {tcp}		nessus,10459
+WEB-CGI count.cgi access {tcp}		nessus,10049
+WEB-CGI webdist.cgi arbitrary command attempt {tcp}		nessus,10299
+WEB-CGI webdist.cgi access {tcp}		nessus,10299
+WEB-CGI bigconf.cgi access {tcp}		nessus,10027
+WEB-CGI /cgi-bin/jj access {tcp}		nessus,10131
+WEB-CGI bizdbsearch attempt {tcp}		nessus,10383
+WEB-CGI bizdbsearch access {tcp}		nessus,10383
+WEB-CGI sojourn.cgi File attempt {tcp}		nessus,10349
+WEB-CGI sojourn.cgi access {tcp}		nessus,10349
+WEB-CGI SGI InfoSearch fname attempt {tcp}		cve,2000-0207
+WEB-CGI SGI InfoSearch fname access {tcp}		cve,2000-0207
+WEB-CGI cachemgr.cgi access {tcp}		nessus,10034
+WEB-CGI responder.cgi access {tcp}		bugtraq,3155
+WEB-CGI dfire.cgi access {tcp}		cve,1999-0913
+WEB-CGI store.cgi directory traversal attempt {tcp}		nessus,10639
+WEB-CGI store.cgi access {tcp}		nessus,10639
+WEB-CGI SIX webboard generate.cgi attempt {tcp}		nessus,10725
+WEB-CGI SIX webboard generate.cgi access {tcp}		cve,2001-1115
+WEB-CGI spin_client.cgi access {tcp}		nessus,10393
+WEB-CGI csPassword.cgi access {tcp}		cve,2002-0918
+WEB-CGI csPassword password.cgi.tmp access {tcp}		cve,2002-0920
+WEB-CGI Nortel Contivity cgiproc DOS attempt {tcp}		nessus,10160
+WEB-CGI Nortel Contivity cgiproc DOS attempt {tcp}		nessus,10160
+WEB-CGI Nortel Contivity cgiproc access {tcp}		nessus,10160
+WEB-CGI Oracle reports CGI access {tcp}		cve,2002-0947
+WEB-CGI alienform.cgi directory traversal attempt {tcp}		nessus,11027
+WEB-CGI AlienForm af.cgi directory traversal attempt {tcp}		nessus,11027
+WEB-CGI alienform.cgi access {tcp}		nessus,11027
+WEB-CGI AlienForm af.cgi access {tcp}		nessus,11027
+WEB-CGI story.pl arbitrary file read attempt {tcp}		nessus,10817
+WEB-CGI story.pl access {tcp}		nessus,10817
+WEB-CGI siteUserMod.cgi access {tcp}		nessus,10253
+WEB-CGI cgicso access {tcp}		nessus,10780
+WEB-CGI nph-publish.cgi access {tcp}		nessus,10164
+WEB-CGI printenv access {tcp}		nessus,10503
+WEB-CGI sdbsearch.cgi access {tcp}		nessus,10503
+WEB-CGI rpc-nlog.pl access {tcp}		cve,1999-1278
+WEB-CGI rpc-smb.pl access {tcp}		cve,1999-1278
+WEB-CGI cart.cgi access {tcp}		nessus,10368
+WEB-CGI vpasswd.cgi access {tcp}		nessus,11165
+WEB-CGI alya.cgi access {tcp}		nessus,11118
+WEB-CGI viralator.cgi access {tcp}		nessus,11107
+WEB-CGI smartsearch.cgi access {tcp}		bugtraq,7133
+WEB-CGI mrtg.cgi directory traversal attempt {tcp}		nessus,11001
+WEB-CGI overflow.cgi access {tcp}		url,www.cert.org/advisories/CA-2002-35.html
+WEB-CGI way-board.cgi access {tcp}		nessus,10610
+WEB-CGI process_bug.cgi access {tcp}		cve,2002-0008
+WEB-CGI enter_bug.cgi arbitrary command attempt {tcp}		cve,2002-0008
+WEB-CGI enter_bug.cgi access {tcp}		cve,2002-0008
+WEB-CGI parse_xml.cgi access {tcp}		cve,2003-0054
+WEB-CGI streaming server parse_xml.cgi access {tcp}		cve,2003-0054
+WEB-CGI album.pl access {tcp}		nessus,11581
+WEB-CGI chipcfg.cgi access {tcp}		url,archives.neohapsis.com/archives/bugtraq/2001-05/0233.html
+WEB-CGI ikonboard.cgi access {tcp}		nessus,11605
+WEB-CGI swsrv.cgi access {tcp}		nessus,11608
+WEB-CGI CSMailto.cgi access {tcp}		nessus,11748
+WEB-CGI alert.cgi access {tcp}		nessus,11748
+WEB-CGI catgy.cgi access {tcp}		nessus,11748
+WEB-CGI cvsview2.cgi access {tcp}		nessus,11748
+WEB-CGI cvslog.cgi access {tcp}		nessus,11748
+WEB-CGI multidiff.cgi access {tcp}		nessus,11748
+WEB-CGI dnewsweb.cgi access {tcp}		nessus,11748
+WEB-CGI download.cgi access {tcp}		nessus,11748
+WEB-CGI edit_action.cgi access {tcp}		nessus,11748
+WEB-CGI everythingform.cgi access {tcp}		nessus,11748
+WEB-CGI ezadmin.cgi access {tcp}		nessus,11748
+WEB-CGI ezboard.cgi access {tcp}		nessus,11748
+WEB-CGI ezman.cgi access {tcp}		nessus,11748
+WEB-CGI fileseek.cgi access {tcp}		nessus,11748
+WEB-CGI fom.cgi access {tcp}		nessus,11748
+WEB-CGI getdoc.cgi access {tcp}		nessus,11748
+WEB-CGI global.cgi access {tcp}		nessus,11748
+WEB-CGI guestserver.cgi access {tcp}		nessus,11748
+WEB-CGI imageFolio.cgi access {tcp}		nessus,11748
+WEB-CGI mailfile.cgi access {tcp}		nessus,11748
+WEB-CGI mailview.cgi access {tcp}		nessus,11748
+WEB-CGI nsManager.cgi access {tcp}		nessus,11748
+WEB-CGI readmail.cgi access {tcp}		nessus,11748
+WEB-CGI printmail.cgi access {tcp}		nessus,11748
+WEB-CGI service.cgi access {tcp}		nessus,11748
+WEB-CGI setpasswd.cgi access {tcp}		nessus,11748
+WEB-CGI simplestmail.cgi access {tcp}		nessus,11748
+WEB-CGI ws_mail.cgi access {tcp}		nessus,11748
+WEB-CGI nph-exploitscanget.cgi access {tcp}		nessus,11740
+WEB-CGI csNews.cgi access {tcp}		nessus,11726
+WEB-CGI psunami.cgi access {tcp}		nessus,11750
+WEB-CGI gozila.cgi access {tcp}		nessus,11773
+WEB-CGI quickstore.cgi access {tcp}		nessus,11975
+WEB-CGI view_broadcast.cgi access {tcp}		cve,2003-0422
+WEB-CGI streaming server view_broadcast.cgi access {tcp}		cve,2003-0422
+WEB-CGI CCBill whereami.cgi arbitrary command execution attempt {tcp}		url,secunia.com/advisories/9191/
+WEB-CGI CCBill whereami.cgi access {tcp}		url,secunia.com/advisories/9191/
+WEB-CGI MDaemon form2raw.cgi overflow attempt {tcp}		url,secunia.com/advisories/10512/
+WEB-CGI MDaemon form2raw.cgi access {tcp}		url,secunia.com/advisories/10512/
+WEB-CGI Emumail init.emu access {tcp}		nessus,12095
+WEB-CGI Emumail emumail.fcgi access {tcp}		nessus,12095
+WEB-CGI pgpmail.pl access {tcp}		nessus,11070
+WEB-CGI processit access {tcp}		nessus,10649
+WEB-CGI WhatsUpGold instancename overflow attempt {tcp}		cve,2004-0798
+WEB-CGI ibillpm.pl access {tcp}		nessus,11083
+WEB-CLIENT Outlook EML access {tcp}		nessus,10767
+WEB-CLIENT Microsoft emf metafile access {tcp}		cve,2003-0906
+WEB-CLIENT Microsoft wmf metafile access {tcp}		cve,2003-0906
+WEB-CLIENT XMLHttpRequest attempt {tcp}		cve,2002-0354
+WEB-CLIENT readme.eml download attempt {tcp}		url,www.cert.org/advisories/CA-2001-26.html
+WEB-CLIENT readme.eml autoload attempt {tcp}		url,www.cert.org/advisories/CA-2001-26.html
+WEB-CLIENT Javascript document.domain attempt {tcp}		cve,2002-0815
+WEB-CLIENT Javascript URL host spoofing attempt {tcp}		bugtraq,5293
+WEB-CLIENT RealPlayer arbitrary javascript command attempt {tcp}		cve,2003-0726
+WEB-CLIENT RealPlayer playlist file URL overflow attempt {tcp}		cve,2004-0258
+WEB-CLIENT RealPlayer playlist http URL overflow attempt {tcp}		cve,2004-0258
+WEB-CLIENT RealPlayer playlist rtsp URL overflow attempt {tcp}		cve,2004-0258
+WEB-CLIENT Nortan antivirus sysmspam.dll load attempt {tcp}		cve,2004-0363
+WEB-CLIENT local resource redirection attempt {tcp}		url,www.kb.cert.org/vuls/id/713878
+WEB-CLIENT Content-Disposition CLSID command attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/ms04-024.mspx
+WEB-CLIENT libpng tRNS overflow attempt {tcp}		cve,2004-0597
+WEB-CLIENT bitmap BitmapOffset integer overflow attempt {tcp}		cve,2004-0566
+WEB-COLDFUSION cfcache.map access {tcp}		cve,2000-0057
+WEB-COLDFUSION exampleapp application.cfm {tcp}		cve,2000-0189
+WEB-COLDFUSION application.cfm access {tcp}		cve,2000-0189
+WEB-COLDFUSION getfile.cfm access {tcp}		cve,1999-0800
+WEB-COLDFUSION administrator access {tcp}		cve,2000-0538
+WEB-COLDFUSION datasource username attempt {tcp}		bugtraq,550
+WEB-COLDFUSION fileexists.cfm access {tcp}		bugtraq,550
+WEB-COLDFUSION exprcalc access {tcp}		cve,1999-0455
+WEB-COLDFUSION parks access {tcp}		bugtraq,550
+WEB-COLDFUSION cfappman access {tcp}		bugtraq,550
+WEB-COLDFUSION beaninfo access {tcp}		bugtraq,550
+WEB-COLDFUSION evaluate.cfm access {tcp}		bugtraq,550
+WEB-COLDFUSION getodbcdsn access {tcp}		bugtraq,550
+WEB-COLDFUSION db connections flush attempt {tcp}		bugtraq,550
+WEB-COLDFUSION expeval access {tcp}		cve,1999-0477
+WEB-COLDFUSION datasource passwordattempt {tcp}		bugtraq,550
+WEB-COLDFUSION datasource attempt {tcp}		bugtraq,550
+WEB-COLDFUSION admin encrypt attempt {tcp}		bugtraq,550
+WEB-COLDFUSION displayfile access {tcp}		bugtraq,550
+WEB-COLDFUSION getodbcin attempt {tcp}		bugtraq,550
+WEB-COLDFUSION admin decrypt attempt {tcp}		bugtraq,550
+WEB-COLDFUSION mainframeset access {tcp}		bugtraq,550
+WEB-COLDFUSION set odbc ini attempt {tcp}		bugtraq,550
+WEB-COLDFUSION settings refresh attempt {tcp}		bugtraq,550
+WEB-COLDFUSION CFUSION_VERIFYMAIL access {tcp}		bugtraq,550
+WEB-COLDFUSION snippets attempt {tcp}		bugtraq,550
+WEB-COLDFUSION cfmlsyntaxcheck.cfm access {tcp}		bugtraq,550
+WEB-COLDFUSION application.cfm access {tcp}		cve,2000-0189
+WEB-COLDFUSION onrequestend.cfm access {tcp}		cve,2000-0189
+WEB-COLDFUSION startstop DOS access {tcp}		bugtraq,247
+WEB-COLDFUSION gettempdirectory.cfm access  {tcp}		bugtraq,550
+WEB-COLDFUSION ?Mode=debug attempt {tcp}		nessus,10797
+WEB-FRONTPAGE rad fp30reg.dll access {tcp}		url,www.microsoft.com/technet/security/bulletin/MS01-035.mspx
+WEB-FRONTPAGE frontpage rad fp4areg.dll access {tcp}		cve,2001-0341
+WEB-FRONTPAGE _vti_rpc access {tcp}		nessus,10585
+WEB-FRONTPAGE posting {tcp}		nessus,10585
+WEB-FRONTPAGE shtml.dll access {tcp}		url,www.microsoft.com/technet/security/bulletin/ms00-060.mspx
+WEB-FRONTPAGE form_results access {tcp}		cve,1999-1052
+WEB-FRONTPAGE authors.pwd access {tcp}		nessus,10078
+WEB-FRONTPAGE administrators.pwd access {tcp}		bugtraq,1205
+WEB-FRONTPAGE form_results.htm access {tcp}		cve,1999-1052
+WEB-FRONTPAGE access.cnf access {tcp}		nessus,10575
+WEB-FRONTPAGE service.cnf access {tcp}		nessus,10575
+WEB-FRONTPAGE service.pwd {tcp}		bugtraq,1205
+WEB-FRONTPAGE services.cnf access {tcp}		nessus,10575
+WEB-FRONTPAGE shtml.exe access {tcp}		nessus,11311
+WEB-FRONTPAGE svcacl.cnf access {tcp}		nessus,10575
+WEB-FRONTPAGE writeto.cnf access {tcp}		nessus,10575
+WEB-FRONTPAGE .... request {tcp}		nessus,10142
+WEB-FRONTPAGE dvwssr.dll access {tcp}		url,www.microsoft.com/technet/security/bulletin/ms00-025.mspx
+WEB-FRONTPAGE /_vti_bin/ access {tcp}		nessus,11032
+WEB-FRONTPAGE _vti_inf.html access {tcp}		nessus,11455
+WEB-IIS MDAC Content-Type overflow attempt {tcp}		url,www.foundstone.com/knowledge/randd-advisories-display.html?id=337
+WEB-IIS repost.asp access {tcp}		nessus,10372
+WEB-IIS .htr chunked Transfer-Encoding {tcp}		cve,2002-0364
+WEB-IIS .asp chunked Transfer-Encoding {tcp}		nessus,10932
+WEB-IIS as_web.exe access {tcp}		bugtraq,4670
+WEB-IIS as_web4.exe access {tcp}		bugtraq,4670
+WEB-IIS NewsPro administration authentication attempt {tcp}		bugtraq,4672
+WEB-IIS pbserver access {tcp}		url,www.microsoft.com/technet/security/bulletin/ms00-094.mspx
+WEB-IIS trace.axd access {tcp}		nessus,10993
+WEB-IIS /isapi/tstisapi.dll access {tcp}		cve,2001-0302
+WEB-IIS mkilog.exe access {tcp}		url,www.osvdb.org/274
+WEB-IIS ctss.idc access {tcp}		nessus,10359
+WEB-IIS /iisadmpwd/aexp2.htr access {tcp}		nessus,10371
+WEB-IIS WebDAV file lock attempt {tcp}		bugtraq,2736
+WEB-IIS ISAPI .printer access {tcp}		nessus,10661
+WEB-IIS ISAPI .ida attempt {tcp}		cve,2000-0071
+WEB-IIS ISAPI .ida access {tcp}		cve,2000-0071
+WEB-IIS ISAPI .idq attempt {tcp}		nessus,10115
+WEB-IIS ISAPI .idq access {tcp}		cve,2000-0071
+WEB-IIS %2E-asp access {tcp}		cve,1999-0253
+WEB-IIS *.idc attempt {tcp}		cve,2000-0661
+WEB-IIS Directory transversal attempt {tcp}		cve,1999-0229
+WEB-IIS Alternate Data streams ASP file access attempt {tcp}		url,support.microsoft.com/default.aspx?scid=kb\
+WEB-IIS .bat? access {tcp}		url,support.microsoft.com/support/kb/articles/Q155/0/56.asp
+WEB-IIS .cnf access {tcp}		nessus,10575
+WEB-IIS ASP contents view {tcp}		nessus,10356
+WEB-IIS ASP contents view {tcp}		cve,2000-0942
+WEB-IIS CGImail.exe access {tcp}		cve,2000-0726
+WEB-IIS MSProxy access {tcp}		url,support.microsoft.com/?kbid=331066
+WEB-IIS +.htr code fragment attempt {tcp}		nessus,10680
+WEB-IIS .htr access {tcp}		nessus,10680
+WEB-IIS SAM Attempt {tcp}		url,www.ciac.org/ciac/bulletins/h-45.shtml
+WEB-IIS achg.htr access {tcp}		cve,1999-0407
+WEB-IIS ism.dll access {tcp}		cve,2000-0630
+WEB-IIS anot.htr access {tcp}		cve,1999-0407
+WEB-IIS asp-dot attempt {tcp}		nessus,10363
+WEB-IIS bdir.htr access {tcp}		nessus,10577
+WEB-IIS cross-site scripting attempt {tcp}		nessus,10572
+WEB-IIS cross-site scripting attempt {tcp}		nessus,10572
+WEB-IIS directory listing {tcp}		nessus,10573
+WEB-IIS encoding access {tcp}		cve,2000-0024
+WEB-IIS fpcount attempt {tcp}		cve,1999-1376
+WEB-IIS fpcount access {tcp}		cve,1999-1376
+WEB-IIS global.asa access {tcp}		nessus,10991
+WEB-IIS idc-srch attempt {tcp}		cve,1999-0874
+WEB-IIS iisadmpwd attempt {tcp}		cve,2000-0304
+WEB-IIS index server file source code attempt {tcp}		nessus,10356
+WEB-IIS isc$data attempt {tcp}		nessus,10116
+WEB-IIS ism.dll attempt {tcp}		nessus,10680
+WEB-IIS jet vba access {tcp}		cve,1999-0874
+WEB-IIS msadcs.dll access {tcp}		nessus,10357
+WEB-IIS newdsn.exe access {tcp}		nessus,10360
+WEB-IIS perl-browse newline attempt {tcp}		bugtraq,6833
+WEB-IIS perl-browse space attempt {tcp}		bugtraq,6833
+WEB-IIS scripts-browse access {tcp}		nessus,11032
+WEB-IIS search97.vts access {tcp}		bugtraq,162
+WEB-IIS showcode.asp access {tcp}		nessus,10007
+WEB-IIS site server config access {tcp}		cve,1999-1520
+WEB-IIS srchadm access {tcp}		nessus,11032
+WEB-IIS uploadn.asp access {tcp}		cve,1999-0360
+WEB-IIS view source via translate header {tcp}		bugtraq,1578
+WEB-IIS viewcode.asp access {tcp}		nessus,10576
+WEB-IIS webhits access {tcp}		cve,2000-0097
+WEB-IIS site/iisamples access {tcp}		nessus,10370
+WEB-IIS CodeRed v2 root.exe access {tcp}		url,www.cert.org/advisories/CA-2001-19.html
+WEB-IIS outlook web dos {tcp}		bugtraq,3223
+WEB-IIS /scripts/samples/ access {tcp}		nessus,10370
+WEB-IIS /msadc/samples/ access {tcp}		nessus,1007
+WEB-IIS iissamples access {tcp}		nessus,11032
+WEB-IIS iisadmin access {tcp}		nessus,11032
+WEB-IIS msdac access {tcp}		nessus,11032
+WEB-IIS _mem_bin access {tcp}		nessus,11032
+WEB-IIS htimage.exe access {tcp}		nessus,10376
+WEB-IIS MS Site Server default login attempt {tcp}		nessus,11018
+WEB-IIS MS Site Server admin attempt {tcp}		nessus,11018
+WEB-IIS postinfo.asp access {tcp}		cve,1999-0360
+WEB-IIS /exchange/root.asp attempt {tcp}		nessus,10781
+WEB-IIS /exchange/root.asp access {tcp}		nessus,10781
+WEB-IIS WEBDAV exploit attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/ms03-007.mspx
+WEB-IIS WEBDAV nessus safe scan attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/ms03-007.mspx
+WEB-IIS Battleaxe Forum login.asp access {tcp}		cve,2003-0215
+WEB-IIS nsiislog.dll access {tcp}		url,www.microsoft.com/technet/security/bulletin/ms03-018.mspx
+WEB-IIS IISProtect siteadmin.asp access {tcp}		nessus,11662
+WEB-IIS IISProtect globaladmin.asp access {tcp}		nessus,11661
+WEB-IIS IISProtect access {tcp}		nessus,11661
+WEB-IIS Synchrologic Email Accelerator userid list access attempt {tcp}		nessus,11657
+WEB-IIS MS BizTalk server access {tcp}		nessus,11638
+WEB-IIS register.asp access {tcp}		nessus,11621
+WEB-IIS UploadScript11.asp access {tcp}		cve,2001-0938
+WEB-IIS DirectoryListing.asp access {tcp}		cve,2001-0938
+WEB-IIS /pcadmin/login.asp access {tcp}		nessus,11785
+WEB-IIS foxweb.exe access {tcp}		nessus,11939
+WEB-IIS foxweb.dll access {tcp}		nessus,11939
+WEB-IIS VP-ASP shopsearch.asp access {tcp}		nessus,11942
+WEB-IIS VP-ASP ShopDisplayProducts.asp access {tcp}		nessus,11942
+WEB-IIS sgdynamo.exe access {tcp}		nessus,11955
+WEB-IIS NTLM ASN.1 vulnerability scan attempt {tcp}		nessus,12065
+WEB-IIS SmarterTools SmarterMail frmGetAttachment.aspx access {tcp}		bugtraq,9805
+WEB-IIS SmarterTools SmarterMail login.aspx buffer overflow attempt {tcp}		bugtraq,9805
+WEB-IIS SmarterTools SmarterMail frmCompose.asp access {tcp}		bugtraq,9805
+WEB-IIS ping.asp access {tcp}		nessus,10968
+WEB-MISC cross site scripting HTML Image tag set to javascript attempt {tcp}		cve,2002-0902
+WEB-MISC Cisco IOS HTTP configuration attempt {tcp}		cve,2001-0537
+WEB-MISC Netscape Enterprise DOS {tcp}		cve,2001-0251
+WEB-MISC Netscape Enterprise directory listing attempt {tcp}		cve,2001-0250
+WEB-MISC iPlanet GETPROPERTIES attempt {tcp}		cve,2001-0746
+WEB-MISC Tomcat view source attempt {tcp}		cve,2001-0590
+WEB-MISC WebDAV search access {tcp}		cve,2000-0951
+WEB-MISC Lotus Domino directory traversal {tcp}		nessus,12248
+WEB-MISC queryhit.htm access {tcp}		nessus,10370
+WEB-MISC counter.exe access {tcp}		cve,1999-1030
+WEB-MISC WebDAV propfind access {tcp}		cve,2000-0869
+WEB-MISC unify eWave ServletExec upload {tcp}		nessus,10570
+WEB-MISC Netscape Servers suite DOS {tcp}		cve,2000-1025
+WEB-MISC amazon 1-click cookie theft {tcp}		cve,2000-0439
+WEB-MISC unify eWave ServletExec DOS {tcp}		cve,2000-1025
+WEB-MISC Allaire JRUN DOS attempt {tcp}		cve,2000-1049
+WEB-MISC ICQ Webfront HTTP DOS {tcp}		cve,2000-1078
+WEB-MISC Talentsoft Web+ Source Code view access {tcp}		url,archives.neohapsis.com/archives/ntbugtraq/2000-q3/0168.html
+WEB-MISC Talentsoft Web+ internal IP Address access {tcp}		url,archives.neohapsis.com/archives/ntbugtraq/2000-q3/0168.html
+WEB-MISC SmartWin CyberOffice Shopping Cart access {tcp}		cve,2000-0925
+WEB-MISC cybercop scan {tcp}		arachnids,374
+WEB-MISC L3retriever HTTP Probe {tcp}		arachnids,310
+WEB-MISC Webtrends HTTP probe {tcp}		arachnids,309
+WEB-MISC nessus 1.X 404 probe {tcp}		arachnids,301
+WEB-MISC nessus 2.x 404 probe {tcp}		nessus,10386
+WEB-MISC Netscape admin passwd {tcp}		nessus,10468
+WEB-MISC BigBrother access {tcp}		nessus,10460
+WEB-MISC ftp.pl attempt {tcp}		nessus,10467
+WEB-MISC ftp.pl access {tcp}		nessus,10467
+WEB-MISC Tomcat server snoop access {tcp}		cve,2000-0760
+WEB-MISC ROXEN directory list attempt {tcp}		cve,2000-0671
+WEB-MISC apache source.asp file access {tcp}		nessus,10480
+WEB-MISC Tomcat server exploit access {tcp}		nessus,10477
+WEB-MISC http directory traversal {tcp}		arachnids,298
+WEB-MISC ICQ webserver DOS {tcp}		url,www.securiteam.com/exploits/2ZUQ1QAQOG.html
+WEB-MISC Lotus EditDoc attempt {tcp}		url,www.securiteam.com/exploits/5NP080A1RE.html
+WEB-MISC mlog.phtml access {tcp}		cve,1999-0346
+WEB-MISC mylog.phtml access {tcp}		cve,1999-0346
+WEB-MISC ?PageServices access {tcp}		cve,1999-0269
+WEB-MISC webcart access {tcp}		nessus,10298
+WEB-MISC AuthChangeUrl access {tcp}		cve,2000-0304
+WEB-MISC convert.bas access {tcp}		cve,1999-0175
+WEB-MISC cpshost.dll access {tcp}		cve,1999-0360
+WEB-MISC guestbook.pl access {tcp}		nessus,10099
+WEB-MISC handler attempt {tcp}		nessus,10100
+WEB-MISC handler access {tcp}		nessus,10100
+WEB-MISC ///cgi-bin access {tcp}		nessus,11032
+WEB-MISC /cgi-bin/// access {tcp}		nessus,11032
+WEB-MISC cat%20 access {tcp}		cve,1999-0039
+WEB-MISC Domino catalog.nsf access {tcp}		nessus,10629
+WEB-MISC Domino domcfg.nsf access {tcp}		nessus,10629
+WEB-MISC Domino domlog.nsf access {tcp}		nessus,10629
+WEB-MISC Domino log.nsf access {tcp}		nessus,10629
+WEB-MISC Domino names.nsf access {tcp}		nessus,10629
+WEB-MISC Domino mab.nsf access {tcp}		nessus,10953
+WEB-MISC Domino cersvr.nsf access {tcp}		nessus,10629
+WEB-MISC Domino setup.nsf access {tcp}		nessus,10629
+WEB-MISC Domino statrep.nsf access {tcp}		nessus,10629
+WEB-MISC Domino webadmin.nsf access {tcp}		nessus,10629
+WEB-MISC Domino events4.nsf access {tcp}		nessus,10629
+WEB-MISC Domino ntsync4.nsf access {tcp}		nessus,10629
+WEB-MISC Domino collect4.nsf access {tcp}		nessus,10629
+WEB-MISC Domino mailw46.nsf access {tcp}		nessus,10629
+WEB-MISC Domino bookmark.nsf access {tcp}		nessus,10629
+WEB-MISC Domino agentrunner.nsf access {tcp}		nessus,10629
+WEB-MISC Domino mail.box access {tcp}		nessus,10629
+WEB-MISC Ecommerce checks.txt access {tcp}		bugtraq,2281
+WEB-MISC apache directory disclosure attempt {tcp}		bugtraq,2503
+WEB-MISC Netscape PublishingXpert access {tcp}		nessus,10364
+WEB-MISC windmail.exe access {tcp}		nessus,10365
+WEB-MISC webplus access {tcp}		cve,2000-1005
+WEB-MISC Netscape dir index wp {tcp}		cve,2000-0236
+WEB-MISC cart 32 AdminPwd access {tcp}		cve,2000-0429
+WEB-MISC shopping cart access {tcp}		cve,2000-1188
+WEB-MISC Novell Groupwise gwweb.exe attempt {tcp}		nessus,10877
+WEB-MISC Novell Groupwise gwweb.exe access {tcp}		nessus,10877
+WEB-MISC ws_ftp.ini access {tcp}		cve,1999-1078
+WEB-MISC rpm_query access {tcp}		nessus,10340
+WEB-MISC mall log order access {tcp}		cve,1999-0606
+WEB-MISC architext_query.pl access {tcp}		url,www2.fedcirc.gov/alerts/advisories/1998/txt/fedcirc.98.03.txt
+WEB-MISC wwwboard.pl access {tcp}		cve,1999-0954
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC get32.exe access {tcp}		nessus,10011
+WEB-MISC Annex Terminal DOS attempt {tcp}		nessus,10017
+WEB-MISC cgitest.exe attempt {tcp}		nessus,10623
+WEB-MISC cgitest.exe access {tcp}		nessus,11131
+WEB-MISC Netscape Enterprise Server directory view {tcp}		nessus,10352
+WEB-MISC Netscape Enterprise Server directory view {tcp}		cve,2000-0236
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC SalesLogix Eviewer web command attempt {tcp}		cve,2000-0289
+WEB-MISC SalesLogix Eviewer access {tcp}		cve,2000-0289
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC Trend Micro OfficeScan attempt {tcp}		bugtraq,1057
+WEB-MISC Trend Micro OfficeScan access {tcp}		bugtraq,1057
+WEB-MISC oracle web arbitrary command execution attempt {tcp}		nessus,10348
+WEB-MISC oracle web application server access {tcp}		nessus,10348
+WEB-MISC Netscape Enterprise Server directory view {tcp}		bugtraq,1063
+WEB-MISC search.vts access {tcp}		bugtraq,162
+WEB-MISC htgrep attempt {tcp}		cve,2000-0832
+WEB-MISC htgrep access {tcp}		cve,2000-0832
+WEB-MISC .nsconfig access {tcp}		url,www.osvdb.org/5709
+WEB-MISC intranet access {tcp}		nessus,11626
+WEB-MISC filemail access {tcp}		url,www.securityfocus.com/archive/1/11175
+WEB-MISC plusmail access {tcp}		nessus,10181
+WEB-MISC adminlogin access {tcp}		nessus,11748
+WEB-MISC ultraboard access {tcp}		nessus,11748
+WEB-MISC musicat empower attempt {tcp}		nessus,10609
+WEB-MISC musicat empower access {tcp}		nessus,10609
+WEB-MISC ROADS search.pl attempt {tcp}		nessus,10627
+WEB-MISC VirusWall FtpSave access {tcp}		nessus,10733
+WEB-MISC VirusWall FtpSaveCSP access {tcp}		nessus,10733
+WEB-MISC VirusWall FtpSaveCVP access {tcp}		nessus,10733
+WEB-MISC weblogic/tomcat .jsp view source attempt {tcp}		bugtraq,2527
+WEB-MISC SWEditServlet directory traversal attempt {tcp}		cve,2001-0555
+WEB-MISC SWEditServlet access {tcp}		bugtraq,2868
+WEB-MISC whisker HEAD/./ {tcp}		url,www.wiretrip.net/rfp/pages/whitepapers/whiskerids.html
+WEB-MISC HP OpenView Manager DOS {tcp}		cve,2001-0552
+WEB-MISC long basic authorization string {tcp}		cve,2001-1067
+WEB-MISC sml3com access {tcp}		cve,2001-0740
+WEB-MISC carbo.dll access {tcp}		cve,1999-1069
+WEB-MISC console.exe access {tcp}		cve,2001-1252
+WEB-MISC cs.exe access {tcp}		cve,2001-1252
+WEB-MISC http directory traversal {tcp}		arachnids,297
+WEB-MISC sadmind worm access {tcp}		url,www.cert.org/advisories/CA-2001-11.html
+WEB-MISC jrun directory browse attempt {tcp}		bugtraq,3592
+WEB-MISC mod-plsql administration access {tcp}		nessus,10849
+WEB-MISC Phorecast remote code execution attempt {tcp}		cve,2001-1049
+WEB-MISC viewcode access {tcp}		nessus,12048
+WEB-MISC showcode access {tcp}		nessus,10007
+WEB-MISC .bash_history access {tcp}		cve,1999-0408
+WEB-MISC /~nobody access {tcp}		nessus,10484
+WEB-MISC RBS ISP /newuser  directory traversal attempt {tcp}		nessus,10521
+WEB-MISC RBS ISP /newuser access {tcp}		nessus,10521
+WEB-MISC PCCS mysql database admin tool access {tcp}		nessus,10783
+WEB-MISC .DS_Store access {tcp}		url,www.macintouch.com/mosxreaderreports46.html
+WEB-MISC .FBCIndex access {tcp}		url,www.securiteam.com/securitynews/5LP0O005FS.html
+WEB-MISC ExAir access {tcp}		nessus,10004
+WEB-MISC apache ?M=D directory list attempt {tcp}		cve,2001-0731
+WEB-MISC server-info access {tcp}		url,httpd.apache.org/docs/mod/mod_info.html
+WEB-MISC server-status access {tcp}		url,httpd.apache.org/docs/mod/mod_info.html
+WEB-MISC ans.pl attempt {tcp}		nessus,10875
+WEB-MISC ans.pl access {tcp}		nessus,10875
+WEB-MISC AxisStorpoint CD attempt {tcp}		nessus,10023
+WEB-MISC Axis Storpoint CD access {tcp}		nessus,10023
+WEB-MISC basilix sendmail.inc access {tcp}		nessus,10601
+WEB-MISC basilix mysql.class access {tcp}		nessus,10601
+WEB-MISC BBoard access {tcp}		nessus,10507
+WEB-MISC Cisco Catalyst command execution attempt {tcp}		nessus,10545
+WEB-MISC /CVS/Entries access {tcp}		nessus,11032
+WEB-MISC cvsweb version access {tcp}		cve,2000-0670
+WEB-MISC /doc/packages access {tcp}		nessus,11032
+WEB-MISC /doc/ access {tcp}		cve,1999-0678
+WEB-MISC login.htm attempt {tcp}		cve,1999-1533
+WEB-MISC login.htm access {tcp}		cve,1999-1533
+WEB-MISC DELETE attempt {tcp}		nessus,10498
+WEB-MISC /home/ftp access {tcp}		nessus,11032
+WEB-MISC /home/www access {tcp}		nessus,11032
+WEB-MISC global.inc access {tcp}		cve,2002-0614
+WEB-MISC SecureSite authentication bypass attempt {tcp}		bugtraq,4621
+WEB-MISC b2 arbitrary command execution attempt {tcp}		nessus,11667
+WEB-MISC search.dll directory listing attempt {tcp}		nessus,10514
+WEB-MISC search.dll access {tcp}		nessus,10514
+WEB-MISC PIX firewall manager directory traversal attempt {tcp}		nessus,10819
+WEB-MISC iChat directory traversal attempt {tcp}		cve,1999-0897
+WEB-MISC Delegate whois overflow attempt {tcp}		cve,2000-0165
+WEB-MISC nstelemetry.adp access {tcp}		nessus,10753
+WEB-MISC Netscape Unixware overflow {tcp}		cve,1999-0744
+WEB-MISC Compaq Insight directory traversal {tcp}		cve,1999-0771
+WEB-MISC VirusWall catinfo access {tcp}		nessus,10650
+WEB-MISC VirusWall catinfo access {tcp}		nessus,10650
+WEB-MISC Apache Chunked-Encoding worm attempt {tcp}		cve,2002-0392
+WEB-MISC Chunked-Encoding transfer attempt {tcp}		cve,2002-0392
+WEB-MISC CISCO VoIP DOS ATTEMPT {tcp}		nessus,11013
+WEB-MISC IBM Net.Commerce orderdspc.d2w access {tcp}		nessus,11020
+WEB-MISC WEB-INF access {tcp}		nessus,11037
+WEB-MISC Tomcat servlet mapping cross site scripting attempt {tcp}		nessus,11041
+WEB-MISC iPlanet Search directory traversal attempt {tcp}		nessus,11043
+WEB-MISC Tomcat TroubleShooter servlet access {tcp}		nessus,11046
+WEB-MISC Tomcat SnoopServlet servlet access {tcp}		nessus,11046
+WEB-MISC jigsaw dos attempt {tcp}		nessus,11047
+WEB-MISC Macromedia SiteSpring cross site scripting attempt {tcp}		cve,2002-1027
+WEB-MISC mailman cross site scripting attempt {tcp}		cve,2002-0855
+WEB-MISC webalizer access {tcp}		nessus,10816
+WEB-MISC webcart-lite access {tcp}		nessus,10298
+WEB-MISC webfind.exe access {tcp}		nessus,10475
+WEB-MISC active.log access {tcp}		nessus,10470
+WEB-MISC robots.txt access {tcp}		nessus,10302
+WEB-MISC robot.txt access {tcp}		nessus,10302
+WEB-MISC CISCO PIX Firewall Manager directory traversal attempt {tcp}		nessus,10819
+WEB-MISC Sun JavaServer default password login attempt {tcp}		nessus,10995
+WEB-MISC Linksys router default password login attempt {tcp}		nessus,10999
+WEB-MISC Linksys router default username and password login attempt {tcp}		nessus,10999
+WEB-MISC NetGear router default password login attempt admin/password {tcp}		nessus,11737
+WEB-MISC Oracle XSQLConfig.xml access {tcp}		nessus,10855
+WEB-MISC Oracle Dynamic Monitoring Services dms access {tcp}		nessus,10848
+WEB-MISC globals.jsa access {tcp}		nessus,10850
+WEB-MISC Oracle Java Process Manager access {tcp}		nessus,10851
+WEB-MISC bad HTTP/1.1 request, Potentially worm attack {tcp}		url,securityresponse.symantec.com/avcenter/security/Content/2002.09.13.html
+WEB-MISC whisker space splice attack {tcp}		url,www.wiretrip.net/rfp/pages/whitepapers/whiskerids.html
+WEB-MISC whisker tab splice attack {tcp}		url,www.wiretrip.net/rfp/pages/whitepapers/whiskerids.html
+WEB-MISC apache chunked encoding memory corruption exploit attempt {tcp}		cve,2002-0392
+WEB-MISC /Carello/add.exe access {tcp}		nessus,11776
+WEB-MISC /ecscripts/ecware.exe access {tcp}		bugtraq,6066
+WEB-MISC ion-p access {tcp}		cve,2002-1559
+WEB-MISC SiteScope Service access {tcp}		nessus,10778
+WEB-MISC answerbook2 admin attempt {tcp}		cve,2000-0696
+WEB-MISC answerbook2 arbitrary command execution attempt {tcp}		cve,2000-0697
+WEB-MISC perl post attempt {tcp}		nessus,11158
+WEB-MISC TRACE attempt {tcp}		url,www.whitehatsec.com/press_releases/WH-PR-20030120.pdf
+WEB-MISC helpout.exe access {tcp}		nessus,11162
+WEB-MISC MsmMask.exe attempt {tcp}		nessus,11163
+WEB-MISC MsmMask.exe access {tcp}		nessus,11163
+WEB-MISC DB4Web access {tcp}		nessus,11180
+WEB-MISC Tomcat null byte directory listing attempt {tcp}		cve,2003-0042
+WEB-MISC iPlanet .perf access {tcp}		nessus,11220
+WEB-MISC Demarc SQL injection attempt {tcp}		cve,2002-0539
+WEB-MISC Lotus Notes .csp script source download attempt {tcp}		bugtraq,6841
+WEB-MISC Lotus Notes .pl script source download attempt {tcp}		bugtraq,6841
+WEB-MISC Lotus Notes .exe script source download attempt {tcp}		bugtraq,6841
+WEB-MISC BitKeeper arbitrary command attempt {tcp}		bugtraq,6588
+WEB-MISC chip.ini access {tcp}		cve,2001-0771
+WEB-MISC post32.exe arbitrary command attempt {tcp}		bugtraq,1485
+WEB-MISC post32.exe access {tcp}		bugtraq,1485
+WEB-MISC lyris.pl access {tcp}		cve,2000-0758
+WEB-MISC globals.pl access {tcp}		cve,2001-0330
+WEB-MISC philboard.mdb access {tcp}		nessus,11682
+WEB-MISC philboard_admin.asp authentication bypass attempt {tcp}		nessus,11675
+WEB-MISC philboard_admin.asp access {tcp}		nessus,11675
+WEB-MISC logicworks.ini access {tcp}		nessus,11639
+WEB-MISC /*.shtml access {tcp}		nessus,11604
+WEB-MISC mod_gzip_status access {tcp}		nessus,11685
+WEB-MISC register.dll access {tcp}		nessus,11747
+WEB-MISC ContentFilter.dll access {tcp}		nessus,11747
+WEB-MISC SFNofitication.dll access {tcp}		nessus,11747
+WEB-MISC TOP10.dll access {tcp}		nessus,11747
+WEB-MISC SpamExcp.dll access {tcp}		nessus,11747
+WEB-MISC spamrule.dll access {tcp}		nessus,11747
+WEB-MISC cgiWebupdate.exe access {tcp}		nessus,11722
+WEB-MISC WebLogic ConsoleHelp view source attempt {tcp}		nessus,11724
+WEB-MISC redirect.exe access {tcp}		cve,2000-0401
+WEB-MISC changepw.exe access {tcp}		cve,2000-0401
+WEB-MISC cwmail.exe access {tcp}		nessus,11727
+WEB-MISC ddicgi.exe access {tcp}		nessus,11728
+WEB-MISC ndcgi.exe access {tcp}		nessus,11730
+WEB-MISC VsSetCookie.exe access {tcp}		nessus,11731
+WEB-MISC Webnews.exe access {tcp}		nessus,11732
+WEB-MISC webadmin.dll access {tcp}		nessus,11771
+WEB-MISC oracle portal demo access {tcp}		nessus,11918
+WEB-MISC PeopleSoft PeopleBooks psdoccgi access {tcp}		cve,2003-0627
+WEB-MISC client negative Content-Length attempt {tcp}		cve,2004-0095
+WEB-MISC server negative Content-Length attempt {tcp}		url,www.guninski.com/modproxy1.html
+WEB-MISC bsml.pl access {tcp}		nessus,11973
+WEB-MISC ISAPISkeleton.dll access {tcp}		bugtraq,9516
+WEB-MISC BugPort config.conf file access {tcp}		bugtraq,9542
+WEB-MISC Sample_showcode.html access {tcp}		bugtraq,9555
+WEB-MISC schema overflow attempt {tcp}		nessus,12084
+WEB-MISC Compaq web-based management agent denial of service attempt {tcp}		bugtraq,8014
+WEB-MISC InteractiveQuery.jsp access {tcp}		cve,2003-0624
+WEB-MISC edittag.pl access {tcp}		bugtraq,6675
+WEB-MISC util.pl access {tcp}		bugtraq,9748
+WEB-MISC Invision Power Board search.pl access {tcp}		bugtraq,9766
+WEB-MISC Real Server DESCRIBE buffer overflow attempt {tcp}		url,www.service.real.com/help/faq/security/rootexploit091103.html
+WEB-MISC NetObserve authentication bypass attempt {tcp}		bugtraq,9319
+WEB-MISC Quicktime User-Agent buffer overflow attempt {tcp}		cve,2004-0169
+WEB-MISC source.jsp access {tcp}		nessus,12119
+WEB-MISC ServletManager access {tcp}		nessus,12122
+WEB-MISC setinfo.hts access {tcp}		nessus,12120
+WEB-MISC SSLv3 invalid data version attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+WEB-MISC SSLv3 invalid Client_Hello attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+WEB-MISC PCT Client_Hello overflow attempt {tcp}		url,www.microsoft.com/technet/security/bulletin/MS04-011.mspx
+WEB-MISC McAfee ePO file upload attempt {tcp}		cve,2004-0038
+WEB-MISC cPanel resetpass access {tcp}		bugtraq,9848
+WEB-MISC Invalid HTTP Version String {tcp}		nessus,11593
+WEB-MISC Crystal Reports crystalimagehandler.aspx access {tcp}		url,www.microsoft.com/security/bulletins/200406_crystal.mspx
+WEB-MISC Crystal Reports crystalImageHandler.aspx directory traversal attempt {tcp}		url,www.microsoft.com/security/bulletins/200406_crystal.mspx
+WEB-MISC Samba SWAT Authorization overflow attempt {tcp}		bugtraq,10780
+WEB-MISC Samba SWAT Authorization port 901 overflow attempt {tcp}		bugtraq,10780
+WEB-MISC sresult.exe access {tcp}		nessus,14186
+WEB-MISC Oracle iSQLPlus username overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora-isqlplus.txt
+WEB-MISC Oracle iSQLPlus login.uix username overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora-isqlplus.txt
+WEB-MISC Oracle 10g iSQLPlus login.unix connectID overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora-isqlplus.txt
+WEB-MISC Oracle iSQLPlus sid overflow attempt {tcp}		url,www.nextgenss.com/advisories/ora-isqlplus.txt
+WEB-PHP bb_smilies.php access {tcp}		url,www.securiteam.com/securitynews/Serious_security_hole_in_PHP-Nuke__bb_smilies_.html
+WEB-PHP content-disposition memchr overflow {tcp}		nessus,10867
+WEB-PHP squirrel mail spell-check arbitrary command attempt {tcp}		bugtraq,3952
+WEB-PHP squirrel mail theme arbitrary command attempt {tcp}		cve,2002-0516
+WEB-PHP DNSTools administrator authentication bypass attempt {tcp}		cve,2002-0613
+WEB-PHP DNSTools authentication bypass attempt {tcp}		cve,2002-0613
+WEB-PHP DNSTools access {tcp}		cve,2002-0613
+WEB-PHP Blahz-DNS dostuff.php modify user attempt {tcp}		cve,2002-0599
+WEB-PHP Blahz-DNS dostuff.php access {tcp}		cve,2002-0599
+WEB-PHP Messagerie supp_membre.php access {tcp}		bugtraq,4635
+WEB-PHP php.exe access {tcp}		url,www.securitytracker.com/alerts/2002/Jan/1003104.html
+WEB-PHP directory.php arbitrary command attempt {tcp}		cve,2002-0434
+WEB-PHP directory.php access {tcp}		cve,2002-0434
+WEB-PHP PHP-Wiki cross site scripting attempt {tcp}		cve,2002-1070
+WEB-PHP phpbb quick-reply.php arbitrary command attempt {tcp}		bugtraq,6173
+WEB-PHP phpbb quick-reply.php access {tcp}		bugtraq,6173
+WEB-PHP read_body.php access attempt {tcp}		cve,2002-1341
+WEB-PHP calendar.php access {tcp}		nessus,11179
+WEB-PHP edit_image.php access {tcp}		nessus,11104
+WEB-PHP readmsg.php access {tcp}		nessus,11073
+WEB-PHP Phorum admin access {tcp}		bugtraq,2271
+WEB-PHP piranha passwd.php3 access {tcp}		cve,2000-0322
+WEB-PHP Phorum read access {tcp}		arachnids,208
+WEB-PHP Phorum violation access {tcp}		bugtraq,2272
+WEB-PHP Phorum code access {tcp}		arachnids,207
+WEB-PHP admin.php file upload attempt {tcp}		cve,2001-1032
+WEB-PHP admin.php access {tcp}		cve,2001-1032
+WEB-PHP smssend.php access {tcp}		cve,2002-0220
+WEB-PHP PHP-Nuke remote file include attempt {tcp}		cve,2002-0206
+WEB-PHP Phorum /support/common.php attempt {tcp}		bugtraq,1997
+WEB-PHP Phorum /support/common.php access {tcp}		bugtraq,9361
+WEB-PHP Phorum authentication access {tcp}		bugtraq,2274
+WEB-PHP strings overflow {tcp}		bugtraq,802
+WEB-PHP strings overflow {tcp}		cve,2000-0967
+WEB-PHP PHPLIB remote command attempt {tcp}		cve,2001-1370
+WEB-PHP PHPLIB remote command attempt {tcp}		cve,2001-1370
+WEB-PHP Mambo uploadimage.php upload php file attempt {tcp}		bugtraq,6572
+WEB-PHP Mambo upload.php upload php file attempt {tcp}		bugtraq,6572
+WEB-PHP Mambo uploadimage.php access {tcp}		bugtraq,6572
+WEB-PHP Mambo upload.php access {tcp}		bugtraq,6572
+WEB-PHP phpBB privmsg.php access {tcp}		bugtraq,6634
+WEB-PHP p-news.php access {tcp}		nessus,11669
+WEB-PHP shoutbox.php directory traversal attempt {tcp}		nessus,11668
+WEB-PHP shoutbox.php access {tcp}		nessus,11668
+WEB-PHP b2 cafelog gm-2-b2.php remote file include attempt {tcp}		nessus,11667
+WEB-PHP b2 cafelog gm-2-b2.php access {tcp}		nessus,11667
+WEB-PHP TextPortal admin.php default password admin attempt {tcp}		nessus,11660
+WEB-PHP TextPortal admin.php default password 12345 attempt {tcp}		nessus,11660
+WEB-PHP BLNews objects.inc.php4 remote file include attempt {tcp}		nessus,11647
+WEB-PHP BLNews objects.inc.php4 access {tcp}		nessus,11647
+WEB-PHP Turba status.php access {tcp}		nessus,11646
+WEB-PHP ttCMS header.php remote file include attempt {tcp}		nessus,11636
+WEB-PHP ttCMS header.php access {tcp}		nessus,11636
+WEB-PHP test.php access {tcp}		nessus,11617
+WEB-PHP autohtml.php directory traversal attempt {tcp}		nessus,11630
+WEB-PHP autohtml.php access {tcp}		nessus,11630
+WEB-PHP ttforum remote file include attempt {tcp}		nessus,11615
+WEB-PHP pmachine remote file include attempt {tcp}		nessus,11739
+WEB-PHP forum_details.php access {tcp}		nessus,11760
+WEB-PHP phpMyAdmin db_details_importdocsql.php access {tcp}		nessus,11761
+WEB-PHP viewtopic.php access {tcp}		nessus,11767
+WEB-PHP UpdateClasses.php access {tcp}		bugtraq,9057
+WEB-PHP Title.php access {tcp}		bugtraq,9057
+WEB-PHP Setup.php access {tcp}		bugtraq,9057
+WEB-PHP GlobalFunctions.php access {tcp}		bugtraq,9057
+WEB-PHP DatabaseFunctions.php access {tcp}		bugtraq,9057
+WEB-PHP rolis guestbook remote file include attempt {tcp}		bugtraq,9057
+WEB-PHP rolis guestbook access {tcp}		bugtraq,9057
+WEB-PHP friends.php access {tcp}		bugtraq,9088
+WEB-PHP Advanced Poll admin_comment.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_edit.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_embed.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_help.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_license.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_logout.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_password.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_preview.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_settings.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_stats.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_templates_misc.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_templates.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_tpl_misc_new.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll admin_tpl_new.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll booth.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll poll_ssi.php access {tcp}		nessus,11487
+WEB-PHP Advanced Poll popup.php access {tcp}		nessus,11487
+WEB-PHP files.inc.php access {tcp}		bugtraq,8910
+WEB-PHP chatbox.php access {tcp}		bugtraq,8930
+WEB-PHP gallery remote file include attempt {tcp}		nessus,11876
+WEB-PHP PayPal Storefront remote file include attempt {tcp}		nessus,11873
+WEB-PHP authentication_index.php access {tcp}		nessus,11982
+WEB-PHP MatrikzGB privilege escalation attempt {tcp}		bugtraq,8430
+WEB-PHP DCP-Portal remote file include attempt {tcp}		bugtraq,6525
+WEB-PHP DCP-Portal remote file include attempt {tcp}		bugtraq,6525
+WEB-PHP PhpGedView search.php access {tcp}		cve,2004-0032
+WEB-PHP myPHPNuke chatheader.php access {tcp}		bugtraq,6544
+WEB-PHP myPHPNuke partner.php access {tcp}		bugtraq,6544
+WEB-PHP IdeaBox cord.php file include {tcp}		bugtraq,7488
+WEB-PHP IdeaBox notification.php file include {tcp}		bugtraq,7488
+WEB-PHP Invision Board emailer.php file include {tcp}		bugtraq,7204
+WEB-PHP WebChat db_mysql.php file include {tcp}		bugtraq,7000
+WEB-PHP WebChat english.php file include {tcp}		bugtraq,7000
+WEB-PHP Typo3 translations.php file include {tcp}		bugtraq,6984
+WEB-PHP Invision Board ipchat.php file include {tcp}		bugtraq,6976
+WEB-PHP myphpPagetool pt_config.inc file include {tcp}		bugtraq,6744
+WEB-PHP news.php file include {tcp}		bugtraq,6674
+WEB-PHP YaBB SE packages.php file include {tcp}		bugtraq,6663
+WEB-PHP Cyboards default_header.php access {tcp}		bugtraq,6597
+WEB-PHP Cyboards options_form.php access {tcp}		bugtraq,6597
+WEB-PHP newsPHP Language file include attempt {tcp}		bugtraq,8488
+WEB-PHP PhpGedView PGV authentication_index.php base directory manipulation attempt {tcp}		cve,2004-0030
+WEB-PHP PhpGedView PGV functions.php base directory manipulation attempt {tcp}		cve,2004-0030
+WEB-PHP PhpGedView PGV config_gedcom.php base directory manipulation attempt {tcp}		cve,2004-0030
+WEB-PHP Photopost PHP Pro showphoto.php access {tcp}		bugtraq,9557
+WEB-PHP /_admin access {tcp}		nessus,12032
+WEB-PHP WAnewsletter newsletter.php file include attempt {tcp}		bugtraq,6965
+WEB-PHP WAnewsletter db_type.php access {tcp}		bugtraq,6964
+WEB-PHP phptest.php access {tcp}		bugtraq,9737
+WEB-PHP IGeneric Free Shopping Cart page.php access {tcp}		bugtraq,9773
+WEB-PHP modules.php access {tcp}		bugtraq,9879
+WEB-PHP PHPBB viewforum.php access {tcp}		nessus,12093
+WEB-PHP Opt-X header.php remote file include attempt {tcp}		bugtraq,9732
+WEB-PHP TUTOS path disclosure attempt {tcp}		url,www.securiteam.com/unixfocus/5FP0J15CKE.html
+WEB-PHP PHPNuke Forum viewtopic SQL insertion attempt {tcp}		bugtraq,7193
+WEB-PHP PhpGedView PGV base directory manipulation {tcp}		bugtraq,9368
+X11 MIT Magic Cookie detected {tcp}		arachnids,396
+X11 xopen {tcp}		arachnids,395

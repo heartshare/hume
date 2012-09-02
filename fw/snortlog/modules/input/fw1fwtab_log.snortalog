@@ -1,0 +1,53 @@
+#
+# Rev   : 1.02
+# Date  : 02/02/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/02/2011 : Only load CheckPoint connections with rule information specified 
+# 05/07/2007 : Add NG AI and NGX stateful table log detection
+#
+
+sub fw1fwtab_log {
+
+
+        #
+        # THIS IS HEADER FW1 NG LOG ( DATE LOG - FW TAB )
+        #
+        if ( $_ =~ s/^Date\:\s+(\w{3})\s(\d+),\s\d{4}//ox ) {
+                $MyMON = $monthday{$1}; $MyDAY = $2;
+                $fw1fwtab = 1; next;
+
+	#
+	# THIS IS FW-1 NG LOG ( SMARTFDEFENSE - FW TAB )
+	#
+	} elsif ( $_ =~ s/(\d+)\:(\d+)\:(\d+)\s+([\d\.]+)\s+\>\s+\-+\(\+\)//ox || $_ =~ s/(\d+)\:(\d+)\:(\d+)\s+([\d\.]+)\s+\>\s+\:\s+\-+\(\+\)//ox ) {
+		$fw1fwtab = 1;
+		$alert->{MON} = $MyMON; $alert->{DAY} = $MyDAY;
+		$alert->{HOUR} = $1; $alert->{MIN} = $2; $alert->{SEC} = $3;
+		$alert->{HOST} = $4; $alert->{ACTION} = "Accept";
+		$alert->{ETHER} = "";
+		if ( $_ =~ m/Timeout\:\s+(\d+);/ ) { $MyTIMEOUT = $1 } else { $MyTIMEOUT = "" };
+		if ( $_ =~ m/product\:\s+([^\:|^;]*?);/ ) { $alert->{TYPE} = $1 };
+		if ( $_ =~ m/Source\:\s+([\d\.]+);/ ) { $alert->{SADDR} = $1 };
+		if ( $_ =~ m/Dest\:\s+([\d\.]+);/ ) { $alert->{DADDR} = $1 };
+		if ( $_ =~ m/Protocol\:\s+(\S+);/ ) { $alert->{PROTO} = $1 };
+		if ( $_ =~ m/SPort\:\s+(\S+);/ ) { $alert->{SPORT} = $1 } else { $alert->{SPORT} = ""};
+		if ( $_ =~ m/DPort\:\s+(\S+);/ ) { 
+			if ( $MyTIMEOUT != "" ) {
+				$alert->{DPORT} = "$1 / $MyTIMEOUT" . "s";
+			} else {		
+				$alert->{DPORT} = $1;
+			}
+		}
+		if ( $_ =~ m/Rule\:\s+(\d+);/ ) {
+			$alert->{RULE} = $1;
+			$alert->{PLUGIN} = "alert";
+			record_data($alert); next;
+		} else { 
+			$alert->{RULE} = "";
+		}
+	}
+}
+
+1;

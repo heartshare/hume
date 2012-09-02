@@ -1,0 +1,114 @@
+#
+# Rev   : 1.04
+# Date  : 10/01/2007
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 10/01/2011 : Add TippingPoint's logs
+# 02/05/2007 : Add CheckPoint Fw-1 fw tab -t connections logs
+# 02/02/2007 : Add CheckPoint Fw-1 fwm log logs
+# 04/24/2006 : Add forward report for firewall logs
+# 04/19/2006 : Add same_src_dst_action report for firewall logs
+# 04/19/2006 : Add same_src_dst_reason report for firewall logs
+# 04/18/2006 : Add same_src_dst_dport report for firewall logs
+# 02/07/2006 : Add Japanese langage
+#
+
+sub usage {
+print <<Helpmsg
+Usage: cat <alerts file> or <snort.rules> | $0 <options> <reports> <filters>
+
+Options:
+-x                        Mode GUI
+-r                        Resolve IP adresses	
+-w                        Consult Whois DataBase (Slow down process)
+-c                        Resolve domains (Very slow process)	
+-i                        Inverse the result	
+-a                        Force ASCII report output (for mail) 
+-d                        Mode debug	
+-n <integer>              Specify a number of lines in the result
+-l <en|fr|ja|ptBR>        Specify an output language
+-o <file.extension>       Specify a HTML or PDF file
+-g <gif|png|jpg>          Graph output format	
+-file <log file>          Specify an input alert log file
+-rulesfile <file>         Specify name and directory to search rules file
+-hwfile <file>            Specify name and directory to search hardware file
+-domainsfile <file>       Specify name and directory to search domains file 
+-langfile <file>          Specify name and directory to search language file 
+-pictsdir <dir>           Specify directory to search HTML pictures files 
+-genref <rules file>      Generate the reference rules file	
+-help                     View this help
+
+Reports:
+-src                      Top IPs sources
+-dst                      Top IPs destination
+-src_attack               Top IPs sources grouped by attack
+-dst_attack               Top IPs destination grouped by attack
+-src_dst_attack           Top alert grouped by IPs sources, Ips destination and attack
+-attack                   Top attack
+-class                    Top classification
+-severity                 Top severity
+-daily_event              Top number of attack grouped by day
+-hour                     Top number of attack grouped by hour
+-hour_attack              Top specific attack grouped by hour
+-dport                    Top destination port
+-proto                    Top protocols
+-dport_attack             Top destination port grouped by attack
+-nids                     Top NIDS host
+-interfaces               Top interfaces events 
+-domain_src               Top of domain source
+-portscan                 Top of portscan alert
+-actions                  Top of firewall action (DROP, REJECT, ACCEPT, etc ...)
+-rules                    Top of rule
+-reasons                  Top of reason
+-src_dport                Top IPs sources grouped by destination port
+-dst_dport                Top IPs destination grouped by destination port
+-src_dst_dport            Top alert grouped by IPs sources, Ips destination and destination port 
+-src_dst_action           Top alert grouped by IPs sources, Ips destination and action 
+-src_dst_reason           Top alert grouped by IPs sources, Ips destination and reason
+-forward                  Top In to zone Out to zone (Only for NetScreen and Netfilter log)
+-typelog                  Number of occurrences by type of log
+-hwlog                    Number of occurrences by hardware related message log
+-report                   All reports
+
+Filters:
+-fsrc                     Sources filter
+-fdst                     Destination filter
+-fproto                   Protocol filter
+-fdport                   Destination port filter
+-fmonth                   Month filter
+-fday                     Day filter
+-fhour                    Hour filter
+-fether                   Interface filter
+-fseverity                Severity filter
+-faction                  Firewall action filter
+-frule                    Firewall rule filter
+-ftype                    Type of logs
+-fclass                   Snort Alert Classification filter
+
+Logs:
+-1                        Fast Snort's output logs
+-2                        Syslog Snort's output logs
+-3                        Full Snort's ouput logs
+-4                        CheckPoint Fw-1's  fwm logexport logs
+-5                        CheckPoint Fw-1's syslog logs
+-6                        Pix's logs
+-7                        IPFilter's logs
+-8                        NetFilter's logs
+-9                        Barnyard's syslog logs
+-10                       PacketFilter's logs
+-11                       Brick's export logs
+-12                       Barnyard's fast logs
+-13                       NetScreen's syslog event 
+-14                       CheckPoint Fw-1's fwm log logs
+-15                       CheckPoint Fw-1's fw tab -t connections logs
+-16                       TippinPoint's logs
+
+Helpmsg
+;
+print_footer();
+exit 0;
+}
+
+
+1;

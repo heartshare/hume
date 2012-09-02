@@ -1,0 +1,62 @@
+#
+# Rev   : 1.00
+# Date  : 06/16/2005
+# By    : Jeremy Chartier
+#
+
+sub fw1export_log {
+	#
+	# THIS IS  FW-1 LOGEXPORT COMMAND (4.1 + ALL NG)
+	#
+	if ( $_ =~ /i\/f_name/ ) {
+		$fw1export = 1;
+		@head = split (/;/, $_);
+		$CPFW1 = 1;
+
+
+	} elsif ( $CPFW1 == 1 ) {
+		$fw1export = 1;
+		@hash{@head}= split (/;/, $_);
+		if($hash{date}=~ /(\d+)([a-zA-Z]+)(\d+)/) {
+			($day,$month,$year) = ($1,$2,$3);
+		}
+		($hour,$min,$sec) = (split /:/,$hash{time});
+
+		$alert->{MON} = $monthday{$month}; $alert->{DAY} = $day; $alert->{HOUR} = $hour;
+		$alert->{MIN} = $min; $alert->{SEC} = $sec; $alert->{ACTION} = $hash{action};
+		$alert->{HOST} = $hash{orig}; $alert->{ETHER} = $hash{'i/f_name'}; $alert->{SADDR} = $hash{src};
+		$alert->{DADDR} = $hash{dst}; $alert->{PROTO} = $hash{proto}; $alert->{RULE} = $hash{rule};
+		$alert->{ATTACK_INFO} = $hash{'Attack Info'}; $alert->{ATTACK} = $hash{attack};
+		$alert->{PLUGIN} = "alert";
+		#
+		# Test if the log correspond to 4.1 or NG (product doesn't exist in 4.1)
+		#
+		if ( $hash{product} ne "" ) {
+			$alert->{TYPE} = $hash{product};
+		} else {
+			$alert->{TYPE} = 'VPN-1 & FireWall-1';
+		}
+		#
+		# If proto ICMP then print ICMP-type and code in DPORT
+		#
+		if ( $hash{proto} eq "icmp" ) {
+			$alert->{SPORT} = "$hash{'icmp-type'}/$hash{'icmp-code'}";
+			$alert->{DPORT} = "$hash{'icmp-type'}/$hash{'icmp-code'}";
+		} else {
+			$alert->{SPORT} = $hash{s_port}; $alert->{DPORT} = $hash{service};
+		}
+		#
+		# Test4.1 or NG for print DROP Reason
+		#
+		if ( $hash{'TCP packet out of state'} ne "" ) {
+			$alert->{REASON} = $hash{'TCP packet out of state'};
+		} elsif ( $hash{'reason'} ne "" ) {
+			$alert->{REASON} = $hash{'reason'};
+		} else {
+			$alert->{REASON} = "Normal Connection";
+		}
+		record_data($alert); next;
+	}
+}
+
+1;

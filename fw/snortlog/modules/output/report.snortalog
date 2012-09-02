@@ -1,0 +1,93 @@
+#
+# Rev   : 1.06
+# Date  : 04/24/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/21/2006 : Add forward report for firewall logs
+# 04/19/2006 : Add same_src_dst_action report for firewall logs
+# 04/19/2006 : Add same_src_dst_reason report for firewall logs
+# 04/18/2006 : Add same_src_dst_dport report for firewall logs
+# 02/07/2006 : Correct the report interfaces - appears only when the number of them greater than 1
+# 02/07/2006 : Modify the order of report - severity() first
+#
+
+
+
+
+sub report {
+
+
+	$total = $total_log - $total_hw;
+#	print "###$total_log:$total_hw:$total";
+	#
+	# Only for GUI
+	# This work is different to CLI
+	# In this case, all logs arent loaded in table @result
+	#
+	if ( $opt{x} ) {
+		x_report();
+        	print_head();
+        	print_summary();
+	}	
+
+	#
+	# All reports in CLI and GUI mode
+	#
+	if ( $logids gt 0 ) {
+		severity();
+		hour();
+		daily_event() if ($minmonth ne $maxmonth) || ($minday < $maxday);
+		proto();
+		dport();
+		nids() if (keys(%s13) gt 1);
+		interfaces() if (keys(%s1) gt 1);
+		attack_src();
+		same_src_attack();
+		attack_dst();
+		same_dst_attack();
+		same_src_dst_attack();
+		attack();
+		same_class();
+		same_hour_attack();
+		dport_attack();
+		portscan() if ( keys(%s25) gt 0 );
+	}
+	if ( $logfw gt 0 ) {
+		hour();
+		daily_event() if ($minmonth ne $maxmonth) || ($minday < $maxday);
+		proto();
+		dport();
+		nids() if (keys(%s13) gt 1);
+		interfaces() if (keys(%s1) gt 1);
+		attack_src();
+		same_src_dport();
+		attack_dst();
+		same_dst_dport();
+		same_src_dst_dport();
+		same_src_dst_action() if ( keys(%s30) gt 1 );
+		same_src_dst_reason() if ( keys(%s31) gt 1 );
+		reasons() if ( keys(%s12) gt 1 );
+		actions() if ( keys(%s14) gt 1 );
+		rules() if ( keys(%s21) gt 1 );
+		forward() if ( keys(%s32) gt 1 );
+		fw1_defense_attack() if ( keys(%s24) gt 1 );
+		attack() if ( keys(%s4) gt 1 );
+		pix_hwlog() if ( keys(%s300) gt 1 );
+		pix_idslog() if ( keys(%s301) gt 1 ); 
+	}
+	domain_src() if ( $opt_c == 1 );
+	typelog();
+
+	if ( $opt{x} ) { 
+		print_footer();
+		init_pdf() if ( ($opt_o == 1) && ($filtetype eq 'pdf') );
+		x_unloadstatusbar();
+		$statusbar->insert('0','Report Generated') if ( $opt_o != 1 );
+		$statusbar->insert('0', "HTML report generated") if ( ($opt_o == 1) && ($filetype eq 'html') );
+		$statusbar->insert('0', "PDF report generated") if ( ($opt_o == 1) && ($filetype eq 'pdf') );
+	}
+}
+
+
+1;

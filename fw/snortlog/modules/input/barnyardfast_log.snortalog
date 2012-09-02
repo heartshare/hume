@@ -1,0 +1,94 @@
+#
+# Rev   : 1.00
+# Date  : 06/16/2005
+# By    : Jeremy Chartier
+#
+
+sub barnyardfast_log {
+	#
+	# TEST IF THE LOG CORRESPOND TO THE FIRST LINE OF BARNYARD'S FAST ALERT
+	#
+	if ( $_ =~ /^-+$/ ) {
+		$barnyardfast = 1;
+		s/\<(\S+)\>\s//ox;  # Get interface
+		$ETHER = $1;
+	#
+	# TEST IF THE LOG CORRESPOND TO THE SECOND LINE OF BARNYARD'S FAST ALERT
+	# ONLY FOR TCP AND UDP
+	#
+	} elsif ( $_ =~ m/^(\d+)\/(\d+)\/\d+\-(\d+):(\d+):(\d+)\S+\s+\{(\S+)\}\s+([\d\.]+):(\d+)\s+\-\>\s+([\d\.]+):(\d+)/ox ) {
+		$barnyardfast = 1;
+		$PROTO = $6; $PROTO =~ tr/A-Z/a-z/;
+		$MON = $1; $DAY = $2; $HOUR = $3;
+		$MIN = $4; $SEC = $5; $SADDR = $7;
+		$SPORT = $8; $DADDR = $9; $DPORT = $10;
+
+	#
+	# TEST IF THE LOG CORRESPOND TO THE SECOND LINE OF BARNYARD'S FAST ALERT
+	# ONLY FOR ICMP
+	#
+	} elsif ( $_ =~ m/^(\d+)\/(\d+)\/\d+\-(\d+):(\d+):(\d+)\S+\s+\{(\S+)\}\s+([\d\.]+)\s+\-\>\s+([\d\.]+)/ox ) {
+		$barnyardfast = 1;
+		$PROTO = $6; $PROTO =~ tr/A-Z/a-z/;
+		$MON = $1; $DAY = $2; $HOUR = $3;
+		$MIN = $4; $SEC = $5; $SADDR = $7;
+		$SPORT = 0; $DADDR = $9; $DPORT = 0;
+
+
+	#
+	# TEST IF THE LOG CORRESPOND TO THE THIRD LINE OF BARNYARD'S FAST ALERT
+	#
+	} elsif ( $_ =~ m/^\[\*\*\]\s+\[[0-9:]+\]/ox ) {
+		$barnyardfast = 1;
+	       	# Erase this string :
+        	# 1- BARNYARD
+        	#
+        	s/^\[\*\*\]\s+\[[0-9:]+\]\s+//ox;
+        	s/\s+\[\*\*\]$//ox;
+		if ( $_ =~ s/(portscan|http\_inspect|snort\_decoder|spp\_stream4|spp\_frag2):\s+//ox ) {	
+               		$alert->{TYPE} = "snort_processor";
+		} else {
+               		$alert->{TYPE} = "snort_signature";
+		}
+		$SIG = $_;
+
+	#
+	# TEST IF THE LOG CORRESOND TO THE FOURTH LINE OF BARNYARD'S FAST ALERT
+	#
+	} elsif ( $_ =~ m/^\[Classification\:\s+([^\[|^\]]*?)\]\s+\[Priority\:\s+(\d)\]$/ox ) {
+		$barnyardfast = 1;
+                $alert->{MON} = $MON; $alert->{DAY} = $DAY; $alert->{HOUR} = $HOUR;
+                $alert->{MIN} = $MIN; $alert->{SEC} = $SEC; $alert->{SADDR} = $SADDR;
+                $alert->{SPORT} = $SPORT; $alert->{DADDR} = $DADDR; $alert->{DPORT} = $DPORT;
+                $alert->{HOST} = "localhost";
+                $alert->{SIG} = "$SIG {$PROTO}";
+                $alert->{PLUGIN} = "alert";
+                $alert->{CLASS} = $CLASS;
+                $alert->{PRIORITY} = $PRIORITY;
+		$alert->{CLASS} = $1;
+		$alert->{PRIORITY} = $2;
+                if ($2 == 1) {
+                        $SEVERITY = "high";
+                } elsif ($2 == 2) {
+                        $SEVERITY = "medium";
+                } elsif ($2 == 3) {
+                        $SEVERITY = "low";
+                } else {
+                        $SEVERITY = "unknown";
+		}
+                
+		$alert->{SEVERITY} = $SEVERITY;
+		$alert->{ETHER} = $ETHER;
+		$alert->{PROTO} = $PROTO;
+                record_data($alert); next;
+
+
+	#
+	# TEST IF THE LOG CORRESOND TO THE REFERENCE LINE OF BARNYARD'S FAST ALERT
+	#
+	} elsif ( $_ =~ m/^\[Xref\s+\=\>/ox ) {
+		$barnyardfast = 1;
+	}
+}
+
+1;

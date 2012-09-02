@@ -1,0 +1,101 @@
+#
+# Rev   : 1.04
+# Date  : 04/05/2006
+# by    : Jeremy Chartier
+#
+# Modifications :
+# 04/05/2006 : Correct % bug
+# 10/05/2005 : Modify abslute path for graph file
+#
+
+
+sub dport {
+$i = 0;
+$max = 10;
+my $description = $lang{"s16_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s16) ) ) {
+	$n = keys %s16;
+	$max = $n if ( keys %s16 < 10);
+} else {
+	$n = $val_opt_n;
+	$max = $n if ( keys %s16 < 10);
+}
+if ( $opt_o == 1 ) {
+	@list1 = ();
+	@list2 = ();
+	print FILEOUT ("<h3><CENTER><a name=\"dport\" HREF=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Destination Port</td></tr>\n");
+	if ($opt_i == 1) {
+		foreach $k (sort { $s16{$a} <=> $s16{$b} } keys %s16) {
+			printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${port_len}s</td></tr>\n",
+			$s16{$k}/$total_log*100, $s16{$k},$k) if ( $i < $n );
+			push @list1 ,($s16{$k}) if ( $i < $max );
+			push @list2 ,("$k") if ( $i < $max );
+			++$i;
+		}
+	} else {
+		foreach $k (sort { $s16{$b} <=> $s16{$a} } keys %s16) {
+			printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${port_len}s</td></tr>\n",
+			$s16{$k}/$total_log*100, $s16{$k},$k) if ( $i < $n );
+			push @list1 ,($s16{$k}) if ( $i < $max );
+			push @list2 ,("$k") if ( $i < $max );
+			++$i;
+		}
+	}
+	if ( $val_opt_g ne "" ) {
+		init_graph("dport","pie");
+		print FILEOUT ("</TABLE></TD><TD WIDTH=300 ALIGN=right><IMG SRC=".$filename._dport.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} else {
+		print FILEOUT ("</TABLE></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 11 + $nb_len + 4 + $port_len + 4;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s16) ." ###\n");
+		print FILEOUT ("    %    No      Port\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s16{$a} <=> $s16{$b} } keys %s16) {
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${port_len}s\n",
+				$s16{$k}/$total_log*100, $s16{$k},$k) if ( $i < $n );
+				++$i;
+			}
+		} else {
+			foreach $k (sort { $s16{$b} <=> $s16{$a} } keys %s16) {
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${port_len}s\n",
+				$s16{$k}/$total_log*100, $s16{$k},$k) if ( $i < $n );
+				++$i;
+			}
+		}	
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "dport");  
+		if ($opt_i == 1) {
+			foreach $k (sort { $s16{$a} <=> $s16{$b} } keys %s16) {
+				printf("  %5.2f  %-${nb_len}d  %-${port_len}s\n",
+				$s16{$k}/$total_log*100, $s16{$k},$k) if ( $i < $n );
+				++$i;
+			}
+		} else {
+			foreach $k (sort { $s16{$b} <=> $s16{$a} } keys %s16) {
+				printf("  %5.2f  %-${nb_len}d  %-${port_len}s\n",
+				$s16{$k}/$total_log*100, $s16{$k},$k) if ( $i < $n );
+				++$i;
+			}
+		}
+	}
+}
+}
+
+1;

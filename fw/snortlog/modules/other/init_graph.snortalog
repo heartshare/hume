@@ -1,0 +1,505 @@
+#
+# Rev   : 1.04
+# Date  : 07/02/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/07/2006 : Change bar graph 
+# 02/07/2006 : Change color for severity graph
+# 01/08/2005 : Modify the output graph's name
+#
+
+
+
+sub init_graph {
+#
+# IF ALL LIBRARIES ARENT FOUND
+#
+
+
+	
+
+if ( $GD == 4 ) {
+
+
+if ( $listseverity eq "unknownmediumlowhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+	GD::Graph::colour::add_colour(color40 => [255,0,0]);
+} elsif ( $listseverity eq "unknownmediumhighlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,0]);
+} elsif ( $listseverity eq "unknownlowmediumhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+	GD::Graph::colour::add_colour(color40 => [255,0,0]);
+} elsif ( $listseverity eq "unknownlowhighmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+	GD::Graph::colour::add_colour(color40 => [255,165,0]);
+} elsif ( $listseverity eq "unknownhighlowmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+	GD::Graph::colour::add_colour(color40 => [255,165,0]);
+} elsif ( $listseverity eq "unknownhighmediumlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,0]);
+
+
+
+ } elsif ( $listseverity eq "lowmediumhighunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,255]);
+ } elsif ( $listseverity eq "lowmediumunknownhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+	GD::Graph::colour::add_colour(color40 => [255,0,0]);
+ } elsif ( $listseverity eq "lowunknownmediumhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+	GD::Graph::colour::add_colour(color40 => [255,0,0]);
+ } elsif ( $listseverity eq "lowunknownhighmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+	GD::Graph::colour::add_colour(color40 => [255,165,0]);
+ } elsif ( $listseverity eq "lowhighunknownmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+	GD::Graph::colour::add_colour(color40 => [255,165,0]);
+ } elsif ( $listseverity eq "lowhighmediumunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,255]);
+
+
+
+
+ } elsif ( $listseverity eq "highlowmediumunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,255]);
+ } elsif ( $listseverity eq "highlowunknownmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+	GD::Graph::colour::add_colour(color40 => [255,165,0]);
+ } elsif ( $listseverity eq "highunknownlowmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+	GD::Graph::colour::add_colour(color40 => [255,165,0]);
+ } elsif ( $listseverity eq "highunknownmediumlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,0]);
+ } elsif ( $listseverity eq "highmediumunknownlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+	GD::Graph::colour::add_colour(color40 => [255,255,0]);
+ } elsif ( $listseverity eq "highmediumlowunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,255]);
+
+
+
+ } elsif ( $listseverity eq "mediumhighlowunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,255]);
+ } elsif ( $listseverity eq "mediumhighunknownlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+	GD::Graph::colour::add_colour(color40 => [255,255,0]);
+ } elsif ( $listseverity eq "mediumunknownhighlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,0]);
+ } elsif ( $listseverity eq "mediumunknownlowhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+	GD::Graph::colour::add_colour(color40 => [255,0,0]);
+ } elsif ( $listseverity eq "mediumlowunknownhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+	GD::Graph::colour::add_colour(color40 => [255,0,0]);
+ } elsif ( $listseverity eq "mediumlowhighunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+	GD::Graph::colour::add_colour(color40 => [255,255,255]);
+
+
+
+
+
+
+
+
+ } elsif ( $listseverity eq "mediumhighlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+ } elsif ( $listseverity eq "mediumlowhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+ } elsif ( $listseverity eq "mediumhighunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+ } elsif ( $listseverity eq "mediumunknownhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+ } elsif ( $listseverity eq "mediumunknownlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+ } elsif ( $listseverity eq "mediumlowunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+
+ } elsif ( $listseverity eq "unknownhighlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+ } elsif ( $listseverity eq "unknownlowhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+ } elsif ( $listseverity eq "unknownhighmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+ } elsif ( $listseverity eq "unknownmediumhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+ } elsif ( $listseverity eq "unknownmediumlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+ } elsif ( $listseverity eq "unknownlowmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+
+ } elsif ( $listseverity eq "highlowunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+ } elsif ( $listseverity eq "highunknownlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+ } elsif ( $listseverity eq "highunknownmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+ } elsif ( $listseverity eq "highmediumunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+ } elsif ( $listseverity eq "highlowmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+ } elsif ( $listseverity eq "highmediumlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,0]);
+
+ } elsif ( $listseverity eq "lowhighunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+ } elsif ( $listseverity eq "lowunknownhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+ } elsif ( $listseverity eq "lowhighmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+ } elsif ( $listseverity eq "lowmediumhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,0,0]);
+ } elsif ( $listseverity eq "lowunknownmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+	GD::Graph::colour::add_colour(color30 => [255,165,0]);
+ } elsif ( $listseverity eq "lowmediumunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+	GD::Graph::colour::add_colour(color30 => [255,255,255]);
+
+
+
+
+
+print "$listseverity";
+
+
+
+
+ } elsif ( $listseverity eq "lowmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+ } elsif ( $listseverity eq "lowhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+ } elsif ( $listseverity eq "lowunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+
+
+ } elsif ( $listseverity eq "mediumunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+ } elsif ( $listseverity eq "mediumhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+ } elsif ( $listseverity eq "mediumlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,165,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+
+
+ } elsif ( $listseverity eq "highunknown" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,255]);
+ } elsif ( $listseverity eq "highmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+ } elsif ( $listseverity eq "highlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,0,0]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+
+
+ } elsif ( $listseverity eq "unknownhigh" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,0,0]);
+ } elsif ( $listseverity eq "unknownmedium" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,165,0]);
+ } elsif ( $listseverity eq "unknownlow" ) {
+	GD::Graph::colour::add_colour(color10 => [255,255,255]);
+	GD::Graph::colour::add_colour(color20 => [255,255,0]);
+}
+
+
+
+
+        my $func = shift;
+        my $graph = shift;
+	#
+	# IF KIND OF GRAPH IS PIE
+	#
+        if ( $graph eq "pie" ) {
+                $graphiq = GD::Graph::pie->new(250, 250);
+                if ( $func eq "severity" ) {
+             	   $graphiq->set(  title => 'Graph',
+                        fgclr => $graph_fgcolor,
+			dclrs => [ qw(color10 color20 color30 color40) ],
+                        transparent => $transparent,
+                        bgclr => $graph_bgcolor,
+                        labelclr => $graph_txtcolor,
+                        axislabelclr => "black",
+                        legendclr => $graph_txtcolor,
+                        textclr => $graph_txtcolor,
+                        suppress_angle => 3,
+                        ) or die $graphiq->error;
+                $gd = $graphiq->plot([\@list2, \@list1]) or die $graphiq->error;
+		} else {
+             	   $graphiq->set(  title => 'Graph',
+                        fgclr => $graph_fgcolor,
+                        transparent => $transparent,
+                        bgclr => $graph_bgcolor,
+                        labelclr => $graph_txtcolor,
+                        axislabelclr => "black",
+                        legendclr => $graph_txtcolor,
+                        textclr => $graph_txtcolor,
+                        suppress_angle => 3,
+                        ) or die $graphiq->error;
+                $gd = $graphiq->plot([\@list2, \@list1]) or die $graphiq->error;
+		}
+	#
+	# IF KIND OF GRAPH IS BARS
+	#
+        } elsif ( $graph eq "bars" ) {
+                $graphiq = GD::Graph::bars->new(600, 200);
+                if ( $func eq "hours2" ) {
+                        $graphiq->set(  title => 'Number of Events by Hours',
+                                x_label => "Hours",
+                                y_label => "Events",
+                                dclrs => ['white','lyellow','lorange','lred'],
+                                fgclr => $graph_fgcolor,
+                                transparent => $transparent,
+                                bgclr => $graph_bgcolor,
+                                labelclr => $graph_txtcolor,
+                                axislabelclr => $graph_txtcolor,
+                                legendclr => $graph_txtcolor,
+                                textclr => $graph_txtcolor,
+                                bar_spacing => 1,
+                                bar_width => 3,
+                                long_ticks => 1) or die $graphiq->error;
+                                $graphiq->set_legend('Unknown events','Low events','Medium events','High events');
+                                $gd = $graphiq->plot([\@list2, \@listunknown, \@listlow, \@listmedium, \@listhigh]) or die $graphiq->error;
+                }
+                if ( $func eq "days2" ) {
+                        $graphiq->set(  title => 'Number',
+                                x_label => "Hours",
+                                y_label => "Events",
+                                dclrs => ['white','lyellow','lorange','lred'],
+                                fgclr => $graph_fgcolor,
+                                transparent => $transparent,
+                                bgclr => $graph_bgcolor,
+                                labelclr => $graph_txtcolor,
+                                axislabelclr => $graph_txtcolor,
+                                legendclr => $graph_txtcolor,
+                                textclr => $graph_txtcolor,
+                                bar_spacing => 1,
+                                bar_width => 3,
+                                long_ticks => 1) or die $graphiq->error;
+                                $graphiq->set_legend('Unknown events','Low events','Medium events','High events');
+                                $gd = $graphiq->plot([\@list2, \@listunknown, \@listlow, \@listmedium, \@listhigh]) or die $graphiq->error;
+                }
+	#
+	# IF KIND OF GRAPH IS LINES
+	#
+        } elsif ($graph eq "lines" ) {
+                $graphiq = GD::Graph::lines->new(500, 200);
+                if ( $func eq "days2" ) {
+                        $graphiq->set(  title => 'Number of Severity Events by Days',
+                                x_label => "Days",
+                                y_label => "Events",
+                                line_types => [1, 1, 1, 1],
+                                line_width => 1,
+                                dclrs => ['white','lyellow','lorange','lred'],
+                                fgclr => $graph_fgcolor,
+                                transparent => $transparent,
+                                bgclr => $graph_bgcolor,
+                                labelclr => $graph_txtcolor,
+                                axislabelclr => $graph_txtcolor,
+                                legendclr => $graph_txtcolor,
+                                textclr => $graph_txtcolor,
+                                ) or die $graphiq->error;
+                        $graphiq->set_legend('Unknown events','Low events','Medium events','High events');
+                        $gd = $graphiq->plot([\@list2, \@listunknown, \@listlow, \@listmedium, \@listhigh]) or die $graphiq->error;
+                }
+	#
+	# IF KIND OF GRAPH IS AREA
+	#
+        } elsif ($graph eq "area" ) {
+                $graphiq = GD::Graph::area->new(500, 200);
+		#
+		# IF FUNCTION ARE DAILY_EVENT()
+		#
+                if ( $func eq "days1" ) {
+                        $graphiq->set(  title => 'Number of Events by Days',
+                                x_label => "Days",
+                                y_label => "Events",
+                                fgclr => $graph_fgcolor,
+                                transparent => $transparent,
+                                bgclr => $graph_bgcolor,
+                                labelclr => $graph_txtcolor,
+                                axislabelclr => $graph_txtcolor,
+                                legendclr => $graph_txtcolor,
+                                textclr => $graph_txtcolor,
+                                ) or die $graphiq->error;
+                        $gd = $graphiq->plot([\@list2, \@list1]) or die $graphiq->error;
+                }
+		#
+		# IF FUNCTION ARE HOUR()
+		#
+                if ( $func eq "hours1" ) {
+                        $graphiq->set(  title => 'Number of Events by Hours',
+                                x_label => "Hours",
+                                y_label => "Events",
+                                fgclr => $graph_fgcolor,
+                                transparent => $transparent,
+                                bgclr => $graph_bgcolor,
+                                labelclr => $graph_txtcolor,
+                                axislabelclr => $graph_txtcolor,
+                                legendclr => $graph_txtcolor,
+                                textclr => $graph_txtcolor,) or die $graphiq->error;
+                                $gd = $graphiq->plot([\@list2, \@list1]) or die $graphiq->error;
+                }
+        }
+
+	#
+	# GRAPH GENERATION
+	#
+#	open(IMG, '>'.$val_opt_o._.$func.'.'.$val_opt_g) or die $val_opt_o._.$func.".".$val_opt_g;
+	open(IMG, '>'.$filedir.$filename._.$func.'.'.$val_opt_g) or die $val_opt_o._.$func.".".$val_opt_g;
+        binmode IMG;
+        $opton = $val_opt_g;
+        print IMG $gd->$opton;
+        close (IMG);
+
+	#
+	# RELEASE HASH
+	#
+        undef @listlow;
+        undef @listmedium;
+        undef @listhigh;
+        undef @listunknown;
+
+} else {
+
+	#
+	# IF ALL LIBRAIRIES ARENT AVAILABLE, PRINT THIS WARNING
+	#
+        if ( $opt{x} ) {
+                $scrolled_status->insert('end', "Charts generation not available, please check your installation !!!\n");
+                $scrolled_status->insert('end', "\n");
+                $scrolled_status->insert('end', "Uncomment these variables :\n");
+                $scrolled_status->insert('end', "\tuse GD::Graph::pie; \$GD = 1;\n");
+                $scrolled_status->insert('end', "\tuse GD::Graph::bars; \$GD = 2;\n");
+                $scrolled_status->insert('end', "\tuse GD::Graph::lines; \$GD = 3;\n");
+                $scrolled_status->insert('end', "\tuse GD::Graph::area; \$GD = 4;\n");
+                $scrolled_status->insert('end', "\n");
+		
+                $scrolled_status->insert('end', "And verify you have all required perl libraries.\n");
+        } else {
+                print "Charts generation not available, please check your installation !!!\n";
+                print "\n";
+                print "Uncomment these variables :\n";
+                print "\tuse GD::Graph::pie; \$GD = 1;\n";
+                print "\tuse GD::Graph::bars; \$GD = 2;\n";
+                print "\tuse GD::Graph::lines; \$GD = 3;\n";
+                print "\tuse GD::Graph::area; \$GD = 4;\n";
+                print "\t\n";
+                print "\n";
+                print "And verify you have all required perl libraries.\n";
+        }
+}
+}
+
+1;

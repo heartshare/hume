@@ -1,0 +1,112 @@
+#
+# Rev   : 1.07
+# Date  : 02/28/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+#
+# Modifications :
+# 02/28/2011 : Modify report for interface (add host)
+# 04/24/2006 : Add forward report for firewall logs
+# 04/19/2006 : Add same_src_dst_action report for firewall logs
+# 04/19/2006 : Add same_src_dst_reason report for firewall logs
+# 04/19/2006 : Add same_src_dst_dport report for firewall logs
+# 02/08/2006 : Add filter to not load log with empty parameter
+# 08/31/2005 : Change hash table s19 for daily_event
+# 09/28/2005 : Correct bug in same_src_dport() and same_dst_dport()
+#
+
+
+sub x_process_data {
+
+#if ( $result[$i]->[19] =~ m/snort/o ) {
+#	$idslog = 1;
+#	++$logids;
+#} else {
+#	$fwlog = 1;
+#	++$logfw;
+#}
+
+                        # for the same pair of attacker and victim with same attack
+                        # used in same_src_dst_attack()
+                        $s0{"$result[$i]->[9],$result[$i]->[7],$result[$i]->[6]"}++;
+                        # used in ether()
+                        $s1{"$result[$i]->[14],$result[$i]->[5]"}++;
+                        # used in same_src_attack()
+                        $s2{"$result[$i]->[6],$result[$i]->[7],$result[$i]->[13]"}++;
+                        # to same victim with same method
+                        # to see how many attacks received by one host
+                        # used in same_dest_attack()
+                        $s3{"$result[$i]->[6],$result[$i]->[9],$result[$i]->[13]"}++;
+                        # same signature
+                        # to see the popularity of one attack method
+                        # used in attack()
+                        $s4{"$result[$i]->[6],$result[$i]->[12],$result[$i]->[13]"}++;
+                        # used in attack_src()
+                        $s5{"$result[$i]->[7]"}++ if ( $result[$i]->[7] ne "" );
+                        # used by attack_dst
+                        $s6{"$result[$i]->[9]"}++ if ( $result[$i]->[9] ne "" );
+                        # used by hour()
+                        $s7{"$result[$i]->[2]"}++ if ( $result[$i]->[2] ne "" );
+                        # used by hour()
+                        $s8{"$result[$i]->[2],$result[$i]->[13]"}++;
+                        # use by same_hour_attack()
+                        $s9{"$result[$i]->[2],$result[$i]->[6]"}++;
+                        # used by same_class()
+                        $s10{"$result[$i]->[11],$result[$i]->[13]"}++;
+                        # use by proto()
+                        $s11{"$result[$i]->[15]"}++ if ( $result[$i]->[15] ne "" );
+                        # used by reasons()
+                        $s12{"$result[$i]->[17]"}++ if ( $result[$i]->[17] ne "" );
+                        # use by nids()
+                        $s13{"$result[$i]->[5]"}++;
+                        # use by actions()
+                        $s14{"$result[$i]->[16]"}++ if ( $result[$i]->[16] ne "" );
+                        # use by daily_event()
+                        $s15{"$result[$i]->[1],$result[$i]->[0],$result[$i]->[13]"}++;
+                        # use by dport()
+                        $s16{"$result[$i]->[10]"}++ if ( $result[$i]->[10] ne "" );
+                        # use by typelog()
+                        $s17{"$result[$i]->[19]"}++;
+                        # use by dport_attack()
+                        $s18{"$result[$i]->[10],$result[$i]->[6]"}++;
+                        # use by daily_event()
+                        $s19{"$result[$i]->[1],$result[$i]->[0]"}++;
+                        # use by severity()
+                        $s20{"$result[$i]->[13]"}++;
+                        # used by rules()
+                        $s21{"$result[$i]->[18]"}++ if ( $result[$i]->[18] ne "" );
+						# used by same_src_dport()
+						$s22{"$result[$i]->[7],$result[$i]->[10]"}++ if ( ($result[$i]->[7] && $result[$i]->[10]) ne "" );
+						# used by same_dst_dport()
+						$s23{"$result[$i]->[9],$result[$i]->[10]"}++ if ( ($result[$i]->[9] && $result[$i]->[10]) ne "" );
+						# used by defense_attack()
+						$s24{"$result[$i]->[21],$result[$i]->[22]"}++ if ( $result[$i]->[21] ne "" );
+                        # used by portscan()
+                        $s25{"$result[$i]->[7]"}++ if ( $result[$i]->[19] eq "snort_portscan" );
+                        # used by day()
+                        $s26{"$result[$i]->[1]"}++;
+                        # used by month()
+                        $s27{"$result[$i]->[0]"}++;
+                        # use by class()
+                        $s28{"$result[$i]->[11]"}++;
+                        # used in same_src_dst_dport()
+                        $s29{"$result[$i]->[9],$result[$i]->[7],$result[$i]->[10]"}++  if ( ($result[$i]->[9] && $result[$i]->[7] ne "" && $result[$i]->[10]) ne "" );
+                        # used in same_src_dst_action()
+                        $s30{"$result[$i]->[9],$result[$i]->[7],$result[$i]->[16]"}++  if ( ($result[$i]->[9] && $result[$i]->[7] ne "" && $result[$i]->[16]) ne "" );
+                        # used in same_src_dst_reason()
+                        $s31{"$result[$i]->[9],$result[$i]->[7],$result[$i]->[17]"}++  if ( ($result[$i]->[9] && $result[$i]->[7] ne "" && $result[$i]->[17]) ne "" );
+						# used by forward()
+						$s32{"$result[$i]->[23],$result[$i]->[24]"}++ if ( ($result[$i]->[24] || $result[$i]->[23]) ne "" );
+						# For PIX or Netscreen Hardware Related message logs
+						$s300{"$result[$i]->[25]"}++ if ( $result[$i]->[20] eq "alerthw" );
+						# For PIX IDS or NetScreen message logs
+						$s301{"$result[$i]->[6]"}++ if ( $result[$i]->[16] eq "IDS" );
+						# not used for report but for zonesrc GUI list filter ()
+						$s500{"$result[$i]->[23]"}++ if ( $result[$i]->[23] ne "" );
+						# not used for report but for zonedst GUI list filter ()
+						$s501{"$result[$i]->[24]"}++ if ( $result[$i]->[24] ne "" );
+
+}
+
+1;

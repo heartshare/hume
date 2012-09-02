@@ -1,0 +1,146 @@
+#
+# Rev   : 1.04
+# Date  : 02/08/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/08/2006 : Modify division for %
+# 10/05/2005 : Modify abslute path for graph file
+#
+
+
+# to see the activity by hour 
+sub hour {
+$max = 0;
+my $description = $lang{"s7_". $val_opt_l};
+if ( $opt_o == 1 ) {
+	@list1 = ();
+	@list2 = ();
+	print FILEOUT ("<H3><CENTER><A NAME=\"hour\" HREF=\"#top\">$description</A><CENTER></H3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<TR CLASS=TH ALIGN=center><TD>Hour</TD><TD>No</TD><TD>%</TD><TD>Graph</TD></TR>\n");
+	foreach $k (%s7) {
+		$max = $s7{$k} if ($s7{$k} > $max);
+	}
+	my $ratio = $max/$total_log*100;
+	
+	foreach $k (sort { $a <=> $b } keys %s7) {
+		my $num = $s7{$k}/$total_log*(40000/$ratio);
+		printf FILEOUT ("<TR CLASS=TB><TD>%${hour_len}dh</TD><TD>%-${nb_len}d</TD><TD>%-2.2f</TD><TD WIDTH=$num><HR NOSHADE ALIGN=left SIZE=10 COLOR=#CCCCCC  WIDTH=%3d ></TD></TR>\n", $k,$s7{$k},$s7{$k}/$total_log*100,$num); 
+		push @list1 ,($s7{$k});
+		push @list2 ,($k);
+	}
+	print FILEOUT ("</TABLE><BR>\n");
+
+	if ( $val_opt_g ne "" ) {
+		init_graph("hours1","area");
+		print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><IMG SRC=".$filename._hours1.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	}
+
+	if (( $logids gt 0 ) and ( $val_opt_g ne "" )) {
+		$compt = 1;
+		foreach $k (sort { $a <=> $b } keys %s8) {
+			@_ = split ",",$k;
+			$beforeday = $_[0];
+			$belowday = $beforeday if ( $compt == 1 );
+			if ( $belowday < $beforeday ) {
+				if ( $low ) {
+					push @listlow ,($low);
+					undef $low;
+				} else {
+					push @listlow ,(0);
+				}
+				if ( $medium ) {
+					push @listmedium ,($medium);
+					undef $medium;
+				} else {
+					push @listmedium ,(0);
+				}
+				if ( $high ) {
+					push @listhigh ,($high);
+					undef $high;
+				} else {
+					push @listhigh ,(0);
+				}
+				if ( $unknown ) {
+					push @listunknown ,($unknown);
+					undef $unknown;
+				} else {
+					push @listunknown ,(0);
+				}
+			}
+			if ( $_[1] eq "low") {
+				$low = $s8{$k};
+			} elsif ( $_[1] eq "medium" ) {
+				$medium = $s8{$k};
+			} elsif ( $_[1] eq "high" ) {
+				$high = $s8{$k};
+			} elsif ( $_[1] eq "unknown" ) {
+				$unknown = $s8{$k};
+			}
+			$belowday = $beforeday;
+			$compt ++;
+		}
+		if ( $low ) {
+			push @listlow ,($low);
+			undef $low;
+		} else {
+			push @listlow ,(0);
+		}
+		if ( $medium ) {
+			push @listmedium ,($medium);
+			undef $medium;
+		} else {
+			push @listmedium ,(0);
+		}
+		if ( $high ) {
+			push @listhigh ,($high);
+			undef $high;
+		} else {
+			push @listhigh ,(0);
+		}
+		if ( $unknown ) {
+			push @listunknown ,($unknown);
+			undef $unknown;
+		} else {
+			push @listunknown ,(0);
+		}
+		init_graph("hours2","bars");
+		print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><IMG SRC=".$filename._hours2.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	foreach $k (%s7) {
+		$max = $s7{$k} if ($s7{$k} > $max);
+	}
+	$ratio = $max/$total_log*100;
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 13 + $nb_len + 2 + $hour_len + 2 + $graph_len;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". keys(%s7) ." of ". keys(%s7) ." ###\n");
+		print FILEOUT ("  Hour No        %    Graph\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort keys %s7) {
+			my $num = $s7{$k}/$total_log*50*(100 / $ratio);
+			printf FILEOUT ("  %${hour_len}dh  %-${nb_len}d  %5.2f  %-${graph_len}s\n", $k,$s7{$k},$s7{$k}/$total_log*100, '#' x $num); 
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {
+		section_header("$description\n", "hour");
+		foreach $k (sort keys %s7) {
+			my $num = $s7{$k}/$total_log*50*(100 / $ratio);
+			printf("  %${hour_len}dh  %-${nb_len}d  %5.2f  %-${graph_len}s\n", $k,$s7{$k},$s7{$k}/$total_log*100, '#' x $num); 
+		}
+	}
+}
+}
+
+1;

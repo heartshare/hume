@@ -1,0 +1,303 @@
+#
+# Rev   : 1.02
+# Date  : 04/21/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/21/2006 : Add forward report for firewall logs
+# 04/19/2006 : Add same_src_dst_action report for firewall logs
+# 04/19/2006 : Add same_src_dst_reason report for firewall logs
+# 04/18/2006 : Add same_src_dst_dport report for firewall logs
+# 02/07/2006 : Add Japanese language
+#
+#-----------------------------------------------------------------------------
+#
+# List of country codes and common domains used by fwlogsum
+#
+# The domain/country code entries are case insensitive.  The Description
+# is seperated by any whitespace.
+#
+# Domains are checked in order of specificness. eg: FOO.COM (if defined) will
+# overrule COM 
+#-----------------------------------------------------------------------------
+
+#
+# TITLE PART
+#
+title_en		Statistics generated on
+title_fr		Statistiques generees le
+tilte_ptBR              Estat\xedsticas geradas em
+title_ja		еЩ╥в╔Л╔щ║╪╔х ╨Ню╝фЭ╩Ч
+title_ru		Статистика сгенерирована		
+
+#
+# HEAD PART
+#
+head1_en		The log begins at :
+head1_fr		Les logs debutent le :
+head1_ptBR              In\xedcio dos registros :
+head1_ja		╔М╔╟Ё╚╩о :
+head1_ru		Лог начат :
+head2_en		The log ends at :
+head2_fr		Les logs finissent le :
+head2_ptBR              T\xe9rmino dos registros :
+head2_ja		╔М╔╟╫╙н╩ :
+head2_ru		Лог закончен:
+head3_en		Total of Lines in log file :
+head3_fr		Nombre total de logs dans le fichier :
+head3_ptBR              Total de linhas no arquivo de log :
+head3_ja		╔М╔╟╓н╧т©Т :
+head3_ru		Всего строк в лог-файле :
+head4_en		Total of Logs Dropped :
+head4_fr		Nombre total de logs rejettes :
+head4_ptBR              Total de registros rejeitados :
+head4_ja		╔и╔М╔ц╔в╔М╔╟©Т :
+head4_ru		Всего логов :
+head5_en		Total events in table :
+head5_fr		Nombre total d evenements en memoire :
+head5_ptBR              Total de eventos na mem\xf3ria :
+head5_ja		╔╓╔ы╔С╔х╧Г╥в :
+head5_ru		Всего событий в таблице :
+head6_en		Source IP recorded :
+head6_fr		IP source enregistrees :
+head6_ja		х╞©╝╦╣IP╔╒╔и╔Л╔╧©Т :
+head6_ptBR              IP de origem registrados :
+head6_ru		Записанные IP источника :
+head7_en		Destination IP recorded :
+head7_fr		IP de destination enregistrees :
+head7_ptBR              IP de destino registrados :
+head7_ja		╓╒╓ф╦╣IP╔╒╔и╔Л╔╧©Т :
+head7_ru		Записанные IP получателя :
+head8_en		Host logger recorded :
+head8_fr		FW ou IDS enregistre(s) :
+head8_ptBR              M\xe1quina(s) ou IDS registrado(s) :
+head8_ja		╔М╔╟╔ш╔╧╔х©Т :
+head8_ru		Узлы записанные в лог :
+head9_en		Signatures recorded :
+head9_fr		Signatures enregistree(s) :
+head9_ptBR              Registro(s) de assinatura :
+head9_ja		╔╥╔╟╔м╔а╔Ц©Т :
+head9_ru		Записанные сигнатуры :
+head10_en		Classification recorded :
+head10_fr		Classification enregistree(s) :
+head10_ptBR             Registro(s) de Classifica\xe7\xe3o(\xf5es) :
+head10_ja		╔╞╔И╔╧©Т :
+head10_ru		Записанная классификация : 
+head11_en		Severity recorded :
+head11_fr		Severite enregistree(s) :
+head11_ptBR             Registos(s) de severidade :
+head11_ja		╔Й╔╧╔╞©Т :
+head11_ru		Критичные записи :
+head12_en		Portscan detected :
+head12_fr		Scan de port detecte :
+head12_ptBR             Varredura de portas detectada(s) :
+head12_ja		╔щ║╪╔х╔╧╔╜╔Ц╔С©Т :
+head12_ru		Обнаруженное сканирование портов :
+head13_en		Filter Running:
+head13_fr		Filtre en cours :
+head13_ptBR             Filtros em atividade :
+head13_ja		╔у╔ё╔К╔©║╪╪б╧т :
+head13_ru		Запущенный фильтр :
+
+#
+# LEGENDE PART
+#
+legendered_en		Dangerous connection (potentially bad, further investigation needed)	
+legendered_fr		Connections dangereuses (potentiellement risquee)	
+legendered_ptBR         Conex\xf5es perigosas  (potencialmente arriscadas)
+legendered_ja		╢М╦╠╓йюэбЁ (итю╣╓н╡дг╫ю╜, мвд╢╨╨)
+legendered_ru		Опасное соединение (потенциально опасно, требуется дальнейшее расследование)
+legendeorange_en	Warning connection (strange, may need further investigation)
+legendeorange_fr	Connections d'alerte (bizarre, merite de se pencher dessus)
+legendeorange_ptBR      Conex\xf5es de alerta (suspeito, an\xe1lise posterior necess\xe1ria)
+legendeorange_ja	╥ы╧Пе╙юэбЁ (хСю╣╬О, д╢╨╨мв)
+legendeorange_ru	Предупреждение о соединении (странно, может потребоваться дальнейшее расследование)
+legendeblack_en		Not dangerous alert (only low and unknown alert)
+legendeblack_fr		Connections a prioris non dangereuses (les alertes non critiques et inconnues)
+legendeblack_ptBR       Conex\xe3o em princ\xedpio n\xe3o perigosa
+legendeblack_ja		╢М╦╠╓г╓о╓й╓╓╔╒╔И║╪╔х
+legendeblack_ru		Не опасное предупреждение (только низкие и неизвестные предупреждения)
+
+# S11 Report
+s11_en			Distribution of event by protocols
+s11_fr			Recapitulatif des evenements par protocols
+s11_ptBR                Distribui\xe7\xe3o de eventos por protocolo
+s11_ja			╔в╔М╔х╔Ё╔Кйл╔╓╔ы╔С╔хй╛иш
+s11_ru			Распределение происшествий по протоколам
+# S17 Report
+s17_en			Number of occurrences by type of log
+s17_fr			Nombre d'occurrences par type de log
+s17_ptBR                N\xfamero de ocorrencias por tipo de log
+s17_ja			╔М╔╟╔©╔╓╔вйлх╞ю╦©Т
+s17_ru			Номер инциндента по типу лога
+# S13 Report
+s13_en			Distribution of event by Host
+s13_fr			Recapitulatif des evenements par Serveur
+s13_ptBR                Distribui\xe7\xe3o dos eventos por host
+s13_ja			╔ш╔╧╔хйл╔╓╔ы╔С╔хй╛иш
+s13_ru			Распределение инциндентов по узлам
+# S1 Report
+s1_en			Distribution of event by interfaces
+s1_fr			Recapitulatif des evenements par interface
+s1_ptBR                 Distribui\xe7\xe3o  dos eventos por interface
+s1_ja			╔╓╔С╔©║╪╔у╔╖╔╓╔╧йл╔╓╔ы╔С╔хй╛иш
+s1_ru			Распределение инцидентов по интерфейсам
+# S20 Report
+s20_en			Distribution of event by severity
+s20_fr			Recapitulatif des evenements par severite
+s20_ptBR                Distribui\xe7\xe3o dos eventos por severidade
+s20_ja                  ╔Й╔╧╔╞йл╔╓╔ы╔С╔хй╛иш
+s20_ru			Распределение инцидентов по критичности
+# S19 Report
+s19_en			Distribution of event by day
+s19_fr			Recapitualtif des evenements par jour
+s19_ptBR                Distribui\xe7\xe3o dos eventos por dia
+s19_ja			фЭйл╔╓╔ы╔С╔хй╛иш
+s19_ru			Распределение инцидентов по дням
+# S0 Report
+s0_en			Attacks from a host to a destination
+s0_fr			Attaques d une IP source vers une autre
+s0_ptBR                 Porcentagem e n\xfamero de ataques de um host para um IP de destino
+s0_ja			╧╤╥Б╦╣╓╚╓И╧╤╥БюХ╓ь╓н╧╤╥Б
+s0_ru			Атаки с хоста на получателя
+# S2 Report
+s2_en			Attacks from one host to any with same method
+s2_fr			Attaques d une IP source avec la meme methode
+s2_ptBR                 Porcentagem e n\xfamero de ataques de um IP de origem utilizando o mesmo m\xe9todo
+s2_ja			1╓д╓н╔ш╔╧╔х╓╚╓Иф╠╓╦йЩк║╓г╓н╧╤╥Б
+s2_ru			Атаки с одного узла на любые другие одним и тем же мотодом
+# S3 Report
+s3_en			Attacks to one host from any with same method
+s3_fr			Attaques vers une IP de destination avec la meme methode
+s3_ptBR                 Porcentagem e n\xfamero de ataques de um IP de origem utilizando o mesmo m\xe9todo
+s3_ja			1╓д╓н╔ш╔╧╔х╓ьф╠╓╦йЩк║╓г╓н╧╤╥Б
+s3_ru			Атаки на один узел с любых других одним и тем же методом
+# S4 Report
+s4_en			Distribution of attack methods
+s4_fr			Recapitulatif des methodes d'attaque
+s4_ptBR                 Distribui\xe7\xe3o dos m\xe9todos de ataque
+s4_ja			╧╤╥БйЩк║╓нй╛иш
+s4_ru			Распределение атак по методу
+# S10 Report
+s10_en			Distribution of classification method
+s10_fr			Recapitualtif des classes d'attaque
+s10_ptBR                Distribui\xe7\xe3o das classifica\xe7\xf5es de ataque
+s10_ja			╔╞╔И╔╧й╛иш
+s10_ru			Распределение классификации методов
+# S5 Report
+s5_en			Popularity of one source host
+s5_fr			Popularite d une IP source
+s5_ptBR                 Popularidade de um IP de origem
+s5_ja			х╞©╝╦╣╔ш╔╧╔х╔И╔С╔╜╔С╔╟
+s5_ru			Популярность узла источника
+# S40 Report
+s40_en			Popularity of one domain
+s40_fr			Popularite d un domaine source
+s40_ptBR                Popularidade de um dom\xednio
+s40_ja			╔и╔А╔╓╔С╔И╔С╔╜╔С╔╟
+s40_ru			Популярность одного домена
+# S6 Report
+s6_en			Popularity of one destination host
+s6_fr			Popularite d'une IP destination
+s6_ptBR                 Popularidade de um IP de destino
+s6_ja			╓╒╓ф╦╣╔ш╔╧╔х╔И╔С╔╜╔С╔╟
+s6_ru			Популярность узла получателя
+# S7 Report
+s7_en			Distribution of attack by hour
+s7_fr			Recapitulatif des attaques par heure
+s7_ptBR                 Distribui\xe7\xe3o dos ataques por hora
+s7_ja			╩Ч╢жйлй╛иш
+s7_ru			Распределение атак по часам
+# S9 Report
+s9_en			Attacks by hour
+s9_fr			Attaques par heure
+s9_ptBR                 Porcentagem e n\xfamero de ataques por hora
+s9_ja			╧╤╥Б║й╩Ч╢жйл║к
+s9_ru			Атаки по часам
+# S16 Report
+s16_en			Distribution of event by destination port
+s16_fr			Recapitulatif des evenements par port de destination
+s16_ptBR                Distribui\xe7\xe3o dos eventos por porta de destino
+s16_ja			╓╒╓фюХ╔щ║╪╔хйл╔╓╔ы╔С╔хй╛иш
+s16_ru			Распределение инцидентов по портам получателя
+# S18 Report
+s18_en			Attacks to one destination port
+s18_fr			Attaques vers un port de destination
+s18_ptBR                Porcentagem e n\xfamero de ataques em uma porta de destino
+s18_ja			╓╒╓фюХ╔щ║╪╔х╓ь╓н╧╤╥Б
+s18_ru			Атаки на порт получателя
+# S12 Report
+s12_en			Distribution by reason
+s12_fr			Recapitulatif par raison
+s12_ptBR                Distribui\xe7\xe3o por motivo
+s12_ja			╦╤╟Ьй╛иш
+s12_ru			Распределение по причине
+# S14 Report
+s14_en			Distribution by action
+s14_fr			Recapitulatif par action
+s14_ptBR                Distribui\xe7\xe3o por a\xe7\xe3o
+s14_ja			╔╒╔╞╔╥╔Г╔Сй╛иш
+s14_ru			Распределение по действию
+# S21 Report
+s21_en			Number of occurrences by rules
+s21_fr			Nombre d occurences par regle
+s21_ptBR                N\xfamero de ocorr\xeancias por regle
+s21_ja			╔К║╪╔К╓╢╓хх╞ю╦©Т
+s21_ru			Число событий по правилам
+# S22 Report
+s22_en			Number of occurrences grouped by IP source and destination port
+s22_fr			Nombre d occurrence regroupees par IP source et port de destination
+s22_ptBR                N\xfamero de ocorr\xeancias agrupadas por IP de origem e porta de destino
+s22_ja			х╞©╝╦╣╔╒╔и╔Л╔╧╓х╓╒╓фюХ╔щ║╪╔хйлх╞ю╦©Т
+s22_ru			Число событий сгруппированных по IP источника и порту получателя
+# S23 Report
+s23_en			Number of occurrences grouped by IP dest and destination port
+s23_fr			Nombre d occurrence regroupees par IP destination et port de destination
+s23_ptBR                N\xfamero de ocorr\xeancias agrupadas por IP de destino e porta de destino
+s23_ja			╓╒╓фюХ╔╒╔и╔Л╔╧╓х╓╒╓фюХ╔щ║╪╔хйлх╞ю╦©Т
+s23_ru			Число событий сгруппированных по IP получателя и порту получателя
+# S24 Report
+s24_en			Number of occurrences for SmartDefense by attack
+s24_fr			Nombre d occurrences par SmartDefense attaque
+s24_ptBR                N\xfamero de ocorr\xeancias por SmartDefense ataque
+s24_ja			╧╤╥БйлSmartDefenseх╞ю╦©Т
+s24_ru			Число событий для SmartDefense по атакам
+# S25 Report
+s25_en		 	Portscans performed to/from HOME_NET	
+s25_fr			Scan de ports de ou vers HOME_NET
+s25_ja			HOME_NET╓н╔щ║╪╔х╔╧╔╜╔Ц╔С
+s25_ru			Сканирование портов выполненных на/из HOME_NET
+# S29 Report
+s29_en			Attacks from a host to a destination by destination port
+s29_fr			Attaques d une IP source vers une autre par port de destination
+s29_ptBR                Porcentagem e n\xfamero de ataques de um host para um IP de destino por porta de destino
+s29_ja			╧╤╥Б╦╣╓╚╓И╧╤╥БюХ╓ь╓н╧╤╥Б
+s29_ru			Атаки с узла на получателя по порту получателя
+# S30 Report
+s30_en			Attacks from a host to a destination by action 
+s30_fr			Attaques d une IP source vers une autre par action
+s30_ptBR                Porcentagem e n\xfamero de ataques de um host para um IP de destino por a\xe7\xe3o 
+s30_ja			╧╤╥Б╦╣╓╚╓И╧╤╥БюХ╓ь╓н╧╤╥Б
+s30_ru			Атаки с узла на получателя по действию
+# S31 Report
+s31_en			Attacks from a host to a destination by reason
+s31_fr			Attaques d une IP source vers une autre par raison
+s31_ptBR                Porcentagem e n\xfamero de ataques de um host para um IP de destino por motivo 
+s31_ja			Attacks from a host to a destination by reason
+s31_ru			Атаки с узла на получателя по причине
+# S32 Report
+s32_en			Attacks in to zone out to zone
+s32_fr			Attaques provenant d'une zone vers une autre
+s32_ptBR                Attacks into zone out to zone
+s32_ja			Attacks into zone out to zone
+s32_ru			Атаки внутрь зоны наружу зоны
+# S300 Report
+s300_en			Number of occurrences by hardware related message log
+s300_fr			Nombre d occurrences par log provenant du hardware
+s300_ja			╔о║╪╔и╔╕╔╖╔╒╢ь╥╦╔А╔ц╔╩║╪╔╦╔М╔╟йлх╞ю╦©Т
+s300_ru			Число инцидентов по аппаратно зависимым сообщениям лога
+# S301 Report
+s301_en			Number of occurrences by IDS log message
+s301_fr			Nombre d occurrences par log IDS provenant du PIX
+s301_ja                 IDS ╔М╔╟╔А╔ц╔╩║╪╔╦йлх╞ю╦©Т
+s301_ru			Число инцидентов по сообщениям лога IDS

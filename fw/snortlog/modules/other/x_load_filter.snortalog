@@ -1,0 +1,102 @@
+#
+# Rev   : 1.01
+# Date  : 03/25/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 03/25/2011 : Correct bug
+# 09/15/2005 : Modify to permit data sorting
+#
+
+
+
+sub x_load_filter {
+	@data_fproto = ();
+	foreach $k (sort { substr($a,0,5) <=> substr($b,0,5) } keys %s11) {
+		push @data_fproto ,($k);
+	}
+
+	@data_fether = ();
+	foreach $k (sort { substr($a,0,5) <=> substr($b,0,5) } keys %s1) {
+		push @data_fether ,($k);
+	}
+
+	@data_fsrc = ();
+	foreach $k (sort { substr($a,0,15) <=> substr($b,0,15) } keys %s5) {
+		push @data_fsrc ,($k);
+	}
+
+	@data_fdst = ();
+	foreach $k (sort { substr($a,0,15) <=> substr($b,0,15) } keys %s6) {
+		push @data_fdst ,($k);
+	}
+
+	@data_fdport = ();
+	foreach $k (sort { substr($a,0,5) <=> substr($b,0,5) } keys %s16) {
+		push @data_fdport ,($k);
+	}
+	
+	@data_fhost = ();
+	foreach $k (sort { substr($a,0,15) <=> substr($b,0,15) } keys %s13) {
+		push @data_fhost ,($k);
+	}
+
+	@data_faction = ();
+	foreach $k (sort { $s14{$b} <=> $s14{$a} } keys %s14) {
+		push @data_faction ,($k);
+	}
+
+	@data_freason = ();
+	foreach $k (sort { $s12{$b} <=> $s12{$a} } keys %s12) {
+		push @data_freason ,($k);
+	}
+
+	@data_frule = ();
+	foreach $k (sort { substr($a,0,5) <=> substr($b,0,5) } keys %s21) {
+		push @data_frule ,($k);
+	}
+
+	@data_ftype = ();
+	foreach $k (sort { $s17{$b} <=> $s17{$a} } keys %s17) {
+		push @data_ftype ,($k);
+	}
+
+	@data_fseverity = ();
+	foreach $k (sort { $s20{$b} <=> $s20{$a} } keys %s20) {
+		push @data_fseverity ,($k);
+	}
+	
+	@data_fhour = ();
+	foreach $k (sort { substr($a,0,2) <=> substr($b,0,2) } keys %s7) {
+		push @data_fhour ,($k);
+	}
+
+	@data_fday = ();
+	foreach $k (sort { substr($a,0,2) <=> substr($b,0,2) } keys %s26) {
+		push @data_fday ,($k);
+	}
+
+	@data_fmonth = ();
+	foreach $k (sort { substr($a,0,2) <=> substr($b,0,2) } keys %s27) {
+		push @data_fmonth ,($k);
+	}
+
+	@data_fclass = ();
+	foreach $k (sort { $s28{$b} <=> $s28{$a} } keys %s28 ) {
+		push @data_fclass ,($k);
+	}
+
+	@data_fzonesrc = ();
+	foreach $k (sort { $s500{$b} <=> $s500{$a} } keys %s500 ) {
+		push @data_fzonesrc ,($k);
+	}
+
+	@data_fzonedst = ();
+	foreach $k (sort { $s501{$b} <=> $s501{$a} } keys %s501 ) {
+		push @data_fzonedst ,($k);
+	}
+
+
+}
+
+1;
