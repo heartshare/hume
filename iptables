@@ -236,3 +236,199 @@ iptables -A INPUT -m recent --update --name httpuser --seconds 60 --hitcount 9 -
 如果下上述指令时，得到下列错误：
 iptables: No chain/target/match by that name
 这表示， kernel 在编译时，没有将 iptables module 功能勾选。要重新勾选再编译哦~~~另一个可能是，您使用的服务器，该服务公司所提供的共享核心中，并没有打开此功能，但因为是核心共享…所以…没有权利重新编译核心。
+
+
+
+
+
+#!/bin/bash
+# BY kerryhu
+# QQ:263205768
+# MAIL:king_819@163.com
+# BLOG:http://kerry.blog.51cto.com
+IPT=/sbin/iptables
+
+#============================ 下载安装包 ========================================
+#kernel 2.6.28.10
+wget  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.28.10.tar.bz2
+#iptables
+#wget  http://www.netfilter.org/projects/iptables/files/iptables-1.4.7.tar.bz2
+wget  ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.0.tar.bz2
+#l7-protocols
+wget  http://ncu.dl.sourceforge.net/project/l7-filter/Protocol definitions/2009-05-28/l7-protocols-2009-05-28.tar.gz
+#netfilter-layer7
+wget  http://ncu.dl.sourceforge.net/project/l7-filter/l7-filter kernel version/2.21/netfilter-layer7-v2.21.tar.gz
+#patch-o-matic-ng
+wget  ftp://ftp.netfilter.org/pub/patch-o-matic-ng/snapshot/patch-o-matic-ng-20100218.tar.bz2
+#============================= 内核编译 ===========================================
+cd /opt
+tar jxvf iptables-1.4.3.tar.bz2
+tar zxvf ipp2p-0.99.16.tar.gz
+tar zxvf netfilter-layer7-v2.22.tar.gz
+tar jxvf linux-2.6.28.10.tar.bz2
+mv linux-2.6.28.10 /usr/src/
+
+#
+#给内核打L7-filter补丁,将以上各软件包都解压到 /usr/src 目录
+cd /usr/src/linux-2.6.28.10
+patch -p1 < /opt/netfilter-layer7-v2.22/kernel-2.6.25-2.6.28-layer7-2.22.patch
+#检查有无不正确的.o文件和依赖关系，使用刚下载的完整的源程序包进行编译，所以本步可以省略。而如果你多次使用了这些源程序编译内核，那么最好要先运行一下这个命令
+#make mrproper
+#使用make oldconfig可以继承老的kernel的配置，为自己的配置省去很多麻烦
+make oldconfig
+#make menuconfig是文字界面下推荐一种方式，在这里可以选择你需要编译到核心的模块
+make menuconfig
+
+#Networking support  --->  
+# Networking options  --->
+#  Network packet filtering framework (Netfilter)  --->
+#   iP:netfilter configuraton --->
+<M> IPv4 connection tracking support (required for NAT)
+#     Full NAT
+   
+#Networking support  --->  
+# Networking options  --->
+#  Network packet filtering framework (Netfilter)  --->   
+#   core netfilter configuration --->
+<M> Netfilter connection tracking support
+#    "connlimit" match support"  
+#    "time" match support
+#    "string" match support  
+#    "layer7" match support
+#     
+Layer 7 debugging output
+
+#升级内核
+make
+make modules
+make modules_install
+make install
+
+#修改默认以新的内核启动。
+vi /boot/grub/grub.conf
+default=0
+#将新的内核配置文件复制到/boot目录。
+cp /usr/src/linux-2.6.28.10/.config /boot/config-2.8.10
+#重启完成后确认内核版本是否正确。
+reboot
+uname –r
+2.6.28
+
+#5.给iptables打补丁并升级
+
+#卸载系统中的旧版本iptables。
+rpm -qa |grep iptables
+rpm -e --nodeps iptables-1.3.5-4.el5
+rpm -e --nodeps iptables-ipv6-1.3.5-4.el5
+
+#合并补丁，并编译安装新的iptables工具
+cd /opt
+tar jxvf iptables-1.4.3.tar.bz2 -C /opt/
+cd /opt/iptables-1.4.3/
+cp /opt/netfilter-layer7-v2.22/iptables-1.4.3forward-for-kernel-2.6.20forward/libxt_layer7.*  extensions/
+./configure  --prefix=/  --with-ksource=/usr/src/linux-2.6.28.10
+make;make install
+iptables -V
+iptables v1.4.3
+确认iptables版本是否正确。
+
+#6.安装l7-protocol
+cd /opt
+tar xzvf l7-protocols-2009-05-28.tar.gz
+cd l7-protocols-2008-11-23
+make install
+
+其实就是把响应的目录copy到 /etc/l7-protocols/
+真正调用的是/etc/l7-protocols/protocols/下面的文件
+可以打开下面具体的文件，里面是一些L7程序特征码的正则表达式形式
+这样自己也可以按照这样的样子，写自己的特征码。
+该特征码软件包一直在不停的更新，其后面的日期就是更新的日期，推荐定期选择最新的包进行更新。
+
+#安装IPP2P
+cd /opt/ipp2p-0.99.16
+make
+make install
+cp ipt_ipp2p.ko /lib/modules/2.6.28.10/kernel/net/ipv4/netfilter/
+cp libipt_ipp2p.so /lib/iptables/
+
+#加载模块
+modprobe ipt_connlimit
+modprobe ipt_time
+modprobe ipt_ipp2p
+modprobe ipt_layer7
+lsmod |grep x_tables
+
+7.测试
+$IPT -I FORWARD -p udp --dport 53 -m string --string "tencent" --algo bm -j DROP
+$IPT -I FORWARD -p tcp -m multiport --dport 80,443 -m layer7 --l7proto qq -j DROP
+$IPT -I FORWARD -p udp --dport 8000 -j DROP
+$IPT -I FORWARD -p tcp -m layer7 --l7proto socks -j DROP
+$IPT -I FORWARD -p udp --dport 53 -m string --string "messenger" --algo bm -j DROP
+$IPT -I FORWARD -p tcp -m multiport --dport 80,443 -m layer7 --l7proto msnmessenger -j DROP
+$IPT -I FORWARD -p udp --dport 1863 -j DROP
+$IPT -t mangle -A PREROUTING -m layer7 --l7proto qq -j DROP
+$IPT -t mangle -A PREROUTING -m layer7 --l7proto msnmessenger -j DROP
+
+#======================================= layer7,time,ip2p2 ==================================
+
+#测试layer7,time,ip2p2,可通过上面的策略表达式测试是否成功禁止掉qq、msn、ipp2p、xunlei
+#$IPT -A FORWARD -m layer7 --l7proto qq  -m time --timestart 8:00 --timestop 17:30 --days Mon,Tue,Wed,Thu,Fri -m iprange --src-range 192.168.1.5-192.168.1.239 -m ipp2p --ipp2p -m ipp2p --xunlei -j DROP
+#$IPT -A FORWARD -p tcp -m multiport --dport 80,443 -m layer7 --l7proto qq -j DROP
+
+#======================================= connlimit ============================================
+
+# 允许单个 IP 的最大连接数为 30
+#$IPT -A FORWARD -p tcp --dport 80 -m connlimit --connlimit-above 30 -j REJECT
+#控制单个 IP 在一定的时间（比如60秒）内允许新建立的连接数
+#$IPT -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --update --seconds 60 --hitcount 30 -j REJECT
+#$IPT -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --set -j ACCEPT
+#限制连往本机的web服务，1个C段的IP的并发连接不超过100个，超过的被拒绝
+$IPT -A INPUT -i $INTERNET -p tcp -m multiport  --dports 80,443 -m connlimit --connlimit-above 500 --connlimit-mask  24 -j REJECT
+
+#过滤syn包
+$IPT -A INPUT -i $INTERNET -p tcp --tcp-flags SYN,ACK,FIN,RST SYN -m limit --limit 100/s --limit-burst 150 -m multiport --dports 80,443 -j DROP
+
+$IPT -A INPUT -i $INTERNET  -p tcp --syn -m multiport  -dports 80,443 -m connlimit --connlimit-above 100 --connlimit -mask 32 -j DROP
+
+#======================================= limit =============================================
+
+#可达到每秒只接受一个 echo-request 封包
+$IPT -N pinglimit
+$IPT -A pinglimit -m limit –limit 1/s –limit-burst 1 -j ACCEPT
+$IPT -A pinglimit -j DROP
+$IPT -A INPUT -p icmp –icmp-type echo-request -j pinglimit
+
+#限制每秒只接受一个 icmp echo-request 封包
+$IPT -A INPUT -p icmp –icmp-type echo-request -m limit –limit 1/s –limit-burst 1 -j ACCEPT
+$IPT -A INPUT -p icmp –icmp-type echo-request -j DROP
+
+#防治 SYN-Flood 碎片攻击(每秒只接受100个syn封包，)
+#–limit 1/s 表示每秒一次; 1/m 则为每分钟一次； 1/h 则为每小时一次
+#–limit-burst 表示允许触发 limit 限制的最大次数 (预设 5)
+$IPT -N syn-flood
+$IPT -A syn-flood -m limit –limit 100/s –limit-burst 150 -j RETURN
+$IPT -A syn-flood -j DROP
+$IPT -I INPUT -j syn-flood
+
+#===================================== string ================================================
+
+#每个词都用baidu和google识别出来gbk编码和utf-8编码的字串，全封住。
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股市" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股市" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "����" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "基金" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "基金" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "���" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股票" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股票" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "��Ʊ" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "证券" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "证券" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "֤ȯ" -j DROP
+
+#下面是些纯英文的词，做起来简洁多了
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "fund" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "finance" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "business" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "money" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "stock" -j DROP
