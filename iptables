@@ -161,3 +161,26 @@ iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW -m recent --set
 iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 3 --name SSH -j DROP
 # Enable Normal SSH Connection
 iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
+
+
+
+
+
+
+iptables -t mangle -N LMT
+iptables -t mangle -N LMT2
+iptables -t mangle -I FORWARD -d 192.168.1.100 -m length --length 128: -j LMT
+iptables -t mangle -A LMT -m recent --rdest --name badguy --rcheck --seconds 60 -j LMT2
+iptables -t mangle -A LMT -m limit --limit 100/sec --limit-burst 5000 -j RETURN
+iptables -t mangle -A LMT -m recent --rdest --name badguy --set -j RETURN
+iptables -t mangle -A LMT2 -m limit --limit 50/sec --limit-burst 5000 -j RETURN
+iptables -t mangle -A LMT2 -j DROP
+复制代码
+
+上面代码是用limit限制计算速率，为了更准确，使用了数据包长度筛选: “-m length --length 128:”，这样更准确一点。
+一般限制为100/s，按照数据包平均大小1000Bytes来算，大概就是100KB/S。
+如果超出，限制变为50/sec，大约50KB/S。
+
+当然，这只是一个示范性的例子了，其中limit模块也可以改用更为强大的hashlimit，hashsped等模块。
+还可以用connlimit使用连接数作为限制条件。。。。。。。。。。
+如果再把这些模块结合MARK和TC流量控制，就实现了某些路由器的所谓“条件限速”“P2P惩罚”等功能。
