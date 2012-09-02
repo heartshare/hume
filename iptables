@@ -21,7 +21,7 @@ COMMIT
 # Manual customization of this file is not recommended.
 #使用filter表
 *filter
-#下面四条内容定义了内建的INPUT、FORWAARD、ACCEPT链，还创建了一个被称为RH-Firewall-1-INPUT 的新链
+#下面四条内容定义了内建的INPUT、FORWAARD、ACCEPT链，还创建了一个被称为RH-Firewall-1-INPUT 的1新链
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
@@ -218,3 +218,21 @@ iptables -I FORWARD -p tcp --dport 80 -m string --string "qq" --algo bm -j DROP
  
 这些在rhel5下测试都是ok的。注意上面2个里面中的 --algo bm作用是匹配linux内核中的文本搜索算法（位于内核源码linux/lib目录中）
 算法常用的有 bm 和kmp
+
+
+
+利用 iptables 加上 recent 模块，阻挡大量的请求
+新版的 iptables 有个好用简单又有效率的功能，可以设定它阻止瞬间联机太多的来源 IP。这种阻挡功能在某些很受欢迎的，特别像是大型讨论区网站，每个网页都遭到「无知却故意」的人士。一瞬间太多的链接访问，导致服务器呈现呆滞状态。
+这时，就需要下列的三行指令：
+iptables -I INPUT -p tcp --dport 80 -d SERVER_IP -m state --state NEW -m recent --name httpuser --set
+iptables -A INPUT -m recent --update --name httpuser --seconds 60 --hitcount 9 -j LOG --log-prefix 'HTTP attack: '
+iptables -A INPUT -m recent --update --name httpuser --seconds 60 --hitcount 9 -j DROP
+其中 SERVER_IP 换上被攻击的服务器 IP。
+1.    第一行的意思是：-I，将本规则插入到 INPUT 链里头的最上头。什么样的规则呢？只要是 TCP 性质的联机，目标端口是80，目标 IP 是我们机器的IP，刚刚新被建立起来时，我们就将这个联机列入 httpuser 这分清单中。
+2.    第二行的意思是：-A，将本规则附在 INPUT 链的最尾端。只要是60秒内，同一个来源连续产生多个联机，到达第9个联机时，我们对此联机留下 Log记录。记录行会以 HTTP attack 开头。每一次的本规则比对， –update 均会更新 httpuser 清单中的列表。
+3.    第三行的意思是：-A，将本规则附在 INPUT 链的最尾端。同样的比对条件，但是本次的动作则是将此联机给断掉。
+所以，这三行规则表示，我们允许一个客户端，每一分钟内可以接上服务器8个。具体数值可以看管理者决定。这些规则另外也可以用在其它对 Internet 开放的联机服务上，例如 port 22 (SSH), port 25 (smtp email)。
+为什么新版的 iptables 它在阻挡上很有效率呢？因为在旧版的 iptables 中，并没有这些新模块功能，导致我们得需要使用操作系统的 Shell 接口，周期性地执行网络检查与拦阻动作。 前者只动用到网络层的资源，而后者已经是应用层的大量(相对而言)运算。试想，服务器都已经给白目客户操翻天了，哪还有余力周期性地呼叫软件层级的计算，来阻挡白目客户呢？
+如果下上述指令时，得到下列错误：
+iptables: No chain/target/match by that name
+这表示， kernel 在编译时，没有将 iptables module 功能勾选。要重新勾选再编译哦~~~另一个可能是，您使用的服务器，该服务公司所提供的共享核心中，并没有打开此功能，但因为是核心共享…所以…没有权利重新编译核心。
