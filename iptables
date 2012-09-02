@@ -202,3 +202,19 @@ iptables -t nat -A PREROUTING -i eth0 -p tcp -m tcp --dport 80 -jREDIRECT --to-p
 #将所有80#端口的包转发到3128端口
 iptables -t nat -A POSTROUTING -o eth0 -jMASQUERADE
 #对eth0端口进行欺骗,单网卡用不到
+
+
+
+
+
+rhel5下，netfilter默认支持string关键词过滤
+ 
+比如你的firewall下有一个ftp服务，ftp的目录里面有一个 pub目录，你不想让192.168.0.100这ip地址访问这个目录，就是当用户一点出发pub这个字符串时，被阻止，可以这么来做。
+ 
+iptables -I INPUT -p tcp --dport 21 -m string --string "pub" --algo bm -j DROP
+ 
+比如你在网关服务器上想限制内部网络 192.168.0.0这个网段浏览含有 qq这字符串的任何网页，可以这么来做
+iptables -I FORWARD -p tcp --dport 80 -m string --string "qq" --algo bm -j DROP
+ 
+这些在rhel5下测试都是ok的。注意上面2个里面中的 --algo bm作用是匹配linux内核中的文本搜索算法（位于内核源码linux/lib目录中）
+算法常用的有 bm 和kmp
