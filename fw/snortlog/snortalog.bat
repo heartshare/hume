@@ -1,0 +1,2 @@
+perl snortalog.pl -x 
+

@@ -1,0 +1,77 @@
+#
+# Rev   : 1.04
+# Date  : 02/02/2011
+# By    : Jeremy Chartier
+#
+# 02/02/2011 : Add TIPPINGPOINT log detection
+#
+
+
+sub x_report {
+#
+# Only for GUI
+# This work is different to CLI
+# In this case, all logs arent loaded in table @result
+#
+	#
+	# Initialize GUI
+	#
+	get_opt();
+	clear_screen();
+	#
+	# Test if filters arent activated
+	#
+	search_filter(); 
+#	$total = 0;
+	$total_log = 0;
+	$maxday = 1; $maxmonth = 1; $maxhour = 0; $maxmin = 0; $maxsec = 0;
+	$minday = 31; $minmonth = 12; $minhour = 23; $minmin = 59; $minsec = 59;
+	undef_tables();
+	for $i ( 0 .. $#result ) {
+		if ( $opt_filter == 1 ) {
+			#
+			# Test if log correspond to a filter
+			#
+			if ( ($result[$i]->[15] ne $val_opt_fproto) && ($opt_fproto == 1) ) {
+			} elsif ( ($result[$i]->[7] ne $val_opt_fsrc) && ($opt_fsrc == 1) ) {
+			} elsif ( ($result[$i]->[9] ne $val_opt_fdst) && ($opt_fdst == 1) ) {
+			} elsif ( ($result[$i]->[10] ne $val_opt_fdport) && ($opt_fdport == 1) ) {
+			} elsif ( ($result[$i]->[14] ne $val_opt_fether) && ($opt_fether == 1) ) {
+			} elsif ( ($result[$i]->[2] ne $val_opt_fhour) && ($opt_fhour == 1) ) {
+			} elsif ( ($result[$i]->[1] ne $val_opt_fday) && ($opt_fday == 1) ) {
+			} elsif ( ($result[$i]->[0] ne $val_opt_fmonth) && ($opt_fmonth == 1) ) {
+			} elsif ( ($result[$i]->[5] ne $val_opt_fhost) && ($opt_fhost == 1) ) {
+			} elsif ( ($result[$i]->[13] ne $val_opt_fseverity) && ($opt_fseverity == 1) ) {
+			} elsif ( ($result[$i]->[17] ne $val_opt_faction) && ($opt_faction == 1) ) {
+			} elsif ( ($result[$i]->[19] ne $val_opt_frule) && ($opt_frule == 1) ) {
+			} elsif ( ($result[$i]->[18] ne $val_opt_freason) && ($opt_freason == 1) ) {
+			} elsif ( ($result[$i]->[19] ne $val_opt_ftype) && ($opt_ftype == 1) ) {
+			} elsif ( ($result[$i]->[11] ne $val_opt_fclass) && ($opt_fclass == 1) ) {
+			} else {
+				search_date();
+				x_process_data();
+				++$logfw if ( $result[$i]->[19] =~ m/Fire|ipfilter|pfilter|netfilter|Smart|pix|Brick|NetScreen/ox );
+				++$logpix if ( $result[$i]->[19] =~ m/Pix/ox );
+				++$logids if ( $result[$i]->[19] =~ m/snort|tipping/ox );
+#				++$total;
+				++$total_hw if ( $record->{PLUGIN} eq "alerthw" );
+				++$total_log;
+			}
+		} else {
+			search_date();
+			x_process_data();
+			++$logfw if ( $result[$i]->[19] =~ m/Fire|ipfilter|pfilter|netfilter|Smart|Pix|Brick|NetScreen/ox );
+			++$logpix if ( $result[$i]->[19] =~ m/Pix/ox );
+			++$logids if ( $result[$i]->[19] =~ m/snort|tipping/ox );
+#			++$total;
+			++$total_hw if ( $record->{PLUGIN} eq "alerthw" );
+			++$total_log;
+		}
+	}
+        $total = $total_log - $total_hw;
+#        print "###$total_log:$total_hw:$total";
+
+}
+
+
+1;

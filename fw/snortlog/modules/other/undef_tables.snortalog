@@ -1,0 +1,53 @@
+#
+# Rev   : 1.02
+# Date  : 04/24/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/24/2006 : Add forward report for firewall logs
+# 04/19/2006 : Add same_src_dst_action report for firewall logs
+# 04/19/2006 : Add same_src_dst_reason report for firewall logs
+# 04/19/2006 : Add same_src_dst_dport report for firewall logs
+#
+
+
+sub undef_tables {
+	undef %s0;
+        undef %s1;
+        undef %s2;
+        undef %s3;
+        undef %s4;
+        undef %s5;
+        undef %s6;
+        undef %s7;
+        undef %s8;
+        undef %s9;
+        undef %s10;
+        undef %s11;
+        undef %s12;
+        undef %s13;
+        undef %s14;
+        undef %s15;
+        undef %s16;
+        undef %s17;
+        undef %s18;
+        undef %s19;
+        undef %s20;
+        undef %s21;
+        undef %s22;
+        undef %s23;
+        undef %s24;             ### For defense_attack()
+        undef %s25;             ### For portscan()
+        undef %s26;             ### For day()
+        undef %s27;             ### For month()
+        undef %s28;             ### For month()
+        undef %s29;             ### For same_src_dst_dport()
+        undef %s30;             ### For same_src_dst_action()
+        undef %s31;             ### For same_src_dst_reason()
+        undef %s32;             ### For forward()
+        undef %s40;             ### For domain hash table
+        undef %s300;            ### For PIX or NetScreen hardware related log
+        undef %s301;            ### For PIX IDS log message
+}
+
+1;

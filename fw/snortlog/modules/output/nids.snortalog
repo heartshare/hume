@@ -1,0 +1,66 @@
+#
+# Rev   : 1.02
+# Date  : 04/05/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/05/2006 : Correct % bug
+#
+
+
+
+sub nids {
+my $i = 0;
+my $max = 6;
+my $description = $lang{"s13_". $val_opt_l};
+if ( $opt_o == 1 ) {
+	@list1 = ();
+	@list2 = ();
+	print FILEOUT ("<h3><CENTER><a name=\"nids\" HREF=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Host Logger</td></tr>\n");
+	foreach $k (sort { $s13{$b} <=> $s13{$a} } keys %s13) {
+		printf FILEOUT (("<tr class=TB><td>%2.2f</td><td>%-${nb_len}d</td><td>%-32s</td></tr>\n", $s13{$k}/$total_log*100,$s13{$k},$k));
+		push @list1 ,($s13{$k}) if ( $i < $max );
+		push @list2 ,("$k") if ( $i < $max );
+		++$i;
+	}
+	if ( ( $val_opt_g ne "" ) && ( $opt_p == 1 ) ) {
+		init_graph("nids","pie");
+		print FILEOUT ("</TABLE></TD><TD WIDTH=300 ALIGN=right><IMG SRC=.".$graph_name._nids.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} elsif ( ( $val_opt_g ne "" ) && ( $opt_h == 1 ) ) {
+		init_graph("nids","pie");
+		print FILEOUT ("</TABLE></TD><TD WIDTH=300 ALIGN=right><IMG SRC=".$graph_name._nids.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} else {
+		print FILEOUT ("</TABLE></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 50;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". keys(%s13) ." of ". keys(%s13) ." ###\n");
+		print FILEOUT ("    %    No      Host Logger\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s13{$b} <=> $s13{$a} } keys %s13) {
+			printf FILEOUT ("  %5.2f  %-${nb_len}d  %-32s\n", $s13{$k}/$total_log*100,$s13{$k},$k); 
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "nids");
+		foreach $k (sort { $s13{$b} <=> $s13{$a} } keys %s13) {
+			printf("  %5.2f  %-${nb_len}d  %-32s\n", $s13{$k}/$total_log*100,$s13{$k},$k); 
+		}
+	}
+}
+}
+
+1;

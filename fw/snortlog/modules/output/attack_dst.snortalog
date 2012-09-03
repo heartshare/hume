@@ -1,0 +1,138 @@
+#
+# Rev   : 1.02
+# Date  : 04/05/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/05/2006 : Correct % bug
+#
+
+
+
+
+# to see the popularity of one destination host
+sub attack_dst {
+$i=0;
+my $description = $lang{"s6_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s6) ) ) {
+	$n = keys %s6;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"attack_dst\" href=\"#top\">$description</a><CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	if ($opt_r) {
+		print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>IP Destination</td><td>Resolve</td></tr>\n");
+	} else {
+		print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>IP Destination</td></tr>\n");
+	}
+
+	if ($opt_i == 1) {
+		foreach $k (sort { $s6{$a} <=> $s6{$b} } keys %s6) {
+			if ($opt_r) {
+				$host = resolve ($k);
+				$src_host = $host if ($host ne $k);
+				printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td><td>%-${resolve_len}s</td></tr>\n",$s6{$k}/$total_log*100,$s6{$k},$k,$src_host) if $i < $n;
+			} else {
+				printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td></tr>\n", $s6{$k}/$total_log*100,$s6{$k},$k) if $i < $n;
+			}
+		++$i;
+		}
+	} else {
+		foreach $k (sort { $s6{$b} <=> $s6{$a} } keys %s6) {
+			if ($opt_r) {
+				$host = resolve ($k);
+				$src_host = $host if ($host ne $k);
+				printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td><td>%-${resolve_len}s</td></tr>\n",$s6{$k}/$total_log*100,$s6{$k},$k,$src_host) if $i < $n;
+			} else {
+				printf FILEOUT ("<tr class=TB><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${addr_len}s</td></tr>\n", $s6{$k}/$total_log*100,$s6{$k},$k) if $i < $n;
+			}
+		++$i;
+		}
+	}
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		if ($opt_r) {
+			$linelength = 11 + $nb_len + 2 + $addr_len + 2 + $resolve_len + 2 + $domain_len;
+			print FILEOUT ( '=' x $linelength, "\n");
+			print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s6) ." ###\n");
+			print FILEOUT ("    %    No      IP destination   Resolve\n");
+			print FILEOUT ( '=' x $linelength, "\n");
+		} else {
+			$linelength = 13 + $nb_len + 4 + $addr_len;
+			print FILEOUT ( '=' x $linelength, "\n");
+			print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s6) ." ###\n");
+			print FILEOUT ("    %    No      IP destination\n");
+			print FILEOUT ( '=' x $linelength, "\n");
+		}
+
+		if ($opt_i == 1) {
+			foreach $k (sort { $s6{$a} <=> $s6{$b} } keys %s6) {
+				if ($opt_r) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k,$src_host) if $i < $n;
+				} else {
+					printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k) if $i < $n; 
+				}
+			++$i;
+			}
+		} else {
+			foreach $k (sort { $s6{$b} <=> $s6{$a} } keys %s6) {
+				if ($opt_r) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k,$src_host) if $i < $n;
+				} else {
+					printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k) if $i < $n; 
+				}
+			++$i;
+			}
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {
+		if ($opt_r) {
+			section_header("$description\n", "attack_dst_resolve");
+		} else {
+			section_header("$description\n", "attack_dst");
+		}
+		if ($opt_i == 1) {
+			foreach $k (sort { $s6{$a} <=> $s6{$b} } keys %s6) {
+				if ($opt_r) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k,$src_host) if $i < $n;
+				} else {
+					printf("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k) if $i < $n; 
+				}
+			++$i;
+			}
+		} else {
+			foreach $k (sort { $s6{$b} <=> $s6{$a} } keys %s6) {
+				if ($opt_r) {
+					$host = resolve ($k);
+					$src_host = $host if ($host ne $k);
+					printf("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-${resolve_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k,$src_host) if $i < $n;
+				} else {
+					printf("  %5.2f  %-${nb_len}d  %-${addr_len}s\n", $s6{$k}/$total_log*100,$s6{$k},$k) if $i < $n; 
+				}
+			++$i;
+			}
+		}
+	}
+
+}
+}
+
+1;

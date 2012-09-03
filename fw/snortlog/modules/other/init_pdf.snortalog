@@ -1,0 +1,39 @@
+#
+# Rev   : 1.02
+# Date  : 08/04/2005
+# By    : Jeremy Chartier
+#
+
+
+
+sub init_pdf {
+if ( $HTML == 1 ) {
+	my $htmldoc = new HTML::HTMLDoc();
+	$htmldoc->set_input_file($val_opt_o);
+	$htmldoc->set_footer('D', '.', '/');
+	$htmldoc->set_left_margin(2, "cm");
+	$htmldoc->color_on();
+	$htmldoc->links();
+	$htmldoc->no_title();
+	my $pdf = $htmldoc->generate_pdf();
+	print $pdf->to_file($val_opt_o);
+} else {
+	if ( $opt{x} ) {
+		$scrolled_status->insert('end', "PDF generation not available, please check your installation !!!\n");
+		$scrolled_status->insert('end', "\n");
+		$scrolled_status->insert('end', "Uncomment these variables :\n");
+		$scrolled_status->insert('end', "\tuse HTML::HTMLDoc; \$HTML = 1;\n");
+		$scrolled_status->insert('end', "\n");
+		$scrolled_status->insert('end', "And verify you have all required perl libraries.\n");
+	} else {
+		print "PDF generation not available, please check your installation !!!\n";
+		print "\n";
+		print "Uncomment these variables :\n";
+		print "\tuse HTML::HTMLDoc; \$HTML = 1;\n";
+		print "\n";
+		print "And verify you have all required perl libraries.\n";
+	}
+}
+}
+
+1;

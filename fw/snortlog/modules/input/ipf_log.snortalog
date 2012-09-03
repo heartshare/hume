@@ -1,0 +1,49 @@
+#
+# Rev   : 1.01
+# Date  : 10/06/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 10/06/2006 : Add Syslog and Local log format
+#
+
+
+
+sub ipf_log {
+	#
+	# THIS IS SYSLOG TCP/UDP IPF LOG 
+	#
+	$_ =~ s/\d+x\s//;
+	if ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+ipmon\[\d+\]\:\s+\S+\s+(\S+)\s+\S+\s\S+\s+([\d\.]+)\,(\d+)\s+\-\>\s+([\d\.]+)\,(\d+)\s+\S+\s+(\S+)*// || s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+ipmon\[\d+\]\:\s+\S+\s+\S+\s(\S+)\s+\S+\s\S+\s+([\d\.]+)\,(\d+)\s+\-\>\s+([\d\.]+)\,(\d+)\s+\S+\s+(\S+)*// || 
+	#
+	# OR THIS IS SYSLOG TCP/UDP IPF LOG 
+	#
+	s/^(\d+)\/(\d+)\/\d+\s+(\d+)\:(\d+)\:(\d+)\.\d+\s+(\S+)\s+\S+\s\S+\s+([\d\.]+)\,(\d+)\s+\-\>\s+([\d\.]+)\,(\d+)\s+\S+\s+(\S+)*// ) {
+		$ipfilter = 1;
+		$alert->{MON} = $monthday{$2}; $alert->{DAY} = $1; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{HOST} = "local";  
+		$alert->{ETHER} = $6; $alert->{SADDR} = $7; $alert->{SPORT} = $8;  
+		$alert->{DADDR} = $9; $alert->{DPORT} = $10; $alert->{PROTO} = $11;
+		$alert->{TYPE} = "ipfilter";
+		$alert->{PLUGIN} = "alert";
+		record_data($alert);
+
+	#
+	# THIS IS SYSLOG ICMP/IGMP IPF LOG 
+	#
+	} elsif ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+ipmon\[\d+\]\:\s+\S+\s+(\S+)\s+\S+\s+\S+\s+([\d\.]+)\s+\-\>\s+([\d\.]+)\s+\S+\s+(\S+).*// ||
+	#
+	# OR THIS IS SYSLOG ICMP/IGMP IPF LOG 
+	#
+	s/^(\d+)\/(\d+)\/\d+\s+(\d+)\:(\d+)\:(\d+)\.\d+\s+(\S+)\s+\S+\s+\S+\s+([\d\.]+)\s+\-\>\s+([\d\.]+)\s+\S+\s+(\S+).*// ) {
+		$ipfilter = 1;
+		$alert->{MON} = $monthday{$2}; $alert->{DAY} = $1; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{HOST} = "local";  
+		$alert->{ETHER} = $6; $alert->{SADDR} = $7; $alert->{DADDR} = $8;
+		$alert->{PROTO} = $9;
+		$alert->{TYPE} = "ipfilter"; $alert->{PLUGIN} = "alert";
+		record_data($alert);
+	}
+}
+
+1;

@@ -1,0 +1,99 @@
+#
+# Rev   : 1.02
+# Date  : 04/05/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/05/2006 : Correct % bug
+#
+
+
+
+#
+# TO SEE THE POPULARITY OF ONE ATTACK METHOD
+#
+sub attack {
+my $description = $lang{"s4_". $val_opt_l};
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"attack\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Attack</td><td>Priority</td><td>Severity</td></tr>\n");
+	if ($opt_i == 1) {
+		foreach $k (sort { $s4{$a} <=> $s4{$b} } keys %s4) {
+			@_ = split ",",$k;
+			$STYLE = init_color($_[2]);
+			if ( ($link{$_[0]} =~ /(^.+),(.*$)/) && ($RULES == 1) ) {
+				$url = init_url($1);
+				printf FILEOUT ("<tr class=$STYLE><td>%2.2f</td><td>%-${nb_len}d</td><td><a href=$url$2 class=$STYLE target=_blank>%-${attack_len}s</a></td><td>%-${prior_len}d</td><td>%-${sever_len}s</td><td>%-20s</td></tr>\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			} else {
+				printf FILEOUT ("<tr class=$STYLE><td>%2.2f</td><td>%-${nb_len}d</td><td>%-${attack_len}s</td><td>%-${prior_len}d</td><td>%-${sever_len}s</td><td>%-20s</td></tr>\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			}
+		}
+	} else {
+		foreach $k (sort { $s4{$b} <=> $s4{$a} } keys %s4) {
+			@_ = split ",",$k;
+			$STYLE = init_color($_[2]);
+			if ( ($link{$_[0]} =~ /(^.+),(.*$)/ ) && ($RULES == 1) ) {
+				$url = init_url($1);
+				printf FILEOUT ("<tr class=$STYLE><td>%2.2f</td><td>%-${nb_len}d</td><td><a href=$url$2 class=$STYLE target=_blank>%-${attack_len}s</a></td><td>%-${prior_len}d</td><td>%-${sever_len}s</td></tr>\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			} else {
+				printf FILEOUT ("<tr class=$STYLE><td>%2.2f</td><td>%-${nb_len}d</td><td>%-${attack_len}s</td><td>%-${prior_len}d</td><td>%-${sever_len}s</td></tr>\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			}
+		}
+	}
+	print FILEOUT ("</table><BR>\n");
+#	close (FILEOUT);
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 13 + $nb_len + 4 + $attack_len + 4 + $prior_len + 4 + $sever_len;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". keys(%s4) ." of ". keys(%s4) ." ###\n");
+		print FILEOUT ("    %    No     Attack                                                           Priority Severity\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s4{$a} <=> $s4{$b} } keys %s4) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${attack_len}s  %-${prior_len}d %-${sever_len}s\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			}
+		} else {
+			foreach $k (sort { $s4{$b} <=> $s4{$a} } keys %s4) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${attack_len}s  %-${prior_len}d %-${sever_len}s\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			}
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {		
+		section_header("$description\n", "attack");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s4{$a} <=> $s4{$b} } keys %s4) {
+				@_ = split ",",$k;
+				printf("  %5.2f  %-${nb_len}d  %-${attack_len}s  %-${prior_len}d %-${sever_len}s\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			}
+		} else {
+			foreach $k (sort { $s4{$b} <=> $s4{$a} } keys %s4) {
+				@_ = split ",",$k;
+				printf("  %5.2f  %-${nb_len}d  %-${attack_len}s  %-${prior_len}d %-${sever_len}s\n", $s4{$k}/$total_log*100,$s4{$k},$_[0],$_[1],$_[2]); 
+				++$i;
+			}
+		}
+	}
+}
+}
+
+1;

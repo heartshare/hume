@@ -1,0 +1,61 @@
+#
+# Rev   : 1.01
+# Date  : 08/02/2005
+# By    : Jeremy Chartier
+#
+
+
+
+sub fw1_defense_attack {
+$i = 0;
+my $description = $lang{"s24_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s24) ) ) {
+	$n = keys %s24;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"defense_attack\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<TR CLASS=TH ALIGN=center><td>%</td><td>No</td><td>Attack</td><td>Info</td></tr>\n");
+        foreach $k (sort { $s24{$b} <=> $s24{$a} } keys %s24) {
+		@_ = split ",",$k;
+                printf FILEOUT ("<TR CLASS=TB><TD>%2.2f</TD><TD>%-${nb_len}d</TD><TD>%-30s</TD><TD>%-30s</TD></TR>\n", $s24{$k}/$total*100,$s24{$k},$_[0],$_[1]) if ( $i < $n );
+		++$i;
+        }
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 11 + $nb_len + 4 + $port_len + 4 +  $attack_len;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s24) ." ###\n");
+		print FILEOUT ("    %    No      SmartDefense Attack             Infos\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s100{$b} <=> $s100{$a} } keys %s24) {
+			@_ = split ",",$k;
+			printf FILEOUT ("  %5.2f  %-${nb_len}d  %-30s  %-30s\n", $s24{$k}/$total*100,$s24{$k},$_[0],$_[1]) if ( $i < $n );
+			++$i;
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "defense_attack");
+		foreach $k (sort { $s24{$b} <=> $s24{$a} } keys %s24) {
+			@_ = split ",",$k;
+			printf("  %5.2f  %-${nb_len}d  %-30s  %-30s\n", $s24{$k}/$total*100,$s24{$k},$_[0],$_[1]) if ( $i < $n );
+			++$i;
+		}	
+	}
+}
+}
+
+
+1;

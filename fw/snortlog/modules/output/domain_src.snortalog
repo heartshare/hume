@@ -1,0 +1,109 @@
+#
+# Rev   : 1.03
+# Date  : 10/05/2005
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 10/05/2005 : Modify abslute path for graph file
+#
+
+
+
+sub domain_src {
+$i=0;
+my $description = $lang{"s40_". $val_opt_l};
+foreach $k (sort { $s5{$b} <=> $s5{$a} } keys %s5) {
+	$host = resolve ($k);
+	$src_host = $host if ($host ne $k);
+	$src_host =~ /(\w+$)/;
+	$s40{"$1"}++;
+}
+$i=0;
+$max = 8;
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s40) ) ) {
+	$n = keys %s40;
+	$max = $n if ( keys %s40 < 8);
+} else {
+	$n = $val_opt_n;
+	$max = $n if ( keys %s40 < 8);
+}
+if ( $opt_o == 1 ) {
+	@list1 = ();
+	@list2 = ();
+	print FILEOUT ("<h3><CENTER><a name=\"domain_src\" HREF=\"#top\">$description</a><CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Domain</td></tr>\n");
+	if ($opt_i == 1) {
+		foreach $k (sort { $s40{$a} <=> $s40{$b} } keys %s40) {
+			if ( $i < $n ) {
+				$STYLE = init_color($k);
+				printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${domain_len}s</td></tr>\n", $s40{$k}/(keys %s5)*100,$s40{$k},$DomainName{$k});
+				push @list1 ,($s40{$k}) if ( $i < $max );
+				push @list2 ,("$k") if ( $i < $max );
+				++$i;
+			}
+		}
+	} else {
+		foreach $k (sort { $s40{$b} <=> $s40{$a} } keys %s40) {
+			if ( $i < $n ) {
+				$STYLE = init_color($k);
+				printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${domain_len}s</td></tr>\n", $s40{$k}/(keys %s5)*100,$s40{$k},$DomainName{$k});
+				push @list1 ,($s40{$k}) if ( $i < $max );
+				push @list2 ,("$k") if ( $i < $max );
+				++$i;
+			}
+		}
+	}
+	if ( $val_opt_g ne "" ) {
+		init_graph("domain","pie");
+		print FILEOUT ("</TABLE></TD><TD WIDTH=300 ALIGN=right><IMG SRC=".$filename._domain.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} else {
+		print FILEOUT ("</TABLE></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 11 + $domain_len;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s40) ." ###\n");
+		print FILEOUT ("    %    No      Domain\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		if ($opt_i == 1) {
+			foreach $l (sort { $s40{$a} <=> $s40{$b} } keys %s40) {
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${domain_len}s\n", $s40{$l}/(keys %s5)*100,$s40{$l},$DomainName{$l}) if ( $i < $n );
+				++$1;
+			}
+		} else {
+			foreach $l (sort { $s40{$b} <=> $s40{$a} } keys %s40) {
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${domain_len}s\n", $s40{$l}/(keys %s5)*100,$s40{$l},$DomainName{$l}) if ( $i < $n );
+				++$1;
+			}
+		}	
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {		
+		section_header("$description\n", "domain_src");
+		if ($opt{i}) {
+			foreach $l (sort { $s40{$a} <=> $s40{$b} } keys %s40) {
+				printf("  %5.2f  %-${nb_len}d  %-${domain_len}s\n", $s40{$l}/(keys %s5)*100,$s40{$l},$DomainName{$l}) if ( $i < $n );
+				++$i;
+			}
+		} else {
+			foreach $l (sort { $s40{$b} <=> $s40{$a} } keys %s40) {
+				printf("  %5.2f  %-${nb_len}d  %-${domain_len}s\n", $s40{$l}/(keys %s5)*100,$s40{$l},$DomainName{$l}) if ( $i < $n );
+				++$i;
+			}
+		}
+	}
+}
+}
+
+
+1;

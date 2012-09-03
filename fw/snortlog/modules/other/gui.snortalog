@@ -1,0 +1,890 @@
+#
+# Rev   : 1.05
+# Date  : 01/06/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 01/06/2011 : Update GUI code to work perfectly with the new GD librarie (Windows and Unix OS)
+# 04/25/2006 : Add NetScreen logs
+# 09/29/2005 : Add 'Select' and 'Exit" button on silter-s dialogs box
+#
+
+
+
+sub gui {
+
+
+
+	if ( $TK == 3 ) {
+	#
+	# Initialize variables before xload function
+	#
+	$logtotal = 0;
+	$logdrop = 0;
+	$logfw = 0;
+	$logids = 0;
+	$total = 0;
+
+	#
+	# Begin to construct the GUI
+	# Main Window
+	#
+	$top = new MainWindow ();
+  #$top = Tkx::widget->new(".");
+
+	$menu = $top->Menu;
+	$file_menu = $menu->cascade(-label => 'File', -tearoff => 0);
+	$reportsids_menu = $menu->cascade(-label => 'Reports', -tearoff => 0);
+#	$reportsfw_menu = $menu->cascade(-label => 'FW', -tearoff => 0);
+	$utils_menu = $menu->cascade(-label => 'Utils', -tearoff => 0);
+	$help_menu = $menu->cascade(-label => 'Help', -tearoff => 0);
+
+	$file_submenu = $top->Menu(-tearoff => 1, -menuitems => [
+		[command => "Exit", -command => sub { exit }, -accelerator => 'Alt+X' ],]);
+#		[command => "Exit", -command => sub { exit }],]);
+
+	$reportsids_submenu = $top->Menu(-tearoff => 1, -menuitems => [
+		[command => "IP Sources", -command => \&x_attack_src],
+		[command => "IP Destinations", -command => \&x_attack_dst],
+		[command => "IP Source <--> Attacks", -command => \&x_src_attack],
+		[command => "IP Desination <--> Attacks", -command => \&x_dst_attack],
+		[command => "Source <--> Destination <--> Attacks", -command => \&x_src_dst_attack],
+		[command => "Attacks", -command => \&x_attack],
+		[command => "Hour", -command => \&x_hour],
+		[command => "Classfication", -command => \&x_class],
+		[command => "Stateful", -command => \&x_stateful],
+		[command => "Nids", -command => \&x_nids],
+		[command => "Severity", -command => \&x_severity],
+		[command => "Daily Event", -command => \&x_daily_event],
+		[command => "Destination Port Attack", -command => \&x_dport],
+		[command => "Destination Port<--> Attack", -command => \&x_dport_attack],
+		[command => "Hour <--> Attacks", -command => \&x_same_hour_attack],
+		[command => "Domain Source", -command => \&x_domain_src],
+		[command => "Interfaces", -command => \&x_interfaces],
+		[command => "Protocols", -command => \&x_proto],
+		[command => "Portscans", -command => \&x_portscan],
+		[Separator => ""],
+		[command => "IP Source <--> Destination Port", -command => \&x_src_dport],
+		[command => "IP Destinations <--> Destination Port", -command => \&x_dst_dport],
+		[command => "Source <--> Destination <--> Destination Port", -command => \&x_src_dst_dport],
+		[command => "Source <--> Destination <--> Action", -command => \&x_src_dst_action],
+		[command => "Source <--> Destination <--> Reason", -command => \&x_src_dst_reason],
+		[command => "Zone Source <--> Zone Destination", -command => \&x_forward],
+		[command => "Actions", -command => \&x_actions],
+		[command => "Reasons", -command => \&x_reasons],
+		[command => "Rules", -command => \&x_rules],
+		[command => "FW1 SmartDefense Attack", -command => \&x_defense_attack],
+		[command => "Hardware Log Message", -command => \&x_pix_hwlog],
+		[command => "PIX IDS Log", -command => \&x_pix_idslog],
+		[Separator => ""],
+		[command => "Full Report", -command => \&report, -accelerator => 'Alt+R'],]);
+
+
+	$utils_submenu = $top->Menu(-tearoff => 1, -menuitems => [
+		[command => "~Clear Screen", -command => \&clear_screen, -accelerator => 'Alt+S' ],
+		[command => "~Reset Filter", -command => \&reset_filter, -accelerator => 'Alt+F' ],]);
+
+	$help_submenu = $top->Menu(-tearoff => 1,  -menuitems => [
+		[command => "~About", -command => \&about_dialog ],]);
+
+	$file_menu->configure(-menu => $file_submenu);
+	$reportsids_menu->configure(-menu => $reportsids_submenu);
+	$utils_menu->configure(-menu => $utils_submenu);
+	$help_menu->configure(-menu => $help_submenu);
+
+	$top -> bind ( '<Alt-Key-r>', \&report);
+	$top -> bind ( '<Alt-Key-s>', \&clear_screen);
+	$top -> bind ( '<Alt-Key-f>', \&reset_filter);
+	$top -> bind ( '<Alt-Key-q>', sub {exit} );
+
+	$note = $top->NoteBook()->place(-x => 10, -y => 5, -height => 485 );
+
+	$pagegen = $note->add("pagegen", label => 'Main');
+	$pagefilter = $note->add("filter", label => 'Filter');
+	$pageconf = $note->add("pageconf", label => 'Configuration');
+	$pagedebug = $note->add("pagedebug", label => 'Debug');
+	$pageresult = $note->add("pageresult", label => 'Result');
+
+
+	$cadre_load_option = $pagegen->Label(-width => 79, -height => 31, -relief => 'groove')->place(-x => 20 , -y => 20);
+	$label_work = $pagegen->Label( -text => 'Load Options')->place(-x => 25, -y => 10);
+
+	$button_load = $pagegen->Button( -text => 'Load ...', -width => 10, -command => \&x_load)->place(-x => 400, -y => 40);
+	$button_unload = $pagegen->Button( -text => 'Unload', -width => 10 , -command => \&x_unload)->place(-x => 400, -y => 70);
+
+	$optd = 0;                     # Starting value
+	$opt_d = $pagegen->Checkbutton ( -variable => \$optd, -text => 'Debug Mode')->place(-x => 400, -y => 120);
+	$listbox_load = $pagegen->Scrolled('Text', -width => 47, -height => 8, -bg => 'gray', -scrollbars => 'oe', -wrap =>'word')->place(-x => 30, -y => 40);
+	$optall = 1;                   # Starting value
+	$opt1 = 0;                     # Starting value
+	$opt2 = 0;                     # Starting value
+	$opt3 = 0;                     # Starting value
+	$opt4 = 0;                     # Starting value
+	$opt5 = 0;                     # Starting value
+	$opt6 = 0;                     # Starting value
+	$opt7 = 0;                     # Starting value
+	$opt8 = 0;                     # Starting value
+	$opt9 = 0;                     # Starting value
+	$opt10 = 0;                    # Starting value
+	$opt11 = 0;                    # Starting value
+	$opt12 = 0;                    # Starting value
+	$opt13 = 0;                    # Starting value
+	$opt14 = 0;                    # Starting value
+	$opt15 = 0;                    # Starting value
+	$opt16 = 0;                    # Starting value
+	$cadre_all = $pagegen->Label( -width => 75, -height => 18, -relief => 'groove')->place(-x => 30 , -y => 170);
+	$opt_all = $pagegen->Checkbutton ( -variable => \$optall, -text => 'All logs', -command => sub {$opt1=0;$opt2=0;$opt3=0;$opt4=0;$opt5=0;$opt6=0;$opt7=0;$opt8=0;$opt9=0;$opt10=0;$opt11=0;$opt12=0;$opt13=0;$opt14=0;$opt15=0;$opt16=0})->place(-x => 35, -y => 160);
+	$cadre_ids = $pagegen->Label( -width => 30, -height => 15, -relief => 'groove')->place(-x => 40 , -y => 190);
+	$label_ids = $pagegen->Label( -text => 'IDS/IPS')->place(-x => 45, -y => 180);
+	$cadre_fw = $pagegen->Label( -width => 30, -height => 15, -relief => 'groove')->place(-x => 275 , -y => 190);
+	$label_fw = $pagegen->Label( -text => 'FIREWALLS')->place(-x => 280, -y => 180);
+	
+
+	$opt_1 = $pagegen->Checkbutton ( -variable => \$opt1, -text => 'Snort fast', -command => sub {$optall = 0;})->place(-x => 60, -y => 230);
+	$opt_2 = $pagegen->Checkbutton ( -variable => \$opt2, -text => 'Snort syslog', -command => sub {$optall = 0;})->place(-x => 60, -y => 250);
+	$opt_3 = $pagegen->Checkbutton ( -variable => \$opt3, -text => 'Snort full', -command => sub {$optall = 0;})->place(-x => 60, -y => 270);
+	$opt_10 = $pagegen->Checkbutton ( -variable => \$opt9, -text => 'Barnyard Syslog', -command => sub {$optall = 0;})->place(-x => 60, -y => 290);
+	$opt_12 = $pagegen->Checkbutton ( -variable => \$opt12, -text => 'Barnyard Fast Log', -command => sub {$optall = 0;})->place(-x => 60, -y => 310);
+	$opt_14 = $pagegen->Checkbutton ( -variable => \$opt16, -text => 'TippingPoint', -command => sub {$optall = 0;})->place(-x => 60, -y => 330);
+
+	$opt_4 = $pagegen->Checkbutton ( -variable => \$opt4, -text => 'CheckPoint FW1 export', -command => sub {$optall = 0;})->place(-x => 290, -y => 210);
+	$opt_5 = $pagegen->Checkbutton ( -variable => \$opt5, -text => 'CheckPoint FW1 syslog', -command => sub {$optall = 0;})->place(-x => 290, -y => 230);
+	$opt_6 = $pagegen->Checkbutton ( -variable => \$opt6, -text => 'Cisco Pix', -command => sub {$optall = 0;})->place(-x => 290 , -y => 250);
+	$opt_7 = $pagegen->Checkbutton ( -variable => \$opt7, -text => 'IPFilter', -command => sub {$optall = 0;})->place(-x => 290, -y => 270);
+	$opt_8 = $pagegen->Checkbutton ( -variable => \$opt8, -text => 'NetFilter', -command => sub {$optall = 0;})->place(-x => 290, -y => 290);
+	$opt_9 = $pagegen->Checkbutton ( -variable => \$opt10, -text => 'PacketFilter', -command => sub {$optall = 0;})->place(-x => 290, -y => 310);
+	$opt_11 = $pagegen->Checkbutton ( -variable => \$opt11, -text => 'Lucent Brick Export', -command => sub {$optall = 0;})->place(-x => 290, -y => 330);
+	$opt_13 = $pagegen->Checkbutton ( -variable => \$opt13, -text => 'Juniper NetScreen', -command => sub {$optall = 0;})->place(-x => 290, -y => 350);
+
+
+
+	$label4 = $pagegen->Label( -width => 50, -height => 16, -relief => 'groove')->place(-x => 530, -y => 20);
+	$cadre_result_option = $pagegen->Label( -text => 'Result Options')->place(-x => 535, -y => 10);
+	$label5 = $pagegen->Label( -width => 50, -height => 13, -relief => 'groove')->place(-x => 530, -y => 250);
+	$cadre_html_option = $pagegen->Label( -text => 'Output Options')->place(-x => 535, -y => 240);
+
+	$optn = 0;                     # Starting value
+	$optw = 0;                     # Starting value
+	$optu = 0;                     # Starting value
+	$optg = 0;                     # Starting value
+	$opti = 0;                     # Starting value
+	$optr = 0;                     # Starting value
+	$optc = 0;                     # Starting value
+	$optd = 0;                     # Starting value
+	$nb_files = 0;			# Initialize nb-files variables for index
+	$types = [['html files', '.html'],['pdf files', '.pdf']];
+	$opt_i = $pagegen->Checkbutton ( -variable => \$opti, -text => 'Ascending Order')->place(-x => 600, -y => 40);
+	$opt_r = $pagegen->Checkbutton ( -variable => \$optr, -text => 'Resolve Addresses')->place(-x => 600, -y => 70);
+	$opt_c = $pagegen->Checkbutton ( -variable => \$optc, -text => 'Resolve Domain')->place(-x => 600, -y => 100);
+	$opt_n = $pagegen->Checkbutton ( -variable => \$optw, -text => 'Whois Database Informations')->place(-x => 600, -y => 130);
+	$scale_n = $pagegen->Scale(-from => 0, -to => 200, -resolution => 10, -label => 'Number of Occurences', -orient => 'horizontal', -length => 200)->place(-x => 600, -y => 160);
+	$scale_n->set(20);
+	$entry_option_o = $pagegen->Entry( -width => 15, -background => 'gray')->place(-x => 700, -y => 270);
+	$button_opto = $pagegen->Button( -text => 'Save as ...', -width => 10, -command => sub { $myfile = $top -> getSaveFile ( -filetypes => $types, -defaultextension => '.html', -initialfile => 'report', -title => 'SnortALog Report Output Save As'); $entry_option_o -> delete('0.0','end'); $entry_option_o -> insert('end', $myfile);})->place(-x => 560, -y => 270);
+	$label_option_g = $pagegen->Label( -text => "Graph Format")->place(-x => 560, -y => 330);
+	$optionmenu_g = $pagegen->Optionmenu( -textvariable => \$val_opt_g, -options => ['','gif','jpg','png'])->place(-x => 700, -y => 330);
+	$label_option_l = $pagegen->Label( -text => "Output Language")->place(-x => 560, -y => 360);
+	$optionmenu_l = $pagegen->Optionmenu( -textvariable => \$val_opt_l, -options => ['en','fr','ptBR'])->place(-x => 700, -y => 360);
+
+	$scrolled_result  = $pageresult->Scrolled( 'Text', -width => 120, -height => 35, -bg => 'gray', -scrollbars => 'e', -wrap =>'word')->pack;
+	$scrolled_debug  = $pagedebug->Scrolled( 'Text', -width => 120, -height => 35, -bg => 'gray', -scrollbars => 'e', -wrap =>'word')->pack;
+
+	$labelfilter = $pagefilter->Label( -width => 118, -height => 32, -relief => 'groove')->place(-x => 20, -y => 20);
+	$optfilter = 0;                     # Starting value
+	$opt_filter = $pagefilter->Checkbutton ( -variable => \$optfilter, -text => 'Use Filter')->place(-x => 25, -y => 10);
+	$label21 = $pagefilter->Label( -width => 55, -height => 13, -relief => 'groove')->place(-x => 40, -y => 50);
+	$label22 = $pagefilter->Label( -text => 'Time Filter')->place(-x => 45 , -y => 40);
+
+	$button_fhour = $pagefilter->Button( -text => 'Hour', -width => 10, -command => \&fhour_dialog)->place(-x => 60, -y => 80);
+	$entry_fhour = $pagefilter->Entry( -width => 13, -background => 'gray')->place(-x => 60, -y => 120);
+	$button_fday = $pagefilter->Button( -text => 'Day', -width => 10, -command => \&fday_dialog)->place(-x => 160, -y => 80);
+	$entry_fday = $pagefilter->Entry( -width => 13, -background => 'gray')->place(-x => 160, -y => 120);
+	$button_fmonth = $pagefilter->Button( -text => 'Month', -width => 10, -command => \&fmonth_dialog)->place(-x => 260, -y => 80);
+	$entry_fmonth = $pagefilter->Entry( -width => 13, -background => 'gray')->place(-x => 260, -y => 120);
+
+	$label23 = $pagefilter->Label( -width => 53, -height => 13, -relief => 'groove')->place(-x => 450, -y => 50);
+	$label24 = $pagefilter->Label( -text => 'IP Filter')->place(-x => 455 , -y => 40);
+
+	$button_fsrc = $pagefilter->Button( -text => 'IP Src', -width => 10, -command => \&fsrc_dialog)->place(-x => 470, -y => 70);
+	$entry_fsrc = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 70);
+	$button_fdst = $pagefilter->Button( -text => 'IP Dst', -width => 10, -command => \&fdst_dialog)->place(-x => 470, -y => 100);
+	$entry_fdst = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 100);
+	$button_fdport = $pagefilter->Button( -text => 'Port Dst', -width => 10, -command => \&fdport_dialog)->place(-x => 470, -y => 130);
+	$entry_fdport = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 130);
+	$button_fhost = $pagefilter->Button( -text => 'Logger', -width => 10, -command => \&fhost_dialog)->place(-x => 470, -y => 160);
+	$entry_fhost = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 160);
+
+	$label25 = $pagefilter->Label( -width => 55, -height => 13, -relief => 'groove')->place(-x => 40, -y => 250);
+	$label26 = $pagefilter->Label( -text => 'Other Filter')->place(-x => 45 , -y => 240);
+
+
+	$label27 = $pagefilter->Label( -width => 53, -height => 13, -relief => 'groove')->place(-x => 450, -y => 250);
+	$label28 = $pagefilter->Label( -text => 'Firewall Filter')->place(-x => 455 , -y => 240);
+
+	$button_fproto = $pagefilter->Button( -text => 'Protocol', -width => 10, -command => \&fproto_dialog)->place(-x => 60, -y => 270);
+	$entry_fproto = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 180, -y => 270);
+	$button_fether = $pagefilter->Button( -text => 'Interface', -width => 10, -command => \&fether_dialog)->place(-x => 60, -y => 300);
+	$entry_fether = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 180, -y => 300);
+	$button_ftype = $pagefilter->Button( -text => 'Type', -width => 10, -command => \&ftype_dialog)->place(-x => 60, -y => 330);
+	$entry_ftype = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 180, -y => 330);
+	$button_fseverity = $pagefilter->Button( -text => 'Severity', -width => 10, -command => \&fseverity_dialog)->place(-x => 60, -y => 360);
+	$entry_fseverity = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 180, -y => 360);
+	$button_fclass = $pagefilter->Button( -text => 'Class', -width => 10, -command => \&fclass_dialog)->place(-x => 60, -y => 390);
+	$entry_fclass = $pagefilter->Entry( -width => 33, -background => 'gray')->place(-x => 180, -y => 390);
+
+
+	$button_frule = $pagefilter->Button( -text => 'Rule', -width => 10, -command => \&frule_dialog)->place(-x => 470, -y => 270);
+	$entry_frule = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 270);
+	$button_faction = $pagefilter->Button( -text => 'Action', -width => 10, -command => \&faction_dialog)->place(-x => 470, -y => 300);
+	$entry_faction = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 300);
+	$button_freason = $pagefilter->Button( -text => 'Reason', -width => 10, -command => \&freason_dialog)->place(-x => 470, -y => 330);
+	$entry_freason = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 330);
+	$button_fsrczone = $pagefilter->Button( -text => 'Zone Src', -width => 10, -command => \&fzonesrc_dialog)->place(-x => 470, -y => 360);
+	$entry_fzonesrc = $pagefilter->Entry( -width => 15, -background => 'gray')->place(-x => 600, -y => 360);
+	$button_fdstzone = $pagefilter->Button( -text => 'Zone Dst', -width => 10, -command => \&fzonedst_dialog)->place(-x => 470, -y => 390);
+	$entry_fzonedst = $pagefilter->Entry ( -width => 15, -background => 'gray')->place(-x => 600, -y => 390);
+
+
+
+	$label_domains_file = $pageconf->Label( -text => 'Path to Domain File :')->place(-x => 30, -y => 40);
+	$entry_domains_file = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 40);
+	$entry_domains_file->insert('end', "$domains_file");
+	$label_rules_file = $pageconf->Label( -text => 'Path to Rules File :')->place(-x => 30, -y => 80);
+	$entry_rules_file = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 80);
+	$entry_rules_file->insert('end', "$rules_file");
+	$label_hw_file = $pageconf->Label( -text => 'Path to Hardware Related File :')->place(-x => 30, -y => 120);
+	$entry_hw_file = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 120);
+	$entry_hw_file->insert('end', "$hw_file");
+	$label_langfile_directory = $pageconf->Label( -text => 'Path to Language File :')->place(-x => 30, -y => 160);
+	$entry_langfile_directory = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 160);
+	$entry_langfile_directory->insert('end', "$lang_file");
+#	$label_html_directory = $pageconf->Label( -text => 'Specify the Output Directory :')->place(-x => 30, -y => 200);
+#	$entry_html_directory = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 200);
+#	$entry_html_directory->insert('end', "$html_directory");
+#	$label_dbm_directory = $pageconf->Label( -text => 'Specify the DBM Directory :')->place(-x => 30, -y => 240);
+#	$entry_dbm_directory = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 240);
+#	$entry_dbm_directory->insert('end', "$dbm_directory");
+#	$label_tmpout_file = $pageconf->Label( -text => 'Specify the Tempory File :')->place(-x => 30, -y => 280);
+#	$entry_tmpout_file = $pageconf->Entry( -width => 30, -background => 'gray')->place(-x => 250, -y => 280);
+#	$entry_tmpout_file->insert('end', "$tmpout_file");
+
+	$statusbar = $top -> Entry ( -relief => 'ridge');
+	$statusbar -> insert ('0','Ready');
+	$statusbar -> pack ( -side => 'bottom', -fill => 'both');
+#        $statusmessage = $top -> Balloon();
+#        $statusmessage -> attach ($xload, -balloonmsg => 'TEST', -state => 'balloon');
+
+#$bulle_aide = $pagegen -> Balloon ( ) ;
+#$bulle_aide -> attach (
+#                        \$x_load ,
+#                        -balloonmsg => 'Cliquer pour quitter' ,
+#                        -statusbar => $statusbar ,
+#                        -statusmsg => "C'est ici que l'on quitte" ,
+#                        -state => 'status'
+#                ) ;
+
+
+
+	$top->configure( -title => "SnortALog V$version", -menu => $menu);
+	$top->geometry("895x515");
+	MainLoop();
+	} else {
+		print "GUI not available, please to check your installation !!!\n";
+		print "\n";
+		print "Uncomment this variables :\n";
+		print "\tuse Tk; \$TK = 1;\n";
+		print "\tuse Tk::NoteBook; \$TK = 2;\n";
+		print "\n";
+		print "And verify you have the good perl libraries.\n";
+	}
+}
+
+
+
+
+sub about_dialog {
+    my ( $about_dialogue ) ;
+
+    $about_dialogue = $top -> Dialog (
+                -title => 'About SnortALog' ,
+		-bitmap => 'info',
+                -text => 'SnortALog Release V'. $version .' - '. $datever);
+
+    $about_dialogue -> Show ( ) ;
+}
+
+
+
+sub error_dialog {
+	$error_dialogue = $top -> Dialog ( -title => 'Error',
+					-text => 'You need to select a value',
+					-bitmap => 'error' );
+	$error_dialogue -> Show ( );
+}
+
+
+
+
+sub fproto_dialog {
+	my ($selection,$data);
+	$fproto_dialogue = $top -> Dialog ( -title => 'Protocol Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fproto = $fproto_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fproto) {
+		$l_fproto -> insert('end', $data);
+	}
+
+	$l_fproto -> pack();
+	$response = $fproto_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fproto -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fproto = $l_fproto -> get ($selection);
+			$entry_fproto -> delete('0.0','end');
+			$entry_fproto -> insert('end', $val_opt_fproto);
+		}
+	}
+}
+
+
+sub fether_dialog {
+	my ($selection,$data);
+	$fether_dialogue = $top -> Dialog ( -title => 'Ethernet Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fether = $fether_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fether) {
+		$l_fether -> insert('end', $data);
+	}
+
+	$l_fether -> pack();
+	$response = $fether_dialogue -> Show ( );
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fether -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fether = $l_fether -> get ($selection);
+			$entry_fether -> delete('0.0','end');
+			$entry_fether -> insert('end', $val_opt_fether);
+		}
+	}
+}
+
+
+sub fsrc_dialog {
+	my ($selection,$data);
+	$fsrc_dialogue = $top -> Dialog ( -title => 'Source Address Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fsrc = $fsrc_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 20 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fsrc) {
+		$l_fsrc -> insert('end', $data);
+	}
+
+	$l_fsrc -> pack();
+	$response = $fsrc_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fsrc -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fsrc = $l_fsrc -> get ($selection);
+			$entry_fsrc -> delete('0.0','end');
+			$entry_fsrc -> insert('end', $val_opt_fsrc);
+		}
+	}
+}
+
+
+sub fdst_dialog {
+	my ($selection,$data);
+	$fdst_dialogue = $top -> Dialog ( -title => 'Destination Address Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fdst = $fdst_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 20 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fdst) {
+		$l_fdst -> insert('end', $data);
+	}
+
+	$l_fdst -> pack();
+	$response = $fdst_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fdst -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fdst = $l_fdst -> get ($selection);
+			$entry_fdst -> delete('0.0','end');
+			$entry_fdst -> insert('end', $val_opt_fdst);
+		}
+	}
+}
+
+
+sub fdport_dialog {
+	my ($selection,$data);
+	$fdport_dialogue = $top -> Dialog ( -title => 'Destination Port Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fdport = $fdport_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fdport) {
+		$l_fdport -> insert('end', $data);
+	}
+
+	$l_fdport -> pack();
+	$response = $fdport_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fdport -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fdport = $l_fdport -> get ($selection);
+			$entry_fdport -> delete('0.0','end');
+			$entry_fdport -> insert('end', $val_opt_fdport);
+		}
+	}
+}
+
+
+sub fhost_dialog {
+	my ($selection,$data);
+	$fhost_dialogue = $top -> Dialog ( -title => 'Logger Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fhost = $fhost_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fhost) {
+		$l_fhost -> insert('end', $data);
+	}
+
+	$l_fhost -> pack();
+	$response = $fhost_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fhost -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fhost = $l_fhost -> get ($selection);
+			$entry_fhost -> delete('0.0','end');
+			$entry_fhost -> insert('end', $val_opt_fhost);
+		}
+	}
+}
+
+
+sub faction_dialog {
+	my ($selection,$data);
+	$faction_dialogue = $top -> Dialog ( -title => 'Action Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_faction = $faction_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_faction) {
+		$l_faction -> insert('end', $data);
+	}
+
+	$l_faction -> pack();
+	$response = $faction_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_faction -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_faction = $l_faction -> get ($selection);
+			$entry_faction -> delete('0.0','end');
+			$entry_faction -> insert('end', $val_opt_faction);
+		}
+	}
+}
+
+sub freason_dialog {
+	my ($selection,$data);
+	$freason_dialogue = $top -> Dialog ( -title => 'Reason Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_freason = $freason_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_freason) {
+		$l_freason -> insert('end', $data);
+	}
+
+	$l_freason -> pack();
+	$response = $freason_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_freason -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_freason = $l_freason -> get ($selection);
+			$entry_freason -> delete('0.0','end');
+			$entry_freason -> insert('end', $val_opt_freason);
+		}
+	}
+}
+
+
+sub fzonesrc_dialog {
+	my ($selection,$data);
+	$fzonesrc_dialogue = $top -> Dialog ( -title => 'Zone Src Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fzonesrc = $fzonesrc_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fzonesrc) {
+		$l_fzonesrc -> insert('end', $data);
+	}
+
+	$l_fzonesrc -> pack();
+	$response = $fzonesrc_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fzonesrc -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fzonesrc = $l_fzonesrc -> get ($selection);
+			$entry_fzonesrc -> delete('0.0','end');
+			$entry_fzonesrc -> insert('end', $val_opt_fzonesrc);
+		}
+	}
+}
+
+
+sub fzonedst_dialog {
+	my ($selection,$data);
+	$fzonedst_dialogue = $top -> Dialog ( -title => 'Zone Dst Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fzonedst = $fzonedst_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fzonedst) {
+		$l_fzonedst -> insert('end', $data);
+	}
+
+	$l_fzonedst -> pack();
+	$response = $fzonedst_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fzonedst -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fzonedst = $l_fzonesrc -> get ($selection);
+			$entry_fzonedst -> delete('0.0','end');
+			$entry_fzonedst -> insert('end', $val_opt_fzonedst);
+		}
+	}
+}
+
+
+sub frule_dialog {
+	my ($selection,$data);
+	$frule_dialogue = $top -> Dialog ( -title => 'Rule Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_frule = $frule_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_frule) {
+		$l_frule -> insert('end', $data);
+	}
+
+	$l_frule -> pack();
+	$response = $frule_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_frule -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_frule = $l_frule -> get ($selection);
+			$entry_frule -> delete('0.0','end');
+			$entry_frule -> insert('end', $val_opt_frule);
+		}
+	}
+}
+
+
+sub ftype_dialog {
+	my ($selection,$data);
+	$ftype_dialogue = $top -> Dialog ( -title => 'Type Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_ftype = $ftype_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+		    -width => '45',
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_ftype) {
+		$l_ftype -> insert('end', $data);
+	}
+
+	$l_ftype -> pack();
+	$response = $ftype_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_ftype -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_ftype = $l_ftype -> get ($selection);
+			$entry_ftype -> delete('0.0','end');
+			$entry_ftype -> insert('end', $val_opt_ftype);
+		}
+	}
+}
+
+
+sub fseverity_dialog {
+	my ($selection,$data);
+	$fseverity_dialogue = $top -> Dialog ( -title => 'Severity Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fseverity = $fseverity_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fseverity) {
+		$l_fseverity -> insert('end', $data);
+	}
+
+	$l_fseverity -> pack();
+	$response = $fseverity_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fseverity -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fseverity = $l_fseverity -> get ($selection);
+			$entry_fseverity -> delete('0.0','end');
+			$entry_fseverity -> insert('end', $val_opt_fseverity);
+		}
+	}
+}
+
+
+sub fhour_dialog {
+	my ($selection,$data);
+	$fhour_dialogue = $top -> Dialog ( -title => 'Hour Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fhour = $fhour_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fhour) {
+		$l_fhour -> insert('end', $data);
+	}
+
+	$l_fhour -> pack();
+	$response = $fhour_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fhour -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fhour = $l_fhour -> get ($selection);
+			$entry_fhour -> delete('0.0','end');
+			$entry_fhour -> insert('end', $val_opt_fhour);
+		}
+	}
+}
+
+
+sub fday_dialog {
+	my ($selection,$data);
+	$fday_dialogue = $top -> Dialog ( -title => 'Day Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fday = $fday_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fday) {
+		$l_fday -> insert('end', $data);
+	}
+
+	$l_fday -> pack();
+	$response = $fday_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fday -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fday = $l_fday -> get ($selection);
+			$entry_fday -> delete('0.0','end');
+			$entry_fday -> insert('end', $val_opt_fday);
+		}
+	}
+}
+
+sub fmonth_dialog {
+	my ($selection,$data);
+	$fmonth_dialogue = $top -> Dialog ( -title => 'Month Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fmonth = $fmonth_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fmonth) {
+		$l_fmonth -> insert('end', $data);
+	}
+
+	$l_fmonth -> pack();
+	$response = $fmonth_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fmonth -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fmonth = $l_fmonth -> get ($selection);
+			$entry_fmonth -> delete('0.0','end');
+			$entry_fmonth -> insert('end', $val_opt_fmonth);
+		}
+	}
+}
+
+
+sub fclass_dialog {
+	my ($selection,$data);
+	$fclass_dialogue = $top -> Dialog ( -title => 'Classification Filter',
+					-default_button => 'Exit',
+					-buttons => ['Select', 'Exit'] );
+
+	$l_fclass = $fclass_dialogue -> Scrolled ( "Listbox" ,
+                    -scrollbars => 'oe' ,
+                    -selectmode => 'single' ,
+                    -width => 55 ,
+                    -height => 10 ,
+                    -setgrid => 1
+                ) ;
+	
+	foreach $data (@data_fclass) {
+		$l_fclass -> insert('end', $data);
+	}
+
+	$l_fclass -> pack();
+	$response = $fclass_dialogue -> Show ( ) ;
+
+	if ( $response eq 'Select' ) {
+		$selection = $l_fclass -> curselection ();
+		if ( $selection eq "" ) {
+			error_dialog();
+		} else {
+			$val_opt_fclass = $l_fclass -> get ($selection);
+			$entry_fclass -> delete('0.0','end');
+			$entry_fclass -> insert('end', $val_opt_fclass);
+		}
+	}
+}
+
+
+
+1;

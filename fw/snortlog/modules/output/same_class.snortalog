@@ -1,0 +1,75 @@
+#
+# Rev   : 1.02
+# Date  : 02/02/2011
+# By    : Jeremy Chartier
+#
+# Modifications
+# 02/02/2011 : Output improvments
+#
+
+
+
+
+# to see the popularity of one source host 
+sub same_class {
+my $description = $lang{"s10_". $val_opt_l};
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"same_class\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Classification</td><td>Severity</td></tr>\n");
+	if ($opt_i == 1) {
+		foreach $k (sort { $s10{$a} <=> $s10{$b} } keys %s10) {
+			@_ = split ",",$k;
+			$STYLE = init_color($_[1]);
+			printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${class_len}s</td><td>%-${server_len}s</td></tr>\n", $s10{$k}/$total*100,$s10{$k},$_[0],$_[1]); 
+		}
+	} else {
+		foreach $k (sort { $s10{$b} <=> $s10{$a} } keys %s10) {
+			@_ = split ",",$k;
+			$STYLE = init_color($_[1]);
+			printf FILEOUT ("<tr class=$STYLE><td>%-2.2f</td><td>%-${nb_len}d</td><td>%-${class_len}s</td><td>%-${server_len}s</td></tr>\n", $s10{$k}/$total*100,$s10{$k},$_[0],$_[1]); 
+		}
+	}
+	print FILEOUT ("</table><BR>\n");
+#	close (FILEOUT);
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		section_header("$description\n", "xsame_class");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s10{$a} <=> $s10{$b} } keys %s10) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${class_len}s  %-${server_len}s\n", $s10{$k}/$total*100,$s10{$k},$_[0],$_[1]); 
+			}
+		} else {
+			foreach $k (sort { $s10{$b} <=> $s10{$a} } keys %s10) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${class_len}s  %-${sever_len}s\n", $s10{$k}/$total*100,$s10{$k},$_[0],$_[1]); 
+			}
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {		
+		section_header("$description\n", "same_class");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s10{$a} <=> $s10{$b} } keys %s10) {
+				@_ = split ",",$k;
+				printf("  %5.2f  %-${nb_len}d  %-${class_len}s  %-${server_len}s\n", $s10{$k}/$total*100,$s10{$k},$_[0],$_[1]); 
+			}
+		} else {
+			foreach $k (sort { $s10{$b} <=> $s10{$a} } keys %s10) {
+				@_ = split ",",$k;
+				printf("  %5.2f  %-${nb_len}d  %-${class_len}s  %-${sever_len}s\n", $s10{$k}/$total*100,$s10{$k},$_[0],$_[1]); 
+			}
+		}
+	}
+}
+}
+
+1;

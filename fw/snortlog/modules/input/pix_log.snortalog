@@ -1,0 +1,86 @@
+#
+# Rev   : 1.03
+# Date  : 05/07/2007
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 05/07/2007 : Bug correction 
+# 04/02/2007 : Add syslog log detection
+#
+
+sub pix_log  {
+
+
+
+	#
+	# THIS IS HEADER SYSLOG PIX LOG
+	#
+	if ( $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+\w{3}\s+\d+\s+\d+\s+\S+\s+\S+\s+\:?\s+(\%PIX-(\d)-\d+):\s+// ) {
+		$pix = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{HOST} = $6;  
+		$alert->{REASON} = "$pixlog{$8} Messages"; $alert->{TYPE} = "Pix Alert";
+		$alert->{PLUGIN} = "alert"; $alert->{SEVERITY} = $pixlog{$8}; $alert->{PRIORITY} = $8;
+
+		print "$7\n";
+		#
+		# THIS IS A HARDWARE RELATED MESSAGE
+		#
+		if ( $hw{$7} && ($7 ne "%PIX-4-106023") && ($7 ne "%PIX-3-106011") ) {
+			$alert->{HW_INFO} = $hw{$7}; $alert->{TYPE} = "Pix System Message"; $alert->{PLUGIN} = "alerthw";
+		}
+
+
+
+
+	#
+	# THIS IS HEADER LOCAL PIX LOG
+	#
+	#if (  $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+\S+\s+\w{3}\s+\d+\s+\d+\s+\S+\s+\S+\s+\:?\s+(\%PIX-(\d)-\d+):\s+// || $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+\S+\s+\w{3}\s+\d+\s+\d+\s+\S+\s+\:?(\%PIX-(\d)-\d+):\s+// || $_ =~s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+\S+\s+\:?(\%PIX-(\d)-\d+):\s+// ) {
+	} elsif (  $_ =~ s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+\S+\s+\w{3}\s+\d+\s+\d+\s+\S+\s+\:?(\%PIX-(\d)-\d+):\s+// || $_ =~s/^(\w{3})\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+\S+\s+\:?(\%PIX-(\d)-\d+):\s+// ) {
+		$pix = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2; $alert->{HOUR} = $3; 
+		$alert->{MIN} = $4; $alert->{SEC} = $5; $alert->{HOST} = "localhost";  
+		$alert->{REASON} = "$pixlog{$7} Messages"; $alert->{TYPE} = "Pix Alert";
+		$alert->{PLUGIN} = "alert"; $alert->{SEVERITY} = $pixlog{$7}; $alert->{PRIORITY} = $7;
+
+		#
+		# THIS IS A HARDWARE RELATED MESSAGE
+		#
+		if ( $hw{$6} && ($6 ne "%PIX-4-106023") && ($7 ne "%PIX-3-106011") ) {
+			$alert->{HW_INFO} = $hw{$6}; $alert->{TYPE} = "Pix System Message"; $alert->{PLUGIN} = "alerthw";
+		}
+
+
+		#
+		# ELSE THIS IS NORMAL DROP
+		#
+		if ( $_ =~ s/(\w+)\s+(\w+|\d+)\s+src\s\w+\:([\d\.]+)\/(\d+|\w+\-\_)\s+dst\s+\w+\:([\d\.]+)\/(\d+|\w+\-\_)\s+// || $_ =~ s/(\w+)\s+\w+\s\(No\sxlate\)\s(\w+|\d+)\s+src\s\w+\:([\d\.]+)\/(\d+|\w+\-\_)\s+dst\s+\w+\:([\d\.]+)\/(\d+|\w+\-\_)// ) {
+			$alert->{ACTION} = $1;
+			$alert->{PROTO} = $2; $alert->{SADDR} = $3; $alert->{SPORT} = $4; $alert->{DADDR} = $5;
+			$alert->{DPORT} = $6; $alert->{SIG} = "Pix log";
+		}
+		if ( $_ =~ s/(\w+)\s+(\w+|\d+)\s+src\s\w+\:([\d\.]+)\s+dst\s+\w+\:([\d\.]+)\s+\(type\s(\d+),\scode\s(\d+)\)// ) {
+			$alert->{ACTION} = $1;
+			$alert->{PROTO} = $2; $alert->{SADDR} = $3; $alert->{SPORT} = "$5/$6"; $alert->{DADDR} = $4;
+			$alert->{DPORT} = "$5/$6"; $alert->{SIG} = "Pix log";
+		}
+
+		if ( $_ =~ s/(Deny\sIP\sspoof)\sfrom\s\([\d\.]+\)\sto\s([\d\.]+)// ) {
+			$alert->{ACTION} = "Other"; $alert->{SIG} = $1;
+			$alert->{TYPE} = "Pix Spoof Alert"
+		}
+
+		#
+		# EXCEPT THIS ONE. PSEUDO IDS PIX LOG
+		#
+		if ( $_ =~ s/(IDS:.+)from\s+([\d\.]+)\s+to\s+([\d\.]+).+$// ) {
+			$alert->{ACTION} = "IDS"; $alert->{SIG} = $1;
+			$alert->{SADDR} = $2; $alert->{DADDR} = $3;
+			$alert->{DPORT} = 0; $PIX = 1;
+		}
+		record_data($alert); next;
+	}
+}
+
+1;

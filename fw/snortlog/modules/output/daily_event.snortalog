@@ -1,0 +1,156 @@
+#
+# Rev   : 1.04
+# Date  : 02/08/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/08/2006 : Modify division for %
+# 08/31/2005 : Change day's lenght and type to permit new daily_event sorting
+# 10/05/2005 : Modify abslute path for graph file
+#
+
+
+sub daily_event {
+$max = 0;
+my $description = $lang{"s19_". $val_opt_l};
+if ( $opt_o == 1) {
+	@list1 = ();
+	@list2 = ();
+	print FILEOUT ("<h3><CENTER><a name=\"daily_event\" HREF=\"#top\">$description</a></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>Day</td><td>Month</td><td>No</td><td>%</td><td>Graph</td></tr>\n");
+
+	foreach $k (%s19) {
+		$max = $s19{$k} if ($s19{$k} > $max);
+	}
+	my $ratio = $max/$total_log*100;
+	foreach $k (sort { substr($a,3,2).substr($a,0,3) <=> substr($b,3,2).substr($b,0,3) } keys %s19) {
+		@_ = split ",",$k;
+		my $num = $s19{$k}/$total_log*(40000/$ratio);
+		printf FILEOUT ("<TR CLASS=TB><TD>%-3s</TD><TD>%-3s</TD><TD>%-${nb_len}d</TD><TD>%-2.2f</TD><TD WIDTH=$num><HR NOSHADE ALIGN=LEFT SIZE=10 COLOR=#CCCCCC WIDTH=%3d ></TD></TR>\n",$_[0],$_[1],$s19{$k},$s19{$k}/$total_log*100,$num);
+		push @list1 ,($s19{$k});
+		push @list2 ,("$_[0]");
+	}
+
+ 	if ( $val_opt_g ne "" ) {
+		init_graph("days1","area");
+		print FILEOUT ("<BR><TABLE BORDER=0 ALIGN=center><TR><TD><IMG SRC=".$filename._days1.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	} else {
+		print FILEOUT ("</TABLE><BR>\n");
+	}
+
+
+	if (( $logids gt 0 ) and ( $val_opt_g ne "" )) {
+		$compt = 1;	
+		foreach $k (sort { $a <=> $b } keys %s15) {
+			@_ = split ",",$k;
+			$beforeday = $_[0];
+			$belowday = $beforeday if ( $compt == 1 );
+			if ( $belowday < $beforeday ) {
+				if ( $low ) {
+					push @listlow ,($low);
+					undef $low;
+				} else {
+					push @listlow ,(0);
+				}
+				if ( $medium ) {
+					push @listmedium ,($medium);
+					undef $medium;
+				} else {
+					push @listmedium ,(0);
+				}
+				if ( $high ) {
+					push @listhigh ,($high);
+					undef $high;
+				} else {
+					push @listhigh ,(0);
+				}
+				if ( $unknown ) {
+					push @listunknown ,($unknown);
+					undef $unknown;
+				} else {
+					push @listunknown ,(0);
+				}
+			}
+			if ( $_[2] eq "low") {
+				$low = $s15{$k};
+			} elsif ( $_[2] eq "medium" ) {
+				$medium = $s15{$k};
+			} elsif ( $_[2] eq "high" ) {
+				$high = $s15{$k};
+			} elsif ( $_[2] eq "unknown" ) {
+				$unknown = $s15{$k};
+			}
+			$belowday = $beforeday;
+			$compt ++;
+		}
+		if ( $low ) {
+			push @listlow ,($low);
+			undef $low;
+		} else {
+			push @listlow ,(0);
+		}
+		if ( $medium ) {
+			push @listmedium ,($medium);
+			undef $medium;
+		} else {
+			push @listmedium ,(0);
+		}
+		if ( $high ) {
+			push @listhigh ,($high);
+			undef $high;
+		} else {
+			push @listhigh ,(0);
+		}
+		if ( $unknown ) {
+			push @listunknown ,($unknown);
+			undef $unknown;
+		} else {
+			push @listunknown ,(0);
+		}
+		init_graph("days2","bars");
+		print FILEOUT ("<TABLE BORDER=0 ALIGN=center><TR><TD><IMG SRC=".$filename._days2.".".$val_opt_g."></TD></TR></TABLE><BR>\n");
+	}
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		$linelength = 20 + $nb_len + 6 + $graph_len;
+		print FILEOUT ("$description\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". keys(%s19) ." of ". keys(%s19) ." ###\n");
+		print FILEOUT (" Day Month    No        %    Graph\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (%s19) {
+			$max = $s19{$k} if ($s19{$k} > $max);
+		}
+		$ratio = $max/$total_log*100;
+		foreach $k (sort { substr($a,3,2).substr($a,0,3) <=> substr($b,3,2).substr($b,0,3) } keys %s19) {
+			@_ = split ",",$k;
+			$num = $s19{$k}/$total_log*50*(100 / $ratio);
+			printf FILEOUT ("  %-3s   %-3s   %-${nb_len}d  %5.2f  %-${graph_len}s\n", $_[0],$_[1],$s19{$k},$s19{$k}/$total_log*100, '#' x $num);
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+
+	} else {
+		foreach $k (%s19) {
+			$max = $s19{$k} if ($s19{$k} > $max);
+		}
+		$ratio = $max/$total_log*100;
+		section_header("$description\n", "daily_event");
+		foreach $k (sort { substr($a,3,2).substr($a,0,3) <=> substr($b,3,2).substr($b,0,3) } keys %s19) {
+			@_ = split ",",$k;
+			$num = $s19{$k}/$total_log*50*(100 / $ratio);
+			printf("  %-3s   %-3s   %-${nb_len}d  %5.2f  %-${graph_len}s\n", $_[0],$_[1],$s19{$k},$s19{$k}/$total_log*100, '#' x $num);
+		}
+	}
+}
+}
+
+1;

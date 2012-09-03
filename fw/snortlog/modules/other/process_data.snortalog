@@ -1,0 +1,107 @@
+#
+# Rev   : 1.08
+# Date  : 02/28/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/28/2011 : Modify report for interface
+# 04/21/2006 : Add forward report for firewall logs
+# 04/19/2006 : Add same_src_dst_action report for firewall logs
+# 04/19/2006 : Add same_src_dst_reason report for firewall logs
+# 04/18/2006 : Add same_src_dst_dport report for firewall logs
+# 02/08/2006 : Add filter to not load log with empty parameter
+# 08/31/2005 : Change hash table s19 for daily_event
+# 09/26/2005 : Correct bug for Sevrity Graph
+#
+
+
+
+sub process_data {
+		
+		
+		# for the same pair of attacker and victim with same attack
+		# used in same_src_dst_attack()
+		$s0{"$alert->{DADDR},$alert->{SADDR},$alert->{SIG}"}++ if ( ($alert->{DADDR} && $alert->{SADDR} && $alert->{SIG}) ne "" );
+		# used in ether()
+		$s1{"$alert->{ETHER},$alert->{HOST}"}++;
+		# used in same_src_attack()
+		$s2{"$alert->{SIG},$alert->{SADDR},$alert->{SEVERITY}"}++ if ( ($alert->{SIG} && $alert->{SADDR} && $alert->{SEVERITY}) ne "" );
+		# to same victim with same method
+		# to see how many attacks received by one host
+		# used in same_dest_attack()
+		$s3{"$alert->{SIG},$alert->{DADDR},$alert->{SEVERITY}"}++ if ( ($alert->{SIG} && $alert->{DADDR} && $alert->{SEVERITY}) ne "");
+		# same signature
+		# to see the popularity of one attack method
+		# used in attack()
+		$s4{"$alert->{SIG},$alert->{PRIORITY},$alert->{SEVERITY}"}++ if ( ($alert->{SIG} && $alert->{PRIORITY} && $alert->{SEVERITY}) ne "" );
+		# used in attack_src()
+		$s5{"$alert->{SADDR}"}++ if ( $alert->{SADDR} ne "" );
+		# used by attack_dst() 
+		$s6{"$alert->{DADDR}"}++ if ( $alert->{DADDR} ne "" );
+		# used by hour()
+		$s7{"$alert->{HOUR}"}++;
+		# used by hour()
+		$s8{"$alert->{HOUR},$alert->{SEVERITY}"}++ if ( ($alert->{HOUR} != "") && ($alert->{SEVERITY} ne "") );
+		# use by same_hour_attack()
+		$s9{"$alert->{HOUR},$alert->{SIG}"}++ if ( ($alert->{HOUR} != "") && ($alert->{SIG} ne "") );
+		# used by same_class() 
+		$s10{"$alert->{CLASS},$alert->{SEVERITY}"}++ if ( ($alert->{CLASS} && $alert->{SEVERITY}) ne "" );
+		# use by proto()
+		$s11{"$alert->{PROTO}"}++ if ( $alert->{PROTO} ne "" );
+		# used by reasons()
+		$s12{"$alert->{REASON}"}++ if ( $alert->{REASON} ne "" );
+		# use by nids()
+		$s13{"$alert->{HOST}"}++;
+		# use by actions()
+		$s14{"$alert->{ACTION}"}++ if ( $alert->{ACTION} ne "" );
+		# use by daily_event() $s15{"$alert->{DAY},$alert->{HOUR},$alert->{DPORT}"}++ if ( ($alert->{DAY} && $alert->{HOUR} && $alert->{DPORT}) ne "" );
+		$s15{"$alert->{DAY},$alert->{HOUR},$alert->{SEVERITY}"}++ if ( ($alert->{DAY} && $alert->{HOUR} && $alert->{SEVERITY}) ne "" );
+		# use by dport()
+		$s16{"$alert->{DPORT}"}++ if ( $alert->{DPORT} ne "" );
+		# use by typelog()
+		$s17{"$alert->{TYPE}"}++;
+		# use by dport_attack()
+		$s18{"$alert->{DPORT},$alert->{SIG}"}++ if ( ($alert->{DPORT} != "") && ($alert->{SIG} ne "") );
+		# use by daily_event()
+		$s19{"$DAY,$MONTH"}++ if ( ($alert->{DAY} && $alert->{MON}) ne "" );
+		# use by severity()
+		$s20{"$alert->{SEVERITY}"}++;
+		# used by rules()
+		$s21{"$alert->{RULE}"}++ if ( $alert->{RULE} ne "" );
+		# used by same_src_dport()
+		$s22{"$alert->{SADDR},$alert->{DPORT}"}++ if ( ($alert->{SADDR} && $alert->{DPORT}) ne "" );
+		# used by same_dst_dport()
+		$s23{"$alert->{DADDR},$alert->{DPORT}"}++if ( ($alert->{DADDR} && $alert->{DPORT}) ne "" );
+		# used by defense_attack()
+		$s24{"$alert->{ATTACK},$alert->{ATTACK_INFO}"}++ if ( ($alert->{ATTACK} && $alert->{ATTACK_INFO}) ne "" );
+		# used by portscan()
+		$s25{"$alert->{SADDR}"}++ if ( $alert->{TYPE} eq "snort_portscan" );
+		# user in day()
+		$s26{"$alert->{DAY}"}++;
+		# user in month()
+		$s27{"$alert->{MONTH}"}++;
+		# used by class() 
+		$s28{"$alert->{CLASS}"}++;
+		# used in same_src_dst_dport()
+		$s29{"$alert->{DADDR},$alert->{SADDR},$alert->{DPORT}"}++ if ( ($alert->{DADDR} && $alert->{SADDR} && $alert->{DPORT}) ne "" );
+		# used in same_src_dst_action()
+		$s30{"$alert->{DADDR},$alert->{SADDR},$alert->{ACTION}"}++ if ( ($alert->{DADDR} && $alert->{SADDR} && $alert->{ACTION}) ne "" );
+		# used in same_src_dst_reason()
+		$s31{"$alert->{DADDR},$alert->{SADDR},$alert->{REASON}"}++ if ( ($alert->{DADDR} && $alert->{SADDR} && $alert->{REASON}) ne "" );
+		# used in forward()
+		$s32{"$alert->{SZONE},$alert->{DZONE}"}++ if ( ($alert->{SZONE} || $alert->{DZONE}) ne "" );
+		# For PIX or Netscreen Hardware Related message logs
+		$s300{"$alert->{HW_INFO}"}++ if ( $alert->{PLUGIN} eq "alerthw" );
+		#
+		# For PIX IDS or NetScreen message logs
+		$s301{"$alert->{SIG}"}++ if ( $alert->{ACTION} eq "IDS" );
+
+
+
+	#
+	# Initialize a special crontrol when several files arent loaded in GUI mode
+	#
+	$logportscan = $logportscan + keys(%s25);
+}
+
+1;

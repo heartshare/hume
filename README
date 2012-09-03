@@ -1,3 +1,7 @@
+半开连接数：netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+
+
 一、uptime
 Uptime命令的显示结果包括服务器已经运行了多长时间，有多少登陆用户和对服务器性能的总体评估（load average）。load average值分别记录了上个1分钟，5分钟和15分钟间隔的负载情况，load average不是一个百分比，而是在队列中等待执行的进程的数量。如果进程要求CPU时间被阻塞（意味着CPU没有时间处理它），load average值将增加。另一方面，如果每个进程都可以立刻得到访问CPU的时间，这个值将减少。
 UP kernel下的load average的最佳值是1，这说明每个进程都可以立刻被CPU处理，当然，更低不会有问题，只说明浪费了一部分的资源。但在不同的系统间这个值也是不同的，例如一个单CPU的工作站，load average为1或者2都是可以接受的，而在一个多CPU的系统中这个值应除以物理CPU的个数，假设CPU个数为4，而load average为8或者10，那结果也是在2多点而已。

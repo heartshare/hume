@@ -1,0 +1,97 @@
+#
+# Rev   : 1.03
+# Date  : 05/22/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 05/22/2006 : Improvements
+# 04/07/2006 : Add Zone detection
+# 04/07/2006 : Improve Screening logs detection
+# 04/04/2006 : Add Screening logs
+#
+
+sub netscreen_log  {
+
+	#
+	# THIS IS NETSCREEN LOG
+	#
+	$alert->{ETHER} = "";
+	$alert->{SZONE} = "";
+	$alert->{DZONE} = "";
+
+	if ( ($_ =~ s/^\d{4}-(\d{2})-(\d{2})\s+(\d+)\:(\d+)\:(\d+)\s+\S+\s+(\S+)\s+\S+\:\s+NetScreen\s+device_id=\S+\s+//) || ($_ =~ s/^(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)\s+(\S+)\s+\S+\:\s+NetScreen\s+device_id=\S+\s+//)) { 
+		$netscreen = 1;
+		$alert->{MON} = $monthday{$1}; $alert->{DAY} = $2;
+		$alert->{HOUR} = $3; $alert->{MIN} = $4; 
+		$alert->{SEC} = $5; $alert->{HOST} = $6;  
+		if ( $_ =~ s/^\[.+\](\w+-\w+-(\d{5})\(\w+\)):\s+//ox ) {
+			#
+			# THIS IS TRAFFIC LOG
+			#
+			if ( $2 eq "00257" ) {
+				$alert->{TYPE} = "NetScreen $1";
+				$alert->{REASON} = "Traffic Log!";
+				$alert->{PLUGIN} = "alert";
+				$alert->{ETHER} = "Zone to Zone";
+				if ( $_ =~ s/src=([\d\.]+)\s+//ox ) { $alert->{SADDR} = $1; };
+				if ( $_ =~ s/dst=([\d\.]+)\s+//ox ) { $alert->{DADDR} = $1; };
+				if ( $_ =~ s/src_port=(\d+)\s+//ox ) { $alert->{SPORT} = $1; };
+				if ( $_ =~ s/dst_port=(\d+)//ox ) { $alert->{DPORT} = $1; };
+				if ( $_ =~ s/policy_id=(\d+)\s+//ox ) { $alert->{RULE} = $1; };
+				if ( $_ =~ s/action=(\w+)\s+//ox ) { $alert->{ACTION} = $1; };
+				if ( $_ =~ s/proto=(\S+)\s+//ox ) { $alert->{PROTO} = $proto{$1}; };
+				if ( $_ =~ s/src\szone=(\S+)\s+dst\szone=(\S+)//ox ) { $alert->{SZONE} = $1; $alert->{DZONE} = $2 };
+			}
+		#
+		# THIS IS OTHER LOG
+		#
+		} elsif ( $_ =~ s/^\[.+\](\w+-\w+-\d{5}):\s+//ox ) {
+			$alert->{TYPE} = "NetScreen $1";
+			#
+			# SCREENING TCP or UDP LOG
+			#
+			if ( $_ =~ s/From\s([\d\.]+):(\d+)\s+to\s+([\d\.]+):(\d+),\s+//ox ) {
+				$alert->{PLUGIN} = "alert";
+				$alert->{SADDR} = $1;
+				$alert->{SPORT} = $2;
+				$alert->{DADDR} = $3;
+				$alert->{DPORT} = $4;
+				if ( $_ =~ s/proto\s(\S+)\s+//ox ) { $alert->{PROTO} = $proto{$1} };
+				if ( $_ =~ s/\(zone\s+(\S+),?\s+int\s+(\S+)\)//ox ) { $alert->{SZONE} = $1; $alert->{ETHER} = $2 };
+				$_ =~ s/\(\d{4}-\d{2}-\d{2}\s+\d+\:\d+\:\d+\)//ox;
+				$_ =~ s/\.\sOccurred\s\d\stimes\.//ox;
+				$_ =~ s/<//ox;
+				$_ =~ s/>//ox;
+				$alert->{REASON} = $_;
+			#
+			# SCREENING ICMP LOG
+			#
+			} elsif ( $_ =~ s/From\s([\d\.]+)\s+to\s+([\d\.]+),\s+//ox ) {
+				$alert->{PLUGIN} = "alert";
+				$alert->{SADDR} = $1;
+				$alert->{SPORT} = $2;
+				$alert->{DADDR} = $3;
+				$alert->{DPORT} = $4;
+				if ( $_ =~ s/proto\s(\S+)\s+//ox ) { $alert->{PROTO} = $proto{$1} };
+				if ( $_ =~ s/\(zone\s+(\S+),?\s+int\s+(\S+)\)//ox ) { $alert->{SZONE} = $1; $alert->{ETHER} = $2 };
+				$_ =~ s/\(\d{4}-\d{2}-\d{2}\s+\d+\:\d+\:\d+\)//ox;
+				$_ =~ s/\.\sOccurred\s\d\stimes\.//ox;
+				$_ =~ s/<//ox;
+				$_ =~ s/>//ox;
+				$alert->{REASON} = $_;
+			#
+			# HARDWARE RELATED LOG
+			#
+			} else { 
+				print "$_n";
+				$alert->{TYPE} = "NetScreen $1";
+				$alert->{PLUGIN} = "alerthw";
+				$_ =~ s/\(\d{4}-\d{2}-\d{2}\s+\d+\:\d+\:\d+\)//ox;
+				$alert->{HW_INFO} = $_;
+			}	
+		}
+		record_data($alert) if ( $netscreen == 1 ); next;
+	}
+}
+
+1;

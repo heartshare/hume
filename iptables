@@ -21,7 +21,7 @@ COMMIT
 # Manual customization of this file is not recommended.
 #使用filter表
 *filter
-#下面四条内容定义了内建的INPUT、FORWAARD、ACCEPT链，还创建了一个被称为RH-Firewall-1-INPUT 的新链
+#下面四条内容定义了内建的INPUT、FORWAARD、ACCEPT链，还创建了一个被称为RH-Firewall-1-INPUT 的1新链
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
@@ -161,3 +161,274 @@ iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW -m recent --set
 iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 3 --name SSH -j DROP
 # Enable Normal SSH Connection
 iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
+
+
+
+
+
+
+iptables -t mangle -N LMT
+iptables -t mangle -N LMT2
+iptables -t mangle -I FORWARD -d 192.168.1.100 -m length --length 128: -j LMT
+iptables -t mangle -A LMT -m recent --rdest --name badguy --rcheck --seconds 60 -j LMT2
+iptables -t mangle -A LMT -m limit --limit 100/sec --limit-burst 5000 -j RETURN
+iptables -t mangle -A LMT -m recent --rdest --name badguy --set -j RETURN
+iptables -t mangle -A LMT2 -m limit --limit 50/sec --limit-burst 5000 -j RETURN
+iptables -t mangle -A LMT2 -j DROP
+复制代码
+
+上面代码是用limit限制计算速率，为了更准确，使用了数据包长度筛选: “-m length --length 128:”，这样更准确一点。
+一般限制为100/s，按照数据包平均大小1000Bytes来算，大概就是100KB/S。
+如果超出，限制变为50/sec，大约50KB/S。
+
+当然，这只是一个示范性的例子了，其中limit模块也可以改用更为强大的hashlimit，hashsped等模块。
+还可以用connlimit使用连接数作为限制条件。。。。。。。。。。
+如果再把这些模块结合MARK和TC流量控制，就实现了某些路由器的所谓“条件限速”“P2P惩罚”等功能。
+
+
+
+
+
+
+
+
+echo "starting ip forward"
+echo 1 >/proc/sys/net/ipv4/ip_forward
+echo "starting iptables rules"
+modprobe ip_tables
+modprobe ip_nat_ftp
+/sbin/iptables -F -t nat
+iptables -t nat -A PREROUTING -i eth0 -p tcp -m tcp --dport 80 -jREDIRECT --to-ports3128
+#将所有80#端口的包转发到3128端口
+iptables -t nat -A POSTROUTING -o eth0 -jMASQUERADE
+#对eth0端口进行欺骗,单网卡用不到
+
+
+
+
+
+rhel5下，netfilter默认支持string关键词过滤
+ 
+比如你的firewall下有一个ftp服务，ftp的目录里面有一个 pub目录，你不想让192.168.0.100这ip地址访问这个目录，就是当用户一点出发pub这个字符串时，被阻止，可以这么来做。
+ 
+iptables -I INPUT -p tcp --dport 21 -m string --string "pub" --algo bm -j DROP
+ 
+比如你在网关服务器上想限制内部网络 192.168.0.0这个网段浏览含有 qq这字符串的任何网页，可以这么来做
+iptables -I FORWARD -p tcp --dport 80 -m string --string "qq" --algo bm -j DROP
+ 
+这些在rhel5下测试都是ok的。注意上面2个里面中的 --algo bm作用是匹配linux内核中的文本搜索算法（位于内核源码linux/lib目录中）
+算法常用的有 bm 和kmp
+
+
+
+利用 iptables 加上 recent 模块，阻挡大量的请求
+新版的 iptables 有个好用简单又有效率的功能，可以设定它阻止瞬间联机太多的来源 IP。这种阻挡功能在某些很受欢迎的，特别像是大型讨论区网站，每个网页都遭到「无知却故意」的人士。一瞬间太多的链接访问，导致服务器呈现呆滞状态。
+这时，就需要下列的三行指令：
+iptables -I INPUT -p tcp --dport 80 -d SERVER_IP -m state --state NEW -m recent --name httpuser --set
+iptables -A INPUT -m recent --update --name httpuser --seconds 60 --hitcount 9 -j LOG --log-prefix 'HTTP attack: '
+iptables -A INPUT -m recent --update --name httpuser --seconds 60 --hitcount 9 -j DROP
+其中 SERVER_IP 换上被攻击的服务器 IP。
+1.    第一行的意思是：-I，将本规则插入到 INPUT 链里头的最上头。什么样的规则呢？只要是 TCP 性质的联机，目标端口是80，目标 IP 是我们机器的IP，刚刚新被建立起来时，我们就将这个联机列入 httpuser 这分清单中。
+2.    第二行的意思是：-A，将本规则附在 INPUT 链的最尾端。只要是60秒内，同一个来源连续产生多个联机，到达第9个联机时，我们对此联机留下 Log记录。记录行会以 HTTP attack 开头。每一次的本规则比对， –update 均会更新 httpuser 清单中的列表。
+3.    第三行的意思是：-A，将本规则附在 INPUT 链的最尾端。同样的比对条件，但是本次的动作则是将此联机给断掉。
+所以，这三行规则表示，我们允许一个客户端，每一分钟内可以接上服务器8个。具体数值可以看管理者决定。这些规则另外也可以用在其它对 Internet 开放的联机服务上，例如 port 22 (SSH), port 25 (smtp email)。
+为什么新版的 iptables 它在阻挡上很有效率呢？因为在旧版的 iptables 中，并没有这些新模块功能，导致我们得需要使用操作系统的 Shell 接口，周期性地执行网络检查与拦阻动作。 前者只动用到网络层的资源，而后者已经是应用层的大量(相对而言)运算。试想，服务器都已经给白目客户操翻天了，哪还有余力周期性地呼叫软件层级的计算，来阻挡白目客户呢？
+如果下上述指令时，得到下列错误：
+iptables: No chain/target/match by that name
+这表示， kernel 在编译时，没有将 iptables module 功能勾选。要重新勾选再编译哦~~~另一个可能是，您使用的服务器，该服务公司所提供的共享核心中，并没有打开此功能，但因为是核心共享…所以…没有权利重新编译核心。
+
+
+
+
+
+#!/bin/bash
+# BY kerryhu
+# QQ:263205768
+# MAIL:king_819@163.com
+# BLOG:http://kerry.blog.51cto.com
+IPT=/sbin/iptables
+
+#============================ 下载安装包 ========================================
+#kernel 2.6.28.10
+wget  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.28.10.tar.bz2
+#iptables
+#wget  http://www.netfilter.org/projects/iptables/files/iptables-1.4.7.tar.bz2
+wget  ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.0.tar.bz2
+#l7-protocols
+wget  http://ncu.dl.sourceforge.net/project/l7-filter/Protocol definitions/2009-05-28/l7-protocols-2009-05-28.tar.gz
+#netfilter-layer7
+wget  http://ncu.dl.sourceforge.net/project/l7-filter/l7-filter kernel version/2.21/netfilter-layer7-v2.21.tar.gz
+#patch-o-matic-ng
+wget  ftp://ftp.netfilter.org/pub/patch-o-matic-ng/snapshot/patch-o-matic-ng-20100218.tar.bz2
+#============================= 内核编译 ===========================================
+cd /opt
+tar jxvf iptables-1.4.3.tar.bz2
+tar zxvf ipp2p-0.99.16.tar.gz
+tar zxvf netfilter-layer7-v2.22.tar.gz
+tar jxvf linux-2.6.28.10.tar.bz2
+mv linux-2.6.28.10 /usr/src/
+
+#
+#给内核打L7-filter补丁,将以上各软件包都解压到 /usr/src 目录
+cd /usr/src/linux-2.6.28.10
+patch -p1 < /opt/netfilter-layer7-v2.22/kernel-2.6.25-2.6.28-layer7-2.22.patch
+#检查有无不正确的.o文件和依赖关系，使用刚下载的完整的源程序包进行编译，所以本步可以省略。而如果你多次使用了这些源程序编译内核，那么最好要先运行一下这个命令
+#make mrproper
+#使用make oldconfig可以继承老的kernel的配置，为自己的配置省去很多麻烦
+make oldconfig
+#make menuconfig是文字界面下推荐一种方式，在这里可以选择你需要编译到核心的模块
+make menuconfig
+
+#Networking support  --->  
+# Networking options  --->
+#  Network packet filtering framework (Netfilter)  --->
+#   iP:netfilter configuraton --->
+<M> IPv4 connection tracking support (required for NAT)
+#     Full NAT
+   
+#Networking support  --->  
+# Networking options  --->
+#  Network packet filtering framework (Netfilter)  --->   
+#   core netfilter configuration --->
+<M> Netfilter connection tracking support
+#    "connlimit" match support"  
+#    "time" match support
+#    "string" match support  
+#    "layer7" match support
+#     
+Layer 7 debugging output
+
+#升级内核
+make
+make modules
+make modules_install
+make install
+
+#修改默认以新的内核启动。
+vi /boot/grub/grub.conf
+default=0
+#将新的内核配置文件复制到/boot目录。
+cp /usr/src/linux-2.6.28.10/.config /boot/config-2.8.10
+#重启完成后确认内核版本是否正确。
+reboot
+uname –r
+2.6.28
+
+#5.给iptables打补丁并升级
+
+#卸载系统中的旧版本iptables。
+rpm -qa |grep iptables
+rpm -e --nodeps iptables-1.3.5-4.el5
+rpm -e --nodeps iptables-ipv6-1.3.5-4.el5
+
+#合并补丁，并编译安装新的iptables工具
+cd /opt
+tar jxvf iptables-1.4.3.tar.bz2 -C /opt/
+cd /opt/iptables-1.4.3/
+cp /opt/netfilter-layer7-v2.22/iptables-1.4.3forward-for-kernel-2.6.20forward/libxt_layer7.*  extensions/
+./configure  --prefix=/  --with-ksource=/usr/src/linux-2.6.28.10
+make;make install
+iptables -V
+iptables v1.4.3
+确认iptables版本是否正确。
+
+#6.安装l7-protocol
+cd /opt
+tar xzvf l7-protocols-2009-05-28.tar.gz
+cd l7-protocols-2008-11-23
+make install
+
+其实就是把响应的目录copy到 /etc/l7-protocols/
+真正调用的是/etc/l7-protocols/protocols/下面的文件
+可以打开下面具体的文件，里面是一些L7程序特征码的正则表达式形式
+这样自己也可以按照这样的样子，写自己的特征码。
+该特征码软件包一直在不停的更新，其后面的日期就是更新的日期，推荐定期选择最新的包进行更新。
+
+#安装IPP2P
+cd /opt/ipp2p-0.99.16
+make
+make install
+cp ipt_ipp2p.ko /lib/modules/2.6.28.10/kernel/net/ipv4/netfilter/
+cp libipt_ipp2p.so /lib/iptables/
+
+#加载模块
+modprobe ipt_connlimit
+modprobe ipt_time
+modprobe ipt_ipp2p
+modprobe ipt_layer7
+lsmod |grep x_tables
+
+7.测试
+$IPT -I FORWARD -p udp --dport 53 -m string --string "tencent" --algo bm -j DROP
+$IPT -I FORWARD -p tcp -m multiport --dport 80,443 -m layer7 --l7proto qq -j DROP
+$IPT -I FORWARD -p udp --dport 8000 -j DROP
+$IPT -I FORWARD -p tcp -m layer7 --l7proto socks -j DROP
+$IPT -I FORWARD -p udp --dport 53 -m string --string "messenger" --algo bm -j DROP
+$IPT -I FORWARD -p tcp -m multiport --dport 80,443 -m layer7 --l7proto msnmessenger -j DROP
+$IPT -I FORWARD -p udp --dport 1863 -j DROP
+$IPT -t mangle -A PREROUTING -m layer7 --l7proto qq -j DROP
+$IPT -t mangle -A PREROUTING -m layer7 --l7proto msnmessenger -j DROP
+
+#======================================= layer7,time,ip2p2 ==================================
+
+#测试layer7,time,ip2p2,可通过上面的策略表达式测试是否成功禁止掉qq、msn、ipp2p、xunlei
+#$IPT -A FORWARD -m layer7 --l7proto qq  -m time --timestart 8:00 --timestop 17:30 --days Mon,Tue,Wed,Thu,Fri -m iprange --src-range 192.168.1.5-192.168.1.239 -m ipp2p --ipp2p -m ipp2p --xunlei -j DROP
+#$IPT -A FORWARD -p tcp -m multiport --dport 80,443 -m layer7 --l7proto qq -j DROP
+
+#======================================= connlimit ============================================
+
+# 允许单个 IP 的最大连接数为 30
+#$IPT -A FORWARD -p tcp --dport 80 -m connlimit --connlimit-above 30 -j REJECT
+#控制单个 IP 在一定的时间（比如60秒）内允许新建立的连接数
+#$IPT -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --update --seconds 60 --hitcount 30 -j REJECT
+#$IPT -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --set -j ACCEPT
+#限制连往本机的web服务，1个C段的IP的并发连接不超过100个，超过的被拒绝
+$IPT -A INPUT -i $INTERNET -p tcp -m multiport  --dports 80,443 -m connlimit --connlimit-above 500 --connlimit-mask  24 -j REJECT
+
+#过滤syn包
+$IPT -A INPUT -i $INTERNET -p tcp --tcp-flags SYN,ACK,FIN,RST SYN -m limit --limit 100/s --limit-burst 150 -m multiport --dports 80,443 -j DROP
+
+$IPT -A INPUT -i $INTERNET  -p tcp --syn -m multiport  -dports 80,443 -m connlimit --connlimit-above 100 --connlimit -mask 32 -j DROP
+
+#======================================= limit =============================================
+
+#可达到每秒只接受一个 echo-request 封包
+$IPT -N pinglimit
+$IPT -A pinglimit -m limit –limit 1/s –limit-burst 1 -j ACCEPT
+$IPT -A pinglimit -j DROP
+$IPT -A INPUT -p icmp –icmp-type echo-request -j pinglimit
+
+#限制每秒只接受一个 icmp echo-request 封包
+$IPT -A INPUT -p icmp –icmp-type echo-request -m limit –limit 1/s –limit-burst 1 -j ACCEPT
+$IPT -A INPUT -p icmp –icmp-type echo-request -j DROP
+
+#防治 SYN-Flood 碎片攻击(每秒只接受100个syn封包，)
+#–limit 1/s 表示每秒一次; 1/m 则为每分钟一次； 1/h 则为每小时一次
+#–limit-burst 表示允许触发 limit 限制的最大次数 (预设 5)
+$IPT -N syn-flood
+$IPT -A syn-flood -m limit –limit 100/s –limit-burst 150 -j RETURN
+$IPT -A syn-flood -j DROP
+$IPT -I INPUT -j syn-flood
+
+#===================================== string ================================================
+
+#每个词都用baidu和google识别出来gbk编码和utf-8编码的字串，全封住。
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股市" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股市" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "����" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "基金" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "基金" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "���" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股票" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "股票" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "��Ʊ" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "证券" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "证券" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "֤ȯ" -j DROP
+
+#下面是些纯英文的词，做起来简洁多了
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "fund" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "finance" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "business" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "money" -j DROP
+/usr/sbin/iptables -A FORWARD -m string --algo bm --string "stock" -j DROP

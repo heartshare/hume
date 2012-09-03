@@ -1,0 +1,77 @@
+#
+# Rev   : 1.03
+# Date  : 02/02/2011
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 02/02/2011 : Output improvments
+# 04/05/2006 : Correct % bug
+#
+
+
+
+
+sub same_src_dport {
+$i = 0;
+my $description = $lang{"s22_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s22) ) ) {
+	$n = keys %s22;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"same_src_dport\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Ip Src</td><td>Dport</td></tr>\n");
+        foreach $k (sort { $s22{$b} <=> $s22{$a} } keys %s22) {
+		@_ = split ",",$k;
+		printf FILEOUT ("<TR CLASS=TB><TD>%2.2f</TD><TD>%-${nb_len}d</TD><TD>%-${addr_len}s</TD><TD>%-5s</TD></TR>\n", $s22{$k}/$total_log*100,$s22{$k},$_[0],$_[1]) if ( $i < $n );
+		++$i;
+        }
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		section_header("$description\n", "xsame_src_dport");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s22{$a} <=> $s22{$b} } keys %s22) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-5s\n", $s22{$k}/$total_log*100,$s22{$k},$_[0],$_[1]) if ( $i < $n );
+				++$i;
+			}
+		} else {
+			foreach $k (sort { $s22{$b} <=> $s22{$a} } keys %s22) {
+				@_ = split ",",$k;
+				printf FILEOUT ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-5s\n", $s22{$k}/$total_log*100,$s22{$k},$_[0],$_[1]) if ( $i < $n );
+				++$i;
+			}
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "same_src_dport");
+		if ($opt_i == 1) {
+			foreach $k (sort { $s22{$a} <=> $s22{$b} } keys %s22) {
+				@_ = split ",",$k;
+				printf ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-5s\n", $s22{$k}/$total_log*100,$s22{$k},$_[0],$_[1]) if ( $i < $n );
+				++$i;
+			}
+		} else {	
+			foreach $k (sort { $s22{$b} <=> $s22{$a} } keys %s22) {
+				@_ = split ",",$k;
+				printf ("  %5.2f  %-${nb_len}d  %-${addr_len}s  %-5s\n", $s22{$k}/$total_log*100,$s22{$k},$_[0],$_[1]) if ( $i < $n );
+				++$i;
+			}
+		}
+	}
+}
+}
+
+
+1;

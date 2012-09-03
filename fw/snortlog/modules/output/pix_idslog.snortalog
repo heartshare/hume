@@ -1,0 +1,60 @@
+#
+# Rev   : 1.02
+# Date  : 04/20/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/20/2006 : Correct HTML link in summary part
+# 12/23/2005 : Correct a bug for %
+#
+
+
+sub pix_idslog {
+$i = 0;
+my $description = $lang{"s301_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s301) ) ) {
+	$n = keys %s301;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"pix_idslog\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<TR CLASS=TH ALIGN=center><td>%</td><td>No</td><td>Type</td></tr>\n");
+        foreach $k (sort { $s301{$b} <=> $s301{$a} } keys %s301) {
+                printf FILEOUT ("<TR CLASS=TB><TD>%2.2f</TD><TD>%-${nb_len}d</TD><TD>%-30s</TD></TR>\n", $s301{$k}/$total_s301*100,$s301{$k},$k) if ( $i < $n );
+		++$i;
+        }
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 11 + $nb_len + 4 + $port_len + 4 +  25;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s301) ." ###\n");
+		print FILEOUT ("    %    No      Type\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s301{$b} <=> $s301{$a} } keys %s301) {
+			printf FILEOUT ("  %5.2f  %-${nb_len}d  %-30s  %-30s\n", $s301{$k}/$total_s301*100,$s301{$k},$k) if ( $i < $n );
+			++$i;
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {	
+		section_header("$description\n", "idslog");
+		foreach $k (sort { $s301{$b} <=> $s301{$a} } keys %s301) {
+			printf("  %5.2f  %-${nb_len}d  %-30s  %-30s\n", $s301{$k}/$total_s301*100,$s301{$k},$k) if ( $i < $n );
+			++$i;
+		}	
+	}
+}
+}
+
+1;

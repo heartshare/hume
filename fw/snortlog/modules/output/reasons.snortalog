@@ -1,0 +1,58 @@
+#
+# Rev   : 1.02
+# Date  : 04/05/2006
+# By    : Jeremy Chartier
+#
+# Modifications :
+# 04/05/2006 : Correct bug for total_log %
+#
+
+sub reasons {
+$i = 0;
+my $description = $lang{"s12_". $val_opt_l};
+if ( ( $opt_n != 1 ) || ( $val_opt_n > keys(%s12) ) ) {
+	$n = keys %s12;
+} else {
+	$n = $val_opt_n;
+}
+if ( $opt_o == 1 ) {
+	print FILEOUT ("<h3><CENTER><a name=\"reasons\" href=\"#top\">$description</a></CENTER></h3>\n");
+	print FILEOUT ("<TABLE BORDER=$border ALIGN=center>\n");
+	print FILEOUT ("<tr class=TH align=center><td>%</td><td>No</td><td>Reasons</td></tr>\n");
+        foreach $k (sort { $s12{$b} <=> $s12{$a} } keys %s12) {
+                printf FILEOUT ("<TR CLASS=TB><TD>%2.2f</TD><TD>%-${nb_len}d</TD><TD>%-32s</TD></TR>\n", $s12{$k}/$total_log*100,$s12{$k},$k) if ( $i < $n );
+		++$i;
+        }
+	print FILEOUT ("</table><BR>\n");
+} else {
+	if ( $opt{x} ) {
+		open (FILEOUT, ">$tmpout_file") or die "Can not open file: $tmpout_file\n";
+		print FILEOUT "$description\n";
+		$linelength = 11 + $nb_len + 4 + $port_len + 4 + 20;
+		print FILEOUT ( '=' x $linelength, "\n");
+		print FILEOUT (" " x 4, "### ". $n ." of ". keys(%s12) ." ###\n");
+		print FILEOUT ("    %    No      Reasons\n");
+		print FILEOUT ( '=' x $linelength, "\n");
+		foreach $k (sort { $s12{$b} <=> $s12{$a} } keys %s12) {
+			printf FILEOUT ("  %5.2f  %-${nb_len}d  %-50s\n", $s12{$k}/$total_log*100,$s12{$k},$k) if ( $i < $n );
+			++$i;
+		}
+		close (FILEOUT);
+		open (FILEIN, "<$tmpout_file") or die "Can access file : $tmpout_file\n";
+		while (<FILEIN>) {
+			chomp $_;
+			$scrolled_result->insert('end', "$_\n");
+		}
+		close (FILEIN);
+		$scrolled_result->insert('end', "\n");
+	} else {
+		section_header("$description\n", "reasons");
+		foreach $k (sort { $s12{$b} <=> $s12{$a} } keys %s12) {
+			printf("  %5.2f  %-${nb_len}d  %-50s\n", $s12{$k}/$total_log*100,$s12{$k},$k) if ( $i < $n );
+			++$i;
+		}
+	}
+}
+}
+
+1;
