@@ -12,7 +12,7 @@ print $prog, "\n";
 
 open my $iplist, '< nagios_host', or croak;
 
-my $check_mem = 'command[check_mem]=/usr/local/nagios/libexec/check_mem.sh -w \$ARG1\$ -c \$ARG2\$';
+#my $check_mem = 'command[check_mem]=/usr/local/nagios/libexec/check_mem.sh -w \$ARG1\$ -c \$ARG2\$';
 
 while (<$iplist>) {
 	chomp;
@@ -34,7 +34,10 @@ while (<$iplist>) {
 	#system "ssh $ip echo 'command[check_mem]=/usr/local/nagios/libexec/$prog -w \$ARG1\$ -c \$ARG2\$' >>/usr/local/nagios/etc/nrpe.cfg";
 
 	my $args = 'command[check_float]=/usr/local/nagios/libexec/' . $prog . ' \$ARG1\$ ';
-	open $pipe_out1 , qq{ ssh $ip ' sed -i "/check_float/d" /usr/local/nagios/etc/nrpe.cfg;sed -i "/check_mem/d" /usr/local/nagios/etc/nrpe.cfg;echo $check_mem >>/usr/local/nagios/etc/nrpe.cfg;echo $args >>/usr/local/nagios/etc/nrpe.cfg;pkill nrpe;/usr/local/nagios/bin/nrpe -c /usr/local/nagios/etc/nrpe.cfg -d '|} or croak;
+	#open $pipe_out1 , qq{ ssh $ip ' sed -i "/check_float/d" /usr/local/nagios/etc/nrpe.cfg;sed -i "/check_mem/d" /usr/local/nagios/etc/nrpe.cfg;echo $check_mem >>/usr/local/nagios/etc/nrpe.cfg;echo $args >>/usr/local/nagios/etc/nrpe.cfg;pkill nrpe;/usr/local/nagios/bin/nrpe -c /usr/local/nagios/etc/nrpe.cfg -d '|} or croak;
+
+	open $pipe_out1 , qq{ ssh $ip ' sed -i "/check_float/d" /usr/local/nagios/etc/nrpe.cfg;echo $args >>/usr/local/nagios/etc/nrpe.cfg;pkill nrpe;/usr/local/nagios/bin/nrpe -c /usr/local/nagios/etc/nrpe.cfg -d '|} or croak;
+
 
 	while (<$pipe_out1>) {
 		my $line = $_;
