@@ -1,0 +1,9 @@
+clearpart --none  
+part /boot  --start 2430 --end 2442 --ondisk=sda
+part swap --size 128
+part pv.O10grhel501 --size 11800
+volgroup O10grhel5 pv.O10grhel501
+logvol /  --vgname=O10grhel5 --size=4800 --name=root
+logvol /home --vgname=O10grhel5 --size=300 --name=home
+logvol /u01 --vgname=O10grhel5 --size=6600 --name=u01
+part pv.O10grhel502 --size 1250
