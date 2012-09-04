@@ -92,3 +92,31 @@ sub add0 {
         return $num;
     }
 }
+
+
+# usage: die usage();
+
+sub usage {
+    return <<'_EOC_';
+Usage:
+    xxx [options]
+
+Options:
+
+
+Examples:
+
+_EOC_
+}
+
+
+sub quote_str($) {
+    my $s = shift;
+    $s =~ s/\\/\\\\/g;
+    $s =~ s/"/\\"/g;
+    $s =~ s/\n/\\n/g;
+    $s =~ s/\t/\\t/g;
+    $s =~ s/\r/\\r/g;
+
+    return qq{"$s"};
+}
