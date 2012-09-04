@@ -1,0 +1,113 @@
+ttserver的几种常用部署方式和分布式考虑    
+
+可以把ttserver理解成一种key-value形式的数据库， 在运营中就像管理数据库一样去管理ttserver，使得性能和数据安全都能得到较好的保障。
+部署ttserver的方式，可以根据访问量和数据规模循序渐进地这样部署：
+
+1、单机：数据量不大，访问量不大
+
+    ttserver -host 192.168.0.100 -port 20001 -thnum 128 -dmn -ulim 1024m -ulog /data/ttserver/log_01 -log /data/ttserver/log/test_data_01.log -pid /data/ttserver/log/test_data_01.pid -sid 1 /data/ttserver/test_data_01.tch#bnum=10000000#rcnum=100000#xmsiz=256m
+
+如果希望提高查询的性能，可以把hash的桶设置得再大些，然后缓存的记录多一些。
+同时，设置-uas参数异步写入日志，可提高写入的性能。不过这样可能导致日志丢失，降低了数据安全性。
+
+2、一主一备：数据量不大，访问量不大，且对数据安全性有要求
+主服务器：(与上面一致)
+
+    ttserver -host 192.168.0.100 -port 20001 -thnum 128 -dmn -ulim 1024m -ulog /data/ttserver/test_ulog_01 -log /data/ttserver/log/test_data_01.log -pid /data/ttserver/log/test_data_01.pid -sid 1 /data/ttserver/test_data_01.tch#bnum=10000000#rcnum=100000#xmsiz=256m
+
+备份服务器：在另一个机器上启动，不需要缓存
+
+    ttserver -host 192.168.0.101 -port 20002 -mhost 192.168.0.100 -mport 20001 -rcc -rts /data/ttserver/test_data_01.rts -thnum 5 -dmn -ulim 1024m -ulog /data/ttserver/test_ulog_02 -log /data/ttserver/log/test_data_02.log -pid /data/ttserver/log/test_data_02.pid -sid 2 /data/ttserver/test_data_02.tch#bnum=10000000#rcnum=0#xmsiz=0m
+
+备份服务器可以找性能不高的旧服务器，这种设置也只是为了保障数据安全而做的设置。
+
+3、互为主备：数据量增大，访问量也增大，对数据安全有要求，且希望避免单点故障
+第一个服务器：
+
+    ttserver -host 192.168.0.100 -port 20001 -mhost 192.168.0.101 -mport 20002 -rcc -rts /data/ttserver/test_data_01.rts -thnum 128 -dmn -ulim 1024m -ulog /data/ttserver/test_ulog_01 -log /data/ttserver/log/test_data_01.log -pid /data/ttserver/log/test_data_01.pid -sid 1 /data/ttserver/test_data_01.tch#bnum=10000000#rcnum=100000#xmsiz=256m
+
+第二个服务器：
+
+    ttserver -host 192.168.0.101 -port 20002 -mhost 192.168.0.100 -mport 20001 -rcc -rts /data/ttserver/test_data_02.rts -thnum 128 -dmn -ulim 1024m -ulog /data/ttserver/test_ulog_02 -log /data/ttserver/log/test_data_02.log -pid /data/ttserver/log/test_data_02.pid -sid 2 /data/ttserver/test_data_02.tch#bnum=10000000#rcnum=100000#xmsiz=256m
+
+应用程序可以访问任意一个服务器进行读写，且应用程序发现某服务器不能访问后，可立即转到另一台服务器。
+
+4、读写分离：写量猛增，读量猛增
+TokyoCabinet支持六种数据引擎，其中on-memory hash database和on-memory b+ database两种是将数据存放在内存中的，不对数据做持久化。
+因此，可以使用on-memory hash database引擎的ttserver作为写服务器，然后采用复制的方式将on-memory hash database上的数据复制到hash database的多个ttserver上去，然后将多个hash database ttserver作为读服务器。这实际上是通过降低一致性来提高性能。
+on-memory hash database的配置： 缓存的记录数和内存都配置得很小
+
+    ttserver -host 192.168.0.99 -port 20000 -thnum 128 -dmn -ulim 1024m -ulog /data/home/game/temp/test_data/test_ulog_01 -log /data/home/game/temp/test_data/log/test_data_01.log -pid /data/home/game/temp/test_data/log/test_data_01.pid -sid 0 “*#bnum=10000000#capnum=100#capsiz=10m”
+
+hash database ttserver 1 的配置： 从on-memory hash database复制数据
+
+    ttserver -host 192.168.0.100 -port 20001 -mhost 192.168.0.99 -mport 20000 -rcc -rts /data/ttserver/test_data_01.rts -thnum 128 -dmn -ulim 1024m -ulog /data/ttserver/test_ulog_01 -log /data/ttserver/log/test_data_01.log -pid /data/ttserver/log/test_data_01.pid -sid 1 “/data/ttserver/log/test_data_01.tch#bnum=10000000#rcnum=100000#xmsiz=256m”
+
+hash database ttserver 2 的配置： 从on-memory hash database复制数据
+
+    ttserver -host 192.168.0.101 -port 20002 -mhost 192.168.0.99 -mport 20000 -rcc -rts /data/ttserver/test_data_02.rts -thnum 128 -dmn -ulim 1024m -ulog /data/ttserver/test_ulog_02 -log /data/ttserver/log/test_data_02.log -pid /data/ttserver/log/test_data_02.pid -sid 2 “/data/ttserver/log/test_data_02.tch#bnum=10000000#rcnum=100000#xmsiz=256m”
+
+配置为读写分离后，客户端写入的时候连接on-memory hash database，读取的时候连接其他的ttserver。
+
+5、客户端实现分布，分库：海量数据
+数据量再大，靠几台服务器已经无法支撑的时候，分库仍然是无奈的选择。将数据按照业务划分，或者按照某一数值划分，存在在多个ttserver群集中去。
+客户端程序在写入或者读取的时候，自动根据业务规则去访问对应的群集即可。
+
+
+
+
+
+1.先启动一个测试用的ttserver
+注意使用的所有路径都是绝对路径
+ttserver -host 192.168.0.100 -port 20000 -thnum 4 -dmn -ulim 1024m -ulog $(pwd)/ulog/ -log $(pwd)/temp/test.log -pid $(pwd)/temp/test.pid -sid 9 $(pwd)/temp/test_data.tch#bnum=1000#rcnum=0#xmsiz=0m
+
+2. 查看服务器统计信息
+tcrmgr inform -port 20000 -st 192.168.0.100
+
+3. 写入数据
+tcrmgr put -port 20000 192.168.0.100 test1 value1
+
+4. 读取数据
+tcrmgr get -port 20000 192.168.0.100 test1
+
+5. 删除数据
+tcrmgr out -port 20000 192.168.0.100 test1
+
+6. 查看所有的key
+tcrmgr list -port 20000 192.168.0.100
+
+7. 备份数据
+注意：路径是服务器上的绝对路径，否则显示“./tcrmgr: error: 9999: miscellaneous error”
+tcrmgr copy -port 20000 192.168.0.100 $(pwd)/temp/test2.tch
+
+8. 日志导出(屏幕上打印，十六进制字符串格式)
+注意：命令不同了
+注意：目录是服务器上的ulog的绝对路径
+ttulmgr export $(pwd)/ulog/
+
+9. 同步内存数据到磁盘（没搞懂有什么特别之处，可能是当ttserver使用-uas参数异步写入日志的时候起作用）
+tcrmgr sync -port 20000 192.168.0.100
+
+10. 数据导入
+注意：tsv格式的文件以TAB分隔，如：test2\tvalue2\n
+注意：路径是本地路径，所以不必是绝对路径
+tcrmgr importtsv -port 20000 192.168.0.100 temp/2.tsv
+
+11. 通过ulog日志恢复数据
+注意：路径是服务器上的绝对路径
+tcrmgr restore -port 20000 192.168.0.100 $(pwd)/old_ulog/
+
+12.  打印更新日志（挂起，一直显示日志）
+可能是用于实时查看ttserver有哪些操作，相当于tail -f
+tcrmgr repl -port 20000 -ph 192.168.0.100
+
+13.  下一个实验：启动一个带复制功能的ttserver，以前面启动的ttserver为master
+ttserver -host 192.168.0.100 -port 20001 -mhost 192.168.0.100 -mport 20000 -rcc -rts $(pwd)/temp_1/test_1.rts -thnum 4 -dmn -ulim 1024m -ulog $(pwd)/temp_1/ -log $(pwd)/temp_1/test_1.log -pid $(pwd)/temp_1/test_1.pid -sid 10 $(pwd)/temp_1/test_1.tch#bnum=1000#rcnum=0#xmsiz=0m
+
+14.  再启动一个普通的ttserver，不与其他服务器相关
+ttserver -host 192.168.0.100 -port 20002 -thnum 4 -dmn -ulim 1024m -ulog $(pwd)/ulog_2/ -log $(pwd)/temp_2/test_2.log -pid $(pwd)/temp_2/test_2.pid -sid 11 $(pwd)/temp_2/test_data_2.tch#bnum=1000#rcnum=0#xmsiz=0m
+
+15. 修改某个ttserver的master
+tcrmgr setmst -port 20001 -mport 20002 192.168.0.100 192.168.0.100
+注意：只有以复制方式启动的ttserver，修改master后才能从新的数据库复制数据
+注意：每个ttserver只能有一个master，修改后，不能再从以前的master复制数据
