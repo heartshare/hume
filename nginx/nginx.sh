@@ -47,7 +47,7 @@ case "$1" in
      ;;
      restart)
 	sh $0 stop	
-	sleep 3
+	sleep 5
 	sh $0 start	
      ;;
 esac
