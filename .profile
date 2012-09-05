@@ -10,13 +10,23 @@
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+        # include .bashrc if it exists
+        if [ -f "$HOME/.bashrc" ]; then
+                . "$HOME/.bashrc"
+        fi
 fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+        PATH="$HOME/bin:$PATH"
 fi
+
+
+function jiami() 
+{ 
+        /usr/bin/openssl aes-128-cbc -salt -in $1 -out $1.aes && rm -f $1
+}
+function jiemi() 
+{ 
+        /usr/bin/openssl aes-128-cbc -d -salt -in $1.aes -out $1 && rm -f $1.aes
+}

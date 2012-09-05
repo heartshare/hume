@@ -26,7 +26,7 @@ if has("vms")
 else
   set backup		" keep a backup file
 endif
-set history=50		" keep 50 lines of command line history
+set history=5000		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
@@ -90,16 +90,13 @@ command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 
 set textwidth=72
 set cindent
-set shiftwidth=8
+set shiftwidth=4
 set nobackup
 set nowritebackup
-"set noswapfile
-
-
 set tabstop=4
 set expandtab
-set shiftwidth=8
 set shiftround
+"set noswapfile
 
 set fo-=cro
 
