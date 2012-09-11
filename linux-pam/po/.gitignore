@@ -1,0 +1,5 @@
+Makevars.template
+POTFILES
+*.gmo
+remove-potcdate.sed
+stamp-po
