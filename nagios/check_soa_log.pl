@@ -91,6 +91,8 @@ sub do_job($$) {
         }
 
 
+        # 判断$cond_service == 1，寻找service上面第一个符合的DaoImpl
+        # 判断$cond_service ，寻找jvm打印出来的栈的第一个符合的DaoImpl
         #if ($line =~ m/com\.sohu\.twitter\.[a-zA-Z]+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
         if ($cond_service && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
             $cond_dao = 1;

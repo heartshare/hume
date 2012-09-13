@@ -31,15 +31,16 @@ my $net_out_old;
 
 my $net_dev;
 
-for (1..5) {
+#for (1..5) {
 
 
-	open $net_dev, "< /proc/net/dev" or die "cannot open /pro/net/dev: $!";
+	open $net_dev, "< /proc/net/dev" or die "cannot open /proc/net/dev: $!";
 
 	while (<$net_dev>) {
 		chomp;
 		next unless /eth0/;
 		my $line = $_;
+        # 红帽新老版本之间/proc/net/dev 文件格式不一样
 		$net_in_old =( split /\s+/, (split /:/, $line)[1])[0];
 		$net_out_old =( split /\s+/, (split /:/, $line)[1])[8];
 	}
@@ -48,7 +49,7 @@ for (1..5) {
 
 	sleep 10;
 
-	open $net_dev, "< /proc/net/dev" or die "cannot open /pro/net/dev: $!";
+	open $net_dev, "< /proc/net/dev" or die "cannot open /proc/net/dev: $!";
 
 	while (<$net_dev>) {
 		chomp;
@@ -71,4 +72,4 @@ for (1..5) {
 
 	close $tmp_out;
 
-}
+#}

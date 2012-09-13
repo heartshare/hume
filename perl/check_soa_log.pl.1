@@ -30,29 +30,15 @@ my %msg;
 
 my $log_pos;
 
-$logfile{8002} = "/opt/newtw/log/server/rmi_8002/rmi_8002_error.log";
-$logfile{8003} = "/opt/newtw/log/server/rmi_8003/rmi_8003_error.log";
+$logfile{8002} = "/opt/newtw/log/server/rmi_8002/rmi_8002_error.log.2012-09-06";
+$logfile{8003} = "/opt/newtw/log/server/rmi_8003/rmi_8003_error.log.2012-09-06";
 
 
-#for (1..5) {
+map {
+    do_job($logfile{$_}, $_);
+    #system("echo '================check for database connection error=================' >>$logfile{$_}");
+} qw(8002 8003);
 
-	map {
-    	do_job($logfile{$_}, $_);
-    	system("echo '================check for database connection error=================' >>$logfile{$_}");
-	} qw(8002 8003);
-	#sleep 10;
-	open my $tmp_out, "> /tmp/soa_log" or die "$!";
-
-	map {
-    	$errordb_msg .= "$_ ";
-	} sort keys %msg;
-
-	print $tmp_out "$errordb_msg";
-	#print "$errordb_msg\n";
-
-	close $tmp_out;
-
-#}
 
 sub do_job($$) {
 
@@ -72,7 +58,7 @@ sub do_job($$) {
     my $bw = File::ReadBackwards->new( "$file" ) or return;
 
     until ( $bw->eof ) {
-        return if $itr >= 100000;
+        return if $itr >= 1000000;
         $itr++;
 
         my $line = $bw->readline;
@@ -92,7 +78,7 @@ sub do_job($$) {
 
 
         #if ($line =~ m/com\.sohu\.twitter\.[a-zA-Z]+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
-        if ($cond_service && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
+        if ($cond_service == 1 && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
             $cond_dao = 1;
             $region_cond = $region;
             $cond_service = 2;
@@ -120,3 +106,14 @@ sub do_job($$) {
 }
 
 
+open my $tmp_out, "> /tmp/soa_log" or die "$!";
+
+map {
+    $errordb_msg .= "$_ ";
+} sort keys %msg;
+
+print $tmp_out "$errordb_msg\n";
+print "$errordb_msg\n";
+
+
+close $tmp_out;
