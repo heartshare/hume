@@ -1,0 +1,32 @@
+rename single-html -> embed-font/image/css ...
+
+bug found in baidu & mail
+
+option for tounicode-map
+get unicode from charname using fontforge (test with 'Font' croc.pdf)
+also for CID Type 0
+
+argument auto-completion
+
+round coordinate and check if it'll be faster
+
+remove the intermediate save to retrieve asc/des
+
+a fallback font
+
+
+color invert
+use absolute positioning for long whitespace
+
+==Future==
+
+fix glyph width as provided in pdf
+detect duplicate base fonts when embedding
+disable selection if we know unicode is wrong
+combine lines (unwarp)
+Printing
+multiple charcode mapped to a same glyph
+check if we can add information to the font, and let browsers show ligatures automatically
+custom html/css dir
+native support for image
+native support for draw

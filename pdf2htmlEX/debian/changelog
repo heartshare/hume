@@ -1,0 +1,85 @@
+pdf2htmlex (0.4-1~git201209170124r8b4ec-0ubuntu1) precise; urgency=low
+
+  * Regularly re-packing. 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Mon, 17 Sep 2012 01:24:29 +0800
+
+pdf2htmlex (0.4-1~git201209162328r8b4ec-0ubuntu1) precise; urgency=low
+
+  * Regularly re-packing. 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Sun, 16 Sep 2012 23:28:03 +0800
+
+pdf2htmlex (0.3-1~git201209152353rf02e1-0ubuntu1) precise; urgency=low
+
+  * Regularly re-packing. 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Sat, 15 Sep 2012 23:53:43 +0800
+
+pdf2htmlex (0.3-1~git201209071504ra0de6-0ubuntu1) precise; urgency=low
+
+  * fix build 
+  * 0.3 comes with more bug fixed 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Fri, 07 Sep 2012 15:04:09 +0800
+
+pdf2htmlex (0.2-3~git201209052329rbc256-0ubuntu1) precise; urgency=low
+
+  * Change dependency of fontforge 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Wed, 05 Sep 2012 23:29:49 +0800
+
+pdf2htmlex (0.2-3~git201209030158r926cf-0ubuntu1) precise; urgency=low
+
+  * Fix dependency of libpoppler27 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Mon, 03 Sep 2012 01:58:42 +0800
+
+pdf2htmlex (0.2-3~git201209010002rfe7b3-0ubuntu1) precise; urgency=low
+
+  * update license 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Sat, 01 Sep 2012 00:02:23 +0800
+
+pdf2htmlex (0.2-3~git201208312351rd12b8-0ubuntu1) precise; urgency=low
+
+  * 0.2dev, many bugs fixed 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Fri, 31 Aug 2012 23:51:57 +0800
+
+pdf2htmlex (0.1-3~git201208281638r1addb-0ubuntu1) precise; urgency=low
+
+  * Add debian files 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Tue, 28 Aug 2012 16:38:19 +0800
+
+pdf2htmlex (0.1-3~git201208281523r80dc3-0ubuntu1) precise; urgency=low
+
+  * Add dependency libpng 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Tue, 28 Aug 2012 15:22:22 +0800
+
+pdf2htmlex (0.1-3~git201208281431r383b1-0ubuntu1) precise; urgency=low
+
+  * Updated CMakeList.txt 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Tue, 28 Aug 2012 14:29:43 +0800
+
+pdf2htmlex (0.1-3~git201208281420rc53d7-0ubuntu1) precise; urgency=low
+
+  * Added config.h.in
+
+ -- WANG Lu <coolwanglu@gmail.com>  Tue, 28 Aug 2012 14:06:22 +0800
+
+pdf2htmlex (0.1-3~git201208281356r5731e-0ubuntu1) precise; urgency=low
+
+  * Fix version for package 
+
+ -- WANG Lu <coolwanglu@gmail.com>  Tue, 28 Aug 2012 13:46:09 +0800
+
+pdf2htmlex (0.1-1~git20120828rf083f-0ubuntu1) precise; urgency=low
+
+  * Initial release.
+
+ -- WANG Lu <coolwanglu@gmail.com>  Tue, 28 Aug 2012 01:26:33 +0800
+
