@@ -1,0 +1,7 @@
+SPAN 镜像端口
+
+
+tcpdump -i eth0 port 3307 -s 65535 -x -nn -q -tttt -w
+
+pt-query-digest --type=tcpdump --watch-server $ip_addr:$port
+
