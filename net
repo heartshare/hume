@@ -5,3 +5,19 @@ tcpdump -i eth0 port 3307 -s 65535 -x -nn -q -tttt -w
 
 pt-query-digest --type=tcpdump --watch-server $ip_addr:$port
 
+
+/home/mysql/agent/bin/maatkit/mk-query-digest \
+--type=slowlog \
+--since="2011-11-02 15:14:00" \
+--until="2011-11-02 15:16:25" \
+--filter '($event->{host} || $event->{ip} || "") =~ m/172.24.27.52/' \
+slow.log |more
+
+
+
+orzdba --lazy
+
+
+
+
+

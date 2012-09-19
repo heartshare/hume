@@ -36,21 +36,21 @@ $logfile{8003} = "/opt/newtw/log/server/rmi_8003/rmi_8003_error.log";
 
 #for (1..5) {
 
-	map {
-    	do_job($logfile{$_}, $_);
-    	system("echo '================check for database connection error=================' >>$logfile{$_}");
-	} qw(8002 8003);
-	#sleep 10;
-	open my $tmp_out, "> /tmp/soa_log" or die "$!";
+    map {
+        do_job($logfile{$_}, $_);
+        system("echo '================check for database connection error=================' >>$logfile{$_}");
+    } qw(8002 8003);
+    #sleep 10;
+    open my $tmp_out, "> /tmp/soa_log" or die "$!";
 
-	map {
-    	$errordb_msg .= "$_ ";
-	} sort keys %msg;
+    map {
+        $errordb_msg .= "$_ ";
+    } sort keys %msg;
 
-	print $tmp_out "$errordb_msg";
-	#print "$errordb_msg\n";
+    print $tmp_out "$errordb_msg";
+    #print "$errordb_msg\n";
 
-	close $tmp_out;
+    close $tmp_out;
 
 #}
 
@@ -63,6 +63,7 @@ sub do_job($$) {
     my $cond_dao = 0;
     my $cond_service = 0;
     my $dbname = "";
+    my $servicename = "";
     my $region = 0;
     my $region_cond = 0;
     my $region_service = 0;
@@ -80,32 +81,32 @@ sub do_job($$) {
 
         return if $line =~ m/================check\ for\ database\ connection\ error=================/gmx;
 
+        next if ($line =~ m/at\ com\.sohu\.twitter\.common\.dao/gmx);
 
         #if ($line =~ m/com\.sohu\.twitter\.[a-zA-Z]+\.service\.impl/gmx) {
-        if ($line =~ m/at\ com\.sohu\.twitter\.\S+\.service\.impl/gmx) {
+        if ($line =~ m/at\ com\.sohu\.twitter\.\S+\.service\.impl\.([a-zA-Z]+)ServiceImpl\.\S+\(([a-zA-Z]+)\.java\:([0-9]+)\)/gmx) {
             $cond_service = 1;
             $region_service = $region;
             $cond_dao = 0;
             $dbname = "";
+            $servicename = "$1: $2 line $3";
 
         }
 
 
-        # 判断$cond_service == 1，寻找service上面第一个符合的DaoImpl
-        # 判断$cond_service ，寻找jvm打印出来的栈的第一个符合的DaoImpl
         #if ($line =~ m/com\.sohu\.twitter\.[a-zA-Z]+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
-        if ($cond_service && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
+        if ($cond_service && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao(?:\.impl)?\.([a-zA-Z]+)DaoImpl\.\S+\(([a-zA-Z]+)\.java\:([0-9]+)\)/gmx) {
             $cond_dao = 1;
             $region_cond = $region;
             $cond_service = 2;
-            $dbname = $1;
+            $dbname = "$1: $2 line $3";
         }
 
 
-        if ($line =~ m/Too\ many\ connections/gmx) {
+        if ($line =~ m/Too\ many\ connections/gmx || $line =~ m/java\.sql\.SQLException:\ Couldn\'t\ get\ connection\ because\ we\ are\ at\ maximum\ connection\ count/gmx ) {
             if ($region_cond == $region_service && $cond_dao == 1 && $cond_service == 2 && $dbname ne "") {
                 #print "$itr: $line\n";
-                $msg{"$port:$dbname"} = 1;
+                $msg{"port $port($dbname/$servicename)  "} = 1;
             }
 
             #print "$cond_toomany\n";
@@ -115,10 +116,9 @@ sub do_job($$) {
             $cond_dao = 0;
             $cond_service = 0;
             $dbname = "";
+            $servicename = "";
         }
 
     }
 
 }
-
-

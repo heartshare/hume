@@ -40,9 +40,11 @@ my $net_dev;
 		chomp;
 		next unless /eth0/;
 		my $line = $_;
-        # 红帽新老版本之间/proc/net/dev 文件格式不一样
-		$net_in_old =( split /\s+/, (split /:/, $line)[1])[0];
-		$net_out_old =( split /\s+/, (split /:/, $line)[1])[8];
+		# bug fix
+		my $float_str = (split /:/, $line)[1];
+		$float_str =~ s/^\s+//gmx;
+		$net_in_old =( split /\s+/, $float_str)[0];
+		$net_out_old =( split /\s+/, $float_str)[8];
 	}
 
 	close $net_dev;
@@ -55,12 +57,16 @@ my $net_dev;
 		chomp;
 		next unless /eth0/;
 		my $line = $_;
-		$net_in =( split /\s+/, (split /:/, $line)[1])[0];
-		$net_out =( split /\s+/, (split /:/, $line)[1])[8];
+
+		# bug fix
+		my $float_str = (split /:/, $line)[1];
+		$float_str =~ s/^\s+//gmx;
+		$net_in =( split /\s+/, $float_str)[0];
+		$net_out =( split /\s+/, $float_str)[8];
 	}
 
-	my $in_rate_1 = (($net_in - $net_in_old) * 800)/(1024*1024*1024*10);
-	my $out_rate_1 = (($net_out - $net_out_old) * 800)/(1024*1024*1024*10);
+	my $in_rate_1 = (($net_in - $net_in_old) * 80)/(1024*1024*1024);
+	my $out_rate_1 = (($net_out - $net_out_old) * 80)/(1024*1024*1024);
 
 	my $in_rate = sprintf("%.2f", $in_rate_1);
 	my $out_rate = sprintf("%.2f", $out_rate_1);
