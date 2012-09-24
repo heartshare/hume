@@ -9,7 +9,7 @@ use IPC::Open2;
 my $prog = shift @ARGV;
 my $iplist = shift @ARGV;
 
-open my $list, "< test.txt", or croak;
+open my $list, "< $iplist", or croak;
 
 print $prog, "\n";
 
@@ -53,6 +53,8 @@ while (<$list>) {
 	#my $check_mem = 'command[check_mem]=/usr/local/nagios/libexec/check_mem.sh -w \$ARG1\$ -c \$ARG2\$';
 
 	open $pipe_out1 , qq{ ssh $ip ' sed -i "/check_soa/d" /usr/local/nagios/etc/nrpe.cfg;echo $args >>/usr/local/nagios/etc/nrpe.cfg;pkill nrpe;/usr/local/nagios/bin/nrpe -c /usr/local/nagios/etc/nrpe.cfg -d '|} or croak;
+
+	#open $pipe_out1 , qq{ ssh $ip 'pkill nrpe;/usr/local/nagios/bin/nrpe -c /usr/local/nagios/etc/nrpe.cfg -d '|} or croak;
 
 	while (<$pipe_out1>) {
 		my $line = $_;

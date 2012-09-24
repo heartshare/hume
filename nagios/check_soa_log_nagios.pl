@@ -23,7 +23,10 @@ use warnings;
 
 use Storable;
 
-my $st_file = "/tmp/soa.st";
+my $port = shift @ARGV;
+
+my $st_file = "/tmp/soa.st.$port";
+my $st_log = "/tmp/soa_log.$port";
 
 #use Smart::Comments;
 
@@ -31,7 +34,7 @@ use lib "/usr/local/nagios/libexec" ;
 use utils qw (%ERRORS &print_revision &support);
 
 
-open my $nrpe_host, "< /tmp/soa_log" or die "cannot open /tmp/soa_log: $!";
+open my $nrpe_host, "< $st_log" or die "cannot open $st_log: $!";
 
 
 while (<$nrpe_host>) {

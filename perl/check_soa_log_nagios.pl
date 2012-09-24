@@ -23,7 +23,10 @@ use warnings;
 
 use Storable;
 
-my $st_file = "/tmp/soa.st";
+my $port = shift @ARGV;
+
+my $st_file = "/tmp/soa.st.$port";
+my $st_log = "/tmp/soa_log.$port";
 
 #use Smart::Comments;
 
@@ -31,7 +34,7 @@ use lib "/usr/local/nagios/libexec" ;
 use utils qw (%ERRORS &print_revision &support);
 
 
-open my $nrpe_host, "< /tmp/soa_log" or die "cannot open /tmp/soa_log: $!";
+open my $nrpe_host, "< $st_log" or die "cannot open $st_log: $!";
 
 
 while (<$nrpe_host>) {
@@ -42,8 +45,23 @@ while (<$nrpe_host>) {
     ### $line
 
     if ( defined $line && $line ne "") {
-		store \$line, $st_file;
-        print "db conn error: $line\n";
+#        my @infos = split / /, $line;
+#
+#        for my $info (@infos) {
+#            if ($info =~ m/IKv/gmx) {
+#                $info .= ":Service";
+#            }
+#            elsif ($info =~ m/IList/gmx) {
+#                $info .= ":Service";
+#            }
+#            else {
+#                $info .= ":DataBase";
+#            }
+#        }
+#
+#        $line = join " ", @infos;
+        store \$line, $st_file;
+        print "soa error: $line\n";
         exit $ERRORS{'CRITICAL'};
     }
 
@@ -52,7 +70,7 @@ while (<$nrpe_host>) {
 
 my $lineref = retrieve($st_file) if -f $st_file;
 
-print "ok, soa db conn ok: $$lineref\n" if defined $$lineref;
+print "ok, soa ok: $$lineref\n" if defined $$lineref;
 
 my $line = "";
 

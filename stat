@@ -12,6 +12,14 @@ sar
 snmpnetstat
 mpstat
 
+dsniff工具包：tcpkill
+
+tcpkill -9 port ftp &>/dev/null
+tcpkill -9 host 192.168.10.30 &>/dev/null
+tcpkill -9 port 53 and port 8000 &>/dev/null
+tcpkill -9 net 192.168.10 &>/dev/null
+tcpkill -9 net 192.168.10 and port 22 &>/dev/null
+
 
 fio
 systemtap

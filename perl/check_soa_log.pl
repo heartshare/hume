@@ -24,37 +24,38 @@ use warnings;
 
 use File::ReadBackwards;
 
-my %logfile;
-my $errordb_msg = "";
+my $error_msg = "";
 my %msg;
 
 my $log_pos;
 
-$logfile{8002} = "/opt/newtw/log/server/rmi_8002/rmi_8002_error.log";
-$logfile{8003} = "/opt/newtw/log/server/rmi_8003/rmi_8003_error.log";
+my $logfile = "";
 
 
-#for (1..5) {
+for my $port (qw(8002 8003)) {
 
-	map {
-    	do_job($logfile{$_}, $_);
-    	system("echo '================check for database connection error=================' >>$logfile{$_}");
-	} qw(8002 8003);
-	#sleep 10;
-	open my $tmp_out, "> /tmp/soa_log" or die "$!";
+    $logfile = "/opt/newtw/log/server/rmi_$port/rmi_$port" . "_error.log";
 
-	map {
-    	$errordb_msg .= "$_ ";
-	} sort keys %msg;
+    do_job($logfile, $port);
+    system("echo '================check for database connection error=================' >>$logfile");
 
-	print $tmp_out "$errordb_msg";
-	#print "$errordb_msg\n";
+    #sleep 10;
+    open my $tmp_out, "> /tmp/soa_log.$port" or die "$!";
 
-	close $tmp_out;
+    map {
+        #$errordb_msg .= "$_ ";
+        $error_msg = $_;
+        print $tmp_out "$error_msg\n" if $msg{$error_msg} == $port;
+    } sort keys %msg;
 
-#}
+    #print $tmp_out "$errordb_msg";
+    #print "$errordb_msg\n";
 
-sub do_job($$) {
+    close $tmp_out;
+
+}
+
+sub do_job {
 
     my $file = shift;
     my $port = shift;
@@ -63,6 +64,7 @@ sub do_job($$) {
     my $cond_dao = 0;
     my $cond_service = 0;
     my $dbname = "";
+    my $servicename = "";
     my $region = 0;
     my $region_cond = 0;
     my $region_service = 0;
@@ -80,30 +82,32 @@ sub do_job($$) {
 
         return if $line =~ m/================check\ for\ database\ connection\ error=================/gmx;
 
+        next if ($line =~ m/at\ com\.sohu\.twitter\.common\.dao/gmx);
 
         #if ($line =~ m/com\.sohu\.twitter\.[a-zA-Z]+\.service\.impl/gmx) {
-        if ($line =~ m/at\ com\.sohu\.twitter\.\S+\.service\.impl/gmx) {
+        if ($line =~ m/at\ com\.sohu\.twitter\.\S+\.service\.impl\.([a-zA-Z]+)ServiceImpl\.\S+\(([a-zA-Z]+)\.java\:([0-9]+)\)/gmx) {
             $cond_service = 1;
             $region_service = $region;
             $cond_dao = 0;
             $dbname = "";
+            $servicename = "$2 line $3";
 
         }
 
 
         #if ($line =~ m/com\.sohu\.twitter\.[a-zA-Z]+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
-        if ($cond_service && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao\.impl\.([a-zA-Z]+)DaoImpl/gmx) {
+        if ($cond_service && $line =~ m/at\ com\.sohu\.twitter\.\S+\.dao(?:\.impl)?\.([a-zA-Z]+)DaoImpl\.\S+\(([a-zA-Z]+)\.java\:([0-9]+)\)/gmx) {
             $cond_dao = 1;
             $region_cond = $region;
             $cond_service = 2;
-            $dbname = $1;
+            $dbname = "$2 line $3";
         }
 
 
-        if ($line =~ m/Too\ many\ connections/gmx) {
+        if ($line =~ m/Too\ many\ connections/gmx || $line =~ m/java\.sql\.SQLException:\ Couldn\'t\ get\ connection\ because\ we\ are\ at\ maximum\ connection\ count/gmx ) {
             if ($region_cond == $region_service && $cond_dao == 1 && $cond_service == 2 && $dbname ne "") {
                 #print "$itr: $line\n";
-                $msg{"$port:$dbname"} = 1;
+                $msg{"$dbname/$servicename "} = $port;
             }
 
             #print "$cond_toomany\n";
@@ -113,10 +117,9 @@ sub do_job($$) {
             $cond_dao = 0;
             $cond_service = 0;
             $dbname = "";
+            $servicename = "";
         }
 
     }
 
 }
-
-

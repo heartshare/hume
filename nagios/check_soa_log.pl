@@ -24,37 +24,38 @@ use warnings;
 
 use File::ReadBackwards;
 
-my %logfile;
-my $errordb_msg = "";
+my $error_msg = "";
 my %msg;
 
 my $log_pos;
 
-$logfile{8002} = "/opt/newtw/log/server/rmi_8002/rmi_8002_error.log";
-$logfile{8003} = "/opt/newtw/log/server/rmi_8003/rmi_8003_error.log";
+my $logfile = "";
 
 
-#for (1..5) {
+for my $port (qw(8002 8003)) {
 
-    map {
-        do_job($logfile{$_}, $_);
-        system("echo '================check for database connection error=================' >>$logfile{$_}");
-    } qw(8002 8003);
+    $logfile = "/opt/newtw/log/server/rmi_$port/rmi_$port" . "_error.log";
+
+    do_job($logfile, $port);
+    system("echo '================check for database connection error=================' >>$logfile");
+
     #sleep 10;
-    open my $tmp_out, "> /tmp/soa_log" or die "$!";
+    open my $tmp_out, "> /tmp/soa_log.$port" or die "$!";
 
     map {
-        $errordb_msg .= "$_ ";
+        #$errordb_msg .= "$_ ";
+        $error_msg = $_;
+        print $tmp_out "$error_msg\n" if $msg{$error_msg} == $port;
     } sort keys %msg;
 
-    print $tmp_out "$errordb_msg";
+    #print $tmp_out "$errordb_msg";
     #print "$errordb_msg\n";
 
     close $tmp_out;
 
-#}
+}
 
-sub do_job($$) {
+sub do_job {
 
     my $file = shift;
     my $port = shift;
@@ -89,7 +90,7 @@ sub do_job($$) {
             $region_service = $region;
             $cond_dao = 0;
             $dbname = "";
-            $servicename = "$1: $2 line $3";
+            $servicename = "$2 line $3";
 
         }
 
@@ -99,14 +100,14 @@ sub do_job($$) {
             $cond_dao = 1;
             $region_cond = $region;
             $cond_service = 2;
-            $dbname = "$1: $2 line $3";
+            $dbname = "$2 line $3";
         }
 
 
         if ($line =~ m/Too\ many\ connections/gmx || $line =~ m/java\.sql\.SQLException:\ Couldn\'t\ get\ connection\ because\ we\ are\ at\ maximum\ connection\ count/gmx ) {
             if ($region_cond == $region_service && $cond_dao == 1 && $cond_service == 2 && $dbname ne "") {
                 #print "$itr: $line\n";
-                $msg{"port $port($dbname/$servicename)  "} = 1;
+                $msg{"$dbname/$servicename "} = $port;
             }
 
             #print "$cond_toomany\n";
