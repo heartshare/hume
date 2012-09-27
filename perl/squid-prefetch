@@ -1,0 +1,399 @@
+#! /usr/bin/perl
+###############################################################################
+#
+#  Squid-Prefetch (v1.1)
+#
+#  Written by Brian White <bcwhite@pobox.com>.
+#  This program has been placed in the public domain (the only true "free").
+#
+###############################################################################
+
+use URI;
+use Net::HTTP;
+
+
+@ConfFiles		= qw(./squid-prefetch.conf $ENV{HOME}/.squid-prefetch /etc/squid-prefetch.conf);
+$FetchPattern	= 'http://.*(\.(html?|te?xt)|/[^\.]*)';
+
+$AccessFile		= "";
+$LastAccess		= 0;
+%Config;
+%Squid;
+%DoneTime;
+%DoneCount;
+%DoneFetch;
+%DonePrefetch;
+@DoneList;
+@LinkList;
+
+
+
+###############################################################################
+
+
+
+sub uniq
+{
+	return () unless @_;
+
+	my($last) = "";
+	my(@new)  = ();
+	foreach (@_) {
+		next unless $_;
+		if ($_ ne $last) {
+			$last = $_;
+			push(@new,$_);
+		}
+	}
+	return @new;
+}
+
+
+
+sub RandomizeArray
+{
+	my($array,$count) = @_;
+	my $i;
+
+	$count = @$array unless ($count > 0 && $count <= @$array);
+	for ($i=$[; $i < $count; $i++) {
+		my $random = int(rand($count));
+		my $temp;
+
+		$temp 			= $$array[$random];
+		$$array[$random]= $$array[$i];
+		$$array[$i]		= $temp;
+	}
+
+	return scalar @$array;
+}
+
+
+
+###############################################################################
+
+
+
+sub ReadConfig
+{
+	my($file,$conf) = @_;
+	my($parm,$valu);
+
+	open(CONF,"<$file") || die "Error: could not read config file '$file' ($!)\n";
+	while (<CONF>) {
+		chomp;
+		s/\#.*$//;
+		next if m/^\s*$/;
+
+		if (($parm,$valu) = m/^(\w+)\s+(.*?)\s*$/) {
+			$conf->{$parm} = $valu;
+		}
+	}
+	close(CONF);
+}
+
+
+sub ConfigValue
+{
+	my($parm,$default) = @_;
+
+	return $Config{$parm} if (exists $Config{$parm});
+	return $Squid{$parm}  if (exists $Squid{$parm});
+	return $default;
+}
+
+
+
+###############################################################################
+
+
+
+sub ReadAccessLog
+{
+	my(@pages);
+
+	if (time() - $LastAccess > 900) {
+		open(ACCESS,"<$AccessFile") || die "Error: could not read access log $AccessFile ($!)\n";
+		seek(ACCESS,0,2); # go to end of file
+		$LastAccess = time();
+	}
+
+	while (<ACCESS>) {
+		$LastAccess = time();
+		@_ = split;
+		next unless ($_[3] =~ m!/2! && $_[5] eq "GET" && $_[6] =~ m!http://! && $_[9] =~ m!^text/!);
+		push @pages,$_[6];
+	}
+
+	return @pages;
+}
+
+
+
+sub FetchUrl
+{
+	my($url) = @_;
+	my($data,@links);
+	my($host,$path) = ($url =~ m!http://(?:[^/]+@)?([^/]+)(/.*?)(\#.*)?$!);
+	unless ($host && $path) {
+		print STDERR "Warning: could not parse URL $url\n";
+		return;
+	}
+
+	# limit how long we will spend doing the fetch
+	local $SIG{ALRM} = sub { die "Error: Timeout fetching $url\n" };
+	alarm(3);
+
+	eval {
+		my $http = Net::HTTP->new(PeerHost => $ProxyHost, PeerPort => $ProxyPort, Host => $host, SendTE => 0, KeepAlive => 0);
+		$http->write_request("GET" => "http://$host$path", "Accept" => "text/html", "Cache-Control" => "only-if-cached", "User-Agent" => "Squid-Prefetch");
+		my ($code,$mesg,%hdrs) = $http->read_response_headers();
+		print "\nfetch: $url: $code ($mesg)\n";
+		print "  $k  ->  $v\n" while (($k,$v) = each %hdrs);
+	};
+
+	alarm(0);
+	die if $@;
+
+	if ($code != 200) {
+		print STDERR "Warning: fetch returned code $code ($mesg) for $url\n";
+		return;
+	}
+	if ($hdrs{"Content-Type"} !~ m!^text/html($|;)!) {
+		print STDERR "Warning: fetch returned non-html content-type \"",$hdrs{"Content-Type"},"\" for $url\n";
+		return;
+	}
+	if ($hdrs{"Cache-Control"} =~ m/\bno-cache\b/) {
+		print STDERR "Warning: no-cache directive for $url\n";
+		return;
+	}
+	if ($hdrs{"X-Cache"} =~ m/^MISS\b/ || $hdrs{"X-Cache-Lookup"} =~ m/^MISS\b/) {
+		print STDERR "Warning: squid didn't cache $url\n";
+		return;
+	}
+
+	alarm(5);
+	eval {
+		while (1) {
+			my $bufr;
+			my $size = $http->read_entity_body($bufr,4096);
+#			print "\n$size : $bufr";
+			last unless ($size > 0);
+
+			$data .= $bufr;
+
+			while ($data =~ m!<a[^>]+href\s*=\s*(\"|\'|)([^\"\'>\s]+)\1[^>]*>!gis) {
+				my $uri = URI->new($2);
+				my $lnk = $uri->abs($url);
+				my $frg = ($lnk =~ s/(\#.*)$//); next if ($frg && !$FetchFragments);
+				my $opt = ($lnk =~ s/(\?.*)$//); next if ($opt && !$FetchOptions);
+				my($lnkh,$lnkp) = ($lnk =~ m!http://(?:[^/]+@)?([^/]+)(/.*)$!);
+				next if (exists $DoneTime{$lnk});
+				next if ($lnk !~ m!^$FetchPattern$!oi);
+				next if ($lnkh ne $host && !$FetchCrossSite);
+				print "found $lnk\n";
+				unshift @links,$lnk;
+			}
+
+			$data =~ s!^.*($|<)!!;
+		}
+	};
+	alarm(0);
+	die if $@;
+
+	@links = uniq(sort(@links));
+	RandomizeArray(\@links);
+	push @LinkList,@links;
+}
+
+
+
+sub PrefetchUrl
+{
+	my($url) = @_;
+	my($total);
+	my($host,$path) = ($url =~ m!http://(?:[^/]+@)?([^/]+)(/.*)$!);
+	unless ($host && $path) {
+		print STDERR "Warning: could not parse URL $url\n";
+		return;
+	}
+
+	# limit how long we will spend doing the fetch
+	local $SIG{ALRM} = sub { die "Error: Timeout fetching $url\n" };
+	alarm(3);
+
+	eval {
+		my $http = Net::HTTP->new(PeerHost => $ProxyHost, PeerPort => $ProxyPort, Host => $host, SendTE => 1, KeepAlive => 0);
+		$http->write_request("GET" => "http://$host$path", "Accept" => "text/*", "User-Agent" => "Squid-Prefetch");
+		my ($code,$mesg,%hdrs) = $http->read_response_headers();
+		print "\nprefetch: $url: $code ($mesg)\n";
+#		print "  $k  ->  $v\n" while (($k,$v) = each %hdrs);
+	};
+
+	alarm(0);
+	die if $@;
+
+	if ($code != 200) {
+		print STDERR "Warning: fetch returned code $code ($mesg) for $url\n";
+		return;
+	}
+	if ($hdrs{"Content-Type"} !~ m!^text/!) {
+		print STDERR "Warning: fetch returned non-text content-type \"$hdrs{Content-Type}\" for $url\n";
+		return;
+	}
+	if (exists $hdrs{"Content-Length"} && $hdrs{"Content-Length"} > $FetchMaxSize) {
+		print STDERR "Warning: fetch returned oversize content-length ",$hdrs{"Content-Length"}," for $url\n";
+		return;
+	}
+
+	alarm(5);
+	eval {
+		while (1) {
+			my $bufr;
+			my $size = $http->read_entity_body($bufr,4096);
+			last unless ($size > 0);
+
+			$total += $size;
+			last if ($total > $FetchMaxSize);
+		}
+	};
+	alarm(0);
+	die if $@;
+}
+
+
+
+###############################################################################
+
+
+# read our config file
+foreach $file (@ConfFiles) {
+	if (-r $file) {
+		ReadConfig($file,\%Config);
+	}
+}
+
+# read Squid config file
+ReadConfig(ConfigValue("squid_config_file","/etc/squid/squid.conf"),\%Squid);
+
+# determine config information
+$PrefetchUser	= ConfigValue("prefetch_user","root");
+$PrefetchGroup	= ConfigValue("prefetch_group","root");
+$AccessFile		= ConfigValue("cache_access_log","/var/log/squid/access.log");
+$ProxyHost		= ConfigValue("http_proxy","127.0.0.1");
+$ProxyPort		= ConfigValue("http_port",3128);
+$HistorySize	= ConfigValue("max_history_size",5000);
+$HistoryAge		= ConfigValue("max_history_age",24*60*60);
+$FetchPattern	= ConfigValue("prefetch_regex",$FetchPattern);
+$FetchOptions	= ConfigValue("prefetch_options",0);
+$FetchFragments	= ConfigValue("prefetch_fragments",1);
+$FetchMaxSize	= ConfigValue("prefetch_maxsize",65536);
+$FetchCrossSite	= ConfigValue("prefetch_cross",0);
+
+
+if ($PrefetchGroup !~ m/^(\d+)$/) {
+	my $name = $PrefetchGroup;
+	$PrefetchGroup = (getgrnam($name))[2];
+	die "Error: unknown group '$name'\n" unless (defined $PrefetchGroup);
+#	print STDERR "- switching to gid $PrefetchGroup ($name)...\n";
+	$) = $PrefetchGroup if ($PrefetchGroup != $));
+}
+
+if ($PrefetchUser !~ m/^(\d+)$/) {
+	my $name = $PrefetchUser;
+	$PrefetchUser = (getpwnam($name))[2];
+	die "Error: unknown group '$name'\n" unless (defined $PrefetchUser);
+#	print STDERR "- switching to uid $PrefetchUser...\n";
+	$> = $PrefetchUser if ($PrefetchUser != $>);
+}
+
+
+# prefetch pages
+while (1) {
+	# read access log
+	my @urls = ReadAccessLog();
+	my $time = time();
+	my @todo = ();
+
+	# determine candidate pages that have recently been fetched
+	while (@urls) {
+		my $url = shift @urls;
+		my $frg = ($url =~ s/(\#.*)$//); next if ($frg);
+		my $opt = ($url =~ s/(\?.*)$//); next if ($opt);
+		next if ($url !~ m!^$FetchPattern$!oi);
+
+#		print STDERR "Note: user fetch of seen page $url\n" if ($DoneTime{$url} && !$DonePrefetch{$url});
+
+		# remember this URL
+		$DoneTime{$url} = $time;
+		$DoneCount{$url}++;
+		push @DoneList,$url;
+
+		# ignore those pages that appear because we prefetched them
+		if (exists $DonePrefetch{$url}) {
+			delete $DonePrefetch{$url};
+			next;
+		}
+
+		# determine if it's age makes it a candidate
+		my $age = $DoneFetch{$url};
+		next if ($time - $age < $HistoryAge);
+
+		# add it to the todo list
+		delete $DoneFetch{$url};
+		push @todo,$url.$opt;
+	}
+
+	# remember any prefetched pages not found in log (because fetch failed)
+	foreach (keys %DonePrefetch) {
+		$DoneTime{$_} = $time;
+		$DoneCount{$_}++;
+		push @DoneList,$_;
+		delete $DonePrefetch{$_};
+		print STDERR "Warning: no log info for prefetch of $_ (donetime=$DoneTime{$_})\n";
+	}
+
+	# keep the todo list down to a reasonable size
+	shift @todo while (scalar @todo > 1000);
+
+	# fetch and analyze page from todo list
+	while (@todo) {
+		my $url = pop @todo;
+
+		# ignore those pages we've already done prefetch for
+		next if (exists $DoneFetch{$url});
+
+		# fetch one page and analyze for links (saved to @LinkList)
+		$DoneFetch{$url} = $time;
+		eval { FetchUrl($url); };
+		last;
+	}
+
+	# Keep list of links to a reasonable size
+	shift @LinkList while (scalar @LinkList > 100);
+
+	# prefetch one link from list
+	while (@LinkList) {
+		my $url = pop @LinkList;
+		next if (exists $DoneTime{$url});
+
+		$DonePrefetch{$url} = $time;
+		eval { PrefetchUrl($url); };
+		last;
+	}
+
+	# reduce the history size to be within limits
+	while (scalar @DoneList > $HistorySize) {
+		my $url = shift @DoneList;
+		if (--$DoneCount{$url} <= 0) {
+			print STDERR "Note: removing $url from history...\n";
+			delete $DoneCount{$url};
+			delete $DoneTime{$url};
+			delete $DoneFetch{$url};
+			delete $DonePrefetch{$url};
+		}
+	}
+
+	# wait a moment before starting all over again
+	sleep(1);
+}
