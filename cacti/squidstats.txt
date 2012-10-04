@@ -1,0 +1,163 @@
+SquidStats v0.1 - by Rolf Poser - Copyright 2004 - All Rights Reserved - Licensed under the GPL!!
+
+29-Jan-2004
+
+Overview:
+==========
+
+This is an attempt at using cacti's amazing capabilities to query and plot various metrics
+presented by squid over SNMP.
+
+This is a first version, so the graphs may not be 100% perfect. I have tried to create a 
+fairly comprehensive catalogue of metrics to view, but if you can think of any more, you're
+welcome to give me a shout.
+
+Rolf Poser (rolf@stasolutions.co.za)
+
+
+
+
+Prerequisites:
+================
+
+1. You will need cacti version 0.8.5 - at the time of the release of this version of SquidStats,
+   0.8.5 was still in beta release, but there exists no reason why there should be any
+   incompatabilities with future releases.
+2. The version of Squid that this has been tested with is squid version 2.5STABLE1 with a specific
+   bug required for this to work. AFAIK this bug has not been fixed at time of this writing in
+   subsequent releases. (The value for cacheServerErrors is always zero and we rely on this fact
+   to pull out a fake index of "0".)
+3. SNMP libraries and utilities - you wouldn't be able to use cacti without them anyway..
+
+
+
+
+
+
+
+
+
+Installation:
+==============
+
+This is an attempt at a dummies guide for installation to make it easy with someone that isn't
+too familiar with cacti, so please bear with me:
+
+1. Squid Preparation:
+
+	Add the following to your squid.conf file:
+
+          a) An ACL as follows: "acl snmpcommunity snmp_community snmppublic" - 
+               you can change "snmppublic" so something else, but you need to use the
+               new value in the subsequent steps below.
+          b) Enable the snmp port by finding the section that defines "snmp_port" and by changing
+               its value to "3401"  - so the line would read "snmp_port 3401"
+          c) Enable access permissions to the port in the section where "snmp_access" is defined.
+               - A line like "snmp_access allow snmpcommunity localhost" will give permission to
+               connections on the localhost using the snmpcommunity community name.
+               - You can substitute "localhost" with any other ACL e.g. for a host or a group of
+                 hosts from which you want to query the squid snmp port.
+               - The last line in the snmp_access section should read "snmp_access deny all" to set
+                 the default permission
+
+        Optionally you could proxy the SNMP traffic through a local snmpd, but I won't give the details
+        here -- but if you do that, please remember to use the standard "161" port below in stead of 
+        "3401".
+
+2. Restart Squid to activate the configuration.
+
+3. Verify your Squid SNMP installation:
+
+	a) You can import the squid mib file (which in my case lives in /etc/squid/mib.txt) by executing
+
+                 export MIBFILES="/etc/squid/mib.txt"
+
+           in my bash shell.
+
+        b) Run a snmpwalk over the squid port as follows (this is the syntax for net-snmp, your library
+           may need a different syntax):
+
+                 snmpwalk -c snmppublic -v1 <hostname>:3401 .1.3.6.1.4.1.3495.1
+
+           where <hostname> is the hostname or ip address of your squid server. You will want to do this
+           from the cacti server so that you know the permissions in the first step are working correctly.
+
+           If you get a long list of parameters and metrics, then you are well on your way!!
+
+4. Cacti Configuration and SquidStats import :
+
+
+       1)  Copy the following files into <cacti_path>/resource/snmp_queries:
+
+             a) webcache_squid_core.xml
+             b) webcache_squid_median.xml
+
+           These contain the details necessary to determine which OIDs to query in Squid.
+
+       2)  Next import the cacti_host_template_webcache_squid_server_snmp.xml file from the cacti config interface.
+
+           You should be seeing a list of green "success" indicators to show that the imports have worked.
+
+           If something didn't import correctly, please make sure that your cacti 0.8.5 is the latest build, 
+           and if you're still stuck, let me know what went wrong.
+
+       3)  Add a new host for your squid instance ("Devices" in the cacti menu on the left) calling it 
+           something "Hostname - Squid" or whatever, and associate it with the Squid SNMP host template.
+
+           Supply the fully qualified hostname or IP address in the "Hostname" field.
+
+           You will also need to change the following parameters in the host's defaults:
+
+           SNMP Community = snmppublic
+           SNMP Version   = 1
+           SNMP Port      = 3401
+           
+           Once you click "Create" a more detailed page should appear.
+
+           If you see a small red "SNMP Error" message appearing at the top - don't worry this is an expected error
+           since cacti tries to obtain host information that squid's snmp doesn't supply. (Although most other snmp
+           installations do.)
+
+           The real test to see whether the association of your new host and the Squid Host template worked is in the
+           block called "Associated Data Queries". There should be two data query entries, and both of them should have
+           a green "Success" indicator showing that the queries succeeded. 
+
+           The first query (Core) should have 1 Item and 1 Row, and the second (Median Based) should have 3 Items and
+           3 Rows.
+
+           WELL DONE !! If you've gotten this far, you should now be ready to activate the graphs you want !!
+
+5. SquidStats Graph generation:
+
+           From the host page ("Devices") or the page you should be on from the previous step, or the new graphs page, select
+           "Create Graphs for this Host" (first the new host you created if it isn't in your screen already).
+
+           You should see two data query blocks. The first one should have your squid version on the left and a drop-down on the
+           right hand side with various graphs to choose from. The second will have "1","5","60" on the left and a drop-down on 
+           the right to select various graphs. You will always want to choose "5" from the second one, since these are 5 minute
+           averages that squid supplies, and cacti usually queries it every 5 minutes.
+
+           To generate a new graph simply select from the drop down on the right, check the box as appropriate and described in
+           the previous paragraph (it'll turn yellow), and press "create".
+
+           The final step is to add your host to whichever graph tree you want using the "Graph Trees" menu.
+
+6. Which statistics to choose from:
+
+           OK, so there are 14 graphs, some of which are probably cryptic or boring, so which are the ones that a new installation
+           should have. I would recommend the following:
+
+           (Data Query)        (Name)              (Description)
+           Core -          Cache Hit Rate:         Cache hits as a percentage of overall bytes/requests transferred to clients
+           Core -          CPU Usage:              The percentage of your system's CPU that squid is using
+           Core -          Traffic In/Out/Saved:   Incoming and outgoing traffic (including the cache saving) - similar to a network interface
+           Median Based -  Client Request Rate:    Shows the number of client requests to the cache (hits,misses,total)
+           Median Based -  Service Timers:         A stack view of different activities required to service a request
+
+           These should give you a good basis to start, and you could then add the others later as you want to see more detail.
+
+
+Have I missed anything?
+
+Good Luck,
+Rolf.
