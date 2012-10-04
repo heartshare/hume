@@ -149,11 +149,3 @@ set complete+=k~/.vim_extras/file_that_lists_every_installed_Perl_module
 
 
 
-function sshid {
-        if [ $# -eq 0 ]; then
-                echo "$0 ip";
-                exit 1;
-        fi
-        ssh-copy-id -i ~/.ssh/id_rsa.pub root@$@
-}
-
