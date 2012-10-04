@@ -110,7 +110,8 @@ my $warning = $np->opts->warning;
 my $squidclient = $np->opts->squidclient;
 
 
-$host = 'localhost' if (!defined($host) or $host eq '');
+#$host = 'localhost' if (!defined($host) or $host eq '');
+$host = 'localhost' unless (defined($host) && $host ne '');
 $port = 3128 if (!defined($port) or $port eq '');
 $data = 'Connections' if (!defined($data) or $data eq '');
 $user = 'root' if (!defined($user) or $user eq '');
