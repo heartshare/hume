@@ -160,7 +160,7 @@ export XIM=fcitx
 export XIM_PROGRAM=fcitx
 
 
-#source ~/perl5/perlbrew/etc/bashrc
+source ~/perl5/perlbrew/etc/bashrc
 
 alias pmversion="perl -le '\$m = shift; eval qq(require \$m) or die qq(module \"\$m\" is not installed\n\n); print \$m->VERSION;'"
 
@@ -176,5 +176,42 @@ export PATH=/opt/texlive/bin/x86_64-linux:$PATH
 function j() {
         dig "$*.jianbing.org" +short txt | perl -pe 's/\\(\d{1,3})/chr $1/eg; s/(^"|"$)//g'
 }
+
+
+
+#safe remove, mv the files to .Trash with unique name
+#and log the acction
+function saferm()
+{
+ trash="$HOME/.Trash"
+ log="/var/log/trash.log"
+ stamp=`date "+%Y-%m-%d %H:%M:%S"` #current time
+
+ while [ -f "$1" ]; do
+
+ #remove the possible ending /
+ file=`echo $1 |sed 's#\/$##' `
+
+ pure_filename=`echo $file  |awk -F / '{print $NF}' |sed -e "s#^\.##" `
+
+ if [ `echo $pure_filename | grep "\." ` ]; then
+   new_file=` echo $pure_filename |sed -e "s/\([^.]*$\)/$RANDOM.\1/" `
+   else
+   new_file="$pure_filename.$RANDOM"
+ fi
+
+ trash_file="$trash/$new_file"
+ mv "$file" "$trash_file"
+
+ if [ -w $log ]; then
+   echo -e "[$stamp]\t$file\t=>\t[$trash_file]" |tee -a $log
+   else
+   echo -e "[$stamp]\t$file\t=>\t[$trash_file]"
+ fi
+
+ shift   #increment the loop
+ done
+}
+
 
 alias apt='aptitude -F "%c%a%M%T %40p %20V %v %R:%12s %r %D %I - %60d" -w `stty size | sed "s/.* //"`'
