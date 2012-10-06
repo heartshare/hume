@@ -1,0 +1,127 @@
+<interface>
+	<name>Get Squid Statistics (Core)</name>
+	<description>Facility to query various squid statistics via snmp</description>
+	<oid_index>.1.3.6.1.4.1.3495.1.3.2.1.11</oid_index>
+	
+	<fields>
+		<versionID>
+			<name>Squid Version</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.3495.1.2.3</oid>
+		</versionID>
+		<sysStorage>
+			<name>Size of Storage in use (kBytes)</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.1.2</oid>
+		</sysStorage>
+		<swapMaxSize>
+			<name>Total Available Storage (MBytes)</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.2.5.2</oid>
+		</swapMaxSize>
+		<numObjCount>
+			<name>Number of Objects in the Cache</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.1.7</oid>
+		</numObjCount>
+		<cpuUsage>
+			<name>Percentage of CPU used</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.1.5</oid>
+		</cpuUsage>
+		<clientHttpRequests>
+			<name>Number of HTTP client requests</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.1</oid>
+		</clientHttpRequests>
+		<clientHttpHits>
+			<name>Number of HTTP hits</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.2</oid>
+		</clientHttpHits>
+		<clientHttpErrors>
+			<name>Number of HTTP errors</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.3</oid>
+		</clientHttpErrors>
+		<serverErrors>
+			<name>Number of Server errors</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.11</oid>
+		</serverErrors>
+		<serverInKb>
+			<name>Total kBytes received by cache</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.12</oid>
+		</serverInKb>
+		<httpOutKb>
+			<name>kBytes of HTTP transmitted</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.5</oid>
+		</httpOutKb>
+		<currentUnlinkRequests>
+			<name>Number of Unlink Requests</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.1.9</oid>
+		</currentUnlinkRequests>
+		<currentUnusedFDescrCnt>
+			<name>Number of Unused File Descriptors</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.1.10</oid>
+		</currentUnusedFDescrCnt>
+		<clients>
+			<name>Total number of clients</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.2.1.15</oid>
+		</clients>
+		<dnsRequests>
+			<name>Total Number of DNS Requests made</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.4.3.1</oid>
+		</dnsRequests>
+		<dnsReplies>
+			<name>Total Number of DNS Replies received</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.4.3.2</oid>
+		</dnsReplies>
+		<sysPageFaults>
+			<name>Number of Page faults requiring IO</name>
+			<method>get</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.3495.1.3.1.1</oid>
+		</sysPageFaults>
+	</fields>
+</interface>
