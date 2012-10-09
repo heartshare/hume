@@ -1,10 +1,10 @@
 set from="whymaths@gmail.com"
-set realname="whymaths"
+set realname="feng xiahou"
 set imap_user="whymaths@gmail.com"
 set imap_pass="xxx"
-set folder="imaps://imap.gmail.com:993"
-set spoolfile="+INBOX"
-set postponed="+[Gmail]/Drafts"
+set folder="~/mail"
+set spoolfile="~/mail"
+#set postponed="+[Gmail]/Drafts"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
@@ -12,3 +12,17 @@ set smtp_url="smtp://whymaths@smtp.gmail.com:587/"
 set smtp_pass="xxx"
 set move=no
 set imap_keepalive=900
+set envelope_from=yes
+set charset="utf-8"
+set sort = reverse-date
+set sort_aux = threads
+set mbox_type=Maildir
+
+set sort="threads"
+set strict_threads="yes"
+set sort_browser="reverse-date"
+set sort_aux="last-date-received"
+unset collapse_unread
+
+bind index - collapse-thread
+bind index _ collapse-all

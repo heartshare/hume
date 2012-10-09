@@ -1,0 +1,10 @@
+[retriever]
+type = SimplePOP3SSLRetriever
+server = pop.gmail.com
+username = whymaths@gmail.com
+port = 995
+password = xxx
+
+[destination]
+type = Maildir
+path = ~/mail/
