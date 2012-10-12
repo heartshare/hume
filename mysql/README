@@ -117,3 +117,16 @@ mysql> delete from mysql.user where Password='';flush PRIVILEGES;
 OK，以上信息基本上对你新接触的这个系统有了一个大概的了解，接下来你再慢慢的深入分析，然后制订出一套符合实际情况的运维规范来。
  
 当然，这只是个人的一些心得和体会,每个人的认识的角度是不一样的，欢迎大家继续补充完善。
+
+
+
+
+
+
+
+
+
+修改 mysql 的配置文件 /etc/my.cnf
+在[mysqld]那段里添加这么一行：
+lower_case_table_names=1
+然后再重启一下mysqld，就会自动把所有表名转换成小写存储

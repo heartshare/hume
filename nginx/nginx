@@ -79,3 +79,11 @@ http://www.helosa.org/index.html
 http://www.helosa.org/index_new.html
 访问的是正确的页面，因为判断 cookie 只在 / 做。
 
+
+
+
+
+在nginx.conf中增加一句
+client_max_body_size 30m;
+重启即可
+30m表示最大上传30M，需要多大设置多大
