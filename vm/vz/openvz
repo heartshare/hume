@@ -1,3 +1,6 @@
 http://www.vpsee.com/2011/01/install-openvz-on-centos/
 
 openvz不再提供非rhel系的kernel包，需要自己编译特定版本的内核，打上官方的补丁。
+
+
+debian wheezy 不再支持
