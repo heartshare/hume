@@ -42,7 +42,7 @@ for my $http (keys %https) {
 	}
 	else {
 		$error_count++;
-		$error_string .= "$http error; ";
+		$error_string .= "$http timeout; ";
 	}
 
 }
