@@ -17,7 +17,7 @@ $ua->timeout($timeout);
 $ua->env_proxy;
 
 open my $http_fd, "</opt/work/wap.http" or die "cannot open wap.http: $!";
-open my $http_out, ">/opt/work/wap.out" or die "cannot open wap.out: $!";
+open my $http_out, ">>/opt/work/wap.out" or die "cannot open wap.out: $!";
 
 my %https;
 
@@ -46,8 +46,13 @@ for my $http (keys %https) {
 	}
 
 }
-print $http_out "ok@@" unless $error_count;
-print $http_out "error@@" if $error_count;
+
+
+my $now = `date +%T`;
+chomp $now;
+
+print $http_out "$now@@" . "ok@@" unless $error_count;
+print $http_out "$now@@" . "error@@" if $error_count;
 print $http_out substr $error_string, 0, -2;
 print $http_out "\n";
 
