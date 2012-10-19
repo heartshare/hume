@@ -117,3 +117,9 @@ elif [ $warn -ge 10 ];then
     st="${st} tmptopic is $tmptopic"
 fi
 
+
+
+for ip in 10.11.149.{24,25,26,27,28,29,30} 10.11.152.{62,71,72,75,76}
+do
+        echo 1
+done
