@@ -119,6 +119,7 @@ fi
 
 
 
+<<<<<<< HEAD
 
 # check proc by name
 
@@ -136,3 +137,9 @@ fi
 
 
 dig archlinux.org | grep "Query time"
+=======
+for ip in 10.11.149.{24,25,26,27,28,29,30} 10.11.152.{62,71,72,75,76}
+do
+        echo 1
+done
+>>>>>>> f512d28d159b95aaf9eeeec2f56ebbd6b68f0131

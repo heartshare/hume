@@ -1,3 +1,13 @@
+Host newsmth.net
+HostName newsmth.net
+ProxyCommand ssh root@8.8.8.8 netcat -q 600 %h %p
+
+
+
+
+
+
+
 如果，我是A，他是B，我们都拥有自己的ssh key。但现在我们想以同一个用户C的身份登录，是否可以实现呢？？
 
 只要把我们的public key append 到C用户的pubilc key 就行了，服务器寻找用户的public key，在/etc/ssh/sshd_config 里配置，默认是/home/C/.ssh/authorized_keys .
