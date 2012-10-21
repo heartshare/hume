@@ -134,3 +134,5 @@ else
     exit 0
 fi
 
+
+dig archlinux.org | grep "Query time"

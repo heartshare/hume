@@ -179,4 +179,9 @@ sub get_os {
 
 }
 
+foreach (@{$foo->{'bar'}->{'baz'}})
+{
+    #some code that deals with $_
+}
+
 1;
