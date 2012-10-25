@@ -1,5 +1,79 @@
+5.17    5.17.5  Devel       2012-10-20  perl-5.17.5.tar.gz
+5.16    5.16.1  Maint       2012-08-08  perl-5.16.1.tar.gz
+5.14    5.14.3  Maint       2012-10-12  perl-5.14.3.tar.gz
+5.12    5.12.4  End of life 2011-06-20  perl-5.12.4.tar.gz
+5.10    5.10.1  End of life 2009-08-23  perl-5.10.1.tar.gz
+5.8     5.8.9   End of life 2008-12-14  perl-5.8.9.tar.gz
+5.6     5.6.2   End of life 2003-11-15  perl-5.6.2.tar.gz
+5.5     5.5.4   End of life 2004-02-23  perl5.005_04.tar.gz
+5.4     5.4.5   End of life 1999-04-29  perl5.004_05.tar.gz
+5.3     5.3.7   End of life 1996-10-10  perl5.003_07.tar.gz
+
+
+5.16    5.16.0  2012-05-20
+5.14    5.14.0  2011-05-14
+5.12    5.12.0  2010-04-12
+5.10    5.10.0  2007-12-18
+5.8     5.8.0   2002-07-18
+5.6     5.6.0   2000-03-22
+5.5     5.5.0   1998-07-22
+5.4     5.4.0   1997-05-15
+5.3     5.3.7   1996-10-10
+
+
+
+
+namespace::sweep
 HTML::WikiConverter
 Text::Markdown
 
 JSON::RPC - Perl implementation of JSON-RPC 1.1 protocol
+
+
+
+
+(1) Net::FTP
+(2) Net::Telnet
+(3) LWP::Simple, get()
+(4) Expect
+(5) XML::Simple, XMLin()
+(6) Data::Dumper, Dumper()
+(7) IO::Socket
+(8) Date::Manip, DateCalc(), UnixDate()
+(9) Date::Manip, Date_Cmp()
+(10) File::Find, find()
+(11) ExtUtils::Installed, new(), modules(), version()
+(12) DBI, connect(), prepare(), execute(), fetchrow_array()
+(13) Getopt::Std
+(14) Proc::ProcessTable
+(15) Shell
+(16) Time::HiRes, sleep(), time()
+(17) HTML::LinkExtor, links(), parse_file()
+(18) Net::Telnet, open(), print(), getline()
+(19) Compress::Zlib, gzopen(), gzreadline(), gzclose()
+(20) Net::POP3, login(), list(), get()
+(21) Term::ANSIColor
+(22) Date::Calc Calendar(), Today()
+(23) Term::Cap, Tgetend(), Tgoto, Tputs()
+(24) HTTPD::Log::Filter
+(25) Net::LDAP
+(26) Net::SMTP mail(), to(), data(), datasend(), auth()
+(27) MIME::Base64, encode_base64(), decode_base64()
+(28) Net::IMAP::Simple, login(), mailboxes(), select(), get()...
+(29) Bio::DB::GenBank, Bio::SeqIO
+(30) Spreadsheet::ParseExcel
+(31) Text::CSV_XS, parse(), fields(), error_input()
+(32) Benchmark
+
+(33) HTTP:: Daemon, accept(), get_request()...
+(34) Array::Compare, compare(), full_compare()...
+(35) Algorithm::Diff, diff()
+(36) List::Util, max(), min(), sum(), maxstr(), minstr()...
+(37) HTML::Parser
+(38) Mail::Sender
+(39) Time::HiRes, gettimeofday(), usleep()
+(40) Image::Magick
+
+
+(41) Data::SearchReplace
 

@@ -1,3 +1,16 @@
+内建的图形化 git：
+gitk
+彩色的 git 输出：
+git config color.ui true
+显示历史记录时，只显示一行注释信息：
+git config format.pretty oneline
+交互地添加文件至缓存区：
+git add -i
+
+
+
+
+
 $ sudo curl -L -k http://github.com/ossxp-com/repo/raw/master/repo |  sudo tee /usr/local/bin/repo
 $ sudo chmod a+x /usr/local/bin/repo 
 
