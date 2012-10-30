@@ -31,8 +31,8 @@ close $http_fd;
 
 
 for my $http (keys %https) {
-    my $url = 'http://10.11.6.204/image.php?url=http://' . $http;
-    #my $url = 'http://'.$http;
+    my $url = 'http://10.11.6.204/image?url=' . $http;
+    #my $url = $http;
 	my $response = $ua->get($url);
 
 	if ($response->is_success) {
