@@ -119,7 +119,6 @@ fi
 
 
 
-<<<<<<< HEAD
 
 # check proc by name
 
@@ -137,9 +136,15 @@ fi
 
 
 dig archlinux.org | grep "Query time"
-=======
+
 for ip in 10.11.149.{24,25,26,27,28,29,30} 10.11.152.{62,71,72,75,76}
 do
         echo 1
 done
->>>>>>> f512d28d159b95aaf9eeeec2f56ebbd6b68f0131
+
+
+for cmd in "rm -rf $cssdir/target" "cd $cssdir" "/usr/local/bin/git pull" "/usr/local/bin/git checkout $1" "/opt/mvn/bin/mvn  com.sohu.t    witter:jsdep-maven-plugin:1.0-SNAPSHOT:css_merge -Dcss.config.cssRootDir=$cssdir -Dcss.config.cssScanDir=/c/t2_1   -Dcss.config.destDir=    $cssdir/target -Dcss.config.isTest=true"
+do $cmd
+    
+done
+
