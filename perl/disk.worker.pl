@@ -4,13 +4,21 @@ use strict;
 use warnings;
 
 use Gearman::Worker;
-use Storable qw( thaw );
+use Storable qw( thaw store retrieve );
 use List::Util qw( sum );
 
 use POSIX qw(strftime getpid fork setsid);
 use Carp qw(croak);
 
+
+my $disk_an = "/opt/work/worker/disk";
+
 use Getopt::Long;
+
+$SIG{INT} = sub {
+    unlink $disk_an;
+    exit 1;
+};
 
 my (
 
@@ -26,7 +34,7 @@ GetOptions(
 daemonize() if $daemonize;
 
 
-open my $ip_fd, "</opt/work/me.ip" or die "open ip file error: $!";
+open my $ip_fd, "</opt/work/worker/me.ip" or die "open ip file error: $!";
 my $ip;
 while(<$ip_fd>) {
     $ip = $_;
@@ -34,16 +42,17 @@ while(<$ip_fd>) {
 }
 
 
-open my $df_worker, ">> /opt/work/disk.an" or die "open ip file error: $!";
 
 my $worker = Gearman::Worker->new;
-$worker->job_servers('10.11.6.204');
+$worker->job_servers('10.11.6.204', '192.168.12.155');
 
 $worker->register_function( dfs => sub {
-        #my $now_string = strftime "%a %b %e %H:%M:%S %Y", localtime;
+        open my $df_worker, ">>$disk_an" or die "open ip file error: $!";
 
+        #store \{$_[0]->arg}, '/opt/work/disk.an';
         print $df_worker $_[0]->arg, "\n";
         print $_[0]->arg, "\n";
+        close $df_worker if $df_worker;
     }
 );
 
@@ -55,7 +64,6 @@ $worker->register_function(sum => sub {
 #$worker->work;
 $worker->work while 1;
 
-close $df_worker if $df_worker;
 
 sub daemonize {
     my ($pid, $sess_id, $i);

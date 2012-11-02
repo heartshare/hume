@@ -153,3 +153,6 @@ if [ -z "$IP" ];then
     IP="NULL"
 fi
 
+
+
+perl -pi -e "s|builder.oliv.cn|$t.t.sohu.com|g" `find $cssdir/target/css_compress/ -type f`
