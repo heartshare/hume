@@ -12,6 +12,26 @@ use Cache::Memcached;
 #use Smart::Comments;
 #use Test::Simple tests => 1;
 
+use List::MoreUtils qw(any);
+
+my @ignore_queues = (
+
+    '10.11.152.39:22133:timeline_prepare_pull',
+    '10.11.152.76:22133:external_info',
+
+);
+
+
+# special needs
+my %special_queues = (
+
+    '10.11.152.39:22133:timeline_msg_insert' => 200,
+    '10.11.152.39:22133:timeline_msg_del' => 200,
+    '10.11.152.39:22133:timeline_follow_insert' => 500,
+    '10.11.152.39:22133:timeline_follow_del' => 200,
+
+
+);
 
 my (
     $servers,
@@ -103,8 +123,15 @@ for my $server (@alive_servers) {
         if ($item =~ m/^queue_(.*)_mem_items$/gmx) {
             my $item_msg = $1;
             my $item_value = $misc->{$item};
-            print "$item($item_value)\n" if $more;
-            if ($item_value > $servers{"$server"}{'threshold'}) {
+            print "$item_msg($item_value)\n" if $more;
+            next if any { /$server\:$item_msg/ } @ignore_queues;
+            my $server_item = "$server:$item_msg";
+            if (exists $special_queues{$server_item}) {
+                if ($item_value >= $special_queues{$server_item}) {
+                    $block_msg .= "$item_msg($item_value) ";
+                }
+            }
+            elsif ($item_value >= $servers{"$server"}{'threshold'}) {
                 $block_msg .= "$item_msg($item_value) ";
             }
         }
@@ -116,4 +143,5 @@ for my $server (@alive_servers) {
 
 exit $ERRORS{'CRITICAL'} if $blocked_servers;
 
+print "kestrel ok!\n" unless $blocked_servers;
 exit $ERRORS{'OK'} unless $blocked_servers;
