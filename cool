@@ -1,0 +1,21 @@
+大多数机场、酒店之类场所，当你输入一个网址比如www.google.com时，会弹出一个页面要你输入帐号密码才能上网。这个时候DNS能正确解析，但是上网要付费认证。
+
+可以通过DNS隧道来实现免费上网。具体做法是：
+
+（1）找一个支持DNS解析的域名，现在这类免费域名很多，比如tk的、co.cc的。假设该域名是abc123.tk。
+
+（2）在tk的注册机构里，设置abc123.tk的NS服务器为你自己的主机（最好是Linux VPS），例如：
+abc123.tk.     IN  NS  ns.abc123.tk.
+ns.abc123.tk.  IN  A   74.81.81.81
+
+（3）在74.81.81.81上，以root身份运行一个Perl脚本（这个脚本来自Dan Kaminsky的OzymanDNS包）：
+./nomde.pl -i 0.0.0.0 abc123.tk
+上述脚本会侦听在UDP 53端口，接受DNS请求，并且只解析abc123.tk域。
+
+（4）在客户机上（要求有ssh，最好是Linux系统），运行如下命令：
+ssh -ND 7070 -o ProxyCommand=”./droute.pl sshdns.abc123.tk” user@localhost
+上述ssh命令，-ND 7070表示在本机打开7070的socks 5代理端口。droute.pl是DNS隧道的客户端工具，同样来自于OzymanDNS包。sshdns是固定的主机名，加在域名abc123.tk前面。user是你在74.81.81.81上的登录名字，@localhost是固定的，不需要改（因为隧道过去后，就是74.81.81.81本机）。
+
+运行上述ssh命令后，会提示输入密码。输入正确密码后，就和远程主机建立了ssh连接，获取到一个SSH终端。并且，在本机打开了7070的socks 5代理端口。配置浏览器使用这个代理端口，开始享受免费冲浪吧！
+
+

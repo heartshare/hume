@@ -6,6 +6,16 @@
 
 
 
+阅读过zmq的代码之后,感觉这个网络层是我目前见过最高效的–线程之间使用lockfree的消息队列保存消息,可以启动多个I/O线程分担压力等等特性.于是决定基于它写一个protobuf RPC的框架.
+
+不过有一些遗憾,目前zeromq的几种pattern中,都不是特别的符合我的想法.REQ/REP模式是一问一答必须成对匹配出现,这样基于它的客户端就必须要等待server端的回复才能继续下去,这种做法同步阻塞住了程序,没有办法将请求异步化.PAIR模式倒是可以不阻塞,但是只能一对一的通信,没有办法多对一.如果以后能有结合了REP/REQ模式和PAIR模式的产物,就方便很多,貌似zeromq团队正在做让使用者定制模式的改动,以后再说吧.
+
+另外,这里使用的protobuf是旧版本2.3.0,新版本2.4.1的生成的RPC service接口跟原来不太一致,暂时还没有去研究它.BTW,升级版本之后导致原来的接口发生变化这是一个很操蛋的事情.
+
+今晚花了大概两个小时,写了几百行的代码,代码放在这里.还算是够简洁,使用的模式是REP/REQ,如前面所说,这样client端就得阻塞等待server端响应才能继续下一步操作了.sample目录是我写的一个基于这个框架的echo 服务器,使用者可以对照着使用这个框架写自己的RPC服务.
+
+
+
 
 
 服务端的php程序如下：
@@ -83,3 +93,304 @@ d) ZMQ通信通信单元是消息，他除了知道Bytes的大小，他并不关
 
 e) 虽然可以使用ZMQ实现HTTP协议，但是，这绝不是他所擅长的。
 
+
+
+
+
+<?php    
+/************************************* 
+ * PHP amqp(RabbitMQ) Demo - consumer 
+ * Author: Linvo 
+ * Date: 2012/7/30 
+ *************************************/  
+//配置信息  
+$conn_args = array(  
+    'host' => '192.168.1.93',   
+    'port' => '5672',   
+    'login' => 'guest',   
+    'password' => 'guest',  
+    'vhost'=>'/'  
+);    
+$e_name = 'e_linvo'; //交换机名  
+$q_name = 'q_linvo'; //队列名  
+$k_route = 'key_1'; //路由key  
+  
+//创建连接和channel  
+$conn = new AMQPConnection($conn_args);    
+if (!$conn->connect()) {    
+    die("Cannot connect to the broker!\n");    
+}    
+$channel = new AMQPChannel($conn);    
+  
+//创建交换机     
+$ex = new AMQPExchange($channel);    
+$ex->setName($e_name);  
+$ex->setType(AMQP_EX_TYPE_DIRECT); //direct类型   
+$ex->setFlags(AMQP_DURABLE); //持久化  
+echo "Exchange Status:".$ex->declare()."\n";    
+    
+//创建队列     
+$q = new AMQPQueue($channel);  
+$q->setName($q_name);    
+$q->setFlags(AMQP_DURABLE); //持久化   
+echo "Message Total:".$q->declare()."\n";    
+  
+//绑定交换机与队列，并指定路由键  
+echo 'Queue Bind: '.$q->bind($e_name, $k_route)."\n";  
+  
+//阻塞模式接收消息  
+echo "Message:\n";    
+while(True){  
+    $q->consume('processMessage');    
+    //$q->consume('processMessage', AMQP_AUTOACK); //自动ACK应答   
+}  
+$conn->disconnect();    
+  
+/** 
+ * 消费回调函数 
+ * 处理消息 
+ */  
+function processMessage($envelope, $queue) {  
+    $msg = $envelope->getBody();  
+    echo $msg."\n"; //处理消息  
+    $queue->ack($envelope->getDeliveryTag()); //手动发送ACK应答  
+}  
+
+
+<?php    
+/************************************* 
+ * PHP amqp(RabbitMQ) Demo - publisher 
+ * Author: Linvo 
+ * Date: 2012/7/30 
+ *************************************/  
+//配置信息  
+$conn_args = array(  
+    'host' => '192.168.1.93',   
+    'port' => '5672',   
+    'login' => 'guest',   
+    'password' => 'guest',  
+    'vhost'=>'/'  
+);    
+$e_name = 'e_linvo'; //交换机名  
+//$q_name = 'q_linvo'; //无需队列名  
+$k_route = 'key_1'; //路由key  
+  
+//创建连接和channel  
+$conn = new AMQPConnection($conn_args);    
+if (!$conn->connect()) {    
+    die("Cannot connect to the broker!\n");    
+}    
+$channel = new AMQPChannel($conn);    
+  
+//消息内容  
+$message = "TEST MESSAGE! 测试消息！";    
+  
+//创建交换机对象     
+$ex = new AMQPExchange($channel);    
+$ex->setName($e_name);    
+  
+//发送消息  
+//$channel->startTransaction(); //开始事务   
+for($i=0; $i<5; ++$i){  
+    echo "Send Message:".$ex->publish($message, $k_route)."\n";   
+}  
+//$channel->commitTransaction(); //提交事务  
+  
+$conn->disconnect();   
+
+
+
+
+
+/** 
+ * 消费者类 
+ */  
+class AsynMessageConsumer{  
+    private $config = array();  
+    private $durable = True;  
+    private $mirror = False;  
+    private $autodelete = False;  
+    private $conn = Null;  
+    private $channel = Null;  
+    private $queue = Null;  
+    public $is_ready = False;  
+  
+    /** 
+     * 创建连接、交换机、队列，并绑定 
+     * @param array $config RabbitMQ服务器信息 
+     * @param string $e_name 交换机名称 
+     * @param string $k_route 路由键 
+     * @param string $q_name 队列名称 
+     * @param bool $durable 队列是否持久化 
+     * @param bool $mirror 队列是否镜像 
+     * @return void  
+     */  
+    public function __construct($config, $e_name, $k_route, $q_name, $durable = True, $mirror = False, $autodelete = False){  
+        if (!($config && $e_name && $q_name && $k_route)) return False;  
+        $this->config = $config;  
+        if (!self::connect()) return False;  
+        $this->channel = new AMQPChannel($this->conn);    
+        $this->durable = (bool)$durable;  
+        $this->mirror = (bool)$mirror;  
+        $this->autodelete = (bool)$autodelete;  
+        $this->establishExchange($e_name);  
+        $this->establishQueue($q_name, $e_name, $k_route);  
+        $this->is_ready = True;  
+    }  
+  
+    /** 
+     * 循环阻塞方式接收消息 
+     * @param string $fun_name 自定义处理函数的函数名 
+     * @param bool $autoack 是否自动发送ACK应答，否则需要在自定义处理函数中手动发送 
+     * @return bool  
+     */  
+    public function run($fun_name, $autoack = True){  
+        $fun_name = strval($fun_name);  
+        if (!$fun_name || !$this->queue) return False;  
+        while(True){  
+            if ($autoack) $this->queue->consume($fun_name, AMQP_AUTOACK);   
+            else $this->queue->consume($fun_name);    
+        }  
+    }  
+  
+    // 以下为私有方法，无需手动调用  
+  
+    /** 
+     * 创建链接 
+     * 无法链接时则会自动选择下一个配置项（IP不通的情况下会有5秒等待） 
+     * @param int $i 配置项索引 
+     * @return bool 
+     */  
+    private function connect($i = 0){  
+        if (array_key_exists($i, $this->config)){  
+            try{  
+                $this->conn = new AMQPConnection($this->config[$i]);  
+                $this->conn->connect();  
+                $ret = True;      
+            }catch(AMQPConnectionException $e){  
+                $ret = $this->connect(++$i);  
+            }  
+        } else {  
+            $ret = False;      
+        }  
+        return $ret;  
+    }  
+  
+    /** 
+     * 创建交换机 
+     * @param string $name 名称 
+     * @return int 
+     */  
+    private function establishExchange($name){  
+        $ex = new AMQPExchange($this->channel);    
+        $ex->setName($name);  
+        $ex->setType(AMQP_EX_TYPE_DIRECT); //direct类型   
+        if ($this->durable) $ex->setFlags(AMQP_DURABLE); //持久化  
+        return $ex->declare();    
+    }  
+      
+    /** 
+     * 创建队列 
+     * @param string $name 名称 
+     * @param string $e_name 交换机名称 
+     * @param string $k_route 路由键 
+     * @return int 
+     */  
+    private function establishQueue($name, $e_name, $k_route){  
+        $this->queue = new AMQPQueue($this->channel);    
+        $this->queue->setName($name);  
+        if ($this->durable) $this->queue->setFlags(AMQP_DURABLE); //持久化  
+        if ($this->mirror) $this->queue->setArgument('x-ha-policy', 'all'); //镜像  
+        if ($this->autodelete) $this->queue->setFlags(AMQP_AUTODELETE);  //auto-delete  
+        $this->queue->declare();    
+        $ret = $this->queue->bind($e_name, $k_route);  
+        return $ret;  
+    }  
+  
+  
+    public function __destruct(){  
+        if ($this->conn){  
+            $this->conn->disconnect();  
+        }  
+    }  
+}  
+
+
+/** 
+ * 生产者类 
+ */  
+class AsynMessagePublisher{  
+    private $config = array();  
+    private $conn = Null;  
+    private $channel = Null;  
+    private $exchange = Null;  
+    public $is_ready = False;  
+  
+    /** 
+     * 创建连接，并指定交换机 
+     * @param array $config RabbitMQ服务器信息 
+     * @param string $e_name 交换机名称 
+     * @return void  
+     */  
+    public function __construct($config, $e_name){  
+        if (!($config && $e_name)) return False;  
+        $this->config = $config;  
+        if (!self::connect()) return False;  
+        $this->channel = new AMQPChannel($this->conn);    
+        $this->establishExchange($e_name);  
+        $this->is_ready = True;  
+    }  
+  
+    /** 
+     * 发送消息 
+     * @param string $msg 消息体 
+     * @param string $k_route 路由键 
+     * @return int / False  
+     */  
+    public function send($msg, $k_route){  
+        $msg = trim(strval($msg));  
+        if (!$this->exchange || $msg==='' || !$k_route) return False;  
+        $ret = $this->exchange->publish($msg, $k_route);  
+        return $ret;  
+    }  
+  
+    // 以下为私有方法，无需手动调用  
+  
+    /** 
+     * 创建链接 
+     * 无法链接时则会自动选择下一个配置项（IP不通的情况下会有5秒等待） 
+     * @param int $i 配置项索引 
+     * @return bool 
+     */  
+    private function connect($i = 0){  
+        if (array_key_exists($i, $this->config)){  
+            try{  
+                $this->conn = new AMQPConnection($this->config[$i]);  
+                $this->conn->connect();  
+                $ret = True;      
+            }catch(AMQPConnectionException $e){  
+                $ret = $this->connect(++$i);  
+            }  
+        } else {  
+            $ret = False;      
+        }  
+        return $ret;  
+    }  
+  
+    /** 
+     * 创建交换机 
+     * @param string $name 名称 
+     * @return void 
+     */  
+    private function establishExchange($name){  
+        $this->exchange = new AMQPExchange($this->channel);    
+        $this->exchange->setName($name);  
+    }  
+  
+    public function __destruct(){  
+        if ($this->conn){  
+            $this->conn->disconnect();  
+        }  
+    }  
+
+} 
