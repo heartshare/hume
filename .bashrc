@@ -215,3 +215,5 @@ function saferm()
 
 
 alias apt='aptitude -F "%c%a%M%T %40p %20V %v %R:%12s %r %D %I - %60d" -w `stty size | sed "s/.* //"`'
+
+export PERL_CPANM_OPT="--prompt --sudo --reinstall --mirror http://mirrors.ustc.edu.cn/CPAN --mirror-only"
